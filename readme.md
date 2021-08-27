@@ -17,15 +17,19 @@ A deployed link to the site can be found [here]()
 
 ## User Story
 
-The end user for the site is someone who is interesed in video games and wants to find reviews on a game and contribute theie own review. The site's main access will be on mobile, as users will generally access the site when on the move as reading material.
-
-The end user will want to be able to easily find the game that they are interested in and either quicky read a review or post their own. Information will need to be easily accessible and clear.
+- The end user for the site is someone who is interesed in video games and wants:
+    - Find reviews on a game
+    - Leave a review for a game
+- The user may also want to discover games by looking a highly rated reviews
+- The user may wish to purchase the game after reading reviews and a link will be available.
+- The site's main access will be on mobile, as users will generally access the site when on the move as reading material.
+- The end user will want to be able to easily find the game that they are interested in and either quicky read a review or post their own. Information will need to be easily accessible and clear.
 
 ## Strategy
 
 ### User Needs
 
--  The user needs the site to be fully functionaly on a mobile device as it will be on a tablet or desktop.
+- The user needs the site to be fully functionaly on a mobile device as it will be on a tablet or desktop.
 - Information must be easy to access, clearly displayed and easy to digest.
 - Easily understand how the site works. Access to a profile page to leave a review will need to be simple.
 - Be able to search for a game quickly and concisely.
