@@ -13,6 +13,10 @@
 
 /* Colors */
 
+.white {
+  color: white;
+}
+
 .blue {
   color: #3232cd;
 }
@@ -49,7 +53,19 @@
     top: 56px;
 }
 
-/* The side navigation menu */
+.navbar-links {
+  margin: 0 auto;
+}
+
+.nav-link:hover,
+.nav-link:active,
+.nav-link:focus,
+.nav-link:active:focus {
+  color: black;
+  font-weight: 800;
+}
+
+/* The side navigation menu boiler plate taken from W3c Schools*/
 .sidenav {
     height: 100%; /* 100% Full-height */
     width: 0; /* 0 width - change this with JavaScript */
@@ -63,7 +79,6 @@
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
   }
   
-  /* The navigation menu links */
   .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -73,12 +88,10 @@
     transition: 0.3s;
   }
   
-  /* When you mouse over the navigation links, change their color */
   .sidenav a:hover {
     color: #f1f1f1;
   }
   
-  /* Position and style the close button (top right corner) */
   .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -87,13 +100,11 @@
     margin-left: 50px;
   }
   
-  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
   #main {
     transition: margin-left .5s;
     padding: 20px;
   }
   
-  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
   @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
@@ -105,4 +116,50 @@
 
   .sm-nav-toggle {
       font-size: 40px;
+  }
+
+  .sm-nav-toggle:hover,
+  .sm-nav-toggle:active,
+  .sm-nav-toggle:focus {
+    color: rgba(255, 255, 255, 0.897);
+  }
+
+  .footer {
+    background: #3232cd;
+    position: absolute;
+    bottom: 0;
+    height: 75px;
+  }
+
+  .footer-contact-container {
+    margin-top: 14px;
+  }
+
+  .footer-contact-social {
+    font-size: 11px;
+    text-decoration: none;
+    text-align: center;
+    }
+  
+  .footer-contact-social:hover,
+  .footer-contact-social:active,
+  .footer-contact-social:focus,
+  .footer-contact-social:active:focus {
+    color: white;
+    font-weight: bolder;
+  }
+
+  .footer-contact-right {
+    font-size: 11px;
+    text-decoration: none;
+    text-align: right;
+    margin: revert;
+    }
+  
+  .footer-contact-right:hover,
+  .footer-contact-right:active,
+  .footer-contact-right:focus,
+  .footer-contact-right:active:focus {
+    color: white;
+    font-weight: bolder;
   }
