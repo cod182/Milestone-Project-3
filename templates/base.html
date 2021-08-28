@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Corner</title>
+    <link rel="icon" href="/static/images/favicon/logo-16.png" type="image/png" sizes="16x16">
+    <link rel="icon" href="/static/images/favicon/logo-32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/static/images/favicon/logo-96.png" type="image/png" sizes="96x96">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" type="text/css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/5351067769.js" crossorigin="anonymous"></script>
+    <script defer src="{{ url_for('static', filename='js/myscript.js') }}"></script>
+</head>
+<body>
+
+    
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-bg--blue">
+            <div class="container-fluid">
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <form class="d-flex">
+                        <input class="form-control m-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success m-2" type="submit">Search</button>
+                    </form>
+                    <a href="#">Home</a>
+                    <a href="#">Profile</a>
+                    <a href="#">Latest Reviews</a>
+                    <a href="#">Games</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Login</a>
+                    <a href="#">Logout</a>
+                    <a href="#">Register</a>
+                  </div>
+                <div class="row">
+                    <div class="col-2">
+                        <a href="#"><img class="navbar-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Game Corner Icon"></a>
+                    </div>
+
+                    <div class="col-10 navbar-container">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Profile
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="#">New Review</a></li>
+                                        <li><a class="dropdown-item" href="#">Your Reviews</a></li>
+                                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Latest Reviews</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Games</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Contact Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Logout</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Register</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="sm-nav-toggle-container d-lg-none d-inline" onclick="openNav()">
+                            <i class="sm-nav-toggle fas fa-bars"></i>
+                        </span>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
