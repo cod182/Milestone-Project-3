@@ -6,6 +6,7 @@
 }
 
 body {
+  height: 100vh;
   background-image: url('https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_400/MTc0MDE0OTk4MzEyMzk2NjY3/asteroids-by-atari-classic-video-games-reviewed.webp');
 }
 
@@ -48,6 +49,13 @@ body {
 
 .light-red {
   color: #cd7070;
+}
+
+/* Buttons */
+
+.btn-green {
+  background-color: #32cd32;
+  font-weight: bold;
 }
 
 .navbar-logo {
@@ -158,9 +166,8 @@ body {
 .footer {
   background: #3232cd;
   min-height: 75px;
-  position: inherit;
+  position: absolute;
   margin-top: 20px;
-  bottom: 0;
 }
 
 .footer-contact-container {
@@ -231,7 +238,7 @@ body {
   min-height: 200px;
   background-color: #cecece;
   border-radius: 10px;
-  margin: auto;
+  margin: 5px auto;
 }
 
 .game-container a {
@@ -294,4 +301,40 @@ text-decoration: none;
   font-size: large;
   font-weight: 600;
   color: white;
+}
+
+.profile-settings {
+  text-align: center;
+}
+
+.password-reset-form {
+  text-align: center;
+}
+
+.pass-input {
+  width: 80%;
+  height: 40px;
+  margin: 5px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.pass-input::placeholder {
+  text-align: center;
+}
+
+.pass-submit {
+  min-width: 70%;
+}
+
+.game-search {
+  text-align: center;
+}
+
+.game-search input {
+  width: 80%;
+  height: 40px;
+  margin: 5px;
+  text-align: center;
+  border-radius: 10px;
 }

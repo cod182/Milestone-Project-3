@@ -1,6 +1,34 @@
 {% extends "profile.html" %}
 {% block profile %}
 
-    <h1>PASSWORD CHANGE</h1>
+    <div class="profile-settings row">
+        <h3>Change Password</h3>
+        <div class="col-12">
+            <form class="password-reset-form" action="">
+                <div class="row">
+                    <div class="col-12">
+                        <input class="pass-input" id="orig-pass" type="text" name="orig-pass" placeholder="Current Password" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <input class="pass-input" id="new-pass" type="text" name="new-pass" placeholder="New Password" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <input class="pass-input" id="new-pass-confirm" type="text" name="new-pass-confirm" placeholder="Confirm New Password" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 m-auto">
+                        <button class="btn btn-green pass-submit" type="submit">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
 {% endblock %}

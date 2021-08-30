@@ -1,0 +1,28 @@
+{% extends "profile.html" %}
+{% block profile %}
+
+    <div class="row">
+        <div class="col-12 game-search">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Search For A Game!</h3>
+                </div>
+            </div>
+            <div class="row">
+                <form action="">
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" name="name_of_game" placeholder="Name of Game" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-green">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
