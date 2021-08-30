@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="col-10 profile-container">
+        <div class="row gx-0">
+            <h1 class="profile-title">Profile Page</h1>
+        </div>
+        <div class="row gx-0 profile-options">
+
+            <div class="col-2 profile-button">
+                <a href="#">
+                    <div class="profile-icon">
+                        <span>
+                            <i class="fas fa-plus"></i>
+                        </span>
+                    </div>
+                    <p class="profile-button-desc roboto">New Review</p>
+                </a>
+            </div>
+
+            <div class="col-2 profile-button">
+                <a href="#">
+                    <div class="profile-icon">
+                        <span>
+                            <i class="fas fa-list"></i>
+                        </span>
+                    </div>
+                    <p class="profile-button-desc roboto">Your Reviews</p>
+                </a>
+            </div>
+
+            <div class="col-2 profile-button">
+                <a href="{{ url_for('settings') }}">
+                    <div class="profile-icon">
+                        <span>
+                            <i class="fas fa-cog"></i>
+                        </span>
+                    </div>
+                    <p class="profile-button-desc roboto">Settings</p>
+                </a>
+            </div>
+
+            <div class="col-2 profile-button">
+                <a href="#">
+                    <div class="profile-icon">
+                        <span>
+                            <i class="fas fa-sign-out-alt"></i>
+                        </span>
+                    </div>
+                    <p class="profile-button-desc roboto">Logout</p>
+                </a>
+            </div>
+        </div>
+
+        {% block profile %}
+        {% endblock %}
+
+    </div>
+
+{% endblock %}

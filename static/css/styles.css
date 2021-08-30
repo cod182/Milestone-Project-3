@@ -155,6 +155,47 @@ body {
   color: rgba(255, 255, 255, 0.897);
 }
 
+.footer {
+  background: #3232cd;
+  min-height: 75px;
+  position: inherit;
+  margin-top: 20px;
+  bottom: 0;
+}
+
+.footer-contact-container {
+  margin-top: 14px;
+}
+
+.footer-contact-social {
+  font-size: 11px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.footer-contact-social:hover,
+.footer-contact-social:active,
+.footer-contact-social:focus,
+.footer-contact-social:active:focus {
+  color: white;
+  font-weight: bolder;
+}
+
+.footer-contact-right {
+  font-size: 11px;
+  text-decoration: none;
+  text-align: right;
+  margin: revert;
+}
+
+.footer-contact-right:hover,
+.footer-contact-right:active,
+.footer-contact-right:focus,
+.footer-contact-right:active:focus {
+  color: white;
+  font-weight: bolder;
+}
+
 .welcome-container {
   background-color: #c3c3c3;
   min-height: 100px;
@@ -211,43 +252,46 @@ body {
   text-align: center;
 }
 
-.footer {
-  background: #3232cd;
-  min-height: 75px;
-  position: inherit;
-  margin-top: 20px;
-  bottom: 0;
+.profile-container {
+  min-height: 200px;
+  background-color: #cecece;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 20px;
 }
 
-.footer-contact-container {
-  margin-top: 14px;
+.profile-button {
+  margin: 20px auto;
 }
 
-.footer-contact-social {
-  font-size: 11px;
-  text-decoration: none;
+.profile-button a {
+text-decoration: none;
+}
+
+.profile-icon:hover,
+.profile-icon:active {
+  box-shadow: 0 0 15px #01b9fe;
+}
+
+.profile-title {
   text-align: center;
 }
 
-.footer-contact-social:hover,
-.footer-contact-social:active,
-.footer-contact-social:focus,
-.footer-contact-social:active:focus {
+.profile-icon {
+  line-height: 50px;
+  background: rgba(20,20,20,0.6);
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  text-align: center;
   color: white;
-  font-weight: bolder;
+  font-size: x-large;
+  margin: auto;
 }
 
-.footer-contact-right {
-  font-size: 11px;
-  text-decoration: none;
-  text-align: right;
-  margin: revert;
-}
-
-.footer-contact-right:hover,
-.footer-contact-right:active,
-.footer-contact-right:focus,
-.footer-contact-right:active:focus {
+.profile-button-desc {
+  text-align: center;
+  font-size: large;
+  font-weight: 600;
   color: white;
-  font-weight: bolder;
 }
