@@ -212,7 +212,7 @@ body {
   padding: 20px 0 12px 0;
 }
 
-.home-title {
+.page-title {
   text-align: center;
   padding: 10px;
 }
@@ -259,6 +259,49 @@ body {
   text-align: center;
 }
 
+.latest-reviews-container {
+  min-height: 200px;
+  background-color: #cecece;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+/* Review Container */
+
+.review-container {
+  width: 100%;
+  min-height: 100px;
+  border: 3px solid black;
+  border-radius: 20px;
+  background-color: #32cd3299;
+}
+
+.profile-image-container {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #3232cd;
+  border-radius: 50%;
+  margin: 4px 0 0 4px;
+}
+
+.profile-image {
+  width: -webkit-fill-available;
+  border-radius: 50%;
+}
+
+.review-game-title {
+  margin: 8px;
+  text-align: center;
+}
+.review-rating {
+  text-align: center;
+}
+
+.review-content {
+  padding: 10px;
+}
+
 .profile-container {
   min-height: 200px;
   background-color: #cecece;
@@ -278,10 +321,6 @@ text-decoration: none;
 .profile-icon:hover,
 .profile-icon:active {
   box-shadow: 0 0 15px #01b9fe;
-}
-
-.profile-title {
-  text-align: center;
 }
 
 .profile-icon {
@@ -343,11 +382,11 @@ text-decoration: none;
   text-align: center;
 }
 
-.reviews-container-block {
+.your-reviews-container-block {
   margin: auto;
 }
 
-.review-container {
+.your-review-container {
   width: 100%;
   min-height: 100px;
   border: 3px solid black;
@@ -355,11 +394,11 @@ text-decoration: none;
   background-color: #32cd3299;
 }
 
-.review-container button {
+.your-review-container button {
   margin: 27px;
 }
 
-.review-container p {
+.your-review-container p {
   text-align: center;
   line-height: 100px;
 }

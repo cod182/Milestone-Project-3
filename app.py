@@ -18,6 +18,11 @@ def profile():
     return render_template("profile.html")
 
 
+@app.route("/latest_reviews")
+def latest_reviews():
+    return render_template("latest-reviews.html")
+
+
 @app.route("/review-game-search")
 def review_game_search():
     return render_template("review-game-search.html")
