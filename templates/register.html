@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container login-register-container roboto">
+        <div class="row gx-0">
+            <div class="col-8 mx-auto">
+                <h1 class="page-title">Register</h1>
+            </div>
+        </div>
+        <div class="row gx-0">
+            <div class="col-sm-12 col-md-6 mx-auto login-container">
+                <form action="">
+                    <div class="row">
+                        <input class="login-input" type="text" placeholder="Username" required>
+                    </div>
+                    <div class="row">
+                        <input class="login-input" type="email" placeholder="Email" required>
+                    </div>
+                    <div class="row">
+                        <input class="login-input" type="password" placeholder="Password" required>
+                    </div>
+                    <div class="row">
+                        <input class="login-input" type="password" placeholder="Confirm Password" required>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="btn btn-green btn--login-register">Register</button>
+                    </div>
+                </form>
+                <p class="login-register-swap" >Already Registered? <a href="{{ url_for('login') }}">Login Here</a></p>
+            </div>
+        </div>
+        
+    </div>
+
+{% endblock %}

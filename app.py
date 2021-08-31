@@ -33,6 +33,11 @@ def login():
     return render_template("login.html")
 
 
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
+
 @app.route("/review-game-search")
 def review_game_search():
     return render_template("review-game-search.html")
