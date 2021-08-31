@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container latest-reviews-container roboto">
+        <div class="row gx-0">
+            <div class="col-8 mx-auto">
+                <h1 class="page-title">All Games</h1>
+            </div>
+        </div>
+        <div class="row gx-0 all-games-search">
+            <div class="col-sm-12 col-md-1">
+                <p>Search:</p>
+            </div>
+            <form class="col-sm-12 col-md-7" action="">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 d-inline">
+                        <input type="text" name="name_of_game" placeholder="Name of Game" required>
+                    </div>
+                    <div class="col-sm-12 col-md-4 text-center">
+                        <button type="submit" class="btn btn-green">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-2 single-game-container">
+                <img class="single-game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
+                <p class="single-game-title"> ####GAME NAME####</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

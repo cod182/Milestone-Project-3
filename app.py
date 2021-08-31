@@ -23,6 +23,11 @@ def latest_reviews():
     return render_template("latest-reviews.html")
 
 
+@app.route("/games")
+def games():
+    return render_template("games.html")
+
+
 @app.route("/review-game-search")
 def review_game_search():
     return render_template("review-game-search.html")
