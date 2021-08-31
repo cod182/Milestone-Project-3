@@ -9,8 +9,8 @@
                 <div class="row gx-0 profile-options">
         
                     <div class="col-6 col-md-2 profile-button">
-                        <a href="{{ url_for('review_game_search') }}">
-                            <div class="profile-icon">
+                        <a id="new-review-btn" href="#">
+                            <div id="new-review-icon" class="profile-icon">
                                 <span>
                                     <i class="fas fa-plus"></i>
                                 </span>
@@ -20,8 +20,8 @@
                     </div>
         
                     <div class="col-6 col-md-2 profile-button">
-                        <a href="{{ url_for('your_reviews')}}">
-                            <div class="profile-icon">
+                        <a id="your-reviews-btn" href="#">
+                            <div id="your-reviews-icon" class="profile-icon">
                                 <span>
                                     <i class="fas fa-list"></i>
                                 </span>
@@ -31,8 +31,8 @@
                     </div>
         
                     <div class="col-6 col-md-2 profile-button">
-                        <a href="{{ url_for('settings') }}">
-                            <div class="profile-icon">
+                        <a id="settings-btn" href="#">
+                            <div id="settings-icon" class="profile-icon">
                                 <span>
                                     <i class="fas fa-cog"></i>
                                 </span>
@@ -52,6 +52,8 @@
                         </a>
                     </div>
                 </div>
+
+                <div id="profile-info-container" class="row"></div>
         
                 {% block profile %}
                 {% endblock %}
@@ -66,7 +68,7 @@
                 <h2 class="roboto latest-games-heading">Latest Games!</h2>
             </div>
         </div>
-        <div class="row gx-0">
+        <div class="row">
             <div class="col-sm-12 col-md-2 game-container">
                 <a class="remove-a-link-styles" href="">
                     <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
@@ -103,5 +105,7 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/myscript_profile.js') }}"></script>
+
 
 {% endblock %}

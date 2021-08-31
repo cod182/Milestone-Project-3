@@ -38,21 +38,6 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/review-game-search")
-def review_game_search():
-    return render_template("review-game-search.html")
-
-
-@app.route("/your-reviews")
-def your_reviews():
-    return render_template("your-reviews.html")
-
-
-@app.route("/settings")
-def settings():
-    return render_template("settings.html")
-
-
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
