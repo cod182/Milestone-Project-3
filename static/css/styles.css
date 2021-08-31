@@ -62,6 +62,15 @@ body {
   margin-left: 60px;
 }
 
+.btn--login-register {
+  margin-top: 20px;
+}
+
+.remove-a-link-styles {
+  text-decoration: none;
+  color: black;
+}
+
 .navbar-logo {
   width: 100px;
 }
@@ -238,31 +247,6 @@ body {
   text-align: center;
 }
 
-.game-container {
-  min-height: 200px;
-  background-color: #cecece;
-  border-radius: 10px;
-  margin: 5px auto;
-}
-
-.game-container a {
-  text-decoration: none;
-}
-
-.game-container:hover,
-.game-container:active {
-  box-shadow: 0 0 15px #01b9fe;
-}
-
-.game-container img {
-  width: 100%;
-  margin: 10px auto;
-}
-
-.game-container p {
-  text-align: center;
-}
-
 .latest-reviews-container {
   min-height: 200px;
   background-color: #cecece;
@@ -420,28 +404,77 @@ text-decoration: none;
   font-weight: bold;
 }
 
-.single-game-container {
-  min-height: 250px;
+.game-container {
+  min-height: 200px;
   background-color: #8c898980;
   border-radius: 10px;
   margin: 5px 15.734px;
 }
 
-.single-game-image {
+.game-container:hover,
+.game-container:active {
+  box-shadow: 0 0 15px #01b9fe;
+}
+
+
+.game-image {
   border: 2px solid #3232cd;
   width: 100%;
   border-radius: 10px;
   margin: 10px auto;
 }
 
-.single-game-title {
-  width: fit-content;
+.game-title {
   text-align: center;
   font-size: 76%;
+}
+
+@media screen and (max-width: 1199px) {
+  .game-container {
+    margin: 5px 15px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .game-container {
+    margin: 5px 11px;
+  }
 }
 
 @media screen and (max-width: 767px) {
   .all-games-search button {
     margin-top: 10px;
   }
+  .game-container {
+    margin: 5px auto;
+  }
+}
+
+.login-register-container {
+  min-height: 200px;
+  background-color: #cecece;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 20px 20px 40px 20px;
+}
+
+.login-container {
+  background-color: #ffffffa6;
+  border-radius: 10px;
+  min-height: 200px;
+  padding: 30px 30px 15px 30px;
+}
+
+.login-input {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.login-register-swap {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 0;
+  font-size: small;
 }

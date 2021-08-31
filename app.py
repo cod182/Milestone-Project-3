@@ -28,6 +28,11 @@ def games():
     return render_template("games.html")
 
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
 @app.route("/review-game-search")
 def review_game_search():
     return render_template("review-game-search.html")
