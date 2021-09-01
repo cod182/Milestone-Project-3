@@ -5,8 +5,10 @@ const yourReviewsIcon = document.getElementById('your-reviews-icon');
 const settings = document.getElementById('settings-btn');
 const settingsIcon = document.getElementById('settings-icon');
 const profileInfoCont = document.getElementById('profile-info-container');
+const hideLG = document.getElementById('latest-games-visability-btn')
+const latestGamesCont = document.getElementById('latest-games-container');
 
-newReview.addEventListener('click', function() {
+newReview.addEventListener('click', function () {
   profileInfoCont.innerHTML = '';
   newReviewIcon.classList.add('glow');
   yourReviewsIcon.classList.remove('glow');
@@ -16,24 +18,17 @@ newReview.addEventListener('click', function() {
 
 function makeGameSearchHTML() {
   let body = [];
-  let resultDiv = makeSearchContainer(body); //Creates the body div for the game search
+  let resultDiv = makeDivTwoClass("col-12", "game-search"); //Creates the body div for the game search
   makeSearchTitle(body); // Creates the Title for the game search section
   makeSearchForm(body); // Create the form for the game search section
   let bodyReady = body.join('').toString(); // Joins all the arrays togather and pushes stores them in bodyReady variable
-  
+
   resultDiv.innerHTML = bodyReady; //Puts resultReady HTML into the resultDiv innerHTML
   profileInfoCont.appendChild(resultDiv); //Appends resultDiv to resultContain, finalising the result on the page
 };
 
-function makeSearchContainer(body) {
-  let resultDiv = document.createElement('div'); //Create a new div called resultDiv
-  resultDiv.classList.add('col-12'); //Adds the class to the div
-  resultDiv.classList.add('game-search'); //Adds the class to the div
-  return resultDiv; // returns the created div
-};
-
 // added the Title HTML and pushes to body div
-function makeSearchTitle(body){
+function makeSearchTitle(body) {
   let info = `
     <div class="row">
       <div class="col-12">
@@ -45,7 +40,7 @@ function makeSearchTitle(body){
 };
 
 // added the form HTML and pushes to body div
-function makeSearchForm(body){
+function makeSearchForm(body) {
   let info = `
     <div class="row">
         <form action="">
@@ -67,7 +62,7 @@ function makeSearchForm(body){
 
 
 // Creates the Your Review section on the profiel Page
-yourReviews.addEventListener('click', function() {
+yourReviews.addEventListener('click', function () {
   profileInfoCont.innerHTML = '';
   yourReviewsIcon.classList.add('glow');
   newReviewIcon.classList.remove('glow');
@@ -77,24 +72,17 @@ yourReviews.addEventListener('click', function() {
 
 function makeYourReviewsHTML() {
   let body = [];
-  let resultDiv = makeSearchContainer(body); //Creates the body div for the game search
+  let resultDiv = makeDivTwoClass("col-12", "profile-reviews"); //Creates the body div for the game search
   makeReviewsTitle(body); // Creates the Title for the game search section
   makeReviews(body); // Create the form for the game search section
   let bodyReady = body.join('').toString(); // Joins all the arrays togather and pushes stores them in bodyReady variable
-  
+
   resultDiv.innerHTML = bodyReady; //Puts resultReady HTML into the resultDiv innerHTML
   profileInfoCont.appendChild(resultDiv); //Appends resultDiv to resultContain, finalising the result on the page
 };
 
-function makeYourReviewsContainer(body) {
-  let resultDiv = document.createElement('div'); //Create a new div called resultDiv
-  resultDiv.classList.add('col-12'); //Adds the class to the div
-  resultDiv.classList.add('profile-reviews'); //Adds the class to the div
-  return resultDiv; // returns the created div
-};
-
 // added the Title HTML and pushes to body div
-function makeReviewsTitle(body){
+function makeReviewsTitle(body) {
   let info = `
     <div class="row">
       <div class="col-12">
@@ -106,7 +94,7 @@ function makeReviewsTitle(body){
 };
 
 // added the form HTML and pushes to body div
-function makeReviews(body){
+function makeReviews(body) {
   let info = `
     <div class="row">
       <div class="col-10 your-reviews-container-block">
@@ -134,7 +122,7 @@ function makeReviews(body){
 
 
 // Creates the Your Review section on the profiel Page
-settings.addEventListener('click', function() {
+settings.addEventListener('click', function () {
   profileInfoCont.innerHTML = '';
   settingsIcon.classList.add('glow');
   yourReviewsIcon.classList.remove('glow');
@@ -144,24 +132,17 @@ settings.addEventListener('click', function() {
 
 function makeSettingsHTML() {
   let body = [];
-  let resultDiv = makeSearchContainer(body); //Creates the body div for the game search
+  let resultDiv = makeDivTwoClass("col-12", "profile-settings"); //Creates the body div for the game search
   makeSettingsTitle(body); // Creates the Title for the game search section
   makeSettingsBody(body); // Create the form for the game search section
   let bodyReady = body.join('').toString(); // Joins all the arrays togather and pushes stores them in bodyReady variable
-  
+
   resultDiv.innerHTML = bodyReady; //Puts resultReady HTML into the resultDiv innerHTML
   profileInfoCont.appendChild(resultDiv); //Appends resultDiv to resultContain, finalising the result on the page
 };
 
-function makeSettingsContainer(body) {
-  let resultDiv = document.createElement('div'); //Create a new div called resultDiv
-  resultDiv.classList.add('col-12'); //Adds the class to the div
-  resultDiv.classList.add('profile-settings'); //Adds the class to the div
-  return resultDiv; // returns the created div
-};
-
 // added the Title HTML and pushes to body div
-function makeSettingsTitle(body){
+function makeSettingsTitle(body) {
   let info = `
     <div class="row">
       <div class="col-12">
@@ -173,7 +154,7 @@ function makeSettingsTitle(body){
 };
 
 // added the form HTML and pushes to body div
-function makeSettingsBody(body){
+function makeSettingsBody(body) {
   let info = [];
   let form = `
     <div class="col-12">
@@ -191,7 +172,7 @@ function makeSettingsBody(body){
   body.push(infoReady); // Pushed the infoReady into body
 };
 
-function createNewPass(info){
+function createNewPass(info) {
   let newPass = `
     <div class="row">
               <div class="col-12">
@@ -214,3 +195,59 @@ function createNewPass(info){
   `
   info.push(newPass); // Pushes the new Pass part of form into info
 }
+
+hideLG.addEventListener('click', function () {
+  latestGamesCont.classList.add('hide');
+  let btn = createShowLatestGamesBtn();
+  let parent = document.getElementById('latest-games-container').parentNode;
+  let container = document.getElementById('latest-games-container');
+  parent.insertBefore(btn, container);
+});
+
+function createShowLatestGamesBtn() {
+  let LGCont = makeDivTwoClass("container-fluid", "lg-btn-container");
+  LGCont.setAttribute('id', 'latest-games-btn-cont')
+
+  let LGContRow = makeDivOneClass("row");
+  LGCont.appendChild(LGContRow);
+
+  let LGContCol = makeDivOneClass("Col-12");
+  LGContRow.appendChild(LGContCol);
+
+  let btn = document.createElement('button');
+  btn.classList.add('btn');
+  btn.classList.add('btn-open');
+  btn.setAttribute('id', 'latest-open-btn')
+  btn.setAttribute('onclick', 'showLatestGames()')
+
+  btn.textContent = 'Show Latest Games';
+  LGContCol.appendChild(btn);
+
+  return LGCont
+}
+
+function showLatestGames(){
+  document.getElementById('latest-games-btn-cont').remove();
+  latestGamesCont.classList.remove('hide');
+}
+
+function makeDivOneClass(nameOfClass) {
+  let div = document.createElement('div'); //Create a new div called resultDiv
+  div.classList.add(nameOfClass); //Adds the class to the div
+  return div; // returns the created div
+};
+
+function makeDivTwoClass(nameOfClass, nameOfClassTwo) {
+  let div = document.createElement('div'); //Create a new div called resultDiv
+  div.classList.add(nameOfClass); //Adds the class to the div
+  div.classList.add(nameOfClassTwo); //Adds the class to the div
+  return div; // returns the created div
+};
+
+function makeDivThreeClass(nameOfClass, nameOfClassTwo, nameOfClassThree) {
+  let div = document.createElement('div'); //Create a new div called resultDiv
+  div.classList.add(nameOfClass); //Adds the class to the div
+  div.classList.add(nameOfClassTwo); //Adds the class to the div
+  div.classList.add(nameOfClassThree); //Adds the class to the div
+  return div; // returns the created div
+};

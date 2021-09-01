@@ -10,6 +10,10 @@ body {
   background-image: url('https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_400/MTc0MDE0OTk4MzEyMzk2NjY3/asteroids-by-atari-classic-video-games-reviewed.webp');
 }
 
+.hide {
+  display: none;
+}
+
 .glow {
   box-shadow: 0 0 15px #01b9fe;
 }
@@ -70,6 +74,25 @@ body {
   margin-top: 20px;
 }
 
+.btn-close--latest-games {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.btn-open {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid black;
+  border-radius: 10px 10px 0 0;
+  background: #32cd32;
+}
+
+.btn-open:hover,
+btn-open:active {
+  background: #7070cd;
+}
 .remove-a-link-styles {
   text-decoration: none;
   color: black;
@@ -245,6 +268,7 @@ body {
   margin-top: 10px;
   border-radius: 10px;
   padding: 20px 20px 35px 20px;
+  position: relative;
 }
 
 .latest-games-heading {
@@ -257,6 +281,11 @@ body {
   border-radius: 10px;
   margin: 20px auto;
   padding: 20px;
+}
+
+.lg-btn-container {
+  position: relative;
+  height: 18px;
 }
 
 /* Review Container */
@@ -429,6 +458,12 @@ text-decoration: none;
 }
 
 .game-title {
+  text-align: center;
+  font-size: 76%;
+  margin-bottom: 0;
+}
+
+.game-year {
   text-align: center;
   font-size: 76%;
 }

@@ -22,40 +22,15 @@
             </div>
         </div>
         <div class="row">
+            {% for game in latest_games %}
             <div class="col-sm-12 col-md-2 game-container">
                 <a class="remove-a-link-styles" href="">
                     <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                    <p class="game-title"> ####GAME NAME####</p>
+                    <p id="game_title" class="game-title"> {{ game.title }}</p>
+                    <p class="game-year">{{game.year }}</p>
                 </a>
             </div>
-
-            <div class="col-sm-12 col-md-2 game-container">
-                <a class="remove-a-link-styles" href="">
-                    <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                    <p class="game-title"> ####GAME NAME####</p>
-                </a>
-            </div>
-
-            <div class="col-sm-12 col-md-2 game-container">
-                <a class="remove-a-link-styles" href="">
-                    <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                    <p class="game-title"> ####GAME NAME####</p>
-                </a>
-            </div>
-
-            <div class="col-sm-12 col-md-2 game-container">
-                <a class="remove-a-link-styles" href="">
-                    <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                    <p class="game-title"> ####GAME NAME####</p>
-                </a>
-            </div>
-
-            <div class="col-sm-12 col-md-2 game-container">
-                <a class="remove-a-link-styles" href="">
-                    <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                    <p class="game-title"> ####GAME NAME####</p>
-                </a>
-            </div>
+            {% endfor %}
         </div>
     </div>
 

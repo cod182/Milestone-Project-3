@@ -62,50 +62,28 @@
         </div>
     </div>
 
-    <div class="container latest-games-container">
-        <div class="row gx-0">
+    <div id="latest-games-container" class="container latest-games-container">
+        <button class="btn btn-close btn-close--latest-games" id="latest-games-visability-btn"></button>
+        <div id="latest-games" class="row gx-0">
             <div class="col-4 mx-auto">
                 <h2 class="roboto latest-games-heading">Latest Games!</h2>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12 col-md-2 game-container">
-                <a class="remove-a-link-styles" href="">
-                    <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                    <p class="game-title"> ####GAME NAME####</p>
-                </a>
-            </div>
-
-            <div class="col-sm-12 col-md-2 game-container">
-                <a class="remove-a-link-styles" href="">
-                    <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                    <p class="game-title"> ####GAME NAME####</p>
-                </a>
-            </div>
-
-            <div class="col-sm-12 col-md-2 game-container">
-                <a class="remove-a-link-styles" href="">
-                    <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                    <p class="game-title"> ####GAME NAME####</p>
-                </a>
-            </div>
-
-            <div class="col-sm-12 col-md-2 game-container">
-                <a class="remove-a-link-styles" href="">
-                    <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                    <p class="game-title"> ####GAME NAME####</p>
-                </a>
-            </div>
-
-            <div class="col-sm-12 col-md-2 game-container">
-                <a class="remove-a-link-styles" href="">
-                    <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                    <p class="game-title"> ####GAME NAME####</p>
-                </a>
+            <div class="row">
+                {% for game in latest_games %}
+                <div class="col-sm-12 col-md-2 game-container">
+                    <a class="remove-a-link-styles" href="">
+                        <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
+                        <p id="game_title" class="game-title"> {{ game.title }}</p>
+                        <p class="game-year">{{game.year }}</p>
+                    </a>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/myscript_profile.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/profile_script.js') }}"></script>
 
 
 {% endblock %}
