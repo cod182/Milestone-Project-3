@@ -10,18 +10,18 @@
         </div>
         <div class="row gx-0">
             <div class="col-sm-12 col-md-6 mx-auto login-container">
-                <form action="">
+                <form method="POST" action="{{ url_for('register') }}">
                     <div class="row">
-                        <input class="login-input" type="text" placeholder="Username" required>
+                        <input id="username" name="username" class="login-input" type="text" placeholder="Username" required>
                     </div>
                     <div class="row">
-                        <input class="login-input" type="email" placeholder="Email" required>
+                        <input id="email" name="email" class="login-input" type="email" placeholder="Email">
                     </div>
                     <div class="row">
-                        <input class="login-input" type="password" placeholder="Password" required>
+                        <input id="password" name="password" class="login-input" type="password" placeholder="Password" required>
                     </div>
                     <div class="row">
-                        <input class="login-input" type="password" placeholder="Confirm Password" required>
+                        <input id="password-confirm" name="password-confirm" class="login-input" type="password" placeholder="Confirm Password">
                     </div>
                     <div class="row">
                         <button type="submit" class="btn btn-green btn--login-register">Register</button>

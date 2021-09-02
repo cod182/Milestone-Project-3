@@ -10,12 +10,12 @@
         </div>
         <div class="row gx-0">
             <div class="col-sm-12 col-md-6 mx-auto login-container">
-                <form action="">
+                <form method="POST" action="{{ url_for('login') }}">
                     <div class="row">
-                        <input class="login-input" type="text" placeholder="Your Username" required>
+                        <input id="username" class="login-input" type="text" name="username" placeholder="Your Username" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$" required>
                     </div>
                     <div class="row">
-                        <input class="login-input" type="password" placeholder="Your Password" required>
+                        <input id="password" class="login-input" type="password" name="password" placeholder="Your Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$" required>
                     </div>
                     <div class="row">
                         <button type="submit" class="btn btn-green btn--login-register">Login</button>
