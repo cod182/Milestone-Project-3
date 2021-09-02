@@ -42,7 +42,7 @@
                     </div>
         
                     <div class="col-6 col-md-2 profile-button">
-                        <a href="#">
+                        <a href="{{ url_for('logout')}}">
                             <div class="profile-icon">
                                 <span>
                                     <i class="fas fa-sign-out-alt"></i>
@@ -84,6 +84,5 @@
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/profile_script.js') }}"></script>
-
 
 {% endblock %}
