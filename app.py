@@ -95,7 +95,7 @@ def profile(username):
 def changePass():
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     username = mongo.db.gc_users.find_one(
-        {"username": session["user"]})["username"].capitalize()
+        {"username": session["user"]})["username"]
     userPass = mongo.db.gc_users.find_one(
         {"username": session["user"]})["password"]
 
@@ -105,8 +105,7 @@ def changePass():
             flash("Password Updated")
         else:
             flash('Password Incorrect')
-    return render_template("changepass.html", username=username,
-                            latest_games=latest_games)
+    return render_template("changepass.html", username=username.capitalize(), latest_games=latest_games)
 
 
 @app.route("/yourReviews")
