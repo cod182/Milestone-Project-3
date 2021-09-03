@@ -10,7 +10,7 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 
-app.config['MONGO_DBNAME'] = os.environ.get("MONGO_DEBNAME")
+app.config['MONGO_DBNAME'] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
@@ -89,6 +89,23 @@ def profile(username):
             username=username)
 
     return redirect(url_for("login"))
+
+
+@app.route("/changePass", methods=["GET", "POST"])
+def changePass():
+    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    username = mongo.db.gc_users.find_one(
+        {"username": session["user"]})["username"].capitalize()
+    userPass = mongo.db.gc_users.find_one(
+        {"username": session["user"]})["password"]
+
+    if request.method == "POST":
+        if check_password_hash(userPass, request.form.get("originalPassword")):
+            mongo.db.gc_users.update_one({"username": username}, {"$set": {"password": generate_password_hash(request.form.get("password"))}})
+            flash("Password Updated")
+        else:
+            flash('Password Incorrect')
+    return render_template("changepass.html", username=username, latest_games=latest_games)
 
 
 @app.route("/logout")

@@ -47,7 +47,8 @@
         
     </div>
 
-    <script src="{{ url_for('static', filename='js/register_script.js') }}"></script>
-
-
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/register_script.js') }}"></script>
+{% endblock%}

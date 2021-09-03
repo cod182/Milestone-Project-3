@@ -159,10 +159,10 @@ function makeSettingsBody(body) {
   let form = `
     <div class="col-12">
       <h5>Change Password</h5>
-      <form class="password-reset-form" action="">
+      <form class="password-reset-form" method="POST" action="{{ url_for('changePass', username=session['user']) }}">
           <div class="row">
               <div class="col-12">
-                  <input class="pass-input" id="orig-pass" type="text" name="orig-pass" placeholder="Current Password" required>
+                  <input class="pass-input" id="originalPassword" type="password" name="originalPassword" placeholder="Current Password" required>
               </div>
           </div>
   `
@@ -176,13 +176,13 @@ function createNewPass(info) {
   let newPass = `
     <div class="row">
               <div class="col-12">
-                  <input class="pass-input" id="new-pass" type="text" name="new-pass" placeholder="New Password" required>
+                  <input class="pass-input" id="password" type="password" name="password" placeholder="New Password" required>
               </div>
           </div>
 
           <div class="row">
               <div class="col-12">
-                  <input class="pass-input" id="new-pass-confirm" type="text" name="new-pass-confirm" placeholder="Confirm New Password" required>
+                  <input class="pass-input" id="passwordConfirm" name="passwordConfirm" type="password" name="new-pass-confirm" placeholder="Confirm New Password" required>
               </div>
           </div>
           <div class="row">
@@ -196,6 +196,7 @@ function createNewPass(info) {
   info.push(newPass); // Pushes the new Pass part of form into info
 }
 
+// hides the latest games container then creates the show latest games button
 hideLG.addEventListener('click', function () {
   latestGamesCont.classList.add('hide');
   let btn = createShowLatestGamesBtn();
@@ -204,6 +205,7 @@ hideLG.addEventListener('click', function () {
   parent.insertBefore(btn, container);
 });
 
+// Ceates the show latest game sbutton
 function createShowLatestGamesBtn() {
   let LGCont = makeDivTwoClass("container-fluid", "lg-btn-container");
   LGCont.setAttribute('id', 'latest-games-btn-cont')
@@ -226,28 +228,44 @@ function createShowLatestGamesBtn() {
   return LGCont
 }
 
+// unhides the latest games div and remove the latest games button container
 function showLatestGames(){
   document.getElementById('latest-games-btn-cont').remove();
   latestGamesCont.classList.remove('hide');
 }
 
+// Create and returns a div with 1 class
 function makeDivOneClass(nameOfClass) {
-  let div = document.createElement('div'); //Create a new div called resultDiv
+  let div = document.createElement('div'); //Create a new div called div
   div.classList.add(nameOfClass); //Adds the class to the div
   return div; // returns the created div
 };
 
+// Create and returns a div with 2 classes
 function makeDivTwoClass(nameOfClass, nameOfClassTwo) {
-  let div = document.createElement('div'); //Create a new div called resultDiv
+  let div = document.createElement('div'); //Create a new div called div
   div.classList.add(nameOfClass); //Adds the class to the div
   div.classList.add(nameOfClassTwo); //Adds the class to the div
   return div; // returns the created div
 };
 
+// Create and returns a div with 3 classes
 function makeDivThreeClass(nameOfClass, nameOfClassTwo, nameOfClassThree) {
-  let div = document.createElement('div'); //Create a new div called resultDiv
+  let div = document.createElement('div'); //Create a new div called div
   div.classList.add(nameOfClass); //Adds the class to the div
   div.classList.add(nameOfClassTwo); //Adds the class to the div
   div.classList.add(nameOfClassThree); //Adds the class to the div
   return div; // returns the created div
 };
+
+function passwordMatchCheck(form) {
+  password = form.password.value;
+  passwordConfirm = form.passwordConfirm.value;
+
+  if (password != passwordConfirm) {
+    alert("\nPassword did not match: Please try again...")
+    return false;
+  } else {
+    return true;
+  }
+}
