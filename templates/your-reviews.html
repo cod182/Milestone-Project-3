@@ -1,37 +1,43 @@
 {% extends "profile.html" %}
 {% block profile %}
 
-    <div id="profile-info-container" class="row"><div class="col-12 profile-reviews">
-        <div class="row">
-        <div class="col-12">
-            <h3>Your Reviews</h3>
-        </div>
-        </div>
-    
-        <div class="row">
-        <div class="col-10 your-reviews-container-block">
-            <div class="your-review-container">
-                <div class="row">
-                    <div class="col-12 col-sm-2 col-md-3">
-                        <button type="submit" class="btn btn-warning">Edit</button>
-                    </div>
-
-                    <div class="col-12 col-sm-3 col-md-5">
-                        <p>####GAME NAME####</p>
-                    </div>
-
-                    <div class="col-12 col-sm-3 col-md-4">
-                        <p>#####Rating####</p>
-                    </div>
+    <div id="profile-info-container" class="row">
+        <div class="col-12 profile-reviews">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Your Reviews</h3>
                 </div>
-
             </div>
-        </div>
-        </div>
-    </div>
-    </div>
 
-{% endblock %}
+        
+        
+            <div class="row">
+            {% if your_reviews|length > 0 %}
+                {% for review in your_reviews %}
+                    {% if  session.user|lower == review.user|lower %}
+                        <div class="col-10 your-reviews-container-block">
+                            <div class="your-review-container">
+                                <div class="row">
+                                    <div class="col-12 col-sm-2 col-md-3">
+                                        <button type="submit" class="btn btn-warning">Edit</button>
+                                    </div>
+
+                                    <div class="col-12 col-sm-3 col-md-5">
+                                        <p>{{ review.title }}</p>
+                                    </div>
+
+                                    <div class="col-12 col-sm-3 col-md-4">
+                                        <p>{{ review.review_rating }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}     
+            </div>   
+        </div>
+    </div>
 
 {% endblock %}
 
