@@ -15,7 +15,7 @@
             {% if your_reviews|length > 0 %}
                 {% for review in your_reviews %}
                     {% if  session.user|lower == review.user|lower %}
-                        <div class="col-10 your-reviews-container-block">
+                        <section class="col-10 your-reviews-container-block">
                             <div class="your-review-container">
                                 <div class="row">
                                     <div class="col-12 col-sm-2 col-md-3">
@@ -26,12 +26,12 @@
                                         <p>{{ review.title }}</p>
                                     </div>
 
-                                    <div class="col-12 col-sm-3 col-md-4">
-                                        <p>{{ review.review_rating }}</p>
+                                    <div class="col-12 col-sm-3 col-md-4 rating-container">
+                                        <p class="review-rating">{{ review.review_rating }}</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </section>
                     {% endif %}
                 {% endfor %}
             {% endif %}     
