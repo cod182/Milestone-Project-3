@@ -107,6 +107,7 @@ def changePass():
             flash('Password Incorrect')
     return render_template("changepass.html", username=username, latest_games=latest_games)
 
+
 @app.route("/logout")
 def logout():
     # remove user from session cookies
