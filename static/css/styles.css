@@ -93,6 +93,11 @@ body {
 btn-open:active {
   background: #7070cd;
 }
+
+.btn--update {
+  margin: auto;
+}
+
 .remove-a-link-styles {
   text-decoration: none;
   color: black;
@@ -422,6 +427,27 @@ text-decoration: none;
 .your-review-container p {
   text-align: center;
   line-height: 100px;
+}
+
+.update-review-container {
+  min-height: 100px;
+  border: 3px solid black;
+  border-radius: 20px;
+  background-color: #32cd3299;
+}
+
+.update-review-input {
+  width: 100%;
+    border-radius: 10px;
+    text-align: center;
+    padding: 2px;
+    margin: 10px 0 10px 0;
+    background-color: black;
+    color: white;
+}
+
+.update-review-star {
+  text-align: center;
 }
 
 .all-games-search input{
