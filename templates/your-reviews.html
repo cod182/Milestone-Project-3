@@ -19,7 +19,7 @@
                             <div class="your-review-container">
                                 <div class="row">
                                     <div class="col-12 col-sm-2 col-md-3">
-                                        <button type="submit" class="btn btn-warning">Edit</button>
+                                        <a class="btn btn-warning" href="{{ url_for('edit_review', review_id=review._id) }}">Edit</a>
                                     </div>
 
                                     <div class="col-12 col-sm-3 col-md-5">

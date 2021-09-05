@@ -118,6 +118,21 @@ def yourReviews():
                             latest_games=latest_games, username=username.capitalize())
 
 
+@app.route("/review/<review_id>", methods=["GET", "POST"])
+def edit_review(review_id):
+    if request.method == "POST":
+        update = {
+            "review_message": request.form.get("review_message"),
+            "review_rating": request.form.get("review_rating"),
+        }
+        mongo.db.reviews.update({"_id": ObjectId(review_id)}, update)
+        flash("Task Successfully Updated")
+
+    review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+
+    return render_template("edit-review.html", review=review)
+
+
 @app.route("/logout")
 def logout():
     # remove user from session cookies
