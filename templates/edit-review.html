@@ -9,72 +9,92 @@
                 <!-- Review -->
                 <div class="col-5 mx-auto my-2 update-review-container">
                     <form  method="POST" action="{{ url_for('edit_review', review_id=review._id) }}">
-                            <div class="row">
-                                <div class="col-10 mx-auto">
-                                    <input class="update-review-input bold" type="text" disabled value="{{ review.game_title }}">
-                                </div>
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <input name="game_title" class="hide" type="text" value="{{ review.game_title }}">
                             </div>
-
-                            <div class="row">
-                                <div class="col-10 mx-auto">
-                                    {% if review.review_rating == "1" %}
-                                        <div class="update-review-star">
-                                            <i id="one" class="fa fa-star"></i>
-                                        </div>
-                                    {% elif  review.review_rating == "2" %}
-                                        <div class="update-review-star">
-                                            <i id="one" class="fa fa-star"></i>
-                                            <i id="two" class="fa fa-star"></i>
-                                        </div>
-                                    {% elif  review.review_rating == "3" %}
-                                        <div class="update-review-star">
-                                            <i id="one" class="fa fa-star"></i>
-                                            <i id="two" class="fa fa-star"></i>
-                                            <i id="three" class="fa fa-star"></i>
-                                        </div>
-                                    {% elif  review.review_rating == "4" %}
-                                        <div class="update-review-star">
-                                            <i id="one" class="fa fa-star"></i>
-                                            <i id="two" class="fa fa-star"></i>
-                                            <i id="three" class="fa fa-star"></i>
-                                            <i id="four" class="fa fa-star"></i>
-                                        </div>
-                                    {% elif  review.review_rating == "5" %}
-                                        <div class="update-review-star">
-                                            <i id="one" class="fa fa-star"></i>
-                                            <i id="two" class="fa fa-star"></i>
-                                            <i id="three" class="fa fa-star"></i>
-                                            <i id="four" class="fa fa-star"></i>
-                                            <i id="five" class="fa fa-star"></i>
-                                        </div>
-                                    {% else %}
-                                        <input name="review_rating" id="rating" class="update-review-input" type="number" min="1" max="5" value="{{ review.review_rating }}">
-                                    {% endif %}
+                        </div>
+                        <!-- Review Rating converted to stars -->
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                {% if review.review_rating == "1" %}
+                                <div class="update-review-star">
+                                    <i id="one" class="fa fa-star"></i>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-10 mx-auto">
-                                    <textarea class="update-review-input" name="review_message" id="" cols="30" rows="10">{{ review.review_message }}</textarea>
-                                    </p>
+                                {% elif  review.review_rating == "2" %}
+                                <div class="update-review-star">
+                                    <i id="one" class="fa fa-star"></i>
+                                    <i id="two" class="fa fa-star"></i>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-10 mx-auto">
-                                    <button type="submit" class="btn btn-green btn--update">Update!</button>
+                                {% elif  review.review_rating == "3" %}
+                                <div class="update-review-star">
+                                    <i id="one" class="fa fa-star"></i>
+                                    <i id="two" class="fa fa-star"></i>
+                                    <i id="three" class="fa fa-star"></i>
                                 </div>
+                                {% elif  review.review_rating == "4" %}
+                                <div class="update-review-star">
+                                    <i id="one" class="fa fa-star"></i>
+                                    <i id="two" class="fa fa-star"></i>
+                                    <i id="three" class="fa fa-star"></i>
+                                    <i id="four" class="fa fa-star"></i>
+                                </div>
+                                {% elif  review.review_rating == "5" %}
+                                <div class="update-review-star">
+                                    <i id="one" class="fa fa-star"></i>
+                                    <i id="two" class="fa fa-star"></i>
+                                    <i id="three" class="fa fa-star"></i>
+                                    <i id="four" class="fa fa-star"></i>
+                                    <i id="five" class="fa fa-star"></i>
+                                </div>
+                                <input name="review_rating" class="hide" type="number" value="{{ review.review_rating }}">
+                                {% else %}
+                                <input name="review_rating" id="rating" class="update-review-input" type="number"
+                                    min="1" max="5" value="{{ review.review_rating }}">
+                                {% endif %}
                             </div>
+                        </div>
+                        <!-- Review Message -->
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <textarea class="update-review-input" name="review_message" id="" cols="30"
+                                    rows="10">{{ review.review_message }}</textarea>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Review  Update Button-->
+                        <div class="row">
+                            <div class="col-10 mx-auto text-center">
+                                <button type="submit" class="btn btn-green btn--update">Update!</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
         {% else %}
             <div class="row gx-0">
                 <div class="col-8 mx-auto">
-                    <h2 class="page-title">You need to be logged in to access this page</h1>
-                        <i class="no-entry-sign fa fa-ban" aria-hidden="true"></i>
+                    <h2 class="page-title">You do not have permission to access this page</h1>
+                </div>
+                <div class="col-8 mx-auto text-center">
+                    <i class="no-entry-sign fa fa-ban" aria-hidden="true"></i>
                 </div>
             </div>
         {% endif%}
+        <section>
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="row">
+                            <h4 class="flash-message">
+                                {{ message }}
+                            </h4>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {%  endwith %}
+          </section>
     </div>
 {% endblock %}
 {% block scripts %}

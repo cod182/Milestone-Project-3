@@ -96,6 +96,20 @@ btn-open:active {
 
 .btn--update {
   margin: auto;
+  width: 100%;
+  background: yellow;
+  border: 2px solid black;
+}
+
+.btn--update:hover,
+.btn--update:active,
+.btn--update:focus {
+  background-color: #32cd32;
+  border: 2px solid black;
+}
+
+.btn--edit {
+  margin: 32px 0 32px 0;
 }
 
 .remove-a-link-styles {
@@ -246,6 +260,12 @@ btn-open:active {
 .footer-contact-right:active:focus {
   color: white;
   font-weight: bolder;
+}
+
+.flash-message {
+  color: #32cd32;
+  text-align: center;
+  margin: 10px 0 10px 0;
 }
 
 .welcome-container {
@@ -434,20 +454,27 @@ text-decoration: none;
   border: 3px solid black;
   border-radius: 20px;
   background-color: #32cd3299;
+  padding: 20px 0px 20px 0px;
 }
 
 .update-review-input {
   width: 100%;
-    border-radius: 10px;
-    text-align: center;
-    padding: 2px;
-    margin: 10px 0 10px 0;
-    background-color: black;
-    color: white;
+  min-height: 28px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px 0 10px 0;
+  background-color: black;
+  color: white;
+  padding: 20px 20px 10px 20px;
 }
 
 .update-review-star {
   text-align: center;
+}
+
+.no-entry-sign {
+  font-size: 80px;
+  color: red;
 }
 
 .all-games-search input{

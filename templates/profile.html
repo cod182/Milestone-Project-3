@@ -54,12 +54,12 @@
                 </div>
                 <section>
                     <!-- Flash Messages -->
-                      {% with messages = get_flashed_messages() %}
+                    {% with messages = get_flashed_messages() %}
                         {% if messages %}
                             {% for message in messages %}
-                                <div class="row flashes text-center">
-                                    <h4 class="light-blue lighten-4 center-align">
-                                      {{ message }}
+                                <div class="row">
+                                    <h4 class="flash-message">
+                                        {{ message }}
                                     </h4>
                                 </div>
                             {% endfor %}

@@ -124,9 +124,11 @@ def edit_review(review_id):
         update = {
             "review_message": request.form.get("review_message"),
             "review_rating": request.form.get("review_rating"),
+            "review_by": session['user'],
+            "game_title": request.form.get("game_title")
         }
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, update)
-        flash("Task Successfully Updated")
+        flash("Review Updated")
 
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
 

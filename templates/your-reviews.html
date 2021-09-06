@@ -14,20 +14,20 @@
             <div class="row">
             {% if your_reviews|length > 0 %}
                 {% for review in your_reviews %}
-                    {% if  session.user|lower == review.user|lower %}
+                    {% if  session.user|lower == review.review_by|lower %}
                         <section class="col-10 your-reviews-container-block">
                             <div class="your-review-container">
                                 <div class="row">
                                     <div class="col-12 col-sm-2 col-md-3">
-                                        <a class="btn btn-warning" href="{{ url_for('edit_review', review_id=review._id) }}">Edit</a>
+                                        <a class="btn btn-warning btn--edit" href="{{ url_for('edit_review', review_id=review._id) }}">Edit</a>
                                     </div>
 
                                     <div class="col-12 col-sm-3 col-md-5">
-                                        <p>{{ review.game_title }}</p>
+                                        <p class="my-0">{{ review.game_title }}</p>
                                     </div>
 
                                     <div class="col-12 col-sm-3 col-md-4 rating-container">
-                                        <p class="review-rating">{{ review.review_rating }}</p>
+                                        <p class="review-rating my-0">{{ review.review_rating }}</p>
                                     </div>
                                 </div>
                             </div>
