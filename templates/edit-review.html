@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container latest-reviews-container roboto">
+    <div class="container update-review-container roboto">
+        <a href="{{ url_for('yourReviews') }}" class="back-arrow"><i class="fa fa-arrow-left"></i></a>
         {% if  session.user|lower == review.review_by|lower %}
             <div class="row gx-0">
                 <div class="col-8 mx-auto">
@@ -19,35 +20,49 @@
                             <div class="col-10 mx-auto">
                                 {% if review.review_rating == "1" %}
                                 <div class="update-review-star">
-                                    <i id="one" class="fa fa-star"></i>
-                                </div>
-                                {% elif  review.review_rating == "2" %}
-                                <div class="update-review-star">
-                                    <i id="one" class="fa fa-star"></i>
-                                    <i id="two" class="fa fa-star"></i>
-                                </div>
-                                {% elif  review.review_rating == "3" %}
-                                <div class="update-review-star">
-                                    <i id="one" class="fa fa-star"></i>
-                                    <i id="two" class="fa fa-star"></i>
-                                    <i id="three" class="fa fa-star"></i>
-                                </div>
-                                {% elif  review.review_rating == "4" %}
-                                <div class="update-review-star">
-                                    <i id="one" class="fa fa-star"></i>
-                                    <i id="two" class="fa fa-star"></i>
-                                    <i id="three" class="fa fa-star"></i>
-                                    <i id="four" class="fa fa-star"></i>
-                                </div>
-                                {% elif  review.review_rating == "5" %}
-                                <div class="update-review-star">
-                                    <i id="one" class="fa fa-star"></i>
+                                    <i id="one" class="fa fa-star gold"></i>
                                     <i id="two" class="fa fa-star"></i>
                                     <i id="three" class="fa fa-star"></i>
                                     <i id="four" class="fa fa-star"></i>
                                     <i id="five" class="fa fa-star"></i>
                                 </div>
-                                <input name="review_rating" class="hide" type="number" value="{{ review.review_rating }}">
+                                <input id="rating" name="review_rating" class="hide" type="number" value="{{ review.review_rating }}">
+                                {% elif  review.review_rating == "2" %}
+                                <div class="update-review-star">
+                                    <i id="one" class="fa fa-star gold"></i>
+                                    <i id="two" class="fa fa-star gold"></i>
+                                    <i id="three" class="fa fa-star"></i>
+                                    <i id="four" class="fa fa-star"></i>
+                                    <i id="five" class="fa fa-star"></i>
+                                </div>
+                                <input id="rating" name="review_rating" class="hide" type="number" value="{{ review.review_rating }}">
+                                {% elif  review.review_rating == "3" %}
+                                <div class="update-review-star">
+                                    <i id="one" class="fa fa-star gold"></i>
+                                    <i id="two" class="fa fa-star gold"></i>
+                                    <i id="three" class="fa fa-star gold"></i>
+                                    <i id="four" class="fa fa-star"></i>
+                                    <i id="five" class="fa fa-star"></i>
+                                </div>
+                                <input id="rating" name="review_rating" class="hide" type="number" value="{{ review.review_rating }}">
+                                {% elif  review.review_rating == "4" %}
+                                <div class="update-review-star">
+                                    <i id="one" class="fa fa-star gold"></i>
+                                    <i id="two" class="fa fa-star gold"></i>
+                                    <i id="three" class="fa fa-star gold"></i>
+                                    <i id="four" class="fa fa-star gold"></i>
+                                    <i id="five" class="fa fa-star"></i>
+                                </div>
+                                <input id="rating" name="review_rating" class="hide" type="number" value="{{ review.review_rating }}">
+                                {% elif  review.review_rating == "5" %}
+                                <div class="update-review-star">
+                                    <i id="one" class="fa fa-star gold"></i>
+                                    <i id="two" class="fa fa-star gold"></i>
+                                    <i id="three" class="fa fa-star gold"></i>
+                                    <i id="four" class="fa fa-star gold"></i>
+                                    <i id="five" class="fa fa-star gold"></i>
+                                </div>
+                                <input id="rating" name="review_rating" class="hide" type="number" value="{{ review.review_rating }}">
                                 {% else %}
                                 <input name="review_rating" id="rating" class="update-review-input" type="number"
                                     min="1" max="5" value="{{ review.review_rating }}">
@@ -98,4 +113,5 @@
     </div>
 {% endblock %}
 {% block scripts %}
+    <script src="{{ url_for('static', filename='js/edit_review_script.js') }}"></script>
 {% endblock %}

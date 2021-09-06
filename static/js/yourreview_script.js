@@ -30,6 +30,7 @@ for (var i = 0; i < rating.length; i++) {
     <i class="fa fa-star"></i>
     <i class="fa fa-star"></i>
     <i class="fa fa-star"></i>
+    <i class="fa fa-star"></i>
   `
   } else if(rating[i].textContent == 5) {
     rating[i].innerHTML = `
