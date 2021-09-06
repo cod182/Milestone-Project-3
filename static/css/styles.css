@@ -112,10 +112,6 @@ btn-open:active {
   border: 2px solid black;
 }
 
-.btn--edit {
-  margin: 32px 0 32px 0;
-}
-
 .remove-a-link-styles {
   text-decoration: none;
   color: black;
@@ -438,7 +434,7 @@ text-decoration: none;
 
 .your-review-container {
   width: 100%;
-  min-height: 100px;
+  padding: 10px 0;
   border: 3px solid black;
   border-radius: 20px;
   background-color: #32cd3299;
@@ -446,11 +442,6 @@ text-decoration: none;
 
 .your-review-container button {
   margin: 27px;
-}
-
-.your-review-container p {
-  text-align: center;
-  line-height: 100px;
 }
 
 .update-review-container {
@@ -551,6 +542,13 @@ text-decoration: none;
   }
   .game-container {
     margin: 5px auto;
+  }
+}
+
+@media screen and (max-width:575px) {
+  .btn--edit {
+    margin: 7px 0 7px 0;
+    width: 80%;
   }
 }
 
