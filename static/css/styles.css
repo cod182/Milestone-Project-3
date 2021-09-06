@@ -112,6 +112,32 @@ btn-open:active {
   border: 2px solid black;
 }
 
+.btn--edit {
+  background-color: #ffbf00;
+  color: black;
+}
+
+.btn--edit:hover,
+.btn--edit:active,
+.btn--edit:focus,
+.btn--edit:active:focus {
+  background-color: #b18605;
+  color: white;
+}
+
+.btn--delete {
+  background-color: red;
+  color: black;
+}
+
+.btn--delete:hover,
+.btn--delete:active,
+.btn--delete:focus,
+.btn--active:focus {
+  background-color: rgb(175, 0, 0);
+  color: white;
+}
+
 .remove-a-link-styles {
   text-decoration: none;
   color: black;
