@@ -59,6 +59,10 @@ body {
   color: #cd7070;
 }
 
+.gold {
+  color: gold;
+}
+
 /* Buttons */
 
 .btn-green {
@@ -93,6 +97,47 @@ body {
 btn-open:active {
   background: #7070cd;
 }
+
+.btn--update {
+  margin: auto;
+  width: 100%;
+  background: yellow;
+  border: 2px solid black;
+}
+
+.btn--update:hover,
+.btn--update:active,
+.btn--update:focus {
+  background-color: #32cd32;
+  border: 2px solid black;
+}
+
+.btn--edit {
+  background-color: #ffbf00;
+  color: black;
+}
+
+.btn--edit:hover,
+.btn--edit:active,
+.btn--edit:focus,
+.btn--edit:active:focus {
+  background-color: #b18605;
+  color: white;
+}
+
+.btn--delete {
+  background-color: red;
+  color: black;
+}
+
+.btn--delete:hover,
+.btn--delete:active,
+.btn--delete:focus,
+.btn--active:focus {
+  background-color: rgb(175, 0, 0);
+  color: white;
+}
+
 .remove-a-link-styles {
   text-decoration: none;
   color: black;
@@ -243,8 +288,14 @@ btn-open:active {
   font-weight: bolder;
 }
 
+.flash-message {
+  color: #32cd32;
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+
 .welcome-container {
-  background-color: #c3c3c3;
+  background-color: #cececef2;
   min-height: 100px;
   width: 100%;
   margin-top: 2%;
@@ -262,7 +313,7 @@ btn-open:active {
 }
 
 .latest-games-container {
-  background-color: #c3c3c3;
+  background-color: #cececef2;
   min-height: 100px;
   width: 100%;
   margin-top: 10px;
@@ -277,7 +328,7 @@ btn-open:active {
 
 .latest-reviews-container {
   min-height: 200px;
-  background-color: #cecece;
+  background-color: #cececef2;
   border-radius: 10px;
   margin: 20px auto;
   padding: 20px;
@@ -325,7 +376,7 @@ btn-open:active {
 
 .profile-container {
   min-height: 200px;
-  background-color: #cecece;
+  background-color: #cececef2;
   border-radius: 10px;
   margin: 20px auto;
   padding: 20px;
@@ -404,12 +455,12 @@ text-decoration: none;
 }
 
 .your-reviews-container-block {
-  margin: auto;
+  margin: 10px auto 10px auto;
 }
 
 .your-review-container {
   width: 100%;
-  min-height: 100px;
+  padding: 10px 0;
   border: 3px solid black;
   border-radius: 20px;
   background-color: #32cd3299;
@@ -419,9 +470,40 @@ text-decoration: none;
   margin: 27px;
 }
 
-.your-review-container p {
+.update-review-container {
+  min-height: 100px;
+  border: 3px solid black;
+  border-radius: 20px;
+  background-color: #c3c3c3;
+  padding: 20px 0px 20px 0px;
+  position: relative;
+}
+
+.update-review-input {
+  width: 100%;
+  min-height: 28px;
+  border-radius: 10px;
   text-align: center;
-  line-height: 100px;
+  margin: 10px 0 10px 0;
+  background-color: black;
+  color: white;
+  padding: 20px 20px 10px 20px;
+}
+
+.update-review-star {
+  text-align: center;
+}
+
+.back-arrow {
+  position: absolute;
+    left: 15px;
+    top: 15px;
+    font-size: 25px;
+}
+
+.no-entry-sign {
+  font-size: 80px;
+  color: red;
 }
 
 .all-games-search input{
@@ -486,6 +568,17 @@ text-decoration: none;
   }
   .game-container {
     margin: 5px auto;
+  }
+}
+
+@media screen and (max-width:575px) {
+  .btn--edit {
+    margin: 7px 0 7px 0;
+    width: 80%;
+  }
+  .btn--delete {
+    margin: 7px 0 7px 0;
+    width: 80%;
   }
 }
 

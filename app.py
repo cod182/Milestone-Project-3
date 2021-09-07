@@ -95,7 +95,7 @@ def profile(username):
 def changePass():
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     username = mongo.db.gc_users.find_one(
-        {"username": session["user"]})["username"].capitalize()
+        {"username": session["user"]})["username"]
     userPass = mongo.db.gc_users.find_one(
         {"username": session["user"]})["password"]
 
@@ -105,8 +105,41 @@ def changePass():
             flash("Password Updated")
         else:
             flash('Password Incorrect')
-    return render_template("changepass.html", username=username, latest_games=latest_games)
+    return render_template("changepass.html", username=username.capitalize(), latest_games=latest_games)
 
+
+@app.route("/yourReviews")
+def yourReviews():
+    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    username = mongo.db.gc_users.find_one(
+        {"username": session["user"]})["username"]
+    your_reviews = list(mongo.db.reviews.find())
+    return render_template("your-reviews.html", your_reviews=your_reviews,
+                            latest_games=latest_games, username=username.capitalize())
+
+
+@app.route("/review/<review_id>", methods=["GET", "POST"])
+def edit_review(review_id):
+    if request.method == "POST":
+        update = {
+            "review_message": request.form.get("review_message"),
+            "review_rating": request.form.get("review_rating"),
+            "review_by": session['user'],
+            "game_title": request.form.get("game_title")
+        }
+        mongo.db.reviews.update({"_id": ObjectId(review_id)}, update)
+        flash("Review Updated")
+
+    review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+
+    return render_template("edit-review.html", review=review)
+
+
+@app.route("/deleteReview/<review_id>")
+def delete_review(review_id):
+    mongo.db.reviews.remove({"_id": ObjectId(review_id)})
+    flash("Review Deleted")
+    return redirect(url_for("yourReviews"))
 
 @app.route("/logout")
 def logout():
