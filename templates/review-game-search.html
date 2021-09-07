@@ -12,7 +12,12 @@
                 <form action="{{ url_for('gameSearch') }}" method="post">
                     <div class="row">
                         <div class="col-12">
-                            <input type="text" name="search" placeholder="Title of Game" required>
+                            <input type="text" name="search" placeholder="Title of Game" list="games" autocomplete="off" required>
+                            <datalist id="games">
+                            {% for game in allgames %}
+                                <option>{{game.title}}</option>
+                            {% endfor %}
+                            </datalist>
                         </div>
                     </div>
                     <div class="row">
@@ -21,17 +26,25 @@
                         </div>
                     </div>
                 </form>
-                <div>
-                    {% if games|length > 0 %}
-                        {% for game in games %}
-                            <h1>{{ game.title }}</h1>
-                        {% endfor %}
-                    {% else %}
-                    <h1>No Games Found</h1>
-                    {% endif %}
-                </div>
-                
             </div>
+            {% if games|length > 0 %}
+                {% for game in games %}
+                    <div class="row">
+                        <div class="col-12 game-container-profile">
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="#" class="btn btn--add-review">Add Review</a>
+                                </div>
+                                <div class="col-6">
+                                <p>{{ game.title }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h1>No Games Found</h1>
+            {% endif %}     
         </div>
     </div>
 

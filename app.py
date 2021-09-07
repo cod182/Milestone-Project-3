@@ -96,8 +96,9 @@ def profileGameSearch():
     username = mongo.db.gc_users.find_one(
         {"username": session["user"]})["username"].capitalize()
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    allgames = list(mongo.db.games.find())
 
-    return render_template("review-game-search.html", username=username, latest_games=latest_games)
+    return render_template("review-game-search.html", username=username, latest_games=latest_games, allgames=allgames)
 
 
 @app.route("/gameSearch", methods=["GET", "POST"])
@@ -107,9 +108,10 @@ def gameSearch():
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     gameName = request.form.get("search")
     games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
+    allgames = list(mongo.db.games.find())
 
     return render_template("review-game-search.html", username=username,
-                            latest_games=latest_games, games=games)
+                            latest_games=latest_games, games=games, allgames=allgames)
 
 
 @app.route("/changePass", methods=["GET", "POST"])

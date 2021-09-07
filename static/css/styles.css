@@ -138,6 +138,20 @@ btn-open:active {
   color: white;
 }
 
+.btn--add-review {
+  display: inline;
+  background-color: #3939f3;
+  color: white;
+}
+
+.btn--add-review:hover,
+.btn--add-review:active,
+.btn--add-review:focus,
+.btn--add-review:active:focus {
+  background-color: #2a2aaa;
+  color: white;
+}
+
 .remove-a-link-styles {
   text-decoration: none;
   color: black;
@@ -450,6 +464,21 @@ text-decoration: none;
   border-radius: 10px;
 }
 
+.game-container-profile {
+  width: 100%;
+  background-color: #32cd3299;
+  border-radius: 20px;
+  margin: 5px 0;
+  border: 3px solid black;
+  padding: 10px 0;
+}
+
+.game-container-profile p {
+  text-align: left;
+  font-weight: bold;
+  margin: 0;
+}
+
 .profile-reviews {
   text-align: center;
 }
@@ -577,6 +606,10 @@ text-decoration: none;
     width: 80%;
   }
   .btn--delete {
+    margin: 7px 0 7px 0;
+    width: 80%;
+  }
+  .btn--add-review {
     margin: 7px 0 7px 0;
     width: 80%;
   }
