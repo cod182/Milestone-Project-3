@@ -86,9 +86,30 @@ def profile(username):
 
     if session["user"]:
         return render_template("profile.html", latest_games=latest_games,
-            username=username)
+                                username=username)
 
     return redirect(url_for("login"))
+
+
+@app.route("/profileGameSearch", methods=["GET", "POST"])
+def profileGameSearch():
+    username = mongo.db.gc_users.find_one(
+        {"username": session["user"]})["username"].capitalize()
+    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+
+    return render_template("review-game-search.html", username=username, latest_games=latest_games)
+
+
+@app.route("/gameSearch", methods=["GET", "POST"])
+def gameSearch():
+    username = mongo.db.gc_users.find_one(
+        {"username": session["user"]})["username"].capitalize()
+    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    gameName = request.form.get("search")
+    games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
+
+    return render_template("review-game-search.html", username=username,
+                            latest_games=latest_games, games=games)
 
 
 @app.route("/changePass", methods=["GET", "POST"])

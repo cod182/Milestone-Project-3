@@ -9,10 +9,10 @@
                 </div>
             </div>
             <div class="row">
-                <form action="">
+                <form action="{{ url_for('gameSearch') }}" method="post">
                     <div class="row">
                         <div class="col-12">
-                            <input type="text" name="name_of_game" placeholder="Name of Game" required>
+                            <input type="text" name="search" placeholder="Title of Game" required>
                         </div>
                     </div>
                     <div class="row">
@@ -21,6 +21,16 @@
                         </div>
                     </div>
                 </form>
+                <div>
+                    {% if games|length > 0 %}
+                        {% for game in games %}
+                            <h1>{{ game.title }}</h1>
+                        {% endfor %}
+                    {% else %}
+                    <h1>No Games Found</h1>
+                    {% endif %}
+                </div>
+                
             </div>
         </div>
     </div>
