@@ -27,10 +27,11 @@
                     </div>
                 </form>
             </div>
+            <hr>
             {% if games|length > 0 %}
                 {% for game in games %}
                     <div class="row">
-                        <div class="col-12 game-container-profile">
+                        <div class="col-8 game-container-profile">
                             <div class="row">
                                 <div class="col-6">
                                     <a href="#" class="btn btn--add-review">Add Review</a>
@@ -43,7 +44,11 @@
                     </div>
                 {% endfor %}
             {% else %}
-                <h1>No Games Found</h1>
+                <div class="row">
+                    <div class="col-8 add-game-container">
+                        <a href="#" class="btn btn--add-game">Add New Game</a>
+                    </div>
+                </div>
             {% endif %}     
         </div>
     </div>

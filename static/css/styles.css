@@ -70,6 +70,24 @@ body {
   font-weight: bold;
 }
 
+.btn-green:hover,
+.btn-green:active,
+.btn-green:focus,
+.btn-green:active:focus {
+  background-color: #39e239;
+}
+
+.btn--add-game {
+  background-color: #27b3cf;
+  border-color: #27b3cf;
+  font-weight: bold;
+}
+
+.btn--add-game:hover {
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+}
+
 .btn--game-search {
   margin-left: 60px;
 }
@@ -465,10 +483,9 @@ text-decoration: none;
 }
 
 .game-container-profile {
-  width: 100%;
   background-color: #32cd3299;
   border-radius: 20px;
-  margin: 5px 0;
+  margin: 5px auto;
   border: 3px solid black;
   padding: 10px 0;
 }
@@ -477,6 +494,10 @@ text-decoration: none;
   text-align: left;
   font-weight: bold;
   margin: 0;
+}
+
+.add-game-container {
+  margin: 10px auto;
 }
 
 .profile-reviews {
