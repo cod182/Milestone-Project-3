@@ -1,6 +1,5 @@
 const yourreviewicon = document.getElementById('your-reviews-icon');
 let rating = document.getElementsByClassName('review-rating');
-let starRating = document.getElementsByClassName('review-star-rating');
 
 // When windows loads give the settings icon a blue glow
 window.onload = function(){

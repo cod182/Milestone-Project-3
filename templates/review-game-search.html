@@ -33,8 +33,16 @@
                     <div class="row">
                         <div class="col-8 game-container-profile">
                             <div class="row">
-                                <div class="col-6">
-                                    <a href="#" class="btn btn--add-review">Add Review</a>
+                                <div class="col-6 game-review-buttons">
+                                    <a href="#" class="btn btn--add-review game-review-add">Add Review</a>
+                                    {% for review in reviews %}
+                                        {% if game.title == review.game_title %}
+                                            {% if session.user|lower == review.review_by|lower %}
+                                                <a href="{{ url_for('edit_review', review_id=review._id) }}" class="btn btn--edit game-review-edit">Edit Review</a>
+                                            {% else %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                                 <div class="col-6">
                                 <p>{{ game.title }}</p>

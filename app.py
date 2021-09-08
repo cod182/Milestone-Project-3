@@ -109,9 +109,10 @@ def gameSearch():
     gameName = request.form.get("search")
     games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
     allgames = list(mongo.db.games.find())
+    reviews = list(mongo.db.reviews.find())
 
     return render_template("review-game-search.html", username=username,
-                            latest_games=latest_games, games=games, allgames=allgames)
+                            latest_games=latest_games, games=games, allgames=allgames, reviews=reviews)
 
 
 @app.route("/changePass", methods=["GET", "POST"])
