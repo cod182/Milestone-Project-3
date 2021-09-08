@@ -45,7 +45,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-12 col-sm-8 col-md-8">
-                                <a href="#" class="remove-a-link-styles game-container-link">
+                                <a href="{{ url_for('game', game_id=game._id) }}" class="remove-a-link-styles game-container-link">
                                     <p>{{ game.title }}</p>
                                 </a>
                                 </div>
@@ -63,4 +63,9 @@
         </div>
     </div>
 
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/game_search_script.js') }}"></script>
+    {% block scriptsextra %}
+    {% endblock %}
 {% endblock %}

@@ -116,8 +116,10 @@ def gameSearch():
 
 
 @app.route("/game/<game_id>", methods=["GET", "POST"])
-def game():
-    
+def game(game_id):
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    return render_template("game.html", game=game)
 
 
 @app.route("/changePass", methods=["GET", "POST"])
