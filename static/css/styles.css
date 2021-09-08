@@ -511,6 +511,34 @@ text-decoration: none;
   margin: 10px auto;
 }
 
+.game-page-container {
+  background-color: #797979f2;
+  min-height: 100px;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 20px 20px 35px 20px;
+  position: relative;
+}
+
+.game-page-title {
+
+}
+
+.game-page-description {
+
+}
+
+.game-page-img {
+  height: 400px;
+  border-radius: 30px;
+  margin: 0 25%;
+}
+
+.game-page-review-heading {
+  text-align: center;
+}
+
 .profile-reviews {
   text-align: center;
 }
@@ -541,6 +569,17 @@ text-decoration: none;
 }
 
 .update-review-input {
+  width: 100%;
+  min-height: 28px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px 0 10px 0;
+  background-color: black;
+  color: white;
+  padding: 0 10px;
+}
+
+.update-review-textarea {
   width: 100%;
   min-height: 28px;
   border-radius: 10px;
@@ -591,7 +630,6 @@ text-decoration: none;
 .game-container:active {
   box-shadow: 0 0 15px #01b9fe;
 }
-
 
 .game-image {
   border: 2px solid #3232cd;

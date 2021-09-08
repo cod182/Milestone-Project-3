@@ -118,8 +118,9 @@ def gameSearch():
 @app.route("/game/<game_id>", methods=["GET", "POST"])
 def game(game_id):
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+    reviews = list(mongo.db.reviews.find())
 
-    return render_template("game.html", game=game)
+    return render_template("game.html", game=game, reviews=reviews)
 
 
 @app.route("/changePass", methods=["GET", "POST"])
@@ -156,7 +157,8 @@ def edit_review(review_id):
             "review_message": request.form.get("review_message"),
             "review_rating": request.form.get("review_rating"),
             "review_by": session['user'],
-            "game_title": request.form.get("game_title")
+            "game_title": request.form.get("game_title"),
+            "review_title": request.form.get("review_title")
         }
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, update)
         flash("Review Updated")
