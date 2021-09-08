@@ -491,9 +491,20 @@ text-decoration: none;
 }
 
 .game-container-profile p {
-  text-align: left;
+  text-align: center;
   font-weight: bold;
   margin: 0;
+}
+
+.game-container-link {
+  color: black;
+}
+
+.game-container-link:hover,
+.game-container-link:active,
+.game-container-link:focus,
+.game-container-link:active:focus {
+  box-shadow: 0 0 15px #01b9fe;
 }
 
 .add-game-container {

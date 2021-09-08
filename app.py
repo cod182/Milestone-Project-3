@@ -115,6 +115,11 @@ def gameSearch():
                             latest_games=latest_games, games=games, allgames=allgames, reviews=reviews)
 
 
+@app.route("/game/<game_id>", methods=["GET", "POST"])
+def game():
+    
+
+
 @app.route("/changePass", methods=["GET", "POST"])
 def changePass():
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))

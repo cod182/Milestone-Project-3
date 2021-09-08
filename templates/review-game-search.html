@@ -31,21 +31,23 @@
             {% if games|length > 0 %}
                 {% for game in games %}
                     <div class="row">
-                        <div class="col-8 game-container-profile">
+                        <div class="col-12 col-md-8 game-container-profile">
                             <div class="row">
-                                <div class="col-6 game-review-buttons">
-                                    <a href="#" class="btn btn--add-review game-review-add">Add Review</a>
-                                    {% for review in reviews %}
-                                        {% if game.title == review.game_title %}
-                                            {% if session.user|lower == review.review_by|lower %}
-                                                <a href="{{ url_for('edit_review', review_id=review._id) }}" class="btn btn--edit game-review-edit">Edit Review</a>
-                                            {% else %}
+                                <div class="col-12 col-sm-4 col-md-4 game-review-buttons">
+                                    {% if reviews|length > 0 %}
+                                        {% for review in reviews %}
+                                            {% if game.title == review.game_title %}
+                                                {% if session.user|lower == review.review_by|lower %}
+                                                    <a href="{{ url_for('edit_review', review_id=review._id) }}" class="btn btn--edit game-review-edit">Edit Review</a>
+                                                {% endif %}
                                             {% endif %}
-                                        {% endif %}
-                                    {% endfor %}
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
-                                <div class="col-6">
-                                <p>{{ game.title }}</p>
+                                <div class="col-12 col-sm-8 col-md-8">
+                                <a href="#" class="remove-a-link-styles game-container-link">
+                                    <p>{{ game.title }}</p>
+                                </a>
                                 </div>
                             </div>
                         </div>
