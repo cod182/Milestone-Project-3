@@ -167,23 +167,24 @@ def changePass():
     return render_template("changepass.html", username=username.capitalize(), latest_games=latest_games)
 
 
-@app.route('/addReview/<game_id>')
+@app.route('/addReview/<game_id>', methods=["GET", "POST"])
 def add_review(game_id):
     """
     Go to a page to add a review to a game based on game_id
     """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+    reviews = list(mongo.db.reviews.find())
 
     if request.method == "POST":
         newReview = {
             "review_message": request.form.get("review_message"),
             "review_rating": request.form.get("review_rating"),
             "review_by": session['user'],
-            "game_title": game.title,
+            "game_title": game['title'],
             "review_title": request.form.get("review_title")
         }
         mongo.db.reviews.insert(newReview)
-        flash("Review Added")
+        return redirect(url_for('yourReviews'))
 
     return render_template("add-review.html", game=game)
 
