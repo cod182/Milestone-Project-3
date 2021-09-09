@@ -16,9 +16,8 @@
                         
                         {% if userGameReview.game_title == game.title %}
                             <a class="btn btn--edit" href="{{ url_for('edit_review', review_id=userGameReview._id) }}">Edit Review</a>
-
                         {% else %}
-                            <a href="{{ url_for('add_review', game_id=game._id) }}">Leave Review</a>
+                            <a class="btn btn-green" href="{{ url_for('add_review', game_id=game._id) }}">Leave Review</a>
                         {% endif %}
                             
                     </div>

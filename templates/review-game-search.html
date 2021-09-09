@@ -36,10 +36,8 @@
                                 <div class="col-12 col-sm-4 col-md-4 game-review-buttons">
                                     {% if reviews|length > 0 %}
                                         {% for review in reviews %}
-                                            {% if game.title == review.game_title %}
-                                                {% if session.user|lower == review.review_by|lower %}
-                                                    <a href="{{ url_for('edit_review', review_id=review._id) }}" class="btn btn--edit game-review-edit">Edit Review</a>
-                                                {% endif %}
+                                            {% if review.game_title == game.title %}
+                                                <a href="{{ url_for('edit_review', review_id=review._id) }}" class="btn btn--edit game-review-edit">Edit Review</a>
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}

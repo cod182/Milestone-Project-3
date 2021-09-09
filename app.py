@@ -130,10 +130,13 @@ def gameSearch():
     username = mongo.db.gc_users.find_one(
         {"username": session["user"]})["username"].capitalize()
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+
+    allgames = list(mongo.db.games.find())
+
     gameName = request.form.get("search")
     games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
-    allgames = list(mongo.db.games.find())
-    reviews = list(mongo.db.reviews.find())
+
+    reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
 
     return render_template("review-game-search.html", username=username,
                             latest_games=latest_games, games=games, allgames=allgames, reviews=reviews)
@@ -153,12 +156,10 @@ def game(game_id):
             if review['game_title'] == game['title']:
                 return review
 
-                
     userGameReview = getReviewforGame(userReviews)
 
-    
-
-    return render_template("game.html", game=game, reviews=reviews, userGameReview=userGameReview)
+    return render_template("game.html", game=game, reviews=reviews, 
+                            userGameReview=userGameReview)
 
 
 @app.route("/changePass", methods=["GET", "POST"])
@@ -212,7 +213,7 @@ def yourReviews():
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     username = mongo.db.gc_users.find_one(
         {"username": session["user"]})["username"]
-    your_reviews = list(mongo.db.reviews.find())
+    your_reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
     return render_template("your-reviews.html", your_reviews=your_reviews,
                             latest_games=latest_games, username=username.capitalize())
 
