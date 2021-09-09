@@ -9,7 +9,7 @@
                 <div class="row gx-0 profile-options">
         
                     <div class="col-6 col-md-2 profile-button">
-                        <a id="new-review-btn" href="#">
+                        <a id="new-review-btn" href="{{ url_for('profileGameSearch') }}">
                             <div id="new-review-icon" class="profile-icon">
                                 <span>
                                     <i class="fas fa-plus"></i>
@@ -85,7 +85,7 @@
             <div class="row">
                 {% for game in latest_games %}
                 <div class="col-sm-12 col-md-2 game-container">
-                    <a class="remove-a-link-styles" href="">
+                    <a class="remove-a-link-styles" href="{{ url_for('game', game_id=game._id) }}">
                         <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
                         <p id="game_title" class="game-title"> {{ game.title }}</p>
                         <p class="game-year">{{game.year }}</p>

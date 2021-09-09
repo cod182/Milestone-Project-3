@@ -33,7 +33,7 @@
                     <a href="{{ url_for('games')}}">Games</a>
                     <a href="#">Contact Us</a>
                     <a href="{{ url_for('login')}}">Login</a>
-                    <a href="#">Logout</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
                     <a href="{{ url_for('register')}}">Register</a>
                   </div>
                 <div class="row">
@@ -59,7 +59,7 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <li><a class="dropdown-item" href="{{ url_for('profile', username=session['user']) }}">Home</a></li>
-                                            <li><a class="dropdown-item" href="">New Review</a></li>
+                                            <li><a class="dropdown-item" href="{{ url_for('profileGameSearch') }}">New Review</a></li>
                                             <li><a class="dropdown-item" href="{{ url_for('yourReviews') }}">Your Reviews</a></li>
                                             <li><a class="dropdown-item" href="{{ url_for('changePass') }}">Settings</a></li>
                                             <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>

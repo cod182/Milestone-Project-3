@@ -8,7 +8,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
 
+
 app = Flask(__name__)
+app.jinja_env.add_extension('jinja2.ext.loopcontrols')
+
 
 app.config['MONGO_DBNAME'] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
@@ -20,12 +23,18 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/index")
 def index():
+    """
+    Go to a page to display the home screen
+    """
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     return render_template("index.html", latest_games=latest_games)
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """
+    Go to a page to register to database
+    """
     if request.method == "POST":
         # check if username already exists in db
         existing_user = mongo.db.gc_users.find_one(
@@ -52,6 +61,9 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """
+    Go to a page to login
+    """
     if request.method == "POST":
         # Check if username exists in db
         existing_user = mongo.db.gc_users.find_one(
@@ -79,6 +91,9 @@ def login():
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
+    """
+    Go to a page to display users profile page
+    """
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     # grab the session user's username from db
     username = mongo.db.gc_users.find_one(
@@ -86,13 +101,72 @@ def profile(username):
 
     if session["user"]:
         return render_template("profile.html", latest_games=latest_games,
-            username=username)
+                                username=username)
 
     return redirect(url_for("login"))
 
 
+@app.route("/profileGameSearch", methods=["GET", "POST"])
+def profileGameSearch():
+    """
+    Go to a page to search all games in order to add a review
+    OR add a new game to Database
+    """
+    username = mongo.db.gc_users.find_one(
+        {"username": session["user"]})["username"].capitalize()
+    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    allgames = list(mongo.db.games.find())
+
+    return render_template("review-game-search.html", username=username,
+                            latest_games=latest_games, allgames=allgames)
+
+
+@app.route("/gameSearch", methods=["GET", "POST"])
+def gameSearch():
+    """
+    Takes a POST to load a page containing the results of a game search
+    reloads the review-game-search page
+    """
+    username = mongo.db.gc_users.find_one(
+        {"username": session["user"]})["username"].capitalize()
+    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+
+    allgames = list(mongo.db.games.find())
+
+    gameName = request.form.get("search")
+    games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
+
+    reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
+
+    return render_template("review-game-search.html", username=username,
+                            latest_games=latest_games, games=games, allgames=allgames, reviews=reviews)
+
+
+@app.route("/game/<game_id>", methods=["GET", "POST"])
+def game(game_id):
+    """
+    Go to a page displaying a game based off the game_id provided
+    """
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+    reviews = list(mongo.db.reviews.find())
+    userReviews = list(mongo.db.reviews.find({'review_by': session['user']}))
+
+    def getReviewforGame(reviews):
+        for review in reviews:
+            if review['game_title'] == game['title']:
+                return review
+
+    userGameReview = getReviewforGame(userReviews)
+
+    return render_template("game.html", game=game, reviews=reviews, 
+                            userGameReview=userGameReview)
+
+
 @app.route("/changePass", methods=["GET", "POST"])
 def changePass():
+    """
+    Go to a page to change password of account. TAkes a POST
+    """
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     username = mongo.db.gc_users.find_one(
         {"username": session["user"]})["username"]
@@ -108,24 +182,54 @@ def changePass():
     return render_template("changepass.html", username=username.capitalize(), latest_games=latest_games)
 
 
+@app.route('/addReview/<game_id>', methods=["GET", "POST"])
+def add_review(game_id):
+    """
+    Go to a page to add a review to a game based on game_id
+    """
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+    reviews = list(mongo.db.reviews.find())
+
+    if request.method == "POST":
+        newReview = {
+            "review_message": request.form.get("review_message"),
+            "review_rating": request.form.get("review_rating"),
+            "review_by": session['user'],
+            "game_title": game['title'],
+            "review_title": request.form.get("review_title")
+        }
+        mongo.db.reviews.insert(newReview)
+        return redirect(url_for('yourReviews'))
+
+    return render_template("add-review.html", game=game)
+
+
 @app.route("/yourReviews")
 def yourReviews():
+    """
+    Go to a page displaying all reviews linked to the session.user
+    extends the profile page
+    """
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     username = mongo.db.gc_users.find_one(
         {"username": session["user"]})["username"]
-    your_reviews = list(mongo.db.reviews.find())
+    your_reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
     return render_template("your-reviews.html", your_reviews=your_reviews,
                             latest_games=latest_games, username=username.capitalize())
 
 
 @app.route("/review/<review_id>", methods=["GET", "POST"])
 def edit_review(review_id):
+    """
+    Go to a page to edit a review based on it's review_id
+    """
     if request.method == "POST":
         update = {
             "review_message": request.form.get("review_message"),
             "review_rating": request.form.get("review_rating"),
             "review_by": session['user'],
-            "game_title": request.form.get("game_title")
+            "game_title": request.form.get("game_title"),
+            "review_title": request.form.get("review_title")
         }
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, update)
         flash("Review Updated")
@@ -137,12 +241,18 @@ def edit_review(review_id):
 
 @app.route("/deleteReview/<review_id>")
 def delete_review(review_id):
+    """
+    From a button to delete the selected review based on review_id
+    """
     mongo.db.reviews.remove({"_id": ObjectId(review_id)})
     flash("Review Deleted")
     return redirect(url_for("yourReviews"))
 
 @app.route("/logout")
 def logout():
+    """
+    From a button removes the sessions cookie
+    """
     # remove user from session cookies
     flash("You have been logged out")
     session.pop("user")

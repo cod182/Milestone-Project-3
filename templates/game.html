@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+        <div class="container game-page-container roboto">
+            <div class="row gx-0">
+                <div class="col-6">
+                    <img class="game-page-img" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
+                </div>
+                <div class="col-6 mx-auto">
+                    <div class="row">
+                        <h1 class="game-page-title">{{ game.title }} </h1>
+                        <p class="game-page-sdescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim reprehenderit voluptate velit dicta, nesciunt perspiciatis similique facilis atque, aspernatur commodi illo laboriosam unde perferendis eveniet nobis a quaerat minus fugiat!</p>
+                        <p>RATING</p>
+                        <p>Purchase From:</p>
+                        
+                        {% if userGameReview.game_title == game.title %}
+                            <a class="btn btn--edit" href="{{ url_for('edit_review', review_id=userGameReview._id) }}">Edit Review</a>
+                        {% else %}
+                            <a class="btn btn-green" href="{{ url_for('add_review', game_id=game._id) }}">Leave Review</a>
+                        {% endif %}
+                            
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-12 game-page-review-heading">
+                    <h2>Reviews</h2>
+                </div>
+            </div>
+        
+
+            <div class="row">
+                {% if reviews|length > 0 %}
+                    {% for review in reviews %}
+                        {% if review.game_title == game.title %}
+
+                            <div class="col-5 mx-auto my-2">
+                                <div class="review-container">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <div class="profile-image-container">
+                                                <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="offset-1 col-10">
+                                            <h6 class="review-game-title">{{review.review_title.capitalize() }}</h6>
+                                        </div>
+                                    </div>
+                
+                                    <div class="row">
+                                        <div class="offset-2 col-10">
+                                            <p class="review-rating">
+                                                {{ review.review_rating }}
+                                            </p>
+                                        </div>
+                                    </div>
+                
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p class="review-content">
+                                                {{ review.review_message }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            
+            </div>
+        </div>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/game_page_script.js') }}"></script>
+    {% block scriptsextra %}
+    {% endblock %}
+{% endblock %}

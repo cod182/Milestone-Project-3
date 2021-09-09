@@ -5,7 +5,10 @@
         {% if  session.user|lower == review.review_by|lower %}
             <div class="row gx-0">
                 <div class="col-8 mx-auto">
-                    <h1 class="page-title">Your Review for {{ review.game_title }}</h1>
+                    <h1 class="page-title">
+                        Your Review for 
+                        <br>
+                        {{ review.game_title }}</h1>
                 </div>
                 <!-- Review -->
                 <div class="col-sm-12 col-md-5 mx-auto my-2 update-review-container">
@@ -72,7 +75,14 @@
                         <!-- Review Message -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <textarea class="update-review-input" name="review_message" id="" cols="30"
+                                <input class="update-review-input" name="review_title" value="{{ review.review_title }}">
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Review Message -->
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <textarea class="update-review-textarea" name="review_message" id="" cols="30"
                                     rows="10">{{ review.review_message }}</textarea>
                                 </p>
                             </div>
