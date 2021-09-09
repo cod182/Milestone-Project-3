@@ -8,7 +8,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
 
+
 app = Flask(__name__)
+app.jinja_env.add_extension('jinja2.ext.loopcontrols')
+
 
 app.config['MONGO_DBNAME'] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
@@ -143,8 +146,19 @@ def game(game_id):
     """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
     reviews = list(mongo.db.reviews.find())
+    userReviews = list(mongo.db.reviews.find({'review_by': session['user']}))
 
-    return render_template("game.html", game=game, reviews=reviews)
+    def getReviewforGame(reviews):
+        for review in reviews:
+            if review['game_title'] == game['title']:
+                return review
+
+                
+    userGameReview = getReviewforGame(userReviews)
+
+    
+
+    return render_template("game.html", game=game, reviews=reviews, userGameReview=userGameReview)
 
 
 @app.route("/changePass", methods=["GET", "POST"])

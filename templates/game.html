@@ -13,8 +13,14 @@
                         <p class="game-page-sdescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim reprehenderit voluptate velit dicta, nesciunt perspiciatis similique facilis atque, aspernatur commodi illo laboriosam unde perferendis eveniet nobis a quaerat minus fugiat!</p>
                         <p>RATING</p>
                         <p>Purchase From:</p>
-                        <a href="{{ url_for('add_review', game_id=game._id) }}">Leave Review</a>
+                        
+                        {% if userGameReview.game_title == game.title %}
+                            <a class="btn btn--edit" href="{{ url_for('edit_review', review_id=userGameReview._id) }}">Edit Review</a>
 
+                        {% else %}
+                            <a href="{{ url_for('add_review', game_id=game._id) }}">Leave Review</a>
+                        {% endif %}
+                            
                     </div>
                 </div>
             </div>
