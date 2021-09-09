@@ -106,6 +106,22 @@ def profile(username):
     return redirect(url_for("login"))
 
 
+@app.route('/addGame', methods=["GET", "POST"])
+def addGame():
+    """
+    Added a new game to the database
+    """
+    if request.method == "POST":
+        newGame = {
+            "title": request.form.get("game_title"),
+            "year": request.form.get("release_year"),
+            "genre": request.form.get("genre")
+        }
+        mongo.db.games.insert(newGame)
+        return redirect(url_for('games'))
+    return render_template('add-game.html')
+
+
 @app.route("/profileGameSearch", methods=["GET", "POST"])
 def profileGameSearch():
     """
@@ -153,7 +169,7 @@ def game(game_id):
 
     def getReviewforGame(reviews):
         for review in reviews:
-            if review['game_title'] == game['title']:
+            if review["game_title"] == game["title"]:
                 return review
 
     userGameReview = getReviewforGame(userReviews)

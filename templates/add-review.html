@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container update-review-container roboto">
+    <div class="container add-review-container roboto">
         
 
             <div class="row gx-0">
@@ -12,7 +12,7 @@
                 </div>
             </div>
                 <!-- Review -->
-                <div class="col-sm-12 col-md-5 mx-auto my-2 update-review-container">
+                <div class="col-sm-12 col-md-7 mx-auto my-2 add-review-container">
                     <form  method="POST" action="{{ url_for('add_review', game_id=game._id) }}">
                         <div class="row">
                             <div class="col-10 mx-auto">
@@ -23,7 +23,7 @@
                         <!-- Review Rating converted to stars -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <div class="update-review-star">
+                                <div class="add-review-star">
                                     <i id="one" class="fa fa-star gold"></i>
                                     <i id="two" class="fa fa-star"></i>
                                     <i id="three" class="fa fa-star"></i>
@@ -37,19 +37,19 @@
                         <!-- Review Message -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <input class="update-review-input" name="review_title" placeholder="Review Title" required>
+                                <input type="text" class="add-review-input" name="review_title" placeholder="Review Title" required>
                                 </p>
                             </div>
                         </div>
                         <!-- Review Message -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <textarea class="update-review-textarea" name="review_message" id="" cols="30"
+                                <textarea class="add-review-textarea" name="review_message" id="" cols="30"
                                     rows="10" placeholder="Review"></textarea>
                                 </p>
                             </div>
                         </div>
-                        <!-- Review  Update Button-->
+                        <!-- Review Submit Button-->
                         <div class="row">
                             <div class="col-10 mx-auto text-center">
                                 <button type="submit" class="btn btn-green btn--green">Submit Review!</button>
