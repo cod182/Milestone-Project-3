@@ -10,7 +10,6 @@ if os.path.exists("env.py"):
 
 
 app = Flask(__name__)
-app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
 
 app.config['MONGO_DBNAME'] = os.environ.get("MONGO_DBNAME")
@@ -73,9 +72,9 @@ def login():
             # ensure hashed password matches user input
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
-                        session["user"] = request.form.get("username").lower()
-                        return redirect(url_for(
-                            "profile", username=session["user"]))
+                session["user"] = request.form.get("username").lower()
+                return redirect(url_for("profile",
+                                        username=session["user"]))
             else:
                 # invalid password match
                 flash("Wrong Username / Password")
@@ -112,15 +111,30 @@ def addGame():
     Added a new game to the database
     """
     genres = mongo.db.genre.find()
+    
     if request.method == "POST":
+        # Checks if game already exists in database
+        existing_game = mongo.db.games.find_one(
+            {"title": request.form.get("game_title")})
+
+        if existing_game:
+            flash('Game Already Exists')
+            return redirect(url_for('addGame'))
+
+        # If games doesn't exist
         newGame = {
             "title": request.form.get("game_title"),
             "year": request.form.get("release_year"),
             "genre": request.form.get("genre")
         }
 
+        # Game inserted into database
         mongo.db.games.insert(newGame)
-        return redirect(url_for('games'))
+        game = mongo.db.games.find_one(
+            {"title": request.form.get("game_title")})
+        # redirected to game page
+        return redirect(url_for('game', game_id=game['_id']))
+
     return render_template('add-game.html', genres=genres)
 
 
@@ -217,7 +231,11 @@ def add_review(game_id):
             "review_title": request.form.get("review_title")
         }
         mongo.db.reviews.insert(newReview)
-        return redirect(url_for('yourReviews'))
+
+        game = mongo.db.games.find_one(
+            {"title": game['title']})
+        # redirected to game page
+        return redirect(url_for('game', game_id=game['_id']))
 
     return render_template("add-review.html", game=game)
 
