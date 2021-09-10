@@ -1,20 +1,17 @@
 {% extends "add-game-base.html" %}
 {% block gamequery %}
 
-            <form action="{{ url_for('gameLookUp') }}" method="post">
+            <form action="{{ url_for('game_LookUp') }}" method="POST">
                 <div class="row">
                     <div class="col-12">
-                        <input type="text" placeholder="Title of Game" name="game-name" required>
+                        <input class="game-lookup-input" type="text" placeholder="Title of Game" name="game-name" required>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 text-center">
                         <button type="submit" class="btn btn-green">Search</button>
                     </div>
                 </div>
             </form>
 
-{% endblock %}
-{% block scripts %}
-    <script src="{{ url_for('static', filename='js/add_game_script.js') }}"></script>
 {% endblock %}

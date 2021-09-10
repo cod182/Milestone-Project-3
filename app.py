@@ -108,15 +108,28 @@ def profile(username):
 
 
 @app.route("/gameLookUp", methods=["GET", "POST"])
-def gameLookUp():
+def game_LookUp():
     if request.method == "POST":
         search = request.form.get("game-name")
 
         response = requests.get("https://api.rawg.io/api/games" + "?key=" + RAWG_API + '&search=' + search)
         gameData = response.json()
 
-        return render_template('add-game.html', gameData=gameData)
+        return render_template('select-game.html', gameData=gameData)
     return render_template('lookup-game.html')
+
+
+@app.route("/selectGame", methods=["GET", "POST"])
+def select_game():
+    if request.method == "POST":
+        search = request.form.get("selected-game")
+
+        response = requests.get("https://api.rawg.io/api/games" + "?key=" + RAWG_API + '&search_exact&search=' + search)
+        gameData = response.json()
+
+        return render_template('add-game.html', gameData=gameData)
+
+    render_template('select-game.html')
 
 
 @app.route('/addGame', methods=["GET", "POST"])
@@ -133,7 +146,7 @@ def addGame():
 
         if existing_game:
             flash('Game Already Exists')
-            return redirect(url_for('addGame'))
+            return redirect(url_for('gameLookUp'))
 
         # If games doesn't exist
         newGame = {

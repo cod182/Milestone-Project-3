@@ -321,7 +321,6 @@ btn-open:active {
 }
 
 .flash-message {
-  color: #32cd32;
   text-align: center;
   margin: 10px 0 10px 0;
 }
@@ -509,6 +508,22 @@ text-decoration: none;
 
 .add-game-container {
   margin: 10px auto;
+}
+
+.game-lookup-input {
+  width: 100%;
+  border-radius: 20px;
+  padding: 0 5px;
+  min-height: 40px;
+  background-color: black;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.game-lookup-input::placeholder {
+  color: white;
 }
 
 .game-page-container {
