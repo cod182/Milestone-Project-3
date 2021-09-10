@@ -118,6 +118,7 @@ def addGame():
             "year": request.form.get("release_year"),
             "genre": request.form.get("genre")
         }
+
         mongo.db.games.insert(newGame)
         return redirect(url_for('games'))
     return render_template('add-game.html', genres=genres)
