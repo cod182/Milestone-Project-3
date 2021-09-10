@@ -633,9 +633,19 @@ text-decoration: none;
 
 .back-arrow {
   position: absolute;
-    left: 15px;
-    top: 15px;
-    font-size: 25px;
+  left: 15px;
+  top: 15px;
+  font-size: 25px;
+  box-shadow: none;
+  border: none;
+  background: #7fffd400;
+}
+
+.back-arrow:hover,
+.back-arrow:active,
+.back-arrow:focus,
+.back-arrow:focus:active {
+  color: white;
 }
 
 .no-entry-sign {

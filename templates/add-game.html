@@ -1,15 +1,12 @@
-{% extends "base.html" %}
-{% block content %}
-    <div class="container update-review-container roboto">
-        
-        <!-- Add Game Container -->
-        <div class="col-sm-12 col-md-5 mx-auto my-2 update-review-container">
+{% extends "add-game-base.html" %}
+{% block gamequery %}
+
             <form  method="POST" action="{{ url_for('addGame') }}">
                 
                 <!-- Game Title -->
                 <div class="row">
                     <div class="col-10 mx-auto">
-                        <input type="text" class="update-review-input" name="game_title" placeholder="Game Title" autocomplete="off" required>
+                        <input type="text" class="update-review-input" name="game_title" placeholder="Game Title" autocomplete="off" value="{{ gameData.results[0].name }}" required>
                         </p>
                     </div>
                 </div>
@@ -43,24 +40,7 @@
                 </div>
 
             </form>
-        </div>
-    </div>
-        
-        <section>
-            <!-- Flash Messages -->
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="row">
-                            <h4 class="flash-message">
-                                {{ message }}
-                            </h4>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {%  endwith %}
-          </section>
-    </div>
+    
 {% endblock %}
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/add_game_script.js') }}"></script>

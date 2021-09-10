@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="container update-review-container roboto">
-        <a href="{{ url_for('yourReviews') }}" class="back-arrow"><i class="fa fa-arrow-left"></i></a>
+        <button onclick="goBack()" class="back-arrow"><i class="fa fa-arrow-left"></i></button>
         {% if  session.user|lower == review.review_by|lower %}
             <div class="row gx-0">
                 <div class="col-8 mx-auto">

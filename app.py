@@ -1,4 +1,5 @@
 import os
+import requests
 from flask import (
     Flask, flash, render_template, redirect,
     request, session, url_for)
@@ -15,6 +16,7 @@ app = Flask(__name__)
 app.config['MONGO_DBNAME'] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
+RAWG_API = os.environ.get("RAWG_API_KEY")
 
 mongo = PyMongo(app)
 
@@ -103,6 +105,18 @@ def profile(username):
                                 username=username)
 
     return redirect(url_for("login"))
+
+
+@app.route("/gameLookUp", methods=["GET", "POST"])
+def gameLookUp():
+    if request.method == "POST":
+        search = request.form.get("game-name")
+
+        response = requests.get("https://api.rawg.io/api/games" + "?key=" + RAWG_API + '&search=' + search)
+        gameData = response.json()
+
+        return render_template('add-game.html', gameData=gameData)
+    return render_template('lookup-game.html')
 
 
 @app.route('/addGame', methods=["GET", "POST"])
@@ -220,7 +234,6 @@ def add_review(game_id):
     Go to a page to add a review to a game based on game_id
     """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
-    reviews = list(mongo.db.reviews.find())
 
     if request.method == "POST":
         newReview = {
