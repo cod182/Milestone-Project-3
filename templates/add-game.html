@@ -9,7 +9,7 @@
                 <!-- Game Title -->
                 <div class="row">
                     <div class="col-10 mx-auto">
-                        <input type="text" class="update-review-input" name="game_title" placeholder="Game Title" required>
+                        <input type="text" class="update-review-input" name="game_title" placeholder="Game Title" autocomplete="off" required>
                         </p>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
                 <!-- Game Year -->
                 <div class="row">
                     <div class="col-10 mx-auto">
-                        <input type="number" class="update-review-input" id="release_year" name="release_year" min="1970"  placeholder="Release Year" required>
+                        <input type="number" class="update-review-input" id="release_year" name="release_year" min="1970"  placeholder="Release Year" autocomplete="off" required>
                         </p>
                     </div>
                 </div>
@@ -25,8 +25,13 @@
                 <!-- Game Genre -->
                 <div class="row">
                     <div class="col-10 mx-auto">
-                        <input type="text" class="update-review-input" name="genre" placeholder="Genre" required>
+                        <input type="text" class="update-review-input" list="genres" name="genre" placeholder="Genre" autocomplete="off" required>
                         </p>
+                        <datalist id="genres">
+                            {% for genre in genres %}
+                                <option>{{genre.name.capitalize()}}</option>
+                            {% endfor %}
+                        </datalist>
                     </div>
                 </div>
                 

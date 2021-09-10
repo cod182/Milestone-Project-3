@@ -111,6 +111,7 @@ def addGame():
     """
     Added a new game to the database
     """
+    genres = mongo.db.genre.find()
     if request.method == "POST":
         newGame = {
             "title": request.form.get("game_title"),
@@ -119,7 +120,7 @@ def addGame():
         }
         mongo.db.games.insert(newGame)
         return redirect(url_for('games'))
-    return render_template('add-game.html')
+    return render_template('add-game.html', genres=genres)
 
 
 @app.route("/profileGameSearch", methods=["GET", "POST"])
