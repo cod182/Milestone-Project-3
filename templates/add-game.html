@@ -1,36 +1,36 @@
 {% extends "add-game-base.html" %}
 {% block gamequery %}
 
-            <form  method="POST" action="{{ url_for('addGame') }}">
+            <form  method="POST" action="{{ url_for('add_game') }}">
                 
                 <!-- Game Title -->
                 <div class="row">
                     <div class="col-10 mx-auto">
-                        <input type="text" class="update-review-input" list="games" name="game_title" value="{{ gameData.results[0].name }}" disabled required>
-                        </p>
+                        <input type="text" class="update-review-input" name="game_title" value="{{ gameData.name }}" required>
                     </div>
                 </div>
 
                 <!-- Game Year -->
                 <div class="row">
                     <div class="col-10 mx-auto">
-                        <input type="text" class="update-review-input" name="release_year" value="{{ gameData.results[0].released }}" disabled required>
-                        </p>
+                        <input type="text" class="update-review-input" name="release_year" value="{{ gameData.released }}" required>
                     </div>
                 </div>
 
                 <!-- Game Genre -->
                 <div class="row">
                     <div class="col-10 mx-auto">
-                        <input type="text" class="update-review-input" name="genre" value="{{ gameData.results[0].genres[0].name }}" disabled required>
-                        </p>
+                        <input type="text" class="update-review-input" name="genre" value="{{ gameData.genres[0].name }}" required>
                     </div>
                 </div>
+
+                <!-- Game ID -->
+                <input type="number" class="hide" name="game_id" value="{{ gameData.id }}">
                 
                 <!-- Game Submit Button-->
                 <div class="row">
                     <div class="col-10 mx-auto text-center">
-                        <button type="submit" class="btn btn-green">Submit Game!</button>
+                        <button type="submit" class="btn btn-green">Add Game!</button>
                     </div>
                 </div>
 

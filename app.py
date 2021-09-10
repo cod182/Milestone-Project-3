@@ -108,7 +108,7 @@ def profile(username):
 
 
 @app.route("/gameLookUp", methods=["GET", "POST"])
-def game_LookUp():
+def game_lookup():
     if request.method == "POST":
         search = request.form.get("game-name")
 
@@ -119,50 +119,41 @@ def game_LookUp():
     return render_template('lookup-game.html')
 
 
-@app.route("/selectGame", methods=["GET", "POST"])
-def select_game():
-    if request.method == "POST":
-        search = request.form.get("selected-game")
-
-        response = requests.get("https://api.rawg.io/api/games" + "?key=" + RAWG_API + '&search_exact&search=' + search)
-        gameData = response.json()
-
-        return render_template('add-game.html', gameData=gameData)
-
-    render_template('select-game.html')
-
-
 @app.route('/addGame', methods=["GET", "POST"])
-def addGame():
+def add_game():
     """
     Added a new game to the database
     """
-    genres = mongo.db.genre.find()
-    
     if request.method == "POST":
         # Checks if game already exists in database
         existing_game = mongo.db.games.find_one(
-            {"title": request.form.get("game_title")})
+            {"game_rawg_id": request.form.get("selected-game")})
 
         if existing_game:
             flash('Game Already Exists')
-            return redirect(url_for('gameLookUp'))
+            return redirect(url_for('game_lookup'))
 
-        # If games doesn't exist
+        gameId = request.form.get('selected-game')
+        apiCall = requests.get("https://api.rawg.io/api/games/" + gameId + "?key=" + RAWG_API)
+        data = apiCall.json()
+
         newGame = {
-            "title": request.form.get("game_title"),
-            "year": request.form.get("release_year"),
-            "genre": request.form.get("genre")
+            "title": data['name'],
+            "year": data['released'],
+            "genre": data['genres'][0]['name'],
+            "game_rawg_id": data['id'],
+            "description": data['description_raw']
         }
 
         # Game inserted into database
         mongo.db.games.insert(newGame)
         game = mongo.db.games.find_one(
-            {"title": request.form.get("game_title")})
+            {"game_rawg_id": data['id']})
+            
         # redirected to game page
         return redirect(url_for('game', game_id=game['_id']))
 
-    return render_template('add-game.html', genres=genres)
+    return render_template('add-game.html')
 
 
 @app.route("/profileGameSearch", methods=["GET", "POST"])
