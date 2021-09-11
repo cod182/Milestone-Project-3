@@ -1,100 +1,104 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-12 profile-container">
-                <div class="row gx-0">
-                    <h1 class="page-title">{{ username }}'s Profile Page</h1>
-                </div>
-                <div class="row gx-0 profile-options">
-        
-                    <div class="col-6 col-md-2 profile-button">
-                        <a id="new-review-btn" href="{{ url_for('profileGameSearch') }}">
-                            <div id="new-review-icon" class="profile-icon">
-                                <span>
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                            </div>
-                            <p class="profile-button-desc roboto">New Review</p>
-                        </a>
-                    </div>
-        
-                    <div class="col-6 col-md-2 profile-button">
-                        <a id="your-reviews-btn" href="{{ url_for('yourReviews') }}">
-                            <div id="your-reviews-icon" class="profile-icon">
-                                <span>
-                                    <i class="fas fa-list"></i>
-                                </span>
-                            </div>
-                            <p class="profile-button-desc roboto">Your Reviews</p>
-                        </a>
-                    </div>
-        
-                    <div class="col-6 col-md-2 profile-button">
-                        <a id="settings-btn" href="{{ url_for('changePass') }}">
-                            <div id="settings-icon" class="profile-icon">
-                                <span>
-                                    <i class="fas fa-cog"></i>
-                                </span>
-                            </div>
-                            <p class="profile-button-desc roboto">Settings</p>
-                        </a>
-                    </div>
-        
-                    <div class="col-6 col-md-2 profile-button">
-                        <a href="{{ url_for('logout')}}">
-                            <div class="profile-icon">
-                                <span>
-                                    <i class="fas fa-sign-out-alt"></i>
-                                </span>
-                            </div>
-                            <p class="profile-button-desc roboto">Logout</p>
-                        </a>
-                    </div>
-                </div>
-                <section>
-                    <!-- Flash Messages -->
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="row">
-                                    <h4 class="flash-message">
-                                        {{ message }}
-                                    </h4>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    {%  endwith %}
-                </section>
-        
-                {% block profile %}
-                {% endblock %}
-        
-            </div>
-        </div>
-    </div>
-
-    <div id="latest-games-container" class="container latest-games-container">
-        <button class="btn btn-close btn-close--latest-games" id="latest-games-visability-btn"></button>
-        <div id="latest-games" class="row gx-0">
-            <div class="col-4 mx-auto">
-                <h2 class="roboto latest-games-heading">Latest Games!</h2>
-            </div>
-        </div>
-        <div class="row">
+    {% if session.get('user') %}
+        <div class="container">
             <div class="row">
-                {% for game in latest_games %}
-                <div class="col-sm-12 col-md-2 game-container">
-                    <a class="remove-a-link-styles" href="{{ url_for('game', game_id=game._id) }}">
-                        <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                        <p id="game_title" class="game-title"> {{ game.title }}</p>
-                        <p class="game-year">{{game.year }}</p>
-                    </a>
+                <div class="col-12 profile-container">
+                    <div class="row gx-0">
+                        <h1 class="page-title">{{ username }}'s Profile Page</h1>
+                    </div>
+                    <div class="row gx-0 profile-options">
+            
+                        <div class="col-6 col-md-2 profile-button">
+                            <a id="new-review-btn" href="{{ url_for('profileGameSearch') }}">
+                                <div id="new-review-icon" class="profile-icon">
+                                    <span>
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                </div>
+                                <p class="profile-button-desc roboto">New Review</p>
+                            </a>
+                        </div>
+            
+                        <div class="col-6 col-md-2 profile-button">
+                            <a id="your-reviews-btn" href="{{ url_for('yourReviews') }}">
+                                <div id="your-reviews-icon" class="profile-icon">
+                                    <span>
+                                        <i class="fas fa-list"></i>
+                                    </span>
+                                </div>
+                                <p class="profile-button-desc roboto">Your Reviews</p>
+                            </a>
+                        </div>
+            
+                        <div class="col-6 col-md-2 profile-button">
+                            <a id="settings-btn" href="{{ url_for('changePass') }}">
+                                <div id="settings-icon" class="profile-icon">
+                                    <span>
+                                        <i class="fas fa-cog"></i>
+                                    </span>
+                                </div>
+                                <p class="profile-button-desc roboto">Settings</p>
+                            </a>
+                        </div>
+            
+                        <div class="col-6 col-md-2 profile-button">
+                            <a href="{{ url_for('logout')}}">
+                                <div class="profile-icon">
+                                    <span>
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </span>
+                                </div>
+                                <p class="profile-button-desc roboto">Logout</p>
+                            </a>
+                        </div>
+                    </div>
+                    <section>
+                        <!-- Flash Messages -->
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="row">
+                                        <h4 class="flash-message">
+                                            {{ message }}
+                                        </h4>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {%  endwith %}
+                    </section>
+            
+                    {% block profile %}
+                    {% endblock %}
+            
                 </div>
-                {% endfor %}
             </div>
         </div>
-    </div>
+
+        <div id="latest-games-container" class="container latest-games-container">
+            <button class="btn btn-close btn-close--latest-games" id="latest-games-visability-btn"></button>
+            <div id="latest-games" class="row gx-0">
+                <div class="col-4 mx-auto">
+                    <h2 class="roboto latest-games-heading">Latest Games!</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row">
+                    {% for game in latest_games %}
+                    <div class="col-sm-12 col-md-2 game-container">
+                        <a class="remove-a-link-styles" href="{{ url_for('game', game_id=game._id) }}">
+                            <img class="game-image" src="{{ game.background }}" alt="">
+                            <p id="game_title" class="game-title"> {{ game.title }}</p>
+                            <p class="game-year">{{game.year }}</p>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <a class="btn btn-green" href="{{ url_for('login') }}">Sign in to View this Page</a>
+    {% endif %}
 
 {% endblock %}
 

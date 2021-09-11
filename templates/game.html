@@ -11,13 +11,22 @@
                 <div class="col-6 mx-auto">
                     <div class="row gx-0">
                         <h1 class="game-page-title">{{ game.title }} </h1>
-                        {{ game.description }}
-                    <div class="row">
+                        <p class="description">{{ game.description }}</p>
+                <div class="row">
+                    <div class="col-6">
                         <p>Game Rating: {{ game.rating }}</p>
                     </div>
-                    <div class="row">
-                        <p>Purchase From:</p>
+                    <div class="col-6 platforms-container">
+                        <p>Available on:</p>
+                        {% for platform in game.platforms %}
+                            <span id="{{platform.platform.name}}">{{ platform.platform.name}} </span>
+                        {% endfor %}
                     </div>
+                </div>
+                <div class="row">
+                    <p>Purchase From:</p>
+                </div>
+                <div class="row">
                     {% if session.get('user') %}
                         {% if userGameReview.game_title == game.title %}
                             <a class="btn btn--edit" href="{{ url_for('edit_review', review_id=userGameReview._id) }}">Edit Review</a>
@@ -27,6 +36,7 @@
                     {% else %}
                         <a class="btn btn-green" href="{{ url_for('login') }}">Sign in to Leave a Review</a>
                     {% endif %}
+                </div>
                             
                     </div>
                 </div>

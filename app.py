@@ -149,7 +149,7 @@ def add_game():
             "year": data['released'],
             "genre": data['genres'][0]['name'],
             "game_id": data['id'],
-            "description": data['description'],
+            "description": data['description_raw'],
             "background": data['background_image'],
             "platforms": data['platforms'],
             "rating": data['esrb_rating']['name'],
