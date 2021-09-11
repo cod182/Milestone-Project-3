@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="container update-review-container roboto">
-        <a href="{{ url_for('yourReviews') }}" class="back-arrow"><i class="fa fa-arrow-left"></i></a>
+        <button onclick="goBack()" class="back-arrow"><i class="fa fa-arrow-left"></i></button>
         {% if  session.user|lower == review.review_by|lower %}
             <div class="row gx-0">
                 <div class="col-8 mx-auto">
@@ -11,7 +11,7 @@
                         {{ review.game_title }}</h1>
                 </div>
                 <!-- Review -->
-                <div class="col-sm-12 col-md-5 mx-auto my-2 update-review-container">
+                <div class="col-sm-12 col-md-7 mx-auto my-2 update-review-container">
                     <form  method="POST" action="{{ url_for('edit_review', review_id=review._id) }}">
                         <div class="row">
                             <div class="col-10 mx-auto">
@@ -75,7 +75,7 @@
                         <!-- Review Message -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <input class="update-review-input" name="review_title" value="{{ review.review_title }}">
+                                <input type="text" class="update-review-input" name="review_title" value="{{ review.review_title }}">
                                 </p>
                             </div>
                         </div>

@@ -321,13 +321,12 @@ btn-open:active {
 }
 
 .flash-message {
-  color: #32cd32;
   text-align: center;
   margin: 10px 0 10px 0;
 }
 
 .welcome-container {
-  background-color: #cececef2;
+  background-color: #797979f2;
   min-height: 100px;
   width: 100%;
   margin-top: 2%;
@@ -345,7 +344,7 @@ btn-open:active {
 }
 
 .latest-games-container {
-  background-color: #cececef2;
+  background-color: #797979f2;
   min-height: 100px;
   width: 100%;
   margin-top: 10px;
@@ -360,7 +359,7 @@ btn-open:active {
 
 .latest-reviews-container {
   min-height: 200px;
-  background-color: #cececef2;
+  background-color: #797979f2;
   border-radius: 10px;
   margin: 20px auto;
   padding: 20px;
@@ -408,7 +407,7 @@ btn-open:active {
 
 .profile-container {
   min-height: 200px;
-  background-color: #cececef2;
+  background-color: #797979f2;
   border-radius: 10px;
   margin: 20px auto;
   padding: 20px;
@@ -511,6 +510,22 @@ text-decoration: none;
   margin: 10px auto;
 }
 
+.game-lookup-input {
+  width: 100%;
+  border-radius: 20px;
+  padding: 0 5px;
+  min-height: 40px;
+  background-color: black;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.game-lookup-input::placeholder {
+  color: white;
+}
+
 .game-page-container {
   background-color: #797979f2;
   min-height: 100px;
@@ -543,6 +558,42 @@ text-decoration: none;
   text-align: center;
 }
 
+.add-review-container {
+  margin: 20px auto;
+  min-height: 100px;
+  border: 3px solid black;
+  border-radius: 20px;
+  background-color: #797979f2;
+  padding: 20px 0px 20px 0px;
+  position: relative;
+}
+
+.add-review-input {
+  width: 100%;
+  min-height: 28px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px 0 10px 0;
+  background-color: black;
+  color: white;
+  padding: 0 10px;
+}
+
+.add-review-textarea {
+  width: 100%;
+  min-height: 28px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px 0 10px 0;
+  background-color: black;
+  color: white;
+  padding: 20px 20px 10px 20px;
+}
+
+.add-review-star {
+  text-align: center;
+}
+
 .your-reviews-container-block {
   margin: 10px auto 10px auto;
 }
@@ -560,10 +611,11 @@ text-decoration: none;
 }
 
 .update-review-container {
+  margin: 20px auto;
   min-height: 100px;
   border: 3px solid black;
   border-radius: 20px;
-  background-color: #c3c3c3;
+  background-color: #797979f2;
   padding: 20px 0px 20px 0px;
   position: relative;
 }
@@ -596,9 +648,19 @@ text-decoration: none;
 
 .back-arrow {
   position: absolute;
-    left: 15px;
-    top: 15px;
-    font-size: 25px;
+  left: 15px;
+  top: 15px;
+  font-size: 25px;
+  box-shadow: none;
+  border: none;
+  background: #7fffd400;
+}
+
+.back-arrow:hover,
+.back-arrow:active,
+.back-arrow:focus,
+.back-arrow:focus:active {
+  color: white;
 }
 
 .no-entry-sign {
