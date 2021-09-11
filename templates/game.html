@@ -11,18 +11,18 @@
                 <div class="col-6 mx-auto">
                     <div class="row gx-0">
                         <h1 class="game-page-title">{{ game.title }} </h1>
-                        <p class="description">{{ game.description }}</p>
+                        {{ game.description }}
                 <div class="row">
                     <div class="col-12 platforms-container">
-                        <p>Available on:</p>
+                        <p class="game-lower-heading">Available on:</p>
                         {% for platform in game.platforms %}
-                            <span class="game-platforms" id="{{platform.platform.name}}">{{ platform.platform.name}} </span>
+                            <p class="game-platforms" id="{{platform.platform.name}}">{{ platform.platform.name}} </p>
                         {% endfor %}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <p>Game Rating: {{ game.rating }}</p>
+                        <p class="game-lower-heading">Game Rating: <span class="game-rating">{{ game.rating }}</span></p>
                     </div>
                 </div>
                 <div class="row">
@@ -43,7 +43,9 @@
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="container game-page-review-container">
             <hr>
 
             <div class="row">
@@ -51,7 +53,6 @@
                     <h2>Reviews</h2>
                 </div>
             </div>
-        
 
             <div class="row">
                 {% if reviews|length > 0 %}
