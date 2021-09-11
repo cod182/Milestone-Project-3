@@ -111,11 +111,16 @@ def profile(username):
 def game_lookup():
     if request.method == "POST":
         search = request.form.get("game-name")
+        try:
+            response = requests.get("https://api.rawg.io/api/games" + "?key=" + RAWG_API + '&search=' + search)
+            gameData = response.json()
 
-        response = requests.get("https://api.rawg.io/api/games" + "?key=" + RAWG_API + '&search=' + search)
-        gameData = response.json()
+            return render_template('select-game.html', gameData=gameData)
+        except requests.exceptions.RequestException as e:  # This is the correct syntax
+            raise SystemExit(e)
+            flash('No Results Found')
+            return redirect(url_for('game_lookup'))
 
-        return render_template('select-game.html', gameData=gameData)
     return render_template('lookup-game.html')
 
 
@@ -127,29 +132,33 @@ def add_game():
     if request.method == "POST":
         # Checks if game already exists in database
         existing_game = mongo.db.games.find_one(
-            {"game_rawg_id": request.form.get("selected-game")})
+            {"game_id": int(request.form.get('selected-game'))})
 
         if existing_game:
             flash('Game Already Exists')
             return redirect(url_for('game_lookup'))
 
+        # Gets the game id from page then makes and API call in order to get details
         gameId = request.form.get('selected-game')
         apiCall = requests.get("https://api.rawg.io/api/games/" + gameId + "?key=" + RAWG_API)
         data = apiCall.json()
 
+        # Fields to be inseted into db
         newGame = {
             "title": data['name'],
             "year": data['released'],
             "genre": data['genres'][0]['name'],
-            "game_rawg_id": data['id'],
-            "description": data['description_raw']
+            "game_id": data['id'],
+            "description": data['description'],
+            "background": data['background_image'],
+            "platforms": data['platforms']
         }
 
         # Game inserted into database
         mongo.db.games.insert(newGame)
         game = mongo.db.games.find_one(
-            {"game_rawg_id": data['id']})
-            
+            {"game_id": data['id']})
+
         # redirected to game page
         return redirect(url_for('game', game_id=game['_id']))
 
