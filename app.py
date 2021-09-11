@@ -151,7 +151,9 @@ def add_game():
             "game_id": data['id'],
             "description": data['description'],
             "background": data['background_image'],
-            "platforms": data['platforms']
+            "platforms": data['platforms'],
+            "rating": data['esrb_rating']['name'],
+            "screenshot": data['background_image_additional'],
         }
 
         # Game inserted into database
@@ -207,14 +209,16 @@ def game(game_id):
     """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
     reviews = list(mongo.db.reviews.find())
-    userReviews = list(mongo.db.reviews.find({'review_by': session['user']}))
 
     def getReviewforGame(reviews):
         for review in reviews:
             if review["game_title"] == game["title"]:
                 return review
-
-    userGameReview = getReviewforGame(userReviews)
+    if session.get('logged_in'):
+        userReviews = list(mongo.db.reviews.find({'review_by': session['user']}))
+        userGameReview = getReviewforGame(userReviews)
+    else:
+        userGameReview = None
 
     return render_template("game.html", game=game, reviews=reviews, 
                             userGameReview=userGameReview)
