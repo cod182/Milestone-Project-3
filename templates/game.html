@@ -3,24 +3,26 @@
 {% block content %}
 
         <div class="container game-page-container roboto">
-            <img class="game-page-bg" src="{{ game.background }}" alt="">
+            <img class="game-page-bg" src="{{ game.screenshot }}" alt="">
             <div class="row gx-0">
                 <div class="col-6">
-                    <img class="game-page-img" src="{{ game.screenshot }}" alt="">
+                    <img class="game-page-img" src="{{ game.background }}" alt="">
                 </div>
                 <div class="col-6 mx-auto">
                     <div class="row gx-0">
                         <h1 class="game-page-title">{{ game.title }} </h1>
                         <p class="description">{{ game.description }}</p>
                 <div class="row">
-                    <div class="col-6">
-                        <p>Game Rating: {{ game.rating }}</p>
-                    </div>
-                    <div class="col-6 platforms-container">
+                    <div class="col-12 platforms-container">
                         <p>Available on:</p>
                         {% for platform in game.platforms %}
-                            <span id="{{platform.platform.name}}">{{ platform.platform.name}} </span>
+                            <span class="game-platforms" id="{{platform.platform.name}}">{{ platform.platform.name}} </span>
                         {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <p>Game Rating: {{ game.rating }}</p>
                     </div>
                 </div>
                 <div class="row">
