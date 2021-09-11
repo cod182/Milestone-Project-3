@@ -215,7 +215,7 @@ def game(game_id):
         for review in reviews:
             if review["game_title"] == game["title"]:
                 return review
-    if session.get('logged_in'):
+    if session.get('user'):
         userReviews = list(mongo.db.reviews.find({'review_by': session['user']}))
         userGameReview = getReviewforGame(userReviews)
     else:
@@ -304,7 +304,7 @@ def edit_review(review_id):
         return redirect(url_for('game', game_id=game_id))
 
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
-    
+  
     return render_template("edit-review.html", review=review)
 
 

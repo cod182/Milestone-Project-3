@@ -49,15 +49,15 @@
                     </div>
                     <!-- Review Button -->
                     <div class="row gx-0">
-                        <div class="col-4">
+                        <div class="col-12">
                             {% if session.get('user') %}
                                 {% if userGameReview.game_title == game.title %}
-                                    <a class="btn btn--edit" href="{{ url_for('edit_review', review_id=userGameReview._id) }}">Edit Review</a>
+                                    <a class="btn btn-game-page btn-game-page--edit" href="{{ url_for('edit_review', review_id=userGameReview._id) }}">Edit Review</a>
                                 {% else %}
-                                    <a class="btn btn-green" href="{{ url_for('add_review', game_id=game._id) }}">Leave Review</a>
+                                    <a class="btn btn-game-page btn-game-page--add" href="{{ url_for('add_review', game_id=game._id) }}">Leave Review</a>
                                 {% endif %}
                             {% else %}
-                                <a class="btn btn-green" href="{{ url_for('login') }}">Sign in to Leave a Review</a>
+                                <a class="btn btn-game-page btn-game-page--signin" href="{{ url_for('login') }}">Sign in to Leave a Review</a>
                             {% endif %}
                         </div>
                     </div>
@@ -131,7 +131,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         {% endif %}
                     {% endfor %}
                 {% endif %}

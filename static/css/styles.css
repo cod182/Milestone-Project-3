@@ -170,6 +170,51 @@ btn-open:active {
   color: white;
 }
 
+.btn-game-page {
+  width: 80%;
+  margin: 0 10%;
+  border-radius: 10px;
+  background-color: grey;
+  font-weight: 500;
+  font-family: 'Roboto';
+}
+
+.btn-game-page--add {
+  background-color: #11a211;
+  color: #000000;
+}
+
+.btn-game-page--add:hover,
+.btn-game-page--add:active,
+.btn-game-page--add:focus,
+.btn-game-page--add:focus:active {
+  background-color: #16ce16;
+}
+
+.btn-game-page--edit {
+  background-color: #1882c9;
+  color: #000000;
+}
+
+.btn-game-page--edit:hover,
+.btn-game-page--edit:active,
+.btn-game-page--edit:focus,
+.btn-game-page--edit:focus:active {
+  background-color: #1e99eb;
+}
+
+.btn-game-page--signin {
+  background-color: #b16b03;
+  color: #000000;
+}
+
+.btn-game-page--signin:hover,
+.btn-game-page--signin:active,
+.btn-game-page--signin:focus,
+.btn-game-page--signin:focus:active {
+  background-color: #d48001;
+}
+
 .remove-a-link-styles {
   text-decoration: none;
   color: black;
