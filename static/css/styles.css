@@ -551,10 +551,11 @@ text-decoration: none;
 .game-page-img {
   max-width: 90%;
   border-radius: 10px 10px;
+  margin: 0 5% 10px 5%;
 }
 
 .game-page-title {
-
+  text-align: right;
 }
 
 .game-page-description {
@@ -563,6 +564,7 @@ text-decoration: none;
 
 .platforms-container {
   text-align: center;
+  margin: 0 auto;
 }
 
 .game-lower-heading {
@@ -572,7 +574,7 @@ text-decoration: none;
 }
 
 .game-platforms {
-  margin: 0;
+  margin: 0 auto;
   background-color: #171717;
   border-radius: 20px;
   border: 1px solid darkgrey;
@@ -582,15 +584,16 @@ text-decoration: none;
   font-size: small;
 }
 
-.game-rating {
+.game-text-box {
   margin: 0;
-    background-color: #171717;
-    border-radius: 20px;
-    border: 1px solid darkgrey;
-    padding: 0px 8px 0px 8px;
-    color: #adadad;
-    font-size: smaller;
-    font-weight: 400;
+  background-color: #171717;
+  border-radius: 20px;
+  border: 1px solid darkgrey;
+  padding: 0px 8px 0px 8px;
+  color: #adadad;
+  font-size: smaller;
+  font-weight: 400;
+  display: inline-flex;
 }
 
 .game-page-review-container {
@@ -739,6 +742,7 @@ text-decoration: none;
   background-color: #00000080;
   border-radius: 10px;
   padding: 0;
+  margin: 0 auto;
 }
 
 .game-container:hover,
@@ -749,7 +753,7 @@ text-decoration: none;
 
 .game-image {
   width: 100%;
-  min-height: 100px;
+  height: 100px;
   border-radius: 10px 10px 0 0 ;
   margin-bottom: 5px;
 }

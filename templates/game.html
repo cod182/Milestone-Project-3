@@ -3,44 +3,77 @@
 {% block content %}
 
         <div class="container game-page-container roboto">
-            <img class="game-page-bg" src="{{ game.screenshot }}" alt="">
+            <img class="game-page-bg" src="{{ game.background }}" alt="">
             <div class="row gx-0">
                 <div class="col-6">
-                    <img class="game-page-img" src="{{ game.background }}" alt="">
-                </div>
-                <div class="col-6 mx-auto">
                     <div class="row gx-0">
-                        <h1 class="game-page-title">{{ game.title }} </h1>
-                        {{ game.description }}
-                <div class="row">
-                    <div class="col-12 platforms-container">
-                        <p class="game-lower-heading">Available on:</p>
-                        {% for platform in game.platforms %}
-                            <p class="game-platforms" id="{{platform.platform.name}}">{{ platform.platform.name}} </p>
-                        {% endfor %}
+                        <div class="col-12">
+                            <img class="game-page-img" src="{{ game.largeImage }}" alt="Art for {{game.title}}">
+                        </div>
+                    </div>
+
+                    <!-- Platforms -->
+                    <div class="row gx-0">
+                        <div class="col-11 platforms-container">
+                            {% for platform in game.platforms %}
+                                <p class="game-platforms" id="{{platform.platform.name}}">{{ platform.platform.name}} </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Releaswed/Rating/Critic rating -->
+                    <div class="row gx-0">
+                        <div class="col-4 mx-auto text-center">
+                            <p class="game-lower-heading">Released</p>
+                            <p class="game-text-box">{{game.year}}</p>
+                        </div>
+                        <div class="col-4 mx-auto text-center">
+                            <p class="game-lower-heading">Game Rating</p>
+                            {% if game.rating %}
+                                <p class="game-text-box">{{ game.rating }}</p>
+                            {% else %}
+                                <p class="game-text-box">N/A</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-4 mx-auto text-center">
+                            <p class="game-lower-heading">Metacritic</p>
+                            <p class="game-text-box">{{game.metacritic}}</p>
+                        </div>
+                    </div>
+                    <!-- Purchase -->
+                    <div class="row gx-0">
+                        <p>Purchase From:</p>
+                    </div>
+                    <!-- Review Button -->
+                    <div class="row gx-0">
+                        <div class="col-4">
+                            {% if session.get('user') %}
+                                {% if userGameReview.game_title == game.title %}
+                                    <a class="btn btn--edit" href="{{ url_for('edit_review', review_id=userGameReview._id) }}">Edit Review</a>
+                                {% else %}
+                                    <a class="btn btn-green" href="{{ url_for('add_review', game_id=game._id) }}">Leave Review</a>
+                                {% endif %}
+                            {% else %}
+                                <a class="btn btn-green" href="{{ url_for('login') }}">Sign in to Leave a Review</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-6">
-                        <p class="game-lower-heading">Game Rating: <span class="game-rating">{{ game.rating }}</span></p>
+            
+                <div class="col-6 mx-auto">
+                    <!-- Title -->
+                    <div class="row gx-0">
+                        <div class="col-12">
+                            <h1 class="game-page-title">{{ game.title }} </h1>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <p>Purchase From:</p>
-                </div>
-                <div class="row">
-                    {% if session.get('user') %}
-                        {% if userGameReview.game_title == game.title %}
-                            <a class="btn btn--edit" href="{{ url_for('edit_review', review_id=userGameReview._id) }}">Edit Review</a>
-                        {% else %}
-                            <a class="btn btn-green" href="{{ url_for('add_review', game_id=game._id) }}">Leave Review</a>
-                        {% endif %}
-                    {% else %}
-                        <a class="btn btn-green" href="{{ url_for('login') }}">Sign in to Leave a Review</a>
-                    {% endif %}
-                </div>
-                            
+                    <!-- Description -->
+                    <div class="row">
+                        <div class="col-12">
+                            <p id="description-holder" class="hide">{{game.description}}</p>
+                            <p id="game-description" class="game-description"></p>
+                        </div>
                     </div>
+     
                 </div>
             </div>
         </div>

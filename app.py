@@ -150,10 +150,11 @@ def add_game():
             "genre": data['genres'][0]['name'],
             "game_id": data['id'],
             "description": data['description'],
-            "background": data['background_image'],
+            "largeImage": data['background_image'],
             "platforms": data['platforms'],
             "rating": data['esrb_rating']['name'],
-            "screenshot": data['background_image_additional'],
+            "background": data['background_image_additional'],
+            "metacritic": data['metacritic']
         }
 
         # Game inserted into database
