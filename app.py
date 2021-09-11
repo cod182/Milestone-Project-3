@@ -196,7 +196,6 @@ def gameSearch():
     games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
 
     reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
-
     return render_template("review-game-search.html", username=username,
                             latest_games=latest_games, games=games, allgames=allgames, reviews=reviews)
 
@@ -295,9 +294,12 @@ def edit_review(review_id):
         }
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, update)
         flash("Review Updated")
+        game_id = mongo.db.games.find_one({"title": request.form.get("game_title")})['_id']
+
+        return redirect(url_for('game', game_id=game_id))
 
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
-
+    
     return render_template("edit-review.html", review=review)
 
 
