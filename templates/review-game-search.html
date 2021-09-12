@@ -54,7 +54,7 @@
             {% else %}
                 <div class="row">
                     <div class="col-8 add-game-container">
-                        <a href="#" class="btn btn--add-game">Add New Game</a>
+                        <a href="{{ url_for('game_lookup') }}" class="btn btn--add-game">Add New Game</a>
                     </div>
                 </div>
             {% endif %}     
@@ -62,8 +62,7 @@
     </div>
 
 {% endblock %}
-{% block scripts %}
+
+{% block scriptsextra %}
     <script src="{{ url_for('static', filename='js/game_search_script.js') }}"></script>
-    {% block scriptsextra %}
-    {% endblock %}
 {% endblock %}

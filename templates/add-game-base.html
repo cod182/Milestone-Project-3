@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container update-review-container roboto">
+        <button onclick="goBack()" class="back-arrow"><i class="fa fa-arrow-left"></i></button>
+        <!-- Add Game Container -->
+        <div class="col-sm-12 col-md-5 mx-auto my-5 update-review-container">
+
+            {% block gamequery %}
+            {% endblock %}
+            
+        </div>
+        <section>
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="row">
+                            <h4 class="flash-message red">
+                                {{ message }}
+                            </h4>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {%  endwith %}
+          </section>
+    </div>
+        
+        
+    </div>
+{% endblock %}

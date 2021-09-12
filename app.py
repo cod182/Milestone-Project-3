@@ -1,4 +1,5 @@
 import os
+import requests
 from flask import (
     Flask, flash, render_template, redirect,
     request, session, url_for)
@@ -10,12 +11,12 @@ if os.path.exists("env.py"):
 
 
 app = Flask(__name__)
-app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
 
 app.config['MONGO_DBNAME'] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
+RAWG_API = os.environ.get("RAWG_API_KEY")
 
 mongo = PyMongo(app)
 
@@ -73,9 +74,9 @@ def login():
             # ensure hashed password matches user input
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
-                        session["user"] = request.form.get("username").lower()
-                        return redirect(url_for(
-                            "profile", username=session["user"]))
+                session["user"] = request.form.get("username").lower()
+                return redirect(url_for("profile",
+                                        username=session["user"]))
             else:
                 # invalid password match
                 flash("Wrong Username / Password")
@@ -104,6 +105,67 @@ def profile(username):
                                 username=username)
 
     return redirect(url_for("login"))
+
+
+@app.route("/gameLookUp", methods=["GET", "POST"])
+def game_lookup():
+    if request.method == "POST":
+        search = request.form.get("game-name")
+        try:
+            response = requests.get("https://api.rawg.io/api/games" + "?key=" + RAWG_API + '&search=' + search)
+            gameData = response.json()
+
+            return render_template('select-game.html', gameData=gameData)
+        except requests.exceptions.RequestException as e:  # This is the correct syntax
+            raise SystemExit(e)
+            flash('No Results Found')
+            return redirect(url_for('game_lookup'))
+
+    return render_template('lookup-game.html')
+
+
+@app.route('/addGame', methods=["GET", "POST"])
+def add_game():
+    """
+    Added a new game to the database
+    """
+    if request.method == "POST":
+        # Checks if game already exists in database
+        existing_game = mongo.db.games.find_one(
+            {"game_id": int(request.form.get('selected-game'))})
+
+        if existing_game:
+            flash('Game Already Exists')
+            return redirect(url_for('game_lookup'))
+
+        # Gets the game id from page then makes and API call in order to get details
+        gameId = request.form.get('selected-game')
+        apiCall = requests.get("https://api.rawg.io/api/games/" + gameId + "?key=" + RAWG_API)
+        data = apiCall.json()
+
+        # Fields to be inseted into db
+        newGame = {
+            "title": data['name'],
+            "year": data['released'],
+            "genre": data['genres'][0]['name'],
+            "game_id": data['id'],
+            "description": data['description'],
+            "largeImage": data['background_image'],
+            "platforms": data['platforms'],
+            "rating": data['esrb_rating']['name'],
+            "background": data['background_image_additional'],
+            "metacritic": data['metacritic']
+        }
+
+        # Game inserted into database
+        mongo.db.games.insert(newGame)
+        game = mongo.db.games.find_one(
+            {"game_id": data['id']})
+
+        # redirected to game page
+        return redirect(url_for('game', game_id=game['_id']))
+
+    return render_template('add-game.html')
 
 
 @app.route("/profileGameSearch", methods=["GET", "POST"])
@@ -137,7 +199,6 @@ def gameSearch():
     games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
 
     reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
-
     return render_template("review-game-search.html", username=username,
                             latest_games=latest_games, games=games, allgames=allgames, reviews=reviews)
 
@@ -149,17 +210,46 @@ def game(game_id):
     """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
     reviews = list(mongo.db.reviews.find())
-    userReviews = list(mongo.db.reviews.find({'review_by': session['user']}))
 
     def getReviewforGame(reviews):
         for review in reviews:
-            if review['game_title'] == game['title']:
+            if review["game_title"] == game["title"]:
                 return review
-
-    userGameReview = getReviewforGame(userReviews)
+    if session.get('user'):
+        userReviews = list(mongo.db.reviews.find({'review_by': session['user']}))
+        userGameReview = getReviewforGame(userReviews)
+    else:
+        userGameReview = None
 
     return render_template("game.html", game=game, reviews=reviews, 
                             userGameReview=userGameReview)
+
+
+@app.route("/editGame/<game_id>", methods=["GET", "POST"])
+def editGame(game_id):
+
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    if request.method == "POST":
+        update = {
+            "title": game["title"],
+            "year": request.form.get("game_year"),
+            "genre": request.form.get("game_genre"),
+            "game_id": game["game_id"],
+            "description": request.form.get("game_description"),
+            "largeImage": game["largeImage"],
+            "platforms": game["platforms"],
+            "rating": game["rating"],
+            "background": game["background"],
+            "metacritic": game["metacritic"],
+            "updated_by": session["user"]
+        }
+        mongo.db.games.update({"_id": ObjectId(game_id)}, update)
+        flash("Game Updated")
+
+        return redirect(url_for('game', game_id=game_id))
+
+    return render_template("edit-game.html", game=game)
 
 
 @app.route("/changePass", methods=["GET", "POST"])
@@ -188,7 +278,6 @@ def add_review(game_id):
     Go to a page to add a review to a game based on game_id
     """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
-    reviews = list(mongo.db.reviews.find())
 
     if request.method == "POST":
         newReview = {
@@ -199,7 +288,11 @@ def add_review(game_id):
             "review_title": request.form.get("review_title")
         }
         mongo.db.reviews.insert(newReview)
-        return redirect(url_for('yourReviews'))
+
+        game = mongo.db.games.find_one(
+            {"title": game['title']})
+        # redirected to game page
+        return redirect(url_for('game', game_id=game['_id']))
 
     return render_template("add-review.html", game=game)
 
@@ -233,6 +326,9 @@ def edit_review(review_id):
         }
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, update)
         flash("Review Updated")
+        game_id = mongo.db.games.find_one({"title": request.form.get("game_title")})['_id']
+
+        return redirect(url_for('game', game_id=game_id))
 
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
 
