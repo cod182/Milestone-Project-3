@@ -853,6 +853,9 @@ text-decoration: none;
   .game-container {
     margin: 5px 11px;
   }
+  .btn-game-page {
+    width: 91%;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -861,6 +864,12 @@ text-decoration: none;
   }
   .game-container {
     margin: 5px auto;
+  }
+  .game-page-title {
+    text-align: center;
+  }
+  .game-description {
+    height: 30vh;
   }
 }
 
@@ -878,6 +887,32 @@ text-decoration: none;
     width: 80%;
   }
 }
+
+@media screen and (max-width:380px) {
+  .game-lower-heading {
+    font-size: medium;
+  }
+  .btn-game-page {
+    font-size: medium;
+    padding: 2px;
+    width: 96%;
+  }
+}
+
+@media screen and (max-width:317px) {
+  .game-lower-heading {
+    font-size: small;
+  }
+  .btn-game-page {
+    font-size: small;
+    padding: 2px;
+    width: 96%;
+  }
+  .game-text-box {
+    font-size: 12px;
+  }
+}
+
 
 .login-register-container {
   min-height: 200px;
