@@ -34,7 +34,7 @@
                         <div class="col-4 mx-auto text-center">
                             <p class="game-lower-heading">Game Rating</p>
                             {% if game.rating %}
-                                <p class="game-text-box">{{ game.rating }}</p>
+                                <p class="game-text-box">{{ game.rating.name }}</p>
                             {% else %}
                                 <p class="game-text-box">N/A</p>
                             {% endif %}

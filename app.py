@@ -152,7 +152,7 @@ def add_game():
             "description": data['description'],
             "largeImage": data['background_image'],
             "platforms": data['platforms'],
-            "rating": data['esrb_rating']['name'],
+            "rating": data['esrb_rating'],
             "background": data['background_image_additional'],
             "metacritic": data['metacritic']
         }
