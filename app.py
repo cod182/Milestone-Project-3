@@ -116,7 +116,7 @@ def game_lookup():
             gameData = response.json()
 
             return render_template('select-game.html', gameData=gameData)
-        except requests.exceptions.RequestException as e:  # This is the correct syntax
+        except requests.exceptions.RequestException as e:
             raise SystemExit(e)
             flash('No Results Found')
             return redirect(url_for('game_lookup'))
