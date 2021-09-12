@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container update-review-container roboto">
+        <button onclick="goBack()" class="back-arrow"><i class="fa fa-arrow-left"></i></button>
+        {% if session.get('user') %}
+            <div class="row gx-0">
+                <div class="col-8 mx-auto">
+                    <h1 class="page-title">
+
+                    </h1>
+                </div>
+                <!-- Review -->
+                <div class="col-sm-12 col-md-7 mx-auto my-2 update-review-container">
+                    <form  method="POST" action="">
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <input name="game_title" class="hide" type="text" value="">
+                            </div>
+                        </div>
+                        
+                        <!-- Review Message -->
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <input type="text" class="update-review-input" name="review_title" value="">
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Review Message -->
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <textarea class="update-review-textarea" name="review_message" id="" cols="30"
+                                    rows="10"></textarea>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Review  Update Button-->
+                        <div class="row">
+                            <div class="col-10 mx-auto text-center">
+                                <button type="submit" class="btn btn-green btn--update">Update!</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <div class="row gx-0">
+                <div class="col-8 mx-auto">
+                    <h2 class="page-title">You do not have permission to access this page</h1>
+                </div>
+                <div class="col-8 mx-auto text-center">
+                    <i class="no-entry-sign fa fa-ban" aria-hidden="true"></i>
+                </div>
+            </div>
+        {% endif%}
+        <section>
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="row">
+                            <h4 class="flash-message">
+                                {{ message }}
+                            </h4>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {%  endwith %}
+          </section>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/edit_review_script.js') }}"></script>
+{% endblock %}

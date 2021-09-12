@@ -225,6 +225,13 @@ def game(game_id):
                             userGameReview=userGameReview)
 
 
+@app.route("/editGame/<game_id>", methods=["GET", "POST"])
+def editGame(game_id):
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    return render_template("edit-game.html", game=game)
+
+
 @app.route("/changePass", methods=["GET", "POST"])
 def changePass():
     """

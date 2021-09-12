@@ -119,14 +119,14 @@ btn-open:active {
 .btn--update {
   margin: auto;
   width: 100%;
-  background: yellow;
+  background: #32cd32;
   border: 2px solid black;
 }
 
 .btn--update:hover,
 .btn--update:active,
 .btn--update:focus {
-  background-color: #32cd32;
+  background-color: #3ffd3f;
   border: 2px solid black;
 }
 
@@ -171,12 +171,13 @@ btn-open:active {
 }
 
 .btn-game-page {
-  width: 80%;
-  margin: 0 10%;
+  width: 90%;
+  margin: 0 auto;
   border-radius: 10px;
   background-color: grey;
   font-weight: 500;
   font-family: 'Roboto';
+  display: inline-block;
 }
 
 .btn-game-page--add {
@@ -213,6 +214,19 @@ btn-open:active {
 .btn-game-page--signin:focus,
 .btn-game-page--signin:focus:active {
   background-color: #d48001;
+}
+
+.btn-game-page--edit-details {
+  background-color: #a2a2a2;
+  font-weight: 600;
+  color: black;
+}
+
+.btn-game-page--edit-details:hover,
+.btn-game-page--edit-details:active,
+.btn-game-page--edit-details:focus,
+.btn-game-page--edit-details:focus:active {
+  background-color: #d8d8d8;
 }
 
 .remove-a-link-styles {
@@ -600,8 +614,10 @@ text-decoration: none;
 
 .game-page-img {
   max-width: 90%;
+  max-height: 323px;
   border-radius: 10px 10px;
-  margin: 0 5% 10px 5%;
+  margin: auto auto 10px auto;
+  display: block;
 }
 
 .game-page-title {
@@ -680,7 +696,7 @@ text-decoration: none;
 
 .add-review-input {
   width: 100%;
-  min-height: 28px;
+  min-height: 40px;
   border-radius: 10px;
   text-align: center;
   margin: 10px 0 10px 0;
@@ -732,7 +748,7 @@ text-decoration: none;
 
 .update-review-input {
   width: 100%;
-  min-height: 28px;
+  min-height: 40px;
   border-radius: 10px;
   text-align: center;
   margin: 10px 0 10px 0;
