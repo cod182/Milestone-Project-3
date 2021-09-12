@@ -6,34 +6,38 @@
             <div class="row gx-0">
                 <div class="col-8 mx-auto">
                     <h1 class="page-title">
-
+                        Editing Details for
+                        <br>
+                        {{ game.title }}
                     </h1>
                 </div>
                 <!-- Review -->
                 <div class="col-sm-12 col-md-7 mx-auto my-2 update-review-container">
-                    <form  method="POST" action="">
+                    <form  method="POST" action="{{ url_for('editGame', game_id=game._id) }}">
+
+                        <!-- Game Year -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <input name="game_title" class="hide" type="text" value="">
-                            </div>
-                        </div>
-                        
-                        <!-- Review Message -->
-                        <div class="row">
-                            <div class="col-10 mx-auto">
-                                <input type="text" class="update-review-input" name="review_title" value="">
-                                </p>
+                                <input class="edit-input" name="game_year" type="text" value="{{ game.year }}">
                             </div>
                         </div>
 
-                        <!-- Review Message -->
+                        <!-- Game Genre -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <textarea class="update-review-textarea" name="review_message" id="" cols="30"
-                                    rows="10"></textarea>
+                                <input class="edit-input" name="game_genre" type="text" value="{{ game.genre }}">
+                            </div>
+                        </div>
+                        
+                        <!-- Game Description -->
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <textarea class="edit-textarea" name="game_description" id="" cols="30"
+                                    rows="10">{{ game.description }}</textarea>
                                 </p>
                             </div>
                         </div>
+                        
                         <!-- Review  Update Button-->
                         <div class="row">
                             <div class="col-10 mx-auto text-center">

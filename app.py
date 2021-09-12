@@ -227,7 +227,27 @@ def game(game_id):
 
 @app.route("/editGame/<game_id>", methods=["GET", "POST"])
 def editGame(game_id):
+
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    if request.method == "POST":
+        update = {
+            "title": game["title"],
+            "year": request.form.get("game_year"),
+            "genre": request.form.get("game_genre"),
+            "game_id": game["game_id"],
+            "description": request.form.get("game_description"),
+            "largeImage": game["largeImage"],
+            "platforms": game["platforms"],
+            "rating": game["rating"],
+            "background": game["background"],
+            "metacritic": game["metacritic"],
+            "updated_by": session["user"]
+        }
+        mongo.db.games.update({"_id": ObjectId(game_id)}, update)
+        flash("Game Updated")
+
+        return redirect(url_for('game', game_id=game_id))
 
     return render_template("edit-game.html", game=game)
 
@@ -311,7 +331,7 @@ def edit_review(review_id):
         return redirect(url_for('game', game_id=game_id))
 
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
-  
+
     return render_template("edit-review.html", review=review)
 
 
