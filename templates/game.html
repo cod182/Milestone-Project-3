@@ -66,7 +66,7 @@
                     </div>
 
                     <!-- Review Button -->
-                    <div class="row gx-0">
+                    <div class="row gx-0 mb-2">
                             {% if session.get('user') %}
                                 {% if userGameReview.game_title == game.title %}
                                     <div class="col-6 text-center">
@@ -124,7 +124,7 @@
                     {% for review in reviews %}
                         {% if review.game_title == game.title %}
 
-                            <div class="col-5 mx-auto my-2">
+                            <div class="col-sm-12 col-md-5 mx-auto my-2">
                                 <div class="review-container">
                                     <div class="row">
                                         <div class="col-2">
