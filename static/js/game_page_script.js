@@ -3,8 +3,8 @@ let rating = document.getElementsByClassName('review-rating');
 const descriptionHolder = document.getElementById('description-holder');
 const descriptionArea = document.getElementById('game-description');
 
+// Takes the styles inner text od descriptionHolder and puts in in the innerhtml of descriptionArea
 descriptionArea.innerHTML = descriptionHolder.innerText
-
 
 // Changes the review rating number to a star
 for (var i = 0; i < rating.length; i++) {

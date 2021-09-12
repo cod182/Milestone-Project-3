@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
 
         <div class="container game-page-container roboto">
@@ -21,7 +20,7 @@
                         </div>
                     </div>
                     <!-- Releaswed/Rating/Critic rating -->
-                    <div class="row gx-0">
+                    <div class="row gx-0 mt-2">
                         <div class="col-4 mx-auto text-center">
                             <p class="game-lower-heading">Released</p>
                             <p class="game-text-box">{{game.year}}</p>
@@ -44,8 +43,21 @@
                         </div>
                     </div>
                     <!-- Purchase -->
-                    <div class="row gx-0">
-                        <p>Purchase From:</p>
+                    <div class="row gx-0 my-2">
+                        <div class="col-12 text-center">
+                            <p class="game-lower-heading">Purchase From</p>
+                            <div class="row">
+                                <div class="col-4">
+                                    <a class="remove-a-link-styles game-text-box" href="">Store 1</a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="remove-a-link-styles game-text-box" href="">Store 2</a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="remove-a-link-styles game-text-box" href="">Store 3</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- Review Button -->
                     <div class="row gx-0">
@@ -74,7 +86,7 @@
                     <div class="row">
                         <div class="col-12">
                             <p id="description-holder" class="hide">{{game.description}}</p>
-                            <p id="game-description" class="game-description"></p>
+                            <p class="game-description" id="game-description"></p>
                         </div>
                     </div>
      
@@ -83,7 +95,6 @@
         </div>
 
         <div class="container game-page-review-container">
-            <hr>
 
             <div class="row">
                 <div class="col-12 game-page-review-heading">
@@ -141,6 +152,4 @@
 {% endblock %}
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/game_page_script.js') }}"></script>
-    {% block scriptsextra %}
-    {% endblock %}
 {% endblock %}

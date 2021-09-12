@@ -608,8 +608,12 @@ text-decoration: none;
   text-align: right;
 }
 
-.game-page-description {
-
+.game-description {
+  width: 100%;
+  height: 430px;
+  display: block;
+  overflow: scroll;
+  line-height: 20px;
 }
 
 .platforms-container {
@@ -619,7 +623,7 @@ text-decoration: none;
 
 .game-lower-heading {
   font-weight: bold;
-  font-size: large;
+  font-size: larger;
   margin: 0;
 }
 

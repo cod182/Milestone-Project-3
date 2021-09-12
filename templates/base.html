@@ -28,13 +28,18 @@
                         <button class="btn btn-outline-success m-2" type="submit">Search</button>
                     </form>
                     <a href="{{ url_for('index')}}">Home</a>
-                    <a href="{{ url_for('profile', username=session['user']) }}">Profile</a>
+                    {% if session.user %}
+                        <a href="{{ url_for('profile', username=session['user']) }}">Profile</a>
+                    {% endif %}
                     <a href="{{ url_for('latest_reviews')}}">Latest Reviews</a>
                     <a href="{{ url_for('games')}}">Games</a>
                     <a href="#">Contact Us</a>
-                    <a href="{{ url_for('login')}}">Login</a>
-                    <a href="{{ url_for('logout') }}">Logout</a>
-                    <a href="{{ url_for('register')}}">Register</a>
+                    {% if session.user %}
+                        <a href="{{ url_for('logout') }}">Logout</a> 
+                    {% else %}
+                        <a href="{{ url_for('login')}}">Login</a>
+                        <a href="{{ url_for('register')}}">Register</a>
+                    {% endif %}
                   </div>
                 <div class="row">
                     <div class="col-2">
