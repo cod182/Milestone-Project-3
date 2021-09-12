@@ -5,7 +5,7 @@
                 <!-- Game Title -->
                 <div class="row">
                     <div class="col-10 mx-auto">
-                        <select class="update-review-input" list="games" name="selected-game" placeholder="Game Title" autocomplete="off" required>
+                        <select class="edit-input" list="games" name="selected-game" placeholder="Game Title" autocomplete="off" required>
                         <datalist id="games">
                             {% for game in gameData.results %}
                                 <option value="{{ game.id }}">{{ game.name }}</option>
