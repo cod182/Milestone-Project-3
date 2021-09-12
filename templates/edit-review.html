@@ -4,7 +4,7 @@
         <button onclick="goBack()" class="back-arrow"><i class="fa fa-arrow-left"></i></button>
         {% if  session.user|lower == review.review_by|lower %}
             <div class="row gx-0">
-                <div class="col-8 mx-auto">
+                <div class="col-sm-10 col-md-8 mx-auto">
                     <h1 class="page-title">
                         Your Review for 
                         <br>
@@ -67,22 +67,22 @@
                                 </div>
                                 <input id="rating" name="review_rating" class="hide" type="number" value="{{ review.review_rating }}">
                                 {% else %}
-                                <input name="review_rating" id="rating" class="update-review-input" type="number"
+                                <input name="review_rating" id="rating" class="edit-input" type="number"
                                     min="1" max="5" value="{{ review.review_rating }}">
                                 {% endif %}
                             </div>
                         </div>
-                        <!-- Review Message -->
+                        <!-- Review Title -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <input type="text" class="update-review-input" name="review_title" value="{{ review.review_title }}">
+                                <input type="text" class="edit-input" name="review_title" value="{{ review.review_title }}">
                                 </p>
                             </div>
                         </div>
                         <!-- Review Message -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <textarea class="update-review-textarea" name="review_message" id="" cols="30"
+                                <textarea class="edit-textarea" name="review_message" id="" cols="30"
                                     rows="10">{{ review.review_message }}</textarea>
                                 </p>
                             </div>

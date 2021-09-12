@@ -150,8 +150,11 @@ def add_game():
             "genre": data['genres'][0]['name'],
             "game_id": data['id'],
             "description": data['description'],
-            "background": data['background_image'],
-            "platforms": data['platforms']
+            "largeImage": data['background_image'],
+            "platforms": data['platforms'],
+            "rating": data['esrb_rating']['name'],
+            "background": data['background_image_additional'],
+            "metacritic": data['metacritic']
         }
 
         # Game inserted into database
@@ -207,17 +210,46 @@ def game(game_id):
     """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
     reviews = list(mongo.db.reviews.find())
-    userReviews = list(mongo.db.reviews.find({'review_by': session['user']}))
 
     def getReviewforGame(reviews):
         for review in reviews:
             if review["game_title"] == game["title"]:
                 return review
-
-    userGameReview = getReviewforGame(userReviews)
+    if session.get('user'):
+        userReviews = list(mongo.db.reviews.find({'review_by': session['user']}))
+        userGameReview = getReviewforGame(userReviews)
+    else:
+        userGameReview = None
 
     return render_template("game.html", game=game, reviews=reviews, 
                             userGameReview=userGameReview)
+
+
+@app.route("/editGame/<game_id>", methods=["GET", "POST"])
+def editGame(game_id):
+
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    if request.method == "POST":
+        update = {
+            "title": game["title"],
+            "year": request.form.get("game_year"),
+            "genre": request.form.get("game_genre"),
+            "game_id": game["game_id"],
+            "description": request.form.get("game_description"),
+            "largeImage": game["largeImage"],
+            "platforms": game["platforms"],
+            "rating": game["rating"],
+            "background": game["background"],
+            "metacritic": game["metacritic"],
+            "updated_by": session["user"]
+        }
+        mongo.db.games.update({"_id": ObjectId(game_id)}, update)
+        flash("Game Updated")
+
+        return redirect(url_for('game', game_id=game_id))
+
+    return render_template("edit-game.html", game=game)
 
 
 @app.route("/changePass", methods=["GET", "POST"])
@@ -299,7 +331,7 @@ def edit_review(review_id):
         return redirect(url_for('game', game_id=game_id))
 
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
-    
+
     return render_template("edit-review.html", review=review)
 
 
