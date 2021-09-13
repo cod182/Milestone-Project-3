@@ -23,13 +23,13 @@
         </div>
         <div class="row">
             {% for game in latest_games %}
-            <div class="col-sm-12 col-md-2 game-container">
-                <a class="remove-a-link-styles" href="{{ url_for('game', game_id=game._id) }}">
-                    <img class="game-image" src="{{ game.largeImage }}" alt="">
-                    <p id="game_title" class="game-title"> {{ game.title }}</p>
-                    <p class="game-year">{{game.year }}</p>
-                </a>
-            </div>
+                <div class="col-sm-12 col-md-2 game-container">
+                    <a class="remove-a-link-styles" href="{{ url_for('game', game_id=game._id) }}">
+                        <img class="game-image" src="{{ game.largeImage }}" alt="">
+                        <p id="game_title" class="game-title"> {{ game.title }}</p>
+                        <p class="game-year">{{game.year }}</p>
+                    </a>
+                </div>
             {% endfor %}
         </div>
     </div>

@@ -395,7 +395,7 @@ def latest_reviews():
 
 @app.route("/games")
 def games():
-    allGames = list(mongo.db.games.find().sort("title", -1))
+    allGames = list(mongo.db.games.find().sort("title", 1))
 
     return render_template("games.html", allGames=allGames)
 
