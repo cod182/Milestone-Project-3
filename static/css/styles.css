@@ -470,9 +470,6 @@ btn-open:active {
   display: inline;
 }
 
-.review-game-title {
-}
-
 .review-game-title:hover,
 .review-game-title:active,
 .review-game-title:focus,
@@ -481,7 +478,7 @@ btn-open:active {
 }
 
 .review-title {
-  margin: 8px;
+  margin: 0 8px 8px 8px;
   text-align: center;
 }
 
