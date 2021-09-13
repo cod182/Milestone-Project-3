@@ -277,9 +277,12 @@ def add_review(game_id):
     """
     Go to a page to add a review to a game based on game_id
     """
+    # find the game with matching _id
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
     if request.method == "POST":
+
+        # newReview key value pairs from form
         newReview = {
             "review_message": request.form.get("review_message"),
             "review_rating": request.form.get("review_rating"),
@@ -287,10 +290,13 @@ def add_review(game_id):
             "game_title": game['title'],
             "review_title": request.form.get("review_title")
         }
+        # Inserts new document from newReview into db
         mongo.db.reviews.insert(newReview)
 
+        # find game with title matches the form title
         game = mongo.db.games.find_one(
             {"title": game['title']})
+
         # redirected to game page
         return redirect(url_for('game', game_id=game['_id']))
 
@@ -303,10 +309,16 @@ def yourReviews():
     Go to a page displaying all reviews linked to the session.user
     extends the profile page
     """
+    # gets the latest games in revers order. Max of 5
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+
+    # gets the user matching the session user
     username = mongo.db.gc_users.find_one(
         {"username": session["user"]})["username"]
+
+    # gets all review by the user
     your_reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
+
     return render_template("your-reviews.html", your_reviews=your_reviews,
                             latest_games=latest_games, username=username.capitalize())
 
@@ -317,6 +329,11 @@ def edit_review(review_id):
     Go to a page to edit a review based on it's review_id
     """
     if request.method == "POST":
+        """
+        Gets values from form and update the relevant
+        review with them
+        """
+        # Update key value pairs from form
         update = {
             "review_message": request.form.get("review_message"),
             "review_rating": request.form.get("review_rating"),
@@ -324,12 +341,16 @@ def edit_review(review_id):
             "game_title": request.form.get("game_title"),
             "review_title": request.form.get("review_title")
         }
+        # Updates the review with matching _id with update dict
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, update)
         flash("Review Updated")
+
+        # gets the game id with the matching title
         game_id = mongo.db.games.find_one({"title": request.form.get("game_title")})['_id']
 
         return redirect(url_for('game', game_id=game_id))
-
+    
+    # finds a review with matching _id
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
 
     return render_template("edit-review.html", review=review)
@@ -340,8 +361,10 @@ def delete_review(review_id):
     """
     From a button to delete the selected review based on review_id
     """
+    # Removes the review with atching _id
     mongo.db.reviews.remove({"_id": ObjectId(review_id)})
     flash("Review Deleted")
+
     return redirect(url_for("yourReviews"))
 
 
@@ -358,8 +381,15 @@ def logout():
 
 @app.route("/latest_reviews")
 def latest_reviews():
-    latest_reviews = list(mongo.db.reviews.find())
+    """
+    Goes to page container all reviews
+    with newest first
+    """
+    # gets all reviews, newest first
+    latest_reviews = list(mongo.db.reviews.find().sort("_id", -1))
+    # gets all games
     games = list(mongo.db.games.find())
+
     return render_template("latest-reviews.html", latest_reviews=latest_reviews, games=games)
 
 

@@ -121,31 +121,21 @@
                 </div>
             </div>
 
-            <div class="row">
+            <!-- Review -->
+            <div class="row mx-auto">
                 {% if reviews|length > 0 %}
                     {% for review in reviews %}
                         {% if review.game_title == game.title %}
-
-                            <div class="col-sm-12 col-md-5 mx-auto my-2">
+                            <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
                                 <div class="review-container">
                                     <div class="row">
-                                        <div class="col-2">
-                                            <div class="rwo gx-0">
-                                                <div class="profile-image-container">
-                                                    <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile image for user: {{review.review_by}}">
-                                                </div>
-                                            </div>
-                                            <div class="row gx-0">
-                                                <p class="profile-name">{{ review.review_by }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="offset-1 col-9">
+                                        <div class="col-12">
                                             <h6 class="review-title">{{review.review_title.capitalize() }}</h6>
                                         </div>
                                     </div>
-                
+
                                     <div class="row">
-                                        <div class="offset-3 col-9">
+                                        <div class="col-12">
                                             <p class="review-rating">
                                                 {{ review.review_rating }}
                                             </p>
@@ -159,12 +149,24 @@
                                             </p>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <!-- Profile Image -->
+                                        <div class="col-12 review-user">
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    <div class="profile-image-container">
+                                                        <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile image for user: {{review.review_by}}">
+                                                    </div>
+                                                    <p class="profile-name">{{ review.review_by.capitalize() }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        {% endif %}
-                    {% endfor %}
+                            {% endif %}
+                        {% endfor %}
                 {% endif %}
-            
             </div>
         </div>
 

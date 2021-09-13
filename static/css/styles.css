@@ -236,7 +236,6 @@ btn-open:active {
   font-size: small;
   padding: 0;
   margin: 0;
-  display: inline;
 }
 
 .remove-a-link-styles {
@@ -458,6 +457,7 @@ btn-open:active {
   border: 2px solid #3232cd;
   border-radius: 50%;
   margin:0 0 0 10px;
+  display: inline-block;
 }
 
 .profile-image {
@@ -470,6 +470,12 @@ btn-open:active {
   display: inline;
 }
 
+.review-game-title h5 {
+  line-height: 20px;
+  min-height: 50px;
+  margin-bottom: 0;
+}
+
 .review-game-title:hover,
 .review-game-title:active,
 .review-game-title:focus,
@@ -478,12 +484,13 @@ btn-open:active {
 }
 
 .review-title {
-  margin: 0 8px 8px 8px;
+  margin: 0 8px 0 8px;
   text-align: center;
 }
 
 .review-rating {
   text-align: center;
+  margin-bottom: 0;
 }
 
 .review-content {
@@ -495,6 +502,10 @@ btn-open:active {
   border-radius: 20px;
   margin: auto 10px;
   color: #d6d6d6;
+}
+
+.review-user {
+  line-height: 35px;
 }
 
 .profile-container {
@@ -650,6 +661,7 @@ text-decoration: none;
 
 .game-page-title {
   text-align: right;
+  color: #d8d8d8;
 }
 
 .game-description {
@@ -658,6 +670,7 @@ text-decoration: none;
   display: block;
   overflow: scroll;
   line-height: 20px;
+  color: #d8d8d8;
 }
 
 .platforms-container {
