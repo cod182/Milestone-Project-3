@@ -442,7 +442,63 @@ btn-open:active {
 
 /* Review Container */
 
+.review-container {
+  width: 100%;
+  min-height: 100px;
+  border: 3px solid black;
+  border-radius: 20px;
+  background-color: #19191999;
+  color: #bbbbbb;
+  padding: 10px 0 10px 0;
+}
 
+.profile-image-container {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #3232cd;
+  border-radius: 50%;
+  margin:0 0 0 10px;
+}
+
+.profile-image {
+  width: -webkit-fill-available;
+  border-radius: 50%;
+}
+
+.profile-name {
+  margin: 0 0 0 5px;
+  display: inline;
+}
+
+.review-game-title {
+}
+
+.review-game-title:hover,
+.review-game-title:active,
+.review-game-title:focus,
+.review-game-title:active:focus {
+  color: #05bb1c;
+}
+
+.review-title {
+  margin: 8px;
+  text-align: center;
+}
+
+.review-rating {
+  text-align: center;
+}
+
+.review-content {
+  height: 190px;
+  padding: 10px;
+  text-align: center;
+  overflow: scroll;
+  background: #6d6d6d;
+  border-radius: 20px;
+  margin: auto 10px;
+  color: #d6d6d6;
+}
 
 .profile-container {
   min-height: 200px;
