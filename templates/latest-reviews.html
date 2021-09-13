@@ -7,152 +7,80 @@
             <div class="col-8 mx-auto">
                 <h1 class="page-title">Latest User Reviews</h1>
             </div>
-            <!-- Latest Review -->
-            <div class="col-5 mx-auto my-2">
-                <div class="review-container">
-                    <div class="row">
-                        <div class="col-1">
-                            <div class="profile-image-container">
-                                <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="">
+            
+            <div class="row mx-auto">
+                {% if latest_reviews|length > 0 %}
+                    {% for review in latest_reviews %}
+                        {% for game in games %}
+                            {% if game.title == review.game_title %}
+                            <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
+                                <div class="review-container">
+                                    <!-- Top Row -->
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <!-- Profile Image -->
+                                            <div class="row gx-0">
+                                                <div class="col-12">
+                                                    <div class="profile-image-container">
+                                                        <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile image for user: {{review.review_by}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Game Title -->
+                                        <div class="col-9">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <a href="{{ url_for('game', game_id=game._id) }}" class="remove-a-link-styles review-game-title" alt="Link to {{ game.title }} game page">
+                                                        <h5 class="text-center">{{game.title}}</h5>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Second Row - Profile Name -->
+                                    <div class="row gx-0">
+                                        <div class="col-12">
+                                            <p class="profile-name">{{ review.review_by }}</p>
+                                            {% if review.review_by == session['user'] %}
+                                                <a class="btn btn-edit--latest-reviews" href="{{ url_for('edit_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}">Edit</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h6 class="review-title">{{review.review_title.capitalize() }}</h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p class="review-rating">
+                                                {{ review.review_rating }}
+                                            </p>
+                                        </div>
+                                    </div>
+                
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p class="review-content">
+                                                {{ review.review_message }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="offset-1 col-10">
-                            <h6 class="review-game-title">####GAME NAME####</h6>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="offset-2 col-10">
-                            <p class="review-rating">#### RATING ####</p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="review-content">
-                                ####Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam, in eveniet nisi natus deserunt cum animi quas commodi a libero beatae, aspernatur soluta nihil suscipit facere error quisquam molestiae aut?####
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+            
             </div>
 
-            <div class="col-5 mx-auto my-2">
-                <div class="review-container">
-                    <div class="row">
-                        <div class="col-1">
-                            <div class="profile-image-container">
-                                <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="">
-                            </div>
-                        </div>
-                        <div class="offset-1 col-10">
-                            <h6 class="review-game-title">####GAME NAME####</h6>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="offset-2 col-10">
-                            <p class="review-rating">#### RATING ####</p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="review-content">
-                                ####Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam, in eveniet nisi natus deserunt cum animi quas commodi a libero beatae, aspernatur soluta nihil suscipit facere error quisquam molestiae aut?####
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-5 mx-auto my-2">
-                <div class="review-container">
-                    <div class="row">
-                        <div class="col-1">
-                            <div class="profile-image-container">
-                                <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="">
-                            </div>
-                        </div>
-                        <div class="offset-1 col-10">
-                            <h6 class="review-game-title">####GAME NAME####</h6>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="offset-2 col-10">
-                            <p class="review-rating">#### RATING ####</p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="review-content">
-                                ####Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam, in eveniet nisi natus deserunt cum animi quas commodi a libero beatae, aspernatur soluta nihil suscipit facere error quisquam molestiae aut?####
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-5 mx-auto my-2">
-                <div class="review-container">
-                    <div class="row">
-                        <div class="col-1">
-                            <div class="profile-image-container">
-                                <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="">
-                            </div>
-                        </div>
-                        <div class="offset-1 col-10">
-                            <h6 class="review-game-title">####GAME NAME####</h6>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="offset-2 col-10">
-                            <p class="review-rating">#### RATING ####</p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="review-content">
-                                ####Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam, in eveniet nisi natus deserunt cum animi quas commodi a libero beatae, aspernatur soluta nihil suscipit facere error quisquam molestiae aut?####
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-5 mx-auto my-2">
-                <div class="review-container">
-                    <div class="row">
-                        <div class="col-1">
-                            <div class="profile-image-container">
-                                <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="">
-                            </div>
-                        </div>
-                        <div class="offset-1 col-10">
-                            <h6 class="review-game-title">####GAME NAME####</h6>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="offset-2 col-10">
-                            <p class="review-rating">#### RATING ####</p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="review-content">
-                                ####Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam, in eveniet nisi natus deserunt cum animi quas commodi a libero beatae, aspernatur soluta nihil suscipit facere error quisquam molestiae aut?####
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/latest_reviews_page_script.js') }}"></script>
 {% endblock %}

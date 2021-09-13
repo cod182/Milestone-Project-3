@@ -344,6 +344,7 @@ def delete_review(review_id):
     flash("Review Deleted")
     return redirect(url_for("yourReviews"))
 
+
 @app.route("/logout")
 def logout():
     """
@@ -357,7 +358,9 @@ def logout():
 
 @app.route("/latest_reviews")
 def latest_reviews():
-    return render_template("latest-reviews.html")
+    latest_reviews = list(mongo.db.reviews.find())
+    games = list(mongo.db.games.find())
+    return render_template("latest-reviews.html", latest_reviews=latest_reviews, games=games)
 
 
 @app.route("/games")
