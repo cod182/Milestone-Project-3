@@ -33,7 +33,7 @@
                     {% endif %}
                     <a href="{{ url_for('latest_reviews')}}">Latest Reviews</a>
                     <a href="{{ url_for('games')}}">Games</a>
-                    <a href="#">Contact Us</a>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#contactUsModal">Contact Us</a>
                     {% if session.user %}
                         <a href="{{ url_for('logout') }}">Logout</a> 
                     {% else %}
@@ -54,7 +54,7 @@
                             </form>
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-links">
                                 <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="{{ url_for('index') }}">Home</a>
+                                    <a class="nav-link" href="{{ url_for('index') }}">Home</a>
                                 </li>
                                 {% if session.user %}
                                     <li class="nav-item dropdown">
@@ -72,17 +72,17 @@
                                     </li>
                                 {% endif %}
                                 <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="{{ url_for('latest_reviews') }}">Latest Reviews</a>
+                                    <a class="nav-link" href="{{ url_for('latest_reviews') }}">Latest Reviews</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="{{ url_for('games') }}">Games</a>
+                                    <a class="nav-link" href="{{ url_for('games') }}">Games</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="#">Contact Us</a>
+                                <a href="" class="nav-link contact-link" data-bs-toggle="modal" data-bs-target="#contactUsModal">Contact Us</a>
                                 </li>
                                 {% if session.user %}
                                     <li class="nav-item">
-                                        <a class="nav-link" aria-current="page" href="{{ url_for('logout') }}">Logout</a>
+                                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
                                     </li> 
                                 {% else %}
                                     <li class="nav-item">
@@ -108,6 +108,42 @@
 
     {% block content %}
     {% endblock %}
+
+    <!-- Modal from bootstrap as start point-->
+    <!-- Contact Us Modal -->
+    <div class="modal fade" id="contactUsModal" tabindex="-1" aria-labelledby="contactUsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content contact-modal-content">
+            <div class="modal-header contact-modal-header">
+                <h5 class="modal-title contact-modal-title roboto" id="contactUsModalLabel">Get in touch!</h5>
+                <button id="contact-modal-close" type="button" class="btn-close m-0 contact-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form onsubmit="return sendEmail(this)">
+                <div>
+                <select class="contact-input contact-reasons" id="contact-reason" name="reason" required>
+                    <option value="">Contact Reason</option>
+                    <option value="General Enquiry">General Enquiry</option>
+                    <option value="Missing Data">Missing Data</option>
+                    <option value="Website Issue">Website Issue</option>
+                </select>
+                </div>
+                <div>
+                <input class="contact-input" type="text" id="contact-name" name="name" placeholder="Enter Name Here..." required>
+                </div>
+                <div>
+                <input class="contact-input" type="email" id="contact-email" name="email" placeholder="Enter Email Here..." required>
+                </div>
+                <div>
+                <textarea class="contact-message"  cols="10" rows="5" id="contact-message" name="message" placeholder="Enter Message Here..." required></textarea>
+                </div>
+                <button type="submit" class="button btn-blue btn--full-width" id="contact-submit">Send Message!</button>
+                <span id="message-status"></span>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
 
     <footer>
         <div class="container-fluid footer">
