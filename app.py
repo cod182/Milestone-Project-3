@@ -396,17 +396,13 @@ def latest_reviews():
 @app.route("/games", methods=["GET", "POST"])
 def games():
 
-    genres = {
-        "genre": 'none'
-    }
+    genres = []
 
     games = list(mongo.db.games.find())
     for game in games:
-        if game["genre"] == genres.genre:
-            pass
-        else:
-            genres.append({"genre": game['genre']})
-
+        if game['genre'] not in genres:
+            genres.append(game['genre'])
+    print(genres)
 
     if request.method == "POST":
         # Gets all games containing the search term

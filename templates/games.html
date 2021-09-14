@@ -15,13 +15,13 @@
             <form class="col-sm-12 col-md-7" action="{{ url_for('games') }}" method="POST">
                 <div class="row">
                     <div class="col-sm-12 col-md-6 d-inline">
-                        <input type="text" name="name_of_game" placeholder="Name of Game" required>
+                        <input type="text" name="name_of_game" placeholder="Name of Game">
                     </div>
                     <div class="col-2">
                         <select name="genre" id="genre" list="genres">
                             <datalist id="genres">
                                 {% for genre in genres  %}
-                                    <option value="{{ genre.genre }}">{{ genre.genre }}</option>
+                                    <option value="{{ genre }}">{{ genre }}</option>
                                 {% endfor %}
                             </datalist>
                         </select>
