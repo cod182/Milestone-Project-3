@@ -419,7 +419,6 @@ btn-open:active {
   margin-top: 10px;
   border-radius: 10px;
   padding: 20px 20px 35px 20px;
-  position: relative;
 }
 
 .latest-games-heading {
@@ -437,6 +436,33 @@ btn-open:active {
 .lg-btn-container {
   position: relative;
   height: 18px;
+}
+
+/* All Games Container */
+
+.all-games-container {
+  background-color: #797979f2;
+  min-height: 100px;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 20px 20px 35px 20px;
+}
+
+.game-container-all-games {
+  min-height: 100px;
+  background-color: #00000080;
+  border-radius: 10px;
+  padding: 0;
+  margin: 10px 2.5%;
+  width: 15%;
+}
+
+
+.game-container-all-games:hover,
+.game-container-all-games:active {
+  box-shadow: 0 0 15px #01b9fe;
+  transform: scale(1.1);
 }
 
 /* Review Container */

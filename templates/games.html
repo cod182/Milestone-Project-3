@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <div class="container latest-reviews-container roboto">
+    <div class="container all-games-container roboto">
         <div class="row gx-0">
             <div class="col-8 mx-auto">
                 <h1 class="page-title">All Games</h1>
@@ -12,10 +12,19 @@
             <div class="col-sm-12 col-md-1">
                 <p>Search:</p>
             </div>
-            <form class="col-sm-12 col-md-7" action="">
+            <form class="col-sm-12 col-md-7" action="{{ url_for('games') }}" method="POST">
                 <div class="row">
                     <div class="col-sm-12 col-md-6 d-inline">
-                        <input type="text" name="name_of_game" placeholder="Name of Game" required>
+                        <input type="text" name="name_of_game" placeholder="Name of Game">
+                    </div>
+                    <div class="col-2">
+                        <select name="genre" id="genre" list="genres">
+                            <datalist id="genres">
+                                {% for genre in genres  %}
+                                    <option value="{{ genre }}">{{ genre }}</option>
+                                {% endfor %}
+                            </datalist>
+                        </select>
                     </div>
                     <div class="col-sm-12 col-md-4 text-center">
                         <button type="submit" class="btn btn-green">Search</button>
@@ -25,13 +34,19 @@
         </div>
 
         <hr>
-
-        <div class="row">
-            <div class="col-sm-12 col-md-2 game-container">
-                <a class="remove-a-link-styles" href="">
-                    <img class="game-image" src="https://i1.wp.com/i.imgur.com/eOtEAB7.jpg?resize=461%2C650&strip=all" alt="">
-                    <p class="game-title"> ####GAME NAME####</p>
-                </a>
+        <div class="container mx-auto">
+            <div class="row">
+                {% for game in allGames %}
+                    <div class="game-container-all-games">
+                        <div class="col-12">
+                            <a class="remove-a-link-styles" href="{{ url_for('game', game_id=game._id) }}">
+                                <img class="game-image" src="{{ game.largeImage }}" alt="">
+                                <p id="game_title" class="game-title"> {{ game.title }}</p>
+                                <p class="game-year">{{game.year }}</p>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
