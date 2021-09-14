@@ -18,6 +18,10 @@ body {
   box-shadow: 0 0 15px #01b9fe;
 }
 
+.selected {
+  text-decoration: underline;
+}
+
 /* Fonts */
 
 .roboto {
@@ -385,7 +389,7 @@ btn-open:active {
 .footer-contact-right {
   font-size: 11px;
   text-decoration: none;
-  text-align: right;
+  text-align: center;
   margin: revert;
 }
 
@@ -427,6 +431,7 @@ btn-open:active {
   margin-top: 10px;
   border-radius: 10px;
   padding: 20px 20px 35px 20px;
+  position: relative;
 }
 
 .latest-games-heading {

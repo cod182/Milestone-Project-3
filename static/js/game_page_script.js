@@ -2,6 +2,12 @@ const yourreviewicon = document.getElementById('your-reviews-icon');
 let rating = document.getElementsByClassName('review-rating');
 const descriptionHolder = document.getElementById('description-holder');
 const descriptionArea = document.getElementById('game-description');
+const currentLink = document.getElementById('games-link');
+
+// When windows loads give the page link an underline
+window.onload = function(){
+  currentLink.classList.add('selected');
+};
 
 // Takes the styles inner text od descriptionHolder and puts in in the innerhtml of descriptionArea
 descriptionArea.innerHTML = descriptionHolder.innerText

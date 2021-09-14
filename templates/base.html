@@ -29,7 +29,7 @@
                     </form>
                     <a href="{{ url_for('index')}}">Home</a>
                     {% if session.user %}
-                        <a href="{{ url_for('profile', username=session['user']) }}">Profile</a>
+                        <a ref="{{ url_for('profile', username=session['user']) }}">Profile</a>
                     {% endif %}
                     <a href="{{ url_for('latest_reviews')}}">Latest Reviews</a>
                     <a href="{{ url_for('games')}}">Games</a>
@@ -54,31 +54,31 @@
                             </form>
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-links">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                                    <a class="nav-link" id="home-link" href="{{ url_for('index') }}">Home</a>
                                 </li>
                                 {% if session.user %}
-                                    <li class="nav-item dropdown">
+                                    <li class="nav-item dropdown" id="profile-link">
                                         <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             Profile
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><a class="dropdown-item" href="{{ url_for('profile', username=session['user']) }}">Home</a></li>
-                                            <li><a class="dropdown-item" href="{{ url_for('profileGameSearch') }}">New Review</a></li>
-                                            <li><a class="dropdown-item" href="{{ url_for('yourReviews') }}">Your Reviews</a></li>
-                                            <li><a class="dropdown-item" href="{{ url_for('changePass') }}">Settings</a></li>
+                                            <li><a class="dropdown-item" id="profile-home-link" href="{{ url_for('profile', username=session['user']) }}">Home</a></li>
+                                            <li><a class="dropdown-item" id="profile-new-rev-link" href="{{ url_for('profileGameSearch') }}">New Review</a></li>
+                                            <li><a class="dropdown-item" id="profile-your-revs-link" href="{{ url_for('yourReviews') }}">Your Reviews</a></li>
+                                            <li><a class="dropdown-item" id="profile-settings-link" href="{{ url_for('changePass') }}">Settings</a></li>
                                             <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
                                         </ul>
                                     </li>
                                 {% endif %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url_for('latest_reviews') }}">Latest Reviews</a>
+                                    <a class="nav-link" id="latest-reviews-link" href="{{ url_for('latest_reviews') }}">Latest Reviews</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url_for('games') }}">Games</a>
+                                    <a class="nav-link" id="games-link" href="{{ url_for('games') }}">Games</a>
                                 </li>
                                 <li class="nav-item">
-                                <a href="" class="nav-link contact-link" data-bs-toggle="modal" data-bs-target="#contactUsModal">Contact Us</a>
+                                <a href="" class="nav-link" id="contact-link" data-bs-toggle="modal" data-bs-target="#contactUsModal">Contact Us</a>
                                 </li>
                                 {% if session.user %}
                                     <li class="nav-item">
@@ -86,10 +86,10 @@
                                     </li> 
                                 {% else %}
                                     <li class="nav-item">
-                                        <a class="nav-link" aria-current="page" href="{{ url_for('login') }}">Login</a>
+                                        <a class="nav-link" id="login-link" aria-current="page" href="{{ url_for('login') }}">Login</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" aria-current="page" href="{{ url_for('register') }}">Register</a>
+                                        <a class="nav-link" id="register-link" aria-current="page" href="{{ url_for('register') }}">Register</a>
                                     </li>
                                 {% endif %}
                                 
@@ -164,6 +164,7 @@
         </div>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/email_script.js') }}"></script>
     {% block scripts %}
     {% endblock %}
 </body>
