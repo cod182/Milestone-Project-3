@@ -238,6 +238,14 @@ btn-open:active {
   margin: 0;
 }
 
+.btn--contact {
+  width: 100%;
+  color: white;
+  background-color: #3232cd;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
 .remove-a-link-styles {
   text-decoration: none;
   color: black;
@@ -1008,4 +1016,73 @@ text-decoration: none;
   margin-top: 20px;
   margin-bottom: 0;
   font-size: small;
+}
+
+.contact-modal-header {
+  background-image: url(../images/header-banner.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50px 50px 0 0 !important; /* Overriding Bootstrap CSS*/
+}
+
+.contact-modal-content {
+  color: black;
+  border-radius: 10px;
+  background-color: grey;
+}
+
+.contact-modal-title {
+  margin: 0 auto;
+  font-size: xx-large;
+  border-radius: 20px;
+}
+
+.contact-modal-close {
+  position: absolute;
+  right: 10px;
+}
+
+.contact-input {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  min-width: 100%;
+  vertical-align: text-top;
+  background-color: #3c3c3c;
+  color: white;
+  border-radius: 10px;
+}
+
+.contact-input::placeholder {
+  color: white;
+}
+
+.contact-reasons { 
+  width: 100%;
+  text-align-last: center;
+  height: 30px;
+  background-color: #3c3c3c;
+  color: white;
+  border-radius: 10px;
+}
+
+.contact-message {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  min-width: 100%;
+  min-height: 40%;
+  background-color: #3c3c3c;
+  color: white;
+  border-radius: 10px;
+}
+
+.contact-message::placeholder {
+  color: white;
+}
+
+.message-status {
+  text-align: center;
+  margin: 0 auto;
 }
