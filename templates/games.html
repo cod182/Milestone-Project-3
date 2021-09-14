@@ -12,10 +12,19 @@
             <div class="col-sm-12 col-md-1">
                 <p>Search:</p>
             </div>
-            <form class="col-sm-12 col-md-7" action="">
+            <form class="col-sm-12 col-md-7" action="{{ url_for('games') }}" method="POST">
                 <div class="row">
                     <div class="col-sm-12 col-md-6 d-inline">
                         <input type="text" name="name_of_game" placeholder="Name of Game" required>
+                    </div>
+                    <div class="col-2">
+                        <select name="genre" id="genre" list="genres">
+                            <datalist id="genres">
+                                {% for genre in genres  %}
+                                    <option value="{{ genre.genre }}">{{ genre.genre }}</option>
+                                {% endfor %}
+                            </datalist>
+                        </select>
                     </div>
                     <div class="col-sm-12 col-md-4 text-center">
                         <button type="submit" class="btn btn-green">Search</button>
@@ -28,12 +37,14 @@
         <div class="container mx-auto">
             <div class="row">
                 {% for game in allGames %}
-                    <div class="col-sm-12 col-md-2 game-container-all-games">
-                        <a class="remove-a-link-styles" href="{{ url_for('game', game_id=game._id) }}">
-                            <img class="game-image" src="{{ game.largeImage }}" alt="">
-                            <p id="game_title" class="game-title"> {{ game.title }}</p>
-                            <p class="game-year">{{game.year }}</p>
-                        </a>
+                    <div class="game-container-all-games">
+                        <div class="col-12">
+                            <a class="remove-a-link-styles" href="{{ url_for('game', game_id=game._id) }}">
+                                <img class="game-image" src="{{ game.largeImage }}" alt="">
+                                <p id="game_title" class="game-title"> {{ game.title }}</p>
+                                <p class="game-year">{{game.year }}</p>
+                            </a>
+                        </div>
                     </div>
                 {% endfor %}
             </div>

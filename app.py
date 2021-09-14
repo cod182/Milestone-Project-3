@@ -393,11 +393,30 @@ def latest_reviews():
     return render_template("latest-reviews.html", latest_reviews=latest_reviews, games=games)
 
 
-@app.route("/games")
+@app.route("/games", methods=["GET", "POST"])
 def games():
+
+    genres = {
+        "genre": 'none'
+    }
+
+    games = list(mongo.db.games.find())
+    for game in games:
+        if game["genre"] == genres.genre:
+            pass
+        else:
+            genres.append({"genre": game['genre']})
+
+
+    if request.method == "POST":
+        # Gets all games containing the search term
+        filteredGames = list(mongo.db.games.find({"$text": {"$search": request.form.get('name_of_game')}}).sort("title", 1))
+        return render_template("games.html", allGames=filteredGames, genres=genres)
+
+
     allGames = list(mongo.db.games.find().sort("title", 1))
 
-    return render_template("games.html", allGames=allGames)
+    return render_template("games.html", allGames=allGames, genres=genres)
 
 
 if __name__ == "__main__":
