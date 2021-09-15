@@ -1,6 +1,13 @@
 const hideLG = document.getElementById('latest-games-visability-btn')
 const latestGamesCont = document.getElementById('latest-games-container');
+const currentLink = document.getElementById('profile-link');
+const currentNestedLink = document.getElementById('profile-home-link')
 
+// When windows loads give the settings icon a blue glow
+window.onload = function(){
+  currentLink.classList.add('selected');
+  currentNestedLink.classList.add('selected');
+};
 
 // hides the latest games container then creates the show latest games button
 hideLG.addEventListener('click', function () {

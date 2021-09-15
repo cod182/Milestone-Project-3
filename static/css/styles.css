@@ -18,6 +18,11 @@ body {
   box-shadow: 0 0 15px #01b9fe;
 }
 
+.selected {
+  text-decoration: underline;
+  text-underline-offset: 10px;
+}
+
 /* Fonts */
 
 .roboto {
@@ -238,6 +243,14 @@ btn-open:active {
   margin: 0;
 }
 
+.btn--contact {
+  width: 100%;
+  color: white;
+  background-color: #3232cd;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
 .remove-a-link-styles {
   text-decoration: none;
   color: black;
@@ -325,16 +338,6 @@ btn-open:active {
   padding: 20px;
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
-
-  .sidenav a {
-    font-size: 18px;
-  }
-}
-
 .sm-nav-toggle-container {
   float: right;
 }
@@ -377,7 +380,7 @@ btn-open:active {
 .footer-contact-right {
   font-size: 11px;
   text-decoration: none;
-  text-align: right;
+  text-align: center;
   margin: revert;
 }
 
@@ -419,6 +422,7 @@ btn-open:active {
   margin-top: 10px;
   border-radius: 10px;
   padding: 20px 20px 35px 20px;
+  position: relative;
 }
 
 .latest-games-heading {
@@ -910,6 +914,104 @@ text-decoration: none;
   color: #b7b7b7;
 }
 
+.login-register-container {
+  min-height: 200px;
+  background-color: #cecece;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 20px 20px 40px 20px;
+}
+
+.login-container {
+  background-color: #ffffffa6;
+  border-radius: 10px;
+  min-height: 200px;
+  padding: 30px 30px 15px 30px;
+}
+
+.login-input {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.login-register-swap {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 0;
+  font-size: small;
+}
+
+.contact-modal-header {
+  background-image: url(../images/header-banner.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50px 50px 0 0 !important; /* Overriding Bootstrap CSS*/
+}
+
+.contact-modal-content {
+  color: black;
+  border-radius: 10px;
+  background-color: grey;
+}
+
+.contact-modal-title {
+  margin: 0 auto;
+  font-size: xx-large;
+  border-radius: 20px;
+}
+
+.contact-modal-close {
+  position: absolute;
+  right: 10px;
+}
+
+.contact-input {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  min-width: 100%;
+  vertical-align: text-top;
+  background-color: #3c3c3c;
+  color: white;
+  border-radius: 10px;
+}
+
+.contact-input::placeholder {
+  color: white;
+}
+
+.contact-reasons { 
+  width: 100%;
+  text-align-last: center;
+  height: 30px;
+  background-color: #3c3c3c;
+  color: white;
+  border-radius: 10px;
+}
+
+.contact-message {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  min-width: 100%;
+  min-height: 40%;
+  background-color: #3c3c3c;
+  color: white;
+  border-radius: 10px;
+}
+
+.contact-message::placeholder {
+  color: white;
+}
+
+.message-status {
+  text-align: center;
+  margin: 0 auto;
+}
+
 @media screen and (max-width: 1199px) {
   .game-container {
     margin: 5px 15px;
@@ -922,6 +1024,9 @@ text-decoration: none;
   }
   .btn-game-page {
     width: 91%;
+  }
+  .game-container-all-games {
+    width: 20%;
   }
 }
 
@@ -953,6 +1058,20 @@ text-decoration: none;
     margin: 7px 0 7px 0;
     width: 80%;
   }
+  .game-container-all-games {
+    width: 60%;
+    margin: 10px 20%;
+  }
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
 }
 
 @media screen and (max-width:380px) {
@@ -963,6 +1082,10 @@ text-decoration: none;
     font-size: medium;
     padding: 2px;
     width: 96%;
+  }
+  .game-container-all-games {
+    width: 90%;
+    margin: 10px 5%;
   }
 }
 
@@ -980,32 +1103,3 @@ text-decoration: none;
   }
 }
 
-
-.login-register-container {
-  min-height: 200px;
-  background-color: #cecece;
-  border-radius: 10px;
-  margin: 20px auto;
-  padding: 20px 20px 40px 20px;
-}
-
-.login-container {
-  background-color: #ffffffa6;
-  border-radius: 10px;
-  min-height: 200px;
-  padding: 30px 30px 15px 30px;
-}
-
-.login-input {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.login-register-swap {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 0;
-  font-size: small;
-}

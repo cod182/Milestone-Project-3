@@ -12,12 +12,12 @@
             <div class="col-sm-12 col-md-1">
                 <p>Search:</p>
             </div>
-            <form class="col-sm-12 col-md-7" action="{{ url_for('games') }}" method="POST">
+            <form class="col-sm-12 col-md-11" action="{{ url_for('games') }}" method="POST">
                 <div class="row">
                     <div class="col-sm-12 col-md-6 d-inline">
                         <input type="text" name="name_of_game" placeholder="Name of Game">
                     </div>
-                    <div class="col-2">
+                    <div class="col-sm-12 col-md-3 text-center">
                         <select name="genre" id="genre" list="genres">
                             <datalist id="genres">
                                 {% for genre in genres  %}
@@ -26,7 +26,7 @@
                             </datalist>
                         </select>
                     </div>
-                    <div class="col-sm-12 col-md-4 text-center">
+                    <div class="col-sm-12 col-md-3 text-center">
                         <button type="submit" class="btn btn-green">Search</button>
                     </div>
                 </div>
@@ -51,4 +51,7 @@
         </div>
     </div>
 
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/games_script.js') }}"></script>
 {% endblock %}
