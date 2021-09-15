@@ -27,10 +27,8 @@ def index():
     """
     Go to a page to display the home screen
     """
-    username = mongo.db.gc_users.find_one(
-            {"username": session["user"]})
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
-    return render_template("index.html", latest_games=latest_games, username=username)
+    return render_template("index.html", latest_games=latest_games)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -99,11 +97,11 @@ def profile(username):
     Go to a page to display users profile page
     """
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    # grab the session user's username from db
+    username = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
 
-    if session.get('user'):
-        # grab the session user's username from db
-        username = mongo.db.gc_users.find_one(
-            {"username": session["user"]})
+    if session["user"]:
         return render_template("profile.html", latest_games=latest_games,
                                 username=username)
 
@@ -112,35 +110,31 @@ def profile(username):
 
 @app.route('/adminpanel', methods=["GET", "POST"])
 def adminPanel():
-
-    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
-
-    if session.get('user'):
-        username = mongo.db.gc_users.find_one(
-            {"username": session["user"]})
+    username = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
+    if session["user"]:
         if username['userType'] == 'admin':
-            return render_template("admin-base.html", username=username, latest_games=latest_games)
+            return render_template("admin-base.html", username=username)
 
     return redirect(url_for("login"))
 
 
+
 @app.route("/gameLookUp", methods=["GET", "POST"])
 def game_lookup():
-    username = mongo.db.gc_users.find_one(
-            {"username": session["user"]})
     if request.method == "POST":
         search = request.form.get("game-name")
         try:
             response = requests.get("https://api.rawg.io/api/games" + "?key=" + RAWG_API + '&search=' + search)
             gameData = response.json()
 
-            return render_template('select-game.html', gameData=gameData, username=username)
+            return render_template('select-game.html', gameData=gameData)
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
             flash('No Results Found')
             return redirect(url_for('game_lookup'))
 
-    return render_template('lookup-game.html', username=username)
+    return render_template('lookup-game.html')
 
 
 @app.route('/addGame', methods=["GET", "POST"])
@@ -194,7 +188,7 @@ def profileGameSearch():
     OR add a new game to Database
     """
     username = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
+        {"username": session["user"]})["username"].capitalize()
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     allgames = list(mongo.db.games.find())
 
@@ -209,7 +203,7 @@ def gameSearch():
     reloads the review-game-search page
     """
     username = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
+        {"username": session["user"]})["username"].capitalize()
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
 
     allgames = list(mongo.db.games.find())
@@ -229,8 +223,7 @@ def game(game_id):
     """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
     reviews = list(mongo.db.reviews.find())
-    username = mongo.db.gc_users.find_one(
-            {"username": session["user"]})
+
     def getReviewforGame(reviews):
         for review in reviews:
             if review["game_title"] == game["title"]:
@@ -242,7 +235,7 @@ def game(game_id):
         userGameReview = None
 
     return render_template("game.html", game=game, reviews=reviews, 
-                            userGameReview=userGameReview, username=username)
+                            userGameReview=userGameReview)
 
 
 @app.route("/editGame/<game_id>", methods=["GET", "POST"])
@@ -279,17 +272,17 @@ def changePass():
     """
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     username = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
+        {"username": session["user"]})["username"]
     userPass = mongo.db.gc_users.find_one(
         {"username": session["user"]})["password"]
 
     if request.method == "POST":
         if check_password_hash(userPass, request.form.get("originalPassword")):
-            mongo.db.gc_users.update_one({"username": username['username']}, {"$set": {"password": generate_password_hash(request.form.get("password"))}})
+            mongo.db.gc_users.update_one({"username": username}, {"$set": {"password": generate_password_hash(request.form.get("password"))}})
             flash("Password Updated")
         else:
             flash('Password Incorrect')
-    return render_template("changepass.html", username=username, latest_games=latest_games)
+    return render_template("changepass.html", username=username.capitalize(), latest_games=latest_games)
 
 
 @app.route('/addReview/<game_id>', methods=["GET", "POST"])
@@ -334,13 +327,13 @@ def yourReviews():
 
     # gets the user matching the session user
     username = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
+        {"username": session["user"]})["username"]
 
     # gets all review by the user
     your_reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
 
     return render_template("your-reviews.html", your_reviews=your_reviews,
-                            latest_games=latest_games, username=username)
+                            latest_games=latest_games, username=username.capitalize())
 
 
 @app.route("/review/<review_id>", methods=["GET", "POST"])
