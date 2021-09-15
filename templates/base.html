@@ -63,6 +63,11 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <li><a class="dropdown-item" id="profile-home-link" href="{{ url_for('profile', username=session['user']) }}">Home</a></li>
+                                            {% if session.user|lower == username.username|lower %}
+                                                {% if username.userType == 'admin' %}
+                                                    <li><a class="dropdown-item" id="admin-panel-link" href="{{ url_for('adminPanel') }}">Admin Panel</a></li>
+                                                {% endif %}
+                                            {% endif %}
                                             <li><a class="dropdown-item" id="profile-new-rev-link" href="{{ url_for('profileGameSearch') }}">New Review</a></li>
                                             <li><a class="dropdown-item" id="profile-your-revs-link" href="{{ url_for('yourReviews') }}">Your Reviews</a></li>
                                             <li><a class="dropdown-item" id="profile-settings-link" href="{{ url_for('changePass') }}">Settings</a></li>

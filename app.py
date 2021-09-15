@@ -27,8 +27,10 @@ def index():
     """
     Go to a page to display the home screen
     """
+    username = mongo.db.gc_users.find_one(
+            {"username": session["user"]})
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
-    return render_template("index.html", latest_games=latest_games)
+    return render_template("index.html", latest_games=latest_games, username=username)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -48,7 +50,8 @@ def register():
         register = {
             "username": request.form.get("username").lower(),
             "email": request.form.get("email").lower(),
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
+            "userType": "standard"
         }
         mongo.db.gc_users.insert_one(register)
 
@@ -96,15 +99,27 @@ def profile(username):
     Go to a page to display users profile page
     """
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
-    # grab the session user's username from db
-    username = mongo.db.gc_users.find_one(
-        {"username": session["user"]})["username"].capitalize()
 
-    if session["user"]:
+    if session.get('user'):
+        # grab the session user's username from db
+        username = mongo.db.gc_users.find_one(
+            {"username": session["user"]})
         return render_template("profile.html", latest_games=latest_games,
                                 username=username)
 
     return redirect(url_for("login"))
+
+
+@app.route('/adminpanel', methods=["GET", "POST"])
+def adminPanel():
+    if session.get('user'):
+        username = mongo.db.gc_users.find_one(
+            {"username": session["user"]})
+        if username['userType'] == 'admin':
+            return render_template("admin-base.html", username=username)
+
+    return redirect(url_for("login"))
+
 
 
 @app.route("/gameLookUp", methods=["GET", "POST"])
@@ -409,7 +424,7 @@ def games():
         filteredGames = list(mongo.db.games.find({"$text": {"$search": request.form.get('name_of_game')}}).sort("title", 1))
         return render_template("games.html", allGames=filteredGames, genres=genres)
 
-
+    # Gets all games sorted by title
     allGames = list(mongo.db.games.find().sort("title", 1))
 
     return render_template("games.html", allGames=allGames, genres=genres)
