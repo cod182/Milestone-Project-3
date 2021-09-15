@@ -20,6 +20,7 @@ body {
 
 .selected {
   text-decoration: underline;
+  text-underline-offset: 10px;
 }
 
 /* Fonts */
