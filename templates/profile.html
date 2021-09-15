@@ -75,16 +75,15 @@
             </div>
         </div>
 
-        <div id="latest-games-container" class="container latest-games-container">
+        <div class="container latest-games-container" id="latest-games-container">
             <button class="btn btn-close btn-close--latest-games" id="latest-games-visability-btn"></button>
-            <div id="latest-games" class="row gx-0">
+            <div class="row gx-0">
                 <div class="col-4 mx-auto">
                     <h2 class="roboto latest-games-heading">Latest Games!</h2>
                 </div>
             </div>
             <div class="row">
-                <div class="row">
-                    {% for game in latest_games %}
+                {% for game in latest_games %}
                     <div class="col-sm-12 col-md-2 game-container">
                         <a class="remove-a-link-styles" href="{{ url_for('game', game_id=game._id) }}">
                             <img class="game-image" src="{{ game.largeImage }}" alt="">
@@ -92,8 +91,7 @@
                             <p class="game-year">{{game.year }}</p>
                         </a>
                     </div>
-                    {% endfor %}
-                </div>
+                {% endfor %}
             </div>
         </div>
     {% else %}
