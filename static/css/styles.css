@@ -337,16 +337,6 @@ btn-open:active {
   padding: 20px;
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
-
-  .sidenav a {
-    font-size: 18px;
-  }
-}
-
 .sm-nav-toggle-container {
   float: right;
 }
@@ -923,77 +913,6 @@ text-decoration: none;
   color: #b7b7b7;
 }
 
-@media screen and (max-width: 1199px) {
-  .game-container {
-    margin: 5px 15px;
-  }
-}
-
-@media screen and (max-width: 991px) {
-  .game-container {
-    margin: 5px 11px;
-  }
-  .btn-game-page {
-    width: 91%;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .all-games-search button {
-    margin-top: 10px;
-  }
-  .game-container {
-    margin: 5px auto;
-  }
-  .game-page-title {
-    text-align: center;
-  }
-  .game-description {
-    height: 30vh;
-  }
-}
-
-@media screen and (max-width:575px) {
-  .btn--edit {
-    margin: 7px 0 7px 0;
-    width: 80%;
-  }
-  .btn--delete {
-    margin: 7px 0 7px 0;
-    width: 80%;
-  }
-  .btn--add-review {
-    margin: 7px 0 7px 0;
-    width: 80%;
-  }
-}
-
-@media screen and (max-width:380px) {
-  .game-lower-heading {
-    font-size: medium;
-  }
-  .btn-game-page {
-    font-size: medium;
-    padding: 2px;
-    width: 96%;
-  }
-}
-
-@media screen and (max-width:317px) {
-  .game-lower-heading {
-    font-size: small;
-  }
-  .btn-game-page {
-    font-size: small;
-    padding: 2px;
-    width: 96%;
-  }
-  .game-text-box {
-    font-size: 12px;
-  }
-}
-
-
 .login-register-container {
   min-height: 200px;
   background-color: #cecece;
@@ -1091,3 +1010,95 @@ text-decoration: none;
   text-align: center;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 1199px) {
+  .game-container {
+    margin: 5px 15px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .game-container {
+    margin: 5px 11px;
+  }
+  .btn-game-page {
+    width: 91%;
+  }
+  .game-container-all-games {
+    width: 20%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .all-games-search button {
+    margin-top: 10px;
+  }
+  .game-container {
+    margin: 5px auto;
+  }
+  .game-page-title {
+    text-align: center;
+  }
+  .game-description {
+    height: 30vh;
+  }
+}
+
+@media screen and (max-width:575px) {
+  .btn--edit {
+    margin: 7px 0 7px 0;
+    width: 80%;
+  }
+  .btn--delete {
+    margin: 7px 0 7px 0;
+    width: 80%;
+  }
+  .btn--add-review {
+    margin: 7px 0 7px 0;
+    width: 80%;
+  }
+  .game-container-all-games {
+    width: 60%;
+    margin: 10px 20%;
+  }
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width:380px) {
+  .game-lower-heading {
+    font-size: medium;
+  }
+  .btn-game-page {
+    font-size: medium;
+    padding: 2px;
+    width: 96%;
+  }
+  .game-container-all-games {
+    width: 90%;
+    margin: 10px 5%;
+  }
+}
+
+@media screen and (max-width:317px) {
+  .game-lower-heading {
+    font-size: small;
+  }
+  .btn-game-page {
+    font-size: small;
+    padding: 2px;
+    width: 96%;
+  }
+  .game-text-box {
+    font-size: 12px;
+  }
+}
+
