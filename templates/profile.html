@@ -5,11 +5,11 @@
             <div class="row">
                 <div class="col-12 profile-container">
                     <div class="row gx-0">
-                        <h1 class="page-title">{{ username.username.capitalize() }}'s Profile Page</h1>
+                        <h1 class="page-title">{{ username }}'s Profile Page</h1>
                     </div>
                     <div class="row gx-0 profile-options">
-                        {% if session.user|lower == username.username|lower %}
-                            {% if username.userType == 'admin' %}
+                        {% if session.user|lower == user.username|lower %}
+                            {% if user.userType == 'admin' %}
                                 <div class="col-12 col-md-2 profile-button">
                                     <a id="new-review-btn" href="{{ url_for('adminPanel') }}">
                                         <div id="new-review-icon" class="profile-icon">

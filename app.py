@@ -98,23 +98,25 @@ def profile(username):
     """
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     # grab the session user's username from db
-    username = mongo.db.gc_users.find_one(
+    user = mongo.db.gc_users.find_one(
         {"username": session["user"]})
+    username = user['username'].capitalize()
 
     if session["user"]:
         return render_template("profile.html", latest_games=latest_games,
-                                username=username)
+                                username=username, user=user)
 
     return redirect(url_for("login"))
 
 
 @app.route('/adminpanel', methods=["GET", "POST"])
 def adminPanel():
-    username = mongo.db.gc_users.find_one(
+    user = mongo.db.gc_users.find_one(
         {"username": session["user"]})
+    username = user['username'].capitalize()
     if session["user"]:
-        if username['userType'] == 'admin':
-            return render_template("admin-base.html", username=username)
+        if user['userType'] == 'admin':
+            return render_template("admin-base.html", username=username, user=user)
 
     return redirect(url_for("login"))
 
@@ -187,12 +189,13 @@ def profileGameSearch():
     Go to a page to search all games in order to add a review
     OR add a new game to Database
     """
-    username = mongo.db.gc_users.find_one(
-        {"username": session["user"]})["username"].capitalize()
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
+    username = user['username'].capitalize()
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     allgames = list(mongo.db.games.find())
 
-    return render_template("review-game-search.html", username=username,
+    return render_template("review-game-search.html", user=user, username=username,
                             latest_games=latest_games, allgames=allgames)
 
 
@@ -202,8 +205,9 @@ def gameSearch():
     Takes a POST to load a page containing the results of a game search
     reloads the review-game-search page
     """
-    username = mongo.db.gc_users.find_one(
-        {"username": session["user"]})["username"].capitalize()
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
+    username = user['username'].capitalize()
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
 
     allgames = list(mongo.db.games.find())
@@ -212,7 +216,7 @@ def gameSearch():
     games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
 
     reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
-    return render_template("review-game-search.html", username=username,
+    return render_template("review-game-search.html", user=user, username=username,
                             latest_games=latest_games, games=games, allgames=allgames, reviews=reviews)
 
 
@@ -271,8 +275,9 @@ def changePass():
     Go to a page to change password of account. TAkes a POST
     """
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
-    username = mongo.db.gc_users.find_one(
-        {"username": session["user"]})["username"]
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
+    username = user['username'].capitalize()
     userPass = mongo.db.gc_users.find_one(
         {"username": session["user"]})["password"]
 
@@ -282,7 +287,7 @@ def changePass():
             flash("Password Updated")
         else:
             flash('Password Incorrect')
-    return render_template("changepass.html", username=username.capitalize(), latest_games=latest_games)
+    return render_template("changepass.html", user=user, username=username.capitalize(), latest_games=latest_games)
 
 
 @app.route('/addReview/<game_id>', methods=["GET", "POST"])
@@ -326,14 +331,15 @@ def yourReviews():
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
 
     # gets the user matching the session user
-    username = mongo.db.gc_users.find_one(
-        {"username": session["user"]})["username"]
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
+    username = user['username'].capitalize()
 
     # gets all review by the user
     your_reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
 
     return render_template("your-reviews.html", your_reviews=your_reviews,
-                            latest_games=latest_games, username=username.capitalize())
+                            latest_games=latest_games, username=username, user=user)
 
 
 @app.route("/review/<review_id>", methods=["GET", "POST"])
