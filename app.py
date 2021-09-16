@@ -111,15 +111,25 @@ def profile(username):
 
 @app.route('/adminpanel', methods=["GET", "POST"])
 def adminPanel():
+    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     user = mongo.db.gc_users.find_one(
         {"username": session["user"]})
     username = user['username'].capitalize()
     if session["user"]:
         if user['userType'] == 'admin':
-            return render_template("admin-base.html", username=username, user=user)
+            return render_template("admin-base.html", username=username, user=user, latest_games=latest_games)
 
     return redirect(url_for("login"))
 
+
+@app.route('/adminGameSearch', methods=["GET", "POST"])
+def adminGameSearch():
+    if request.method == "POST":
+        game = request.form.get('game-name')
+
+        result = list(mongo.db.games.find({"$text": {"$search": game}}))
+
+        return render_template("admin-games.html", result=result)
 
 
 @app.route("/gameLookUp", methods=["GET", "POST"])

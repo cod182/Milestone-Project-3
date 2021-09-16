@@ -2,11 +2,13 @@ const hideLG = document.getElementById('latest-games-visability-btn')
 const latestGamesCont = document.getElementById('latest-games-container');
 const currentLink = document.getElementById('profile-link');
 const currentNestedLink = document.getElementById('admin-panel-link')
+const adminSelect = document.getElementById('admin-icon');
 
-// When windows loads give the settings icon a blue glow
+
+// When windows loads give the admin icon a blue glow
 window.onload = function(){
+  adminSelect.classList.add('glow');
   currentLink.classList.add('selected');
-  currentNestedLink.classList.add('selected');
 };
 
 // hides the latest games container then creates the show latest games button
