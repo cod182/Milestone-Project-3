@@ -170,6 +170,28 @@ def adminDeleteUser(user_id):
     return redirect(url_for("adminUserLookUp"))
 
 
+@app.route('/adminEditUser/<user_id>', methods=["GET", "POST"])
+def adminEditUser(user_id):
+
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
+    username = user['username'].capitalize()
+
+    userToEdit = mongo.db.gc_users.find({'_id': user_id})
+
+    if request.method == 'POST':
+        updatedDetails = {
+            'username': request.form.get('username'),
+            'userType': request.form.get('user-type')
+        }
+
+        mongo.db.gc_users.update_one({"username": updatedDetails['username'], "userType": updatedDetails['userType']})
+        flash('User Updated')
+        return redirect('adminUserSearch')
+
+    return render_template('edit-user.html', user=user, userToEdit=userToEdit, username=username)
+
+
 @app.route("/gameLookUp", methods=["GET", "POST"])
 def game_lookup():
     if request.method == "POST":
