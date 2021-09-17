@@ -1,13 +1,14 @@
 const hideLG = document.getElementById('latest-games-visability-btn')
 const latestGamesCont = document.getElementById('latest-games-container');
 const currentLink = document.getElementById('profile-link');
-const currentAdminLink = document.getElementById('admin-link');
+const currentAdminLink = document.getElementById('manage-users-icon');
 const currentNestedLink = document.getElementById('admin-panel-link')
 const adminSelect = document.getElementById('admin-icon');
 
 
 // When windows loads give the admin icon a blue glow
 window.onload = function(){
+  currentAdminLink.classList.add('glow--red');
   adminSelect.classList.add('glow--red');
   currentLink.classList.add('selected');
 };
