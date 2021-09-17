@@ -150,9 +150,12 @@ def adminUserSearch():
         searchedUser = request.form.get("username")
 
         searchedUsers = list(mongo.db.gc_users.find({"username": searchedUser}))
-
-        return render_template("admin-user-lookup.html", user=user, username=username,
-                            latest_games=latest_games, allUsers=allUsers, searchedUsers=searchedUsers)
+        if searchedUsers:
+            return render_template("admin-user-lookup.html", user=user, username=username,
+                                latest_games=latest_games, allUsers=allUsers, searchedUsers=searchedUsers)
+        else:
+            flash('User Not Found!')
+            return redirect(url_for('adminUserLookUp'))
 
 
 @app.route('/adminDeleteUser/<user_id>', methods=["GET", "POST"])
