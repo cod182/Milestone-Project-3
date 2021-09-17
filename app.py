@@ -122,14 +122,51 @@ def adminPanel():
     return redirect(url_for("login"))
 
 
-@app.route('/adminGameSearch', methods=["GET", "POST"])
-def adminGameSearch():
+@app.route('/adminUserLookUp', methods=["GET", "POST"])
+def adminUserLookUp():
+
+    """
+    Go to a page to search all user
+    """
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
+    username = user['username'].capitalize()
+    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    allUsers = list(mongo.db.gc_users.find())
+
+    return render_template("admin-user-lookup.html", user=user, username=username,
+                            latest_games=latest_games, allUsers=allUsers)
+
+
+@app.route('/adminUserSearch', methods=["GET", "POST"])
+def adminUserSearch():
+
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
+    username = user['username'].capitalize()
+    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    allUsers = list(mongo.db.gc_users.find())
+
     if request.method == "POST":
-        game = request.form.get('game-name')
+        searchedUser = request.form.get("username")
 
-        result = list(mongo.db.games.find({"$text": {"$search": game}}))
+        searchedUsers = list(mongo.db.gc_users.find({"username": searchedUser}))
 
-        return render_template("admin-games.html", result=result)
+        return render_template("admin-user-lookup.html", user=user, username=username,
+                            latest_games=latest_games, allUsers=allUsers, searchedUsers=searchedUsers)
+
+
+@app.route('/adminDeleteUser/<user_id>', methods=["GET", "POST"])
+def adminDeleteUser(user_id):
+    """
+    From a button to delete the selected user review_id
+    """
+    # Removes the review with atching _id
+    mongo.db.gc_users.remove({"_id": ObjectId(user_id)})
+    flash("User Deleted")
+
+    return redirect(url_for("adminUserLookUp"))
+
 
 
 @app.route("/gameLookUp", methods=["GET", "POST"])

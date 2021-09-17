@@ -1,0 +1,62 @@
+{% extends "admin-base.html" %}
+{% block admin %}
+
+    {% if session.user|lower == user.username|lower %}
+        {% if user.userType == 'admin' %}
+        <div class="row">
+            <div class="col-12 game-search">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Search For A User!</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <form action="{{ url_for('adminUserSearch') }}" method="POST">
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" name="username" placeholder="Username" list="users" autocomplete="off" autofocus required>
+                                <datalist id="users">
+                                {% for user in allUsers %}
+                                    <option>{{ user.username }}</option>
+                                {% endfor %}
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-green">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <hr>
+                {% if searchedUsers|length > 0 %}
+                    {% for foundUser in searchedUsers %}
+                        <div class="row">
+                            <div class="col-12 col-md-8 game-container-profile">
+                                <div class="row">
+                                    <div class="col-12 col-sm-4 col-md-4 game-review-buttons">
+                                        <a href="{{ url_for('adminDeleteUser', user_id=foundUser._id) }}" class="btn btn--delete">Delete User</a>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8">
+                                        <a href="" class="remove-a-link-styles game-container-link">
+                                            <p>{{ foundUser.username.capitalize() }}</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}     
+            </div>
+        </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
+                 
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/admin_script.js') }}"></script>
+    {% block scriptsextra %}
+    {% endblock %}
+{% endblock %}

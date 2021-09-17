@@ -8,7 +8,7 @@
                     <div class="row">
                         <!-- Manage Users -->
                         <div class="col-6 col-md-4 profile-button">
-                            <a id="manage-users-btn" href="">
+                            <a id="manage-users-btn" href="{{ url_for('adminUserLookUp') }}">
                                 <div id="manage-users-icon" class="profile-icon">
                                     <span>
                                         <i class="fas fa-users"></i>
@@ -46,6 +46,8 @@
             </div>
         {% endif %}
     {% endif %}
+    {% block admin %}
+    {% endblock %}
                  
 {% endblock %}
 
