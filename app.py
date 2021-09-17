@@ -163,9 +163,17 @@ def adminDeleteUser(user_id):
     """
     From a button to delete the selected user review_id
     """
-    # Removes the review with atching _id
+    # finds the account name of user_id
+    user = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
+
+    # Removes the reviews by user_id username
+    mongo.db.reviews.remove({'review_by': user['username']})
+    # Removes the user with matching id
     mongo.db.gc_users.remove({"_id": ObjectId(user_id)})
-    flash("User Deleted")
+
+    user = mongo.db.gc_users.find({"_id": ObjectId(user_id)})
+
+    flash("User & Reviews Deleted")
 
     return redirect(url_for("adminUserLookUp"))
 
