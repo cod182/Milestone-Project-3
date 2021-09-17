@@ -177,17 +177,17 @@ def adminEditUser(user_id):
         {"username": session["user"]})
     username = user['username'].capitalize()
 
-    userToEdit = mongo.db.gc_users.find({'_id': user_id})
+    userToEdit = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
 
     if request.method == 'POST':
-        updatedDetails = {
+        update = {
             'username': request.form.get('username'),
             'userType': request.form.get('user-type')
         }
 
-        mongo.db.gc_users.update_one({"username": updatedDetails['username'], "userType": updatedDetails['userType']})
+        mongo.db.gc_users.update({"_id": ObjectId(user_id)}, {"$set": update})
         flash('User Updated')
-        return redirect('adminUserSearch')
+        return redirect(url_for("adminUserLookUp"))
 
     return render_template('edit-user.html', user=user, userToEdit=userToEdit, username=username)
 

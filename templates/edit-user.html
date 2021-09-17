@@ -15,22 +15,22 @@
                 <div class="row">
                     <!-- User -->
                     <div class="col-sm-12 col-md-7 mx-auto my-2 update-review-container">
-                        <form  method="POST" action="">
+                        <form  method="POST" action="{{ url_for('adminEditUser', user_id=userToEdit._id) }}">
                             
                         <!-- Username -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <input type="text" class="edit-input" name="username" value="{{ userToEdit.username }}">
+                                <input type="text" class="edit-input" name="username" autocomplete="off" value="{{ userToEdit.username }}">
                                 </p>
                             </div>
                         </div>
                         <!-- User Type -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <select type="text" class="edit-input" name="user-type" value="{{ userToEdit.userType }}">
-                                    <datalist>
-                                        <option value="admin"></option>
-                                        <option value="standard"></option>
+                                <select type="text" list="user-types" class="edit-input" name="user-type" value="{{ userToEdit.userType }}">
+                                    <datalist id="user-types">
+                                        <option value="admin">Admin</option>
+                                        <option value="standard">Standard</option>
                                     </datalist>
                                 </select>
                             </div>
@@ -45,6 +45,8 @@
                     </div>
                 </div>
             </div>
+        {% endif %}
+    {% endif %}
 {% endblock %}
 {% block scripts %}
 {% endblock %}

@@ -37,11 +37,15 @@
                                 <div class="row">
                                     <div class="col-12 col-md-8 user-container-admin">
                                         <div class="row">
-                                            <div class="col-12 col-sm-4 col-md-4">
+                                            <div class="col-12 col-sm-2 col-md-2">
                                                 <a href="{{ url_for('adminDeleteUser', user_id=foundUser._id) }}"
                                                     class="btn btn--delete"
                                                     onclick="return confirm('Delete {{foundUser.username.capitalize()}}?');">Delete
-                                                    User</a>
+                                                    </a>
+                                            </div>
+                                            <div class="col-12 col-sm-2 col-md-2">
+                                                <a href="{{ url_for('adminEditUser', user_id=foundUser._id) }}"
+                                                    class="btn btn--edit">Edit</a>
                                             </div>
                                             <div class="col-12 col-sm-8 col-md-8 m-auto">
                                                 <p class="m-auto bold">{{ foundUser.username.capitalize() }}</p>
