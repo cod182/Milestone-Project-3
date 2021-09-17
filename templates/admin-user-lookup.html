@@ -17,7 +17,7 @@
                                 <input type="text" name="username" placeholder="Username" list="users" autocomplete="off" autofocus required>
                                 <datalist id="users">
                                 {% for user in allUsers %}
-                                    <option>{{ user.username }}</option>
+                                    <option>{{ user.username.capitalize() }}</option>
                                 {% endfor %}
                                 </datalist>
                             </div>
@@ -33,22 +33,25 @@
                 <div class="row"></div>
                 {% if searchedUsers|length > 0 %}
                     {% for foundUser in searchedUsers %}
-                            <div class="col-sm-12 col-md-6 user-container-block-admin">
+                            <div class="col-sm-12 col-md-10 user-container-block-admin">
                                 <div class="row">
                                     <div class="col-12 col-md-8 user-container-admin">
                                         <div class="row">
-                                            <div class="col-12 col-sm-2 col-md-2">
+                                            <div class="col-12 col-sm-2 col-md-2 m-auto">
                                                 <a href="{{ url_for('adminDeleteUser', user_id=foundUser._id) }}"
                                                     class="btn btn--delete"
                                                     onclick="return confirm('Delete {{foundUser.username.capitalize()}}?');">Delete
                                                     </a>
                                             </div>
-                                            <div class="col-12 col-sm-2 col-md-2">
+                                            <div class="col-12 col-sm-2 col-md-2 m-auto">
                                                 <a href="{{ url_for('adminEditUser', user_id=foundUser._id) }}"
                                                     class="btn btn--edit">Edit</a>
                                             </div>
-                                            <div class="col-12 col-sm-8 col-md-8 m-auto">
+                                            <div class="col-12 col-sm-2 col-md-4 m-auto">
                                                 <p class="m-auto bold">{{ foundUser.username.capitalize() }}</p>
+                                            </div>
+                                            <div class="col-12 col-sm-2 col-md-2 m-auto">
+                                                <p class="m-auto bold">{{ foundUser.userType.capitalize() }}</p>
                                             </div>
                                         </div>
                                     </div>
