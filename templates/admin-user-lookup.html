@@ -30,9 +30,9 @@
                     </form>
                 </div>
                 <hr>
-                <div class="row"></div>
-                {% if searchedUsers|length > 0 %}
-                    {% for foundUser in searchedUsers %}
+                <div class="row">
+                    {% if searchedUsers|length > 0 %}
+                        {% for foundUser in searchedUsers %}
                             <div class="col-sm-12 col-md-10 user-container-block-admin">
                                 <div class="row">
                                     <div class="col-12 col-md-8 user-container-admin">
@@ -48,17 +48,19 @@
                                                     class="btn btn--edit">Edit</a>
                                             </div>
                                             <div class="col-12 col-sm-2 col-md-4 m-auto">
+                                                <p>Username:</p>
                                                 <p class="m-auto bold">{{ foundUser.username.capitalize() }}</p>
                                             </div>
                                             <div class="col-12 col-sm-2 col-md-2 m-auto">
+                                                <p>User Type:</p>
                                                 <p class="m-auto bold">{{ foundUser.userType.capitalize() }}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    {% endfor %}
-                {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>

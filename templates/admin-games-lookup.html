@@ -1,0 +1,67 @@
+{% extends "admin-base.html" %}
+{% block admin %}
+
+    {% if session.user|lower == user.username|lower %}
+        {% if user.userType == 'admin' %}
+        <div class="row">
+            <div class="col-12 game-search">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Search For A Game!</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <form action="" method="POST">
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" name="game-name" placeholder="Title of Game" list="games" autocomplete="off" autofocus required>
+                                <datalist id="games">
+                                {% for game in gamesList %}
+                                    <option>{{game.title}}</option>
+                                {% endfor %}
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-green">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <hr>
+                {% if games|length > 0 %}
+                    {% for game in games %}
+                        <div class="row">
+                            <div class="col-12 col-md-8 game-container-profile">
+                                <div class="row">
+                                    <div class="col-12 col-sm-2 col-md-2 m-auto">
+                                        <a href="{{ url_for('adminDeleteGame', game_id=game._id) }}"
+                                            class="btn btn--delete"
+                                            onclick="return confirm('Delete {{game.title.capitalize()}}?');">
+                                                Delete
+                                            </a>
+                                    </div>
+                                    <div class="col-12 col-sm-2 col-md-2 m-auto">
+                                        <a href="{{ url_for('editGame', game_id=game._id) }}"
+                                            class="btn btn--edit">Edit</a>
+                                    </div>
+                                    <div class="col-12 col-sm-8 col-md-8">
+                                    <a href="{{ url_for('game', game_id=game._id) }}" class="remove-a-link-styles game-container-link">
+                                        <p>{{ game.title }}</p>
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
+                 
+{% block scriptsextra %}
+    <script src="{{ url_for('static', filename='js/admin_games_search_script.js') }}"></script>
+{% endblock %}

@@ -139,17 +139,23 @@ def adminUserLookUp():
 
 @app.route('/adminUserSearch', methods=["GET", "POST"])
 def adminUserSearch():
-
+    # gets the session user and then current user username
     user = mongo.db.gc_users.find_one(
         {"username": session["user"]})
     username = user['username'].capitalize()
+
+    # gets the latest games
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+
+    # gets all of the users
     allUsers = list(mongo.db.gc_users.find())
 
     if request.method == "POST":
         searchedUser = request.form.get("username")
 
+        # returns the users found from serch
         searchedUsers = list(mongo.db.gc_users.find({"username": searchedUser}))
+        # if user exists
         if searchedUsers:
             return render_template("admin-user-lookup.html", user=user, username=username,
                                 latest_games=latest_games, allUsers=allUsers, searchedUsers=searchedUsers)
@@ -168,10 +174,9 @@ def adminDeleteUser(user_id):
 
     # Removes the reviews by user_id username
     mongo.db.reviews.remove({'review_by': user['username']})
+
     # Removes the user with matching id
     mongo.db.gc_users.remove({"_id": ObjectId(user_id)})
-
-    user = mongo.db.gc_users.find({"_id": ObjectId(user_id)})
 
     flash("User & Reviews Deleted")
 
@@ -181,23 +186,72 @@ def adminDeleteUser(user_id):
 @app.route('/adminEditUser/<user_id>', methods=["GET", "POST"])
 def adminEditUser(user_id):
 
+    # gets the session user and then current user username
     user = mongo.db.gc_users.find_one(
         {"username": session["user"]})
     username = user['username'].capitalize()
 
+    # finds the user matching the id
     userToEdit = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
 
     if request.method == 'POST':
+        # Update details from form
         update = {
             'username': request.form.get('username'),
             'userType': request.form.get('user-type')
         }
-
+        # updates the user from update dict
         mongo.db.gc_users.update({"_id": ObjectId(user_id)}, {"$set": update})
         flash('User Updated')
         return redirect(url_for("adminUserLookUp"))
 
     return render_template('edit-user.html', user=user, userToEdit=userToEdit, username=username)
+
+
+@app.route("/manageGames", methods=["GET", "POST"])
+def manageGames():
+    # gets the session user and then current user username
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
+    username = user['username'].capitalize()
+
+    # gets all games
+    gamesList = list(mongo.db.games.find())
+
+    if request.method == "POST":
+        searchedGame = request.form.get("game-name")
+
+        # returns the games found from serch
+        games = list(mongo.db.games.find({"title": searchedGame}))
+
+        # if game exists
+        if searchedGame:
+            return render_template("admin-games-lookup.html", user=user, username=username, gamesList=gamesList, games=games, )
+        else:
+            flash('User Not Found!')
+            return redirect(url_for('adminUserLookUp'))
+
+    return render_template("admin-games-lookup.html", user=user, username=username, gamesList=gamesList)
+
+
+@app.route("/adminDeleteGame/<game_id>", methods=["GET", "POST"])
+def adminDeleteGame(game_id):
+    """
+    From a button to delete the selected game
+    and reviews from game_id
+    """
+    # finds the account name of game_id
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    # Removes the reviews by game_id username
+    mongo.db.reviews.remove({'game_title': game['title']})
+
+    # Removes the game with matching id
+    mongo.db.games.remove({"_id": ObjectId(game_id)})
+
+    flash("Game & Reviews Deleted")
+
+    return redirect(url_for('manageGames'))
 
 
 @app.route("/gameLookUp", methods=["GET", "POST"])
