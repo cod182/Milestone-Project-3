@@ -96,13 +96,12 @@ def profile(username):
     """
     Go to a page to display users profile page
     """
-    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
-    # grab the session user's username from db
-    user = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
-    username = user['username'].capitalize()
-
     if session["user"]:
+        latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+        # grab the session user's username from db
+        user = mongo.db.gc_users.find_one(
+            {"username": session["user"]})
+        username = user['username'].capitalize()
         return render_template("profile.html", latest_games=latest_games,
                                 username=username, user=user)
 
@@ -166,7 +165,6 @@ def adminDeleteUser(user_id):
     flash("User Deleted")
 
     return redirect(url_for("adminUserLookUp"))
-
 
 
 @app.route("/gameLookUp", methods=["GET", "POST"])

@@ -582,6 +582,22 @@ text-decoration: none;
   text-align: center;
 }
 
+.user-container-block-admin {
+  margin: 10px auto 10px auto;
+}
+
+.user-container-admin {
+  width: 100%;
+  padding: 10px 0;
+  border: 3px solid black;
+  border-radius: 20px;
+  background-color: #32cd3299;
+}
+
+.user-container-admin p {
+  
+}
+
 .password-reset-form {
   text-align: center;
 }
