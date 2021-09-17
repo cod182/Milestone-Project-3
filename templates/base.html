@@ -28,7 +28,7 @@
                     </form>
                     <a href="{{ url_for('index')}}">Home</a>
                     {% if session.user %}
-                        <a ref="{{ url_for('profile', username=session['user']) }}">Profile</a>
+                        <a href="{{ url_for('profile', username=session['user']) }}">Profile</a>
                     {% endif %}
                     <a href="{{ url_for('latest_reviews')}}">Latest Reviews</a>
                     <a href="{{ url_for('games')}}">Games</a>

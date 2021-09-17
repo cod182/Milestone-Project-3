@@ -210,6 +210,9 @@ def adminEditUser(user_id):
 
 @app.route("/manageGames", methods=["GET", "POST"])
 def manageGames():
+    # gets the latest games
+    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+
     # gets the session user and then current user username
     user = mongo.db.gc_users.find_one(
         {"username": session["user"]})
@@ -226,12 +229,12 @@ def manageGames():
 
         # if game exists
         if searchedGame:
-            return render_template("admin-games-lookup.html", user=user, username=username, gamesList=gamesList, games=games, )
+            return render_template("admin-games-lookup.html", user=user, username=username, gamesList=gamesList, games=games, latest_games=latest_games)
         else:
             flash('User Not Found!')
             return redirect(url_for('adminUserLookUp'))
 
-    return render_template("admin-games-lookup.html", user=user, username=username, gamesList=gamesList)
+    return render_template("admin-games-lookup.html", user=user, username=username, gamesList=gamesList, latest_games=latest_games)
 
 
 @app.route("/adminDeleteGame/<game_id>", methods=["GET", "POST"])
@@ -301,7 +304,8 @@ def add_game():
             "platforms": data['platforms'],
             "rating": data['esrb_rating'],
             "background": data['background_image_additional'],
-            "metacritic": data['metacritic']
+            "metacritic": data['metacritic'],
+            "updated_by": [session["user"]]
         }
 
         # Game inserted into database
@@ -381,19 +385,14 @@ def editGame(game_id):
 
     if request.method == "POST":
         update = {
-            "title": game["title"],
             "year": request.form.get("game_year"),
             "genre": request.form.get("game_genre"),
-            "game_id": game["game_id"],
             "description": request.form.get("game_description"),
-            "largeImage": game["largeImage"],
-            "platforms": game["platforms"],
-            "rating": game["rating"],
-            "background": game["background"],
-            "metacritic": game["metacritic"],
-            "updated_by": session["user"]
+            "largeImage": request.form.get("game_large_image"),
+            "background": request.form.get("game_background"),
+            "updated_by": [game['updated_by']] + [session["user"]]
         }
-        mongo.db.games.update({"_id": ObjectId(game_id)}, update)
+        mongo.db.games.update({"_id": ObjectId(game_id)}, {"$set": update})
         flash("Game Updated")
 
         return redirect(url_for('game', game_id=game_id))
