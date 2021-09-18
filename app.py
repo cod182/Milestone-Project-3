@@ -305,14 +305,23 @@ def add_game():
             "platforms": data['platforms'],
             "rating": data['esrb_rating'],
             "background": data['background_image_additional'],
-            "metacritic": data['metacritic'],
-            "updated_by": [session["user"]]
+            "metacritic": data['metacritic']
         }
 
         # Game inserted into database
         mongo.db.games.insert(newGame)
         game = mongo.db.games.find_one(
             {"game_id": data['id']})
+
+        now = datetime.now()
+        # dd/mm/YY H:M:S
+        currenttime = now.strftime("%d/%m/%Y %H:%M:%S")
+
+        # Adds the user who added the game and the time/date
+        mongo.db.games.update_one({"_id": ObjectId(game['_id'])}, {"$push":{ 'updated_by': {
+            'username': session['user'],
+            'time': currenttime
+            }}})
 
         # redirected to game page
         return redirect(url_for('game', game_id=game['_id']))
@@ -385,7 +394,7 @@ def editGame(game_id):
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
     if request.method == "POST":
-
+        # gets the current date.time
         now = datetime.now()
         # dd/mm/YY H:M:S
         currenttime = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -396,13 +405,25 @@ def editGame(game_id):
             "largeImage": request.form.get("game_large_image"),
             "background": request.form.get("game_background"),
         }
+        # Pushes the update to the db
         mongo.db.games.update({"_id": ObjectId(game_id)}, {"$set": update})
-        mongo.db.games.update_one({"_id": ObjectId(game_id)}, {"$push":{ 'updated_by': session['user'] + 'AT' + currenttime}})
+
+        # Adds the user who updated the game and the time/date
+        mongo.db.games.update_one({"_id": ObjectId(game_id)}, {"$push":{ 'updated_by': {
+            'username': session['user'],
+            'time': currenttime
+            }}})
         flash("Game Updated")
 
         return redirect(url_for('game', game_id=game_id))
+    
+    # gets the last peson to have updated the game
+    updated = list(game['updated_by'])
+    for i in range(0, len(updated)):
+        if i == (len(updated)-1):
+            updated_by = updated[i]
 
-    return render_template("edit-game.html", game=game)
+    return render_template("edit-game.html", game=game, updated_by=updated_by)
 
 
 @app.route("/changePass", methods=["GET", "POST"])

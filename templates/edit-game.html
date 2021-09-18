@@ -53,6 +53,12 @@
                         </div>
                     </form>
                 </div>
+
+
+                <div class="col-8 mx-auto text-center">
+                    <h4>Last Updated By:</h4>
+                    <p>{{ updated_by.username.capitalize() }} at {{ updated_by.time }}</p>
+                </div>
             </div>
         {% else %}
             <div class="row gx-0">

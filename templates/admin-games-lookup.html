@@ -35,21 +35,36 @@
                         <div class="row">
                             <div class="col-12 col-md-8 game-container-profile">
                                 <div class="row">
-                                    <div class="col-12 col-sm-2 col-md-2 m-auto">
+
+                                    <div class="col-12 col-sm-1 col-md-2 m-auto">
                                         <a href="{{ url_for('adminDeleteGame', game_id=game._id) }}"
                                             class="btn btn--delete"
                                             onclick="return confirm('Delete {{game.title.capitalize()}}?');">
                                                 Delete
                                             </a>
                                     </div>
-                                    <div class="col-12 col-sm-2 col-md-2 m-auto">
+                                    
+                                    <div class="col-12 col-sm-1 col-md-2 m-auto">
                                         <a href="{{ url_for('editGame', game_id=game._id) }}"
                                             class="btn btn--edit">Edit</a>
                                     </div>
-                                    <div class="col-12 col-sm-2 col-md-6 m-auto">
+
+                                    <div class="col-12 col-sm-4 col-md-4 m-auto">
                                         <a href="{{ url_for('game', game_id=game._id) }}" class="remove-a-link-styles game-container-link">
                                         <p>{{ game.title }}</p>
                                     </a>
+                                    </div>
+
+                                    <div class="col-12 col-sm-3 col-md-4 m-auto">
+                                        <select class="updated_list" name="Updated-by-list" id="" list="updated_by" placeholder="Updated By">Updated By
+                                            <datalist>
+                                                <option value="">Updated By</option>
+                                                {% for updates in game.updated_by %}
+                                                    <option value="">{{ updates.username}} at {{ updates.time }}</option>
+                                                {% endfor %}
+                                            </datalist>
+                                        </select>
+
                                     </div>
                                 </div>
                             </div>
