@@ -41,8 +41,10 @@
                         </div>
                         <div class="col-4 mx-auto text-center">
                             <p class="game-lower-heading">Genre</p>
-                            {% if game.genre %}
-                                <p class="game-text-box">{{game.genre}}</p>
+                            {% if game.genres %}
+                                {% for genre in genres %}
+                                    <p class="game-text-box">{{ genre.name }}</p>
+                                {% endfor %}
                             {% else %}
                                 <p class="game-text-box">N/A</p>
                             {% endif %}

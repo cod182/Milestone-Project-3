@@ -25,7 +25,9 @@
                         <!-- Game Genre -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <input class="edit-input" name="game_genre" type="text" value="{{ game.genre }}">
+                                {% for genre in game.genres %}
+                                    <input class="edit-input" name="game_genre" type="text" value="{{ genre.name }}">
+                                {% endfor %}
                             </div>
                         </div>
 

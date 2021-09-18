@@ -297,7 +297,7 @@ def add_game():
         newGame = {
             "title": data['name'],
             "year": data['released'],
-            "genre": data['genres'][0]['name'],
+            "genres": data['genres'],
             "game_id": data['id'],
             "description": data['description'],
             "largeImage": data['background_image'],
@@ -550,8 +550,10 @@ def games():
 
     games = list(mongo.db.games.find())
     for game in games:
-        if game['genre'] not in genres:
-            genres.append(game['genre'])
+        x = game['genres']
+        for genre in x:
+            if genre['name'] not in genres:
+                genres.append(genre['name'])
     print(genres)
 
     if request.method == "POST":
