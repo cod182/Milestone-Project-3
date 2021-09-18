@@ -6,6 +6,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 if os.path.exists("env.py"):
     import env
 
@@ -384,15 +385,19 @@ def editGame(game_id):
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
     if request.method == "POST":
+
+        now = datetime.now()
+        # dd/mm/YY H:M:S
+        currenttime = now.strftime("%d/%m/%Y %H:%M:%S")
+
         update = {
             "year": request.form.get("game_year"),
-            "genre": request.form.get("game_genre"),
             "description": request.form.get("game_description"),
             "largeImage": request.form.get("game_large_image"),
             "background": request.form.get("game_background"),
-            "updated_by": [game['updated_by']] + [session["user"]]
         }
         mongo.db.games.update({"_id": ObjectId(game_id)}, {"$set": update})
+        mongo.db.games.update_one({"_id": ObjectId(game_id)}, {"$push":{ 'updated_by': session['user'] + 'AT' + currenttime}})
         flash("Game Updated")
 
         return redirect(url_for('game', game_id=game_id))
