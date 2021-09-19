@@ -143,30 +143,8 @@ def adminUserLookUp():
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     allUsers = list(mongo.db.gc_users.find())
 
-    return render_template(
-        "admin-user-lookup.html",
-        user=user,
-        username=username,
-        latest_games=latest_games,
-        allUsers=allUsers
-    )
-
-
-@app.route('/adminUserSearch', methods=["GET", "POST"])
-def adminUserSearch():
-    # gets the session user and then current user username
-    user = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
-    username = user['username'].capitalize()
-
-    # gets the latest games
-    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
-
-    # gets all of the users
-    allUsers = list(mongo.db.gc_users.find())
-
     if request.method == "POST":
-        searchedUser = request.form.get("username")
+        searchedUser = request.form.get("username").lower()
 
         # returns the users found from serch
         searchedUsers = list(mongo.db.gc_users.find(
@@ -186,6 +164,14 @@ def adminUserSearch():
         else:
             flash('User Not Found!')
             return redirect(url_for('adminUserLookUp'))
+
+    return render_template(
+        "admin-user-lookup.html",
+        user=user,
+        username=username,
+        latest_games=latest_games,
+        allUsers=allUsers
+    )
 
 
 @app.route('/adminDeleteUser/<user_id>', methods=["GET", "POST"])
@@ -221,11 +207,15 @@ def adminEditUser(user_id):
     if request.method == 'POST':
         # Update details from form
         update = {
-            'username': request.form.get('username'),
-            'userType': request.form.get('user-type')
+            'username': request.form.get('username').lower(),
+            'userType': request.form.get('user-type').lower()
         }
         # updates the user from update dict
         mongo.db.gc_users.update({"_id": ObjectId(user_id)}, {"$set": update})
+
+        # Update the name on all review by user
+        mongo.db.reviews.update_many({"review_by": userToEdit['username'].lower()}, {"$set": {"review_by": request.form.get('username').lower()}})
+
         flash('User Updated')
         return redirect(url_for("adminUserLookUp"))
 
