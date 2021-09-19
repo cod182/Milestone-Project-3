@@ -103,8 +103,12 @@ def profile(username):
         user = mongo.db.gc_users.find_one(
             {"username": session["user"]})
         username = user['username'].capitalize()
-        return render_template("profile.html", latest_games=latest_games,
-                                username=username, user=user)
+        return render_template(
+            "profile.html",
+            latest_games=latest_games,
+            username=username,
+            user=user
+        )
 
     return redirect(url_for("login"))
 
@@ -117,7 +121,12 @@ def adminPanel():
     username = user['username'].capitalize()
     if session["user"]:
         if user['userType'] == 'admin':
-            return render_template("admin-base.html", username=username, user=user, latest_games=latest_games)
+            return render_template(
+                "admin-base.html",
+                username=username,
+                user=user,
+                latest_games=latest_games
+            )
 
     return redirect(url_for("login"))
 
@@ -134,8 +143,13 @@ def adminUserLookUp():
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     allUsers = list(mongo.db.gc_users.find())
 
-    return render_template("admin-user-lookup.html", user=user, username=username,
-                            latest_games=latest_games, allUsers=allUsers)
+    return render_template(
+        "admin-user-lookup.html",
+        user=user,
+        username=username,
+        latest_games=latest_games,
+        allUsers=allUsers
+    )
 
 
 @app.route('/adminUserSearch', methods=["GET", "POST"])
@@ -155,11 +169,20 @@ def adminUserSearch():
         searchedUser = request.form.get("username")
 
         # returns the users found from serch
-        searchedUsers = list(mongo.db.gc_users.find({"username": searchedUser}))
+        searchedUsers = list(mongo.db.gc_users.find(
+            {"username": searchedUser}
+        ))
+
         # if user exists
         if searchedUsers:
-            return render_template("admin-user-lookup.html", user=user, username=username,
-                                latest_games=latest_games, allUsers=allUsers, searchedUsers=searchedUsers)
+            return render_template(
+                "admin-user-lookup.html",
+                user=user,
+                username=username,
+                latest_games=latest_games,
+                allUsers=allUsers,
+                searchedUsers=searchedUsers
+            )
         else:
             flash('User Not Found!')
             return redirect(url_for('adminUserLookUp'))
@@ -206,7 +229,12 @@ def adminEditUser(user_id):
         flash('User Updated')
         return redirect(url_for("adminUserLookUp"))
 
-    return render_template('edit-user.html', user=user, userToEdit=userToEdit, username=username)
+    return render_template(
+        'edit-user.html',
+        user=user,
+        userToEdit=userToEdit,
+        username=username
+    )
 
 
 @app.route("/manageGames", methods=["GET", "POST"])
@@ -230,12 +258,25 @@ def manageGames():
 
         # if game exists
         if searchedGame:
-            return render_template("admin-games-lookup.html", user=user, username=username, gamesList=gamesList, games=games, latest_games=latest_games)
+            return render_template(
+                "admin-games-lookup.html",
+                user=user,
+                username=username,
+                gamesList=gamesList,
+                games=games,
+                latest_games=latest_games
+            )
         else:
             flash('User Not Found!')
             return redirect(url_for('manageGames'))
 
-    return render_template("admin-games-lookup.html", user=user, username=username, gamesList=gamesList, latest_games=latest_games)
+    return render_template(
+        "admin-games-lookup.html",
+        user=user,
+        username=username,
+        gamesList=gamesList,
+        latest_games=latest_games
+    )
 
 
 @app.route("/adminDeleteGame/<game_id>", methods=["GET", "POST"])
@@ -279,7 +320,7 @@ def manageReviews():
     gamesList = list(mongo.db.games.find())
 
     if request.method == "POST":
-        # Gets the searched term 
+        # Gets the searched term
         searchedGame = request.form.get("game-name")
 
         # returns the game found from search
@@ -288,14 +329,30 @@ def manageReviews():
 
         # if game exists
         if game:
-            reviews = list(mongo.db.reviews.find({"game_title": game['title']}))
+            reviews = list(mongo.db.reviews.find(
+                {"game_title": game['title']}
+            ))
 
-            return render_template("admin-review-lookup.html", user=user, username=username, gamesList=gamesList, reviews=reviews, latest_games=latest_games)
+            return render_template(
+                "admin-review-lookup.html",
+                user=user,
+                username=username,
+                gamesList=gamesList,
+                reviews=reviews,
+                latest_games=latest_games
+            )
         else:
             flash('Game Not Found!')
             return redirect(url_for('manageReviews'))
 
-    return render_template("admin-review-lookup.html", user=user, username=username, reviewList=reviewList, latest_games=latest_games, gamesList=gamesList)
+    return render_template(
+        "admin-review-lookup.html",
+        user=user,
+        username=username,
+        reviewList=reviewList,
+        latest_games=latest_games,
+        gamesList=gamesList
+    )
 
 
 @app.route("/gameLookUp", methods=["GET", "POST"])
@@ -303,13 +360,18 @@ def game_lookup():
     if request.method == "POST":
         search = request.form.get("game-name")
         try:
-            response = requests.get("https://api.rawg.io/api/games" + "?key=" + RAWG_API + '&search=' + search)
+            response = requests.get(
+                "https://api.rawg.io/api/games"
+                + "?key="
+                + RAWG_API
+                + '&search='
+                + search
+            )
             gameData = response.json()
 
             return render_template('select-game.html', gameData=gameData)
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
-            return redirect(url_for('game_lookup'))
 
     return render_template('lookup-game.html')
 
@@ -328,9 +390,14 @@ def add_game():
             flash('Game Already Exists')
             return redirect(url_for('game_lookup'))
 
-        # Gets the game id from page then makes and API call in order to get details
+        # Gets game id from page, makes and API call to get details
         gameId = request.form.get('selected-game')
-        apiCall = requests.get("https://api.rawg.io/api/games/" + gameId + "?key=" + RAWG_API)
+        apiCall = requests.get(
+            "https://api.rawg.io/api/games/"
+            + gameId
+            + "?key="
+            + RAWG_API
+        )
         data = apiCall.json()
 
         # Fields to be inseted into db
@@ -357,10 +424,13 @@ def add_game():
         currenttime = now.strftime("%d/%m/%Y %H:%M:%S")
 
         # Adds the user who added the game and the time/date
-        mongo.db.games.update_one({"_id": ObjectId(game['_id'])}, {"$push":{ 'updated_by': {
-            'username': session['user'],
-            'time': currenttime
-            }}})
+        mongo.db.games.update_one(
+            {"_id": ObjectId(game['_id'])},
+            {"$push": {'updated_by': {
+                'username': session['user'],
+                'time': currenttime
+                }
+            }})
 
         # redirected to game page
         return redirect(url_for('game', game_id=game['_id']))
@@ -380,8 +450,13 @@ def profileGameSearch():
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     allgames = list(mongo.db.games.find())
 
-    return render_template("review-game-search.html", user=user, username=username,
-                            latest_games=latest_games, allgames=allgames)
+    return render_template(
+        "review-game-search.html",
+        user=user,
+        username=username,
+        latest_games=latest_games,
+        allgames=allgames
+    )
 
 
 @app.route("/gameSearch", methods=["GET", "POST"])
@@ -401,8 +476,15 @@ def gameSearch():
     games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
 
     reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
-    return render_template("review-game-search.html", user=user, username=username,
-                            latest_games=latest_games, games=games, allgames=allgames, reviews=reviews)
+    return render_template(
+        "review-game-search.html",
+        user=user,
+        username=username,
+        latest_games=latest_games,
+        games=games,
+        allgames=allgames,
+        reviews=reviews
+    )
 
 
 @app.route("/game/<game_id>", methods=["GET", "POST"])
@@ -417,7 +499,9 @@ def game(game_id):
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
     # gets all reviews
     reviews = list(mongo.db.reviews.find())
-    # finction to go through reviews and match to game title
+
+    # function to go through reviews and match to game title
+
     def getReviewforGame(reviews):
         for review in reviews:
             if review["game_title"] == game["title"]:
@@ -425,13 +509,20 @@ def game(game_id):
 
     # If a user is logged in
     if session.get('user'):
-        userReviews = list(mongo.db.reviews.find({'review_by': session['user']}))
+        userReviews = list(mongo.db.reviews.find(
+            {'review_by': session['user']}
+        ))
         userGameReview = getReviewforGame(userReviews)
     else:
         userGameReview = None
 
-    return render_template("game.html", game=game, reviews=reviews, 
-                            userGameReview=userGameReview, user=user)
+    return render_template(
+        "game.html",
+        game=game,
+        reviews=reviews,
+        userGameReview=userGameReview,
+        user=user
+    )
 
 
 @app.route("/editGame/<game_id>", methods=["GET", "POST"])
@@ -455,10 +546,15 @@ def editGame(game_id):
         mongo.db.games.update({"_id": ObjectId(game_id)}, {"$set": update})
 
         # Adds the user who updated the game and the time/date
-        mongo.db.games.update_one({"_id": ObjectId(game_id)}, {"$push": { 'updated_by': {
-            'username': session['user'],
-            'time': currenttime
-            }}})
+        mongo.db.games.update_one(
+            {"_id": ObjectId(game_id)},
+            {"$push": {
+                'updated_by': {
+                    'username': session['user'],
+                    'time': currenttime
+                }
+            }}
+        )
         flash("Game Updated")
 
         return redirect(url_for('game', game_id=game_id))
@@ -486,11 +582,23 @@ def changePass():
 
     if request.method == "POST":
         if check_password_hash(userPass, request.form.get("originalPassword")):
-            mongo.db.gc_users.update_one({"username": username}, {"$set": {"password": generate_password_hash(request.form.get("password"))}})
+            mongo.db.gc_users.update_one(
+                {"username": username},
+                {"$set": {
+                    "password": generate_password_hash(request.form.get(
+                        "password"
+                    ))
+                }}
+            )
             flash("Password Updated")
         else:
             flash('Password Incorrect')
-    return render_template("changepass.html", user=user, username=username.capitalize(), latest_games=latest_games)
+    return render_template(
+        "changepass.html",
+        user=user,
+        username=username.capitalize(),
+        latest_games=latest_games
+    )
 
 
 @app.route('/addReview/<game_id>', methods=["GET", "POST"])
@@ -544,8 +652,13 @@ def yourReviews():
     # sets the sessions url to yourReviews Page
     session['url'] = url_for("yourReviews")
 
-    return render_template("your-reviews.html", your_reviews=your_reviews,
-                            latest_games=latest_games, username=username, user=user)
+    return render_template(
+        "your-reviews.html",
+        your_reviews=your_reviews,
+        latest_games=latest_games,
+        username=username,
+        user=user
+    )
 
 
 @app.route("/review/<review_id>", methods=["GET", "POST"])
@@ -572,7 +685,9 @@ def edit_review(review_id):
         flash("Review Updated")
 
         # gets the game id with the matching title
-        game_id = mongo.db.games.find_one({"title": request.form.get("game_title")})['_id']
+        game_id = mongo.db.games.find_one(
+            {"title": request.form.get(
+                "game_title")})['_id']
 
         return redirect(url_for('game', game_id=game_id))
 
@@ -619,7 +734,12 @@ def latest_reviews():
     # gets all games
     games = list(mongo.db.games.find())
 
-    return render_template("latest-reviews.html", latest_reviews=latest_reviews, games=games, user=user)
+    return render_template(
+        "latest-reviews.html",
+        latest_reviews=latest_reviews,
+        games=games,
+        user=user
+    )
 
 
 @app.route("/games", methods=["GET", "POST"])
@@ -637,8 +757,16 @@ def games():
 
     if request.method == "POST":
         # Gets all games containing the search term
-        filteredGames = list(mongo.db.games.find({"$text": {"$search": request.form.get('name_of_game')}}).sort("title", 1))
-        return render_template("games.html", allGames=filteredGames, genres=genres)
+        filteredGames = list(mongo.db.games.find(
+            {"$text": {
+                "$search": request.form.get(
+                    'name_of_game')}}).sort(
+                        "title", 1))
+        return render_template(
+            "games.html",
+            allGames=filteredGames,
+            genres=genres
+        )
 
     # Gets all games sorted by title
     allGames = list(mongo.db.games.find().sort("title", 1))
