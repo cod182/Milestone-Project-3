@@ -43,22 +43,30 @@
     
                                         <div class="col-12 col-sm-2 col-md-2 m-auto">
                                             <a class="btn btn--delete"
-                                                onclick="return confirm('Are you sure you want to delete {{ review.review_by}} review for review.game_title?');"
+                                                onclick="return confirm('Are you sure you want to delete {{ review.review_by }} review for {{review.game_title}}?');"
                                                 href="{{ url_for('delete_review', review_id=review._id) }}">Delete</a>
                                         </div>
     
                                         <div class="col-12 col-sm-4 col-md-4 m-auto">
                                             <p class="m-0">{{ review.game_title }}</p>
+                                            <p class="m-0">Review By: {{review.review_by}}</p>
                                         </div>
-    
+
                                         <div class="col-12 col-sm-4 col-md-3 m-auto">
                                             <p class="review-rating m-0">{{ review.review_rating }}</p>
                                         </div>
+    
                                     </div>
                                 </div>
                             </section>
                         </div>
                     {% endfor %}
+                {% else %}
+                <div class="row">
+                    <div class="col-12 text-center mx-auto">
+                        <p>No Reviews</p>
+                    </div>
+                </div>
                 {% endif %}
             </div>
         </div>

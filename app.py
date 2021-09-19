@@ -279,19 +279,20 @@ def manageReviews():
     gamesList = list(mongo.db.games.find())
 
     if request.method == "POST":
+        # Gets the searched term 
         searchedGame = request.form.get("game-name")
 
         # returns the game found from search
         game = mongo.db.games.find_one({"title": searchedGame})
         print(game)
 
-        reviews = list(mongo.db.reviews.find({"game_title": game['title']}))
+        # if game exists
+        if game:
+            reviews = list(mongo.db.reviews.find({"game_title": game['title']}))
 
-        # if reviews exists
-        if reviews:
             return render_template("admin-review-lookup.html", user=user, username=username, gamesList=gamesList, reviews=reviews, latest_games=latest_games)
         else:
-            flash('No Reviews found for that game')
+            flash('Game Not Found!')
             return redirect(url_for('manageReviews'))
 
     return render_template("admin-review-lookup.html", user=user, username=username, reviewList=reviewList, latest_games=latest_games, gamesList=gamesList)
@@ -308,7 +309,6 @@ def game_lookup():
             return render_template('select-game.html', gameData=gameData)
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
-            flash('No Results Found')
             return redirect(url_for('game_lookup'))
 
     return render_template('lookup-game.html')
@@ -546,6 +546,8 @@ def edit_review(review_id):
     """
     Go to a page to edit a review based on it's review_id
     """
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
     if request.method == "POST":
         """
         Gets values from form and update the relevant
@@ -571,7 +573,7 @@ def edit_review(review_id):
     # finds a review with matching _id
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
 
-    return render_template("edit-review.html", review=review)
+    return render_template("edit-review.html", review=review, user=user)
 
 
 @app.route("/deleteReview/<review_id>")
