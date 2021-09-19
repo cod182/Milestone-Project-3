@@ -260,6 +260,10 @@ def adminDeleteGame(game_id):
 
 @app.route('/manageReviews', methods=["GET", "POST"])
 def manageReviews():
+
+    # sets the sessions url to yourReviews Page
+    session['url'] = url_for("manageReviews")
+
     # gets the latest games
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
 
@@ -281,7 +285,7 @@ def manageReviews():
         game = mongo.db.games.find_one({"title": searchedGame})
         print(game)
 
-        reviews = list(mongo.db.reviews.find({"game_title": game['title'] }))
+        reviews = list(mongo.db.reviews.find({"game_title": game['title']}))
 
         # if reviews exists
         if reviews:
@@ -530,6 +534,9 @@ def yourReviews():
     # gets all review by the user
     your_reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
 
+    # sets the sessions url to yourReviews Page
+    session['url'] = url_for("yourReviews")
+
     return render_template("your-reviews.html", your_reviews=your_reviews,
                             latest_games=latest_games, username=username, user=user)
 
@@ -560,7 +567,7 @@ def edit_review(review_id):
         game_id = mongo.db.games.find_one({"title": request.form.get("game_title")})['_id']
 
         return redirect(url_for('game', game_id=game_id))
-    
+
     # finds a review with matching _id
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
 
@@ -576,7 +583,7 @@ def delete_review(review_id):
     mongo.db.reviews.remove({"_id": ObjectId(review_id)})
     flash("Review Deleted")
 
-    return redirect(url_for("yourReviews"))
+    return redirect(session['url'])
 
 
 @app.route("/logout")

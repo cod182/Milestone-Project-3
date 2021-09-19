@@ -43,7 +43,7 @@
     
                                         <div class="col-12 col-sm-2 col-md-2 m-auto">
                                             <a class="btn btn--delete"
-                                                onclick="return confirm('Are you sure you want to delete {{ review.review_by}}'s review?');"
+                                                onclick="return confirm('Are you sure you want to delete {{ review.review_by}} review for review.game_title?');"
                                                 href="{{ url_for('delete_review', review_id=review._id) }}">Delete</a>
                                         </div>
     
