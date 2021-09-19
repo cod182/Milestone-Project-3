@@ -233,7 +233,7 @@ def manageGames():
             return render_template("admin-games-lookup.html", user=user, username=username, gamesList=gamesList, games=games, latest_games=latest_games)
         else:
             flash('User Not Found!')
-            return redirect(url_for('adminUserLookUp'))
+            return redirect(url_for('manageGames'))
 
     return render_template("admin-games-lookup.html", user=user, username=username, gamesList=gamesList, latest_games=latest_games)
 
@@ -256,6 +256,41 @@ def adminDeleteGame(game_id):
     flash("Game & Reviews Deleted")
 
     return redirect(url_for('manageGames'))
+
+
+@app.route('/manageReviews', methods=["GET", "POST"])
+def manageReviews():
+    # gets the latest games
+    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+
+    # gets the session user and then current user username
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
+    username = user['username'].capitalize()
+
+    # gets all reviews
+    reviewList = list(mongo.db.reviews.find())
+
+    # gets all games
+    gamesList = list(mongo.db.games.find())
+
+    if request.method == "POST":
+        searchedGame = request.form.get("game-name")
+
+        # returns the game found from search
+        game = mongo.db.games.find_one({"title": searchedGame})
+        print(game)
+
+        reviews = list(mongo.db.reviews.find({"game_title": game['title'] }))
+
+        # if reviews exists
+        if reviews:
+            return render_template("admin-review-lookup.html", user=user, username=username, gamesList=gamesList, reviews=reviews, latest_games=latest_games)
+        else:
+            flash('No Reviews found for that game')
+            return redirect(url_for('manageReviews'))
+
+    return render_template("admin-review-lookup.html", user=user, username=username, reviewList=reviewList, latest_games=latest_games, gamesList=gamesList)
 
 
 @app.route("/gameLookUp", methods=["GET", "POST"])
@@ -409,14 +444,14 @@ def editGame(game_id):
         mongo.db.games.update({"_id": ObjectId(game_id)}, {"$set": update})
 
         # Adds the user who updated the game and the time/date
-        mongo.db.games.update_one({"_id": ObjectId(game_id)}, {"$push":{ 'updated_by': {
+        mongo.db.games.update_one({"_id": ObjectId(game_id)}, {"$push": { 'updated_by': {
             'username': session['user'],
             'time': currenttime
             }}})
         flash("Game Updated")
 
         return redirect(url_for('game', game_id=game_id))
-    
+
     # gets the last peson to have updated the game
     updated = list(game['updated_by'])
     for i in range(0, len(updated)):

@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <form action="" method="POST">
+                    <form action="{{ url_for('manageGames') }}" method="POST">
                         <div class="row">
                             <div class="col-12">
                                 <input type="text" name="game-name" placeholder="Title of Game" list="games" autocomplete="off" autofocus required>
