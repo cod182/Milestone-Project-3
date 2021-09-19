@@ -410,13 +410,20 @@ def game(game_id):
     """
     Go to a page displaying a game based off the game_id provided
     """
+    # Gets the session user
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
+    # Gets the game bu the id
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+    # gets all reviews
     reviews = list(mongo.db.reviews.find())
-
+    # finction to go through reviews and match to game title
     def getReviewforGame(reviews):
         for review in reviews:
             if review["game_title"] == game["title"]:
                 return review
+
+    # If a user is logged in
     if session.get('user'):
         userReviews = list(mongo.db.reviews.find({'review_by': session['user']}))
         userGameReview = getReviewforGame(userReviews)
@@ -424,7 +431,7 @@ def game(game_id):
         userGameReview = None
 
     return render_template("game.html", game=game, reviews=reviews, 
-                            userGameReview=userGameReview)
+                            userGameReview=userGameReview, user=user)
 
 
 @app.route("/editGame/<game_id>", methods=["GET", "POST"])
@@ -557,12 +564,11 @@ def edit_review(review_id):
         update = {
             "review_message": request.form.get("review_message"),
             "review_rating": request.form.get("review_rating"),
-            "review_by": session['user'],
-            "game_title": request.form.get("game_title"),
             "review_title": request.form.get("review_title")
         }
         # Updates the review with matching _id with update dict
-        mongo.db.reviews.update({"_id": ObjectId(review_id)}, update)
+        mongo.db.reviews.update({"_id": ObjectId(review_id)}, {"$set": update})
+
         flash("Review Updated")
 
         # gets the game id with the matching title
@@ -605,12 +611,15 @@ def latest_reviews():
     Goes to page container all reviews
     with newest first
     """
+    # Gets the session user
+    user = mongo.db.gc_users.find_one(
+        {"username": session["user"]})
     # gets all reviews, newest first
     latest_reviews = list(mongo.db.reviews.find().sort("_id", -1))
     # gets all games
     games = list(mongo.db.games.find())
 
-    return render_template("latest-reviews.html", latest_reviews=latest_reviews, games=games)
+    return render_template("latest-reviews.html", latest_reviews=latest_reviews, games=games, user=user)
 
 
 @app.route("/games", methods=["GET", "POST"])
