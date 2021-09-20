@@ -18,6 +18,10 @@ body {
   box-shadow: 0 0 15px #01b9fe;
 }
 
+.glow--red {
+  box-shadow: 0 0 15px #fe1f01;
+}
+
 .selected {
   text-decoration: underline;
   text-underline-offset: 10px;
@@ -554,11 +558,6 @@ btn-open:active {
 text-decoration: none;
 }
 
-.profile-icon:hover,
-.profile-icon:active {
-  box-shadow: 0 0 15px #01b9fe;
-}
-
 .profile-icon {
   line-height: 50px;
   background: rgba(20,20,20,0.6);
@@ -571,6 +570,28 @@ text-decoration: none;
   margin: auto;
 }
 
+.profile-icon:hover,
+.profile-icon:active {
+  box-shadow: 0 0 15px #01b9fe;
+}
+
+.admin-icon {
+  line-height: 50px;
+  background: rgba(20,20,20,0.6);
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  font-size: x-large;
+  margin: auto;
+}
+
+.admin-icon:hover,
+.admin-icon:active {
+  box-shadow: 0 0 15px #fe1f01;
+}
+
 .profile-button-desc {
   text-align: center;
   font-size: large;
@@ -580,6 +601,23 @@ text-decoration: none;
 
 .profile-settings {
   text-align: center;
+}
+
+.user-container-block-admin {
+  margin: 10px auto 10px auto;
+}
+
+.user-container-admin {
+  width: 100%;
+  padding: 10px 0;
+  border: 3px solid black;
+  border-radius: 20px;
+  background-color: #32cd3299;
+}
+
+.updated_list {
+  max-width: 100%;
+  border-radius: 10px;
 }
 
 .password-reset-form {
@@ -916,7 +954,7 @@ text-decoration: none;
 
 .login-register-container {
   min-height: 200px;
-  background-color: #cecece;
+  background-color:  #797979f2;;
   border-radius: 10px;
   margin: 20px auto;
   padding: 20px 20px 40px 20px;

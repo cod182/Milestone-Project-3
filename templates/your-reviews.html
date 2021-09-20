@@ -8,9 +8,7 @@
                     <h3>Your Reviews</h3>
                 </div>
             </div>
-
-        
-        
+            <!-- Review  -->
             <div class="row">
             {% if your_reviews|length > 0 %}
                 {% for review in your_reviews %}
@@ -25,7 +23,7 @@
 
                                     <div class="col-12 col-sm-2 col-md-2 m-auto">
                                         <a class="btn btn--delete"
-                                            onclick="return confirm('Are you sure you want to delete this item?');"
+                                            onclick="return confirm('Are you sure you want to delete your review for {{ review.game_title }}?');"
                                             href="{{ url_for('delete_review', review_id=review._id) }}">Delete</a>
                                     </div>
 
@@ -48,6 +46,6 @@
 
 {% endblock %}
 
-{% block scripts %}
+{% block scriptsextra %}
     <script src="{{ url_for('static', filename='js/yourreview_script.js') }}"></script>
 {% endblock %}

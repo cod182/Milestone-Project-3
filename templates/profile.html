@@ -8,7 +8,20 @@
                         <h1 class="page-title">{{ username }}'s Profile Page</h1>
                     </div>
                     <div class="row gx-0 profile-options">
-            
+                        {% if session.user|lower == user.username|lower %}
+                            {% if user.userType == 'admin' %}
+                                <div class="col-12 col-md-2 profile-button">
+                                    <a id="new-review-btn" href="{{ url_for('adminPanel') }}">
+                                        <div id="admin-icon" class="admin-icon">
+                                            <span>
+                                                <i class="fas fa-crown"></i>
+                                            </span>
+                                        </div>
+                                        <p class="profile-button-desc roboto">Admin Panel</p>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
                         <div class="col-6 col-md-2 profile-button">
                             <a id="new-review-btn" href="{{ url_for('profileGameSearch') }}">
                                 <div id="new-review-icon" class="profile-icon">
@@ -59,7 +72,7 @@
                             {% if messages %}
                                 {% for message in messages %}
                                     <div class="row">
-                                        <h4 class="flash-message">
+                                        <h4 class="flash-message green">
                                             {{ message }}
                                         </h4>
                                     </div>
@@ -101,7 +114,8 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ url_for('static', filename='js/profile_script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/profile_main_script.js') }}"></script>
     {% block scriptsextra %}
+        <script src="{{ url_for('static', filename='js/profile_script.js') }}"></script>
     {% endblock %}
 {% endblock %}

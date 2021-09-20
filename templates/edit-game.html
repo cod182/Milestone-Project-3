@@ -22,10 +22,17 @@
                             </div>
                         </div>
 
-                        <!-- Game Genre -->
+                        <!-- Game Image -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <input class="edit-input" name="game_genre" type="text" value="{{ game.genre }}">
+                                <input class="edit-input" name="game_large_image" type="url" value="{{ game.largeImage }}">
+                            </div>
+                        </div>
+
+                        <!-- Game Background -->
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <input class="edit-input" name="game_background" type="url" value="{{ game.background }}">
                             </div>
                         </div>
                         
@@ -45,6 +52,12 @@
                             </div>
                         </div>
                     </form>
+                </div>
+
+
+                <div class="col-8 mx-auto text-center">
+                    <h4>Last Updated By:</h4>
+                    <p>{{ updated_by.username.capitalize() }} at {{ updated_by.time }}</p>
                 </div>
             </div>
         {% else %}
@@ -72,7 +85,4 @@
             {%  endwith %}
           </section>
     </div>
-{% endblock %}
-{% block scripts %}
-    <script src="{{ url_for('static', filename='js/edit_review_script.js') }}"></script>
 {% endblock %}

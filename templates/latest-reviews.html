@@ -41,14 +41,15 @@
                                             </p>
                                         </div>
                                     </div>
-                
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <p class="review-content">
-                                                {{ review.review_message }}
-                                            </p>
+                                    {% if review.review_message|length > 0 %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p class="review-content">
+                                                    {{ review.review_message }}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    {% endif %}
                                     <div class="row">
                                         <!-- Profile Image -->
                                         <div class="col-12 review-user">
@@ -62,6 +63,10 @@
                                                 <div class="col-3">
                                                     {% if review.review_by == session['user'] %}
                                                         <a class="btn btn-edit--latest-reviews" href="{{ url_for('edit_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}">Edit</a>
+                                                    {% elif session.user|lower == user.username|lower %}
+                                                        {% if user.userType == 'admin' %}
+                                                            <a class="btn btn-edit--latest-reviews" href="{{ url_for('edit_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}">Edit</a>
+                                                        {% endif %}
                                                     {% endif %}
                                                 </div>
                                             </div>

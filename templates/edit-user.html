@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if session.user|lower == user.username|lower %}
+        {% if user.userType == 'admin' %}
+            <div class="container update-review-container roboto">
+                <button onclick="goBack()" class="back-arrow"><i class="fa fa-arrow-left"></i></button>
+                <div class="row gx-0">
+                    <div class="col-sm-10 col-md-8 mx-auto">
+                        <h1 class="page-title">
+                            Editing profile of 
+                            <br>
+                            {{ userToEdit.username.capitalize() }}</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- User -->
+                    <div class="col-sm-12 col-md-7 mx-auto my-2 update-review-container">
+                        <form  method="POST" action="{{ url_for('adminEditUser', user_id=userToEdit._id) }}">
+                            
+                        <!-- Username -->
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <input type="text" class="edit-input" name="username" autocomplete="off" value="{{ userToEdit.username }}">
+                                </p>
+                            </div>
+                        </div>
+                        <!-- User Type -->
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <select type="text" list="user-types" class="edit-input" name="user-type" value="{{ userToEdit.userType }}">
+                                    <datalist id="user-types">
+                                        <option value="standard">Standard</option>
+                                        <option value="admin">Admin</option>
+                                    </datalist>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Review  Update Button-->
+                        <div class="row">
+                            <div class="col-10 mx-auto text-center">
+                                <button type="submit" class="btn btn-green btn--update">Update!</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+{% block scripts %}
+{% endblock %}

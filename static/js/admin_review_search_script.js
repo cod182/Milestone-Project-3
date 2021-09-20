@@ -1,13 +1,15 @@
+const currentLink = document.getElementById('profile-link');
+const currentAdminLink = document.getElementById('manage-reviews-icon');
+const adminSelect = document.getElementById('admin-icon');
 const yourreviewicon = document.getElementById('your-reviews-icon');
 let rating = document.getElementsByClassName('review-rating');
-const currentLink = document.getElementById('profile-link');
-const currentNestedLink = document.getElementById('profile-your-revs-link')
 
-// When windows loads give the settings icon a blue glow
+
+// When windows loads give the admin icon a blue glow
 window.onload = function(){
-  yourreviewicon.classList.add('glow');
+  currentAdminLink.classList.add('glow--red');
+  adminSelect.classList.add('glow--red');
   currentLink.classList.add('selected');
-  currentNestedLink.classList.add('selected');
 };
 
 // Changes the review rating number to a star

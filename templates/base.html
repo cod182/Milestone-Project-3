@@ -22,13 +22,13 @@
             <div class="container-fluid">
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <form class="d-flex">
-                        <input class="form-control m-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="d-flex" action="{{ url_for('games') }}" method="POST">
+                        <input class="form-control m-2" type="text" placeholder="Search" name="name_of_game" aria-label="Search">
                         <button class="btn btn-outline-success m-2" type="submit">Search</button>
                     </form>
                     <a href="{{ url_for('index')}}">Home</a>
                     {% if session.user %}
-                        <a ref="{{ url_for('profile', username=session['user']) }}">Profile</a>
+                        <a href="{{ url_for('profile', username=session['user']) }}">Profile</a>
                     {% endif %}
                     <a href="{{ url_for('latest_reviews')}}">Latest Reviews</a>
                     <a href="{{ url_for('games')}}">Games</a>
@@ -47,8 +47,8 @@
 
                     <div class="col-10 navbar-container">
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <form class="d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <form class="d-flex" action="{{ url_for('games') }}" method="POST">
+                                <input class="form-control me-2" type="search" placeholder="Search" name="name_of_game" aria-label="Search">
                                 <button class="btn btn-outline-success" type="submit">Search</button>
                             </form>
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-links">
