@@ -28,7 +28,9 @@ def index():
     """
     Go to a page to display the home screen
     """
+    # gets the latest 5 games
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+
     return render_template("index.html", latest_games=latest_games)
 
 
@@ -442,40 +444,31 @@ def profileGameSearch():
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     allgames = list(mongo.db.games.find())
 
+    # if a post request
+    if request.method == "POST":
+        # gets the name from the search box
+        gameName = request.form.get("search")
+        # searches the game in db
+        games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
+        # gets reviews by user
+        reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
+
+        return render_template(
+            "review-game-search.html",
+            user=user,
+            username=username,
+            latest_games=latest_games,
+            games=games,
+            allgames=allgames,
+            reviews=reviews
+        )
+
     return render_template(
         "review-game-search.html",
         user=user,
         username=username,
         latest_games=latest_games,
         allgames=allgames
-    )
-
-
-@app.route("/gameSearch", methods=["GET", "POST"])
-def gameSearch():
-    """
-    Takes a POST to load a page containing the results of a game search
-    reloads the review-game-search page
-    """
-    user = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
-    username = user['username'].capitalize()
-    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
-
-    allgames = list(mongo.db.games.find())
-
-    gameName = request.form.get("search")
-    games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
-
-    reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
-    return render_template(
-        "review-game-search.html",
-        user=user,
-        username=username,
-        latest_games=latest_games,
-        games=games,
-        allgames=allgames,
-        reviews=reviews
     )
 
 
@@ -565,7 +558,7 @@ def editGame(game_id):
 @app.route("/changePass", methods=["GET", "POST"])
 def changePass():
     """
-    Go to a page to change password of account. TAkes a POST
+    Go to a page to change password of account. Takes a POST
     """
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     user = mongo.db.gc_users.find_one(
@@ -577,7 +570,7 @@ def changePass():
     if request.method == "POST":
         if check_password_hash(userPass, request.form.get("originalPassword")):
             mongo.db.gc_users.update_one(
-                {"username": username},
+                {"username": username.lower()},
                 {"$set": {
                     "password": generate_password_hash(request.form.get(
                         "password"
@@ -751,7 +744,6 @@ def games():
         for genre in x:
             if genre['name'] not in genres:
                 genres.append(genre['name'])
-    print(genres)
 
     if request.method == "POST":
         # Gets all games containing the search term
