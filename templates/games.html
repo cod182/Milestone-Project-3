@@ -14,11 +14,11 @@
             </div>
             <form class="col-sm-12 col-md-11" action="{{ url_for('games') }}" method="POST">
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 d-inline">
-                        <input type="text" name="name_of_game" placeholder="Name of Game">
+                    <div class="col-sm-12 col-md-5 d-inline">
+                        <input type="text" name="name_of_game" placeholder="Name of Game" class="my-2">
                     </div>
                     <div class="col-sm-12 col-md-3 text-center">
-                        <select name="genre" id="genre" list="genres">
+                        <select name="genre" id="genre" list="genres" class="w-100 my-3">
                             <datalist id="genres">
                                 {% for genre in genres  %}
                                     <option value="{{ genre }}">{{ genre }}</option>
@@ -26,8 +26,11 @@
                             </datalist>
                         </select>
                     </div>
-                    <div class="col-sm-12 col-md-3 text-center">
-                        <button type="submit" class="btn btn-green">Search</button>
+                    <div class="col-sm-12 col-md-2 text-center">
+                        <button type="submit" class="btn btn-green w-100 my-2">Search</button>
+                    </div>
+                    <div class="col-sm-12 col-md-2 text-center">
+                        <a href="{{ url_for('games') }}" type="submit" class="btn btn-danger w-100 my-2">Reset</a>
                     </div>
                 </div>
             </form>
