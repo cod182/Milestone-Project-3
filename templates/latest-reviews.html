@@ -41,14 +41,15 @@
                                             </p>
                                         </div>
                                     </div>
-                
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <p class="review-content">
-                                                {{ review.review_message }}
-                                            </p>
+                                    {% if review.review_message|length > 0 %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p class="review-content">
+                                                    {{ review.review_message }}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    {% endif %}
                                     <div class="row">
                                         <!-- Profile Image -->
                                         <div class="col-12 review-user">

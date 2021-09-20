@@ -214,7 +214,9 @@ def adminEditUser(user_id):
         mongo.db.gc_users.update({"_id": ObjectId(user_id)}, {"$set": update})
 
         # Update the name on all review by user
-        mongo.db.reviews.update_many({"review_by": userToEdit['username'].lower()}, {"$set": {"review_by": request.form.get('username').lower()}})
+        mongo.db.reviews.update_many(
+            {"review_by": userToEdit['username'].lower()},
+            {"$set": {"review_by": request.form.get('username').lower()}})
 
         flash('User Updated')
         return redirect(url_for("adminUserLookUp"))
@@ -482,16 +484,13 @@ def game(game_id):
     """
     Go to a page displaying a game based off the game_id provided
     """
-    # Gets the session user
-    user = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
+
     # Gets the game bu the id
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
     # gets all reviews
     reviews = list(mongo.db.reviews.find())
 
     # function to go through reviews and match to game title
-
     def getReviewforGame(reviews):
         for review in reviews:
             if review["game_title"] == game["title"]:
@@ -499,12 +498,17 @@ def game(game_id):
 
     # If a user is logged in
     if session.get('user'):
+        # Gets the session user
+        user = mongo.db.gc_users.find_one(
+            {"username": session["user"]})
+
         userReviews = list(mongo.db.reviews.find(
             {'review_by': session['user']}
         ))
         userGameReview = getReviewforGame(userReviews)
     else:
         userGameReview = None
+        user = None
 
     return render_template(
         "game.html",
@@ -716,9 +720,13 @@ def latest_reviews():
     Goes to page container all reviews
     with newest first
     """
-    # Gets the session user
-    user = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
+    if session.get('user'):
+        # Gets the session user
+        user = mongo.db.gc_users.find_one(
+            {"username": session["user"]})
+    else:
+        user = None
+
     # gets all reviews, newest first
     latest_reviews = list(mongo.db.reviews.find().sort("_id", -1))
     # gets all games
