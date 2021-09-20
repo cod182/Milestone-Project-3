@@ -494,7 +494,10 @@ def game(game_id):
 
     # Add all ints in gameRating and divide by length
     # getting average
-    usersRating = int(sum(gameRating) / len(gameRating))
+    if gameRating:
+        usersRating = int(sum(gameRating) / len(gameRating))
+    else:
+        usersRating = 'N/A'
 
     # function to go through reviews and match to game title
 
