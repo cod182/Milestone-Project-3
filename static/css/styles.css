@@ -952,6 +952,10 @@ text-decoration: none;
   color: #b7b7b7;
 }
 
+.user-rating {
+  padding: 2px 10px;
+}
+
 .login-register-container {
   min-height: 200px;
   background-color:  #797979f2;;

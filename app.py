@@ -480,10 +480,24 @@ def game(game_id):
 
     # Gets the game bu the id
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
     # gets all reviews
     reviews = list(mongo.db.reviews.find())
 
+    # List for all ratings of game
+    gameRating = []
+
+    # get the rating from each review and push to gameRating
+    for review in reviews:
+        if review["game_title"] == game["title"]:
+            gameRating.append(int(review["review_rating"]))
+
+    # Add all ints in gameRating and divide by length
+    # getting average
+    usersRating = int(sum(gameRating) / len(gameRating))
+
     # function to go through reviews and match to game title
+
     def getReviewforGame(reviews):
         for review in reviews:
             if review["game_title"] == game["title"]:
@@ -508,7 +522,8 @@ def game(game_id):
         game=game,
         reviews=reviews,
         userGameReview=userGameReview,
-        user=user
+        user=user,
+        usersRating=usersRating
     )
 
 

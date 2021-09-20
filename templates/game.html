@@ -50,6 +50,27 @@
                             {% endif %}
                         </div>
                     </div>
+                    <!-- Game Ratings -->
+                    <div class="row">
+                        <!-- User Rating -->
+                        <div class="col-6 mx-auto text-center">
+                            <p class="game-lower-heading">User Rating</p>
+                            {% if usersRating %}
+                                <p class="game-text-box review-rating user-rating">{{ usersRating }}</p>
+                            {% else %}
+                                <p class="game-text-box">N/A</p>
+                            {% endif %}
+                        </div>
+                        <!-- Metacritic Rating -->
+                        <div class="col-6 mx-auto text-center">
+                            <p class="game-lower-heading">Metacritic</p>
+                            {% if game.metacritic %}
+                                <p class="game-text-box">{{ game.metacritic }}%</p>
+                            {% else %}
+                                <p class="game-text-box">N/A</p>
+                            {% endif %}
+                        </div>
+                    </div>
                     <!-- Purchase -->
                     <div class="row gx-0 my-2">
                         <div class="col-12 text-center">
