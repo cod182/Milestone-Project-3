@@ -484,6 +484,9 @@ def game(game_id):
     # gets all reviews
     reviews = list(mongo.db.reviews.find())
 
+    # gets all users
+    allUsers = list(mongo.db.gc_users.find())
+
     # List for all ratings of game
     gameRating = []
 
@@ -527,7 +530,8 @@ def game(game_id):
         userGameReview=userGameReview,
         user=user,
         usersRating=usersRating,
-        gameRating=gameRating
+        gameRating=gameRating,
+        allUsers=allUsers
     )
 
 
