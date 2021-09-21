@@ -39,6 +39,9 @@ def register():
     """
     Go to a page to register to database
     """
+    # Gets all the profile image options
+    profileImages = list(mongo.db.profile_images.find())
+
     if request.method == "POST":
         # check if username already exists in db
         existing_user = mongo.db.gc_users.find_one(
@@ -61,7 +64,7 @@ def register():
         flash("Registration Successful!")
         return redirect(url_for("profile", username=session["user"]))
 
-    return render_template("register.html")
+    return render_template("register.html", profileImages=profileImages)
 
 
 @app.route("/login", methods=["GET", "POST"])

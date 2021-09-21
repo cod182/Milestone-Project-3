@@ -538,10 +538,6 @@ btn-open:active {
   color: #d6d6d6;
 }
 
-.review-user {
-
-}
-
 .profile-container {
   min-height: 200px;
   background-color: #797979f2;
@@ -976,6 +972,18 @@ text-decoration: none;
   margin-bottom: 5px;
   border-radius: 10px;
   text-align: center;
+}
+
+.register-profile-image {
+  width: 100%;
+}
+
+.register-profile-image:hover,
+.register-profile-image:active,
+.register-profile-image:focus,
+.register-profile-image:active:focus {
+  box-shadow: 0 0 15px #01b9fe;
+  transform: scale(1.1);
 }
 
 .login-register-swap {

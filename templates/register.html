@@ -24,6 +24,13 @@
                         <input id="passwordConfirm" name="passwordConfirm" class="login-input" type="password" placeholder="Confirm Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$">
                     </div>
                     <div class="row">
+                        {% for image in profileImages %}
+                            <div class="col-2 d-inline">
+                                <img class="register-profile-image" src="{{ image.image }}" alt="Profile Image {{ image.name }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row">
                         <button type="submit" class="btn btn-green btn--login-register">Register</button>
                     </div>
                 </form>
