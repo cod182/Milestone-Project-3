@@ -8,6 +8,7 @@
 body {
   height: 100vh;
   background-image: url('https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_400/MTc0MDE0OTk4MzEyMzk2NjY3/asteroids-by-atari-classic-video-games-reviewed.webp');
+  background-color: rgb(56, 56, 56);
 }
 
 .hide {
