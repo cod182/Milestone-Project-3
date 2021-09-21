@@ -1,4 +1,3 @@
-const yourreviewicon = document.getElementById('your-reviews-icon');
 let rating = document.getElementsByClassName('review-rating');
 const descriptionHolder = document.getElementById('description-holder');
 const descriptionArea = document.getElementById('game-description');

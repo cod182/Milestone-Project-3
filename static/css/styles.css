@@ -538,10 +538,6 @@ btn-open:active {
   color: #d6d6d6;
 }
 
-.review-user {
-  line-height: 35px;
-}
-
 .profile-container {
   min-height: 200px;
   background-color: #797979f2;
@@ -952,6 +948,10 @@ text-decoration: none;
   color: #b7b7b7;
 }
 
+.user-rating {
+  padding: 2px 10px;
+}
+
 .login-register-container {
   min-height: 200px;
   background-color:  #797979f2;;
@@ -972,6 +972,15 @@ text-decoration: none;
   margin-bottom: 5px;
   border-radius: 10px;
   text-align: center;
+  color: grey;
+}
+
+.register-profile-image:hover,
+.register-profile-image:active,
+.register-profile-image:focus,
+.register-profile-image:active:focus {
+  box-shadow: 0 0 15px #01b9fe;
+  transform: scale(1.1);
 }
 
 .login-register-swap {

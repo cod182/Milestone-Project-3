@@ -25,6 +25,7 @@
                             {% endfor %}
                         </div>
                     </div>
+
                     <!-- Releaswed/Rating/Critic rating -->
                     <div class="row gx-0 mt-2">
                         <div class="col-4 mx-auto text-center">
@@ -50,6 +51,34 @@
                             {% endif %}
                         </div>
                     </div>
+
+                    <!-- Game Ratings -->
+                    <div class="row gx-0 mt-2">
+                        <!-- User Rating -->
+                        <div class="col-4 mx-auto text-center">
+                            <p class="game-lower-heading">No. of Reviews</p>
+                                <p class="game-text-box user-rating">{{ gameRating|length }}</p>
+                        </div>
+                        <!-- User Average Rating -->
+                        <div class="col-4 mx-auto text-center">
+                            <p class="game-lower-heading">User Rating</p>
+                            {% if usersRating %}
+                                <p class="game-text-box review-rating user-rating">{{ usersRating }}</p>
+                            {% else %}
+                                <p class="game-text-box">N/A</p>
+                            {% endif %}
+                        </div>
+                        <!-- Metacritic Rating -->
+                        <div class="col-4 mx-auto text-center">
+                            <p class="game-lower-heading">Metacritic</p>
+                            {% if game.metacritic %}
+                                <p class="game-text-box">{{ game.metacritic }}%</p>
+                            {% else %}
+                                <p class="game-text-box">N/A</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
                     <!-- Purchase -->
                     <div class="row gx-0 my-2">
                         <div class="col-12 text-center">
@@ -158,7 +187,11 @@
                                             <div class="row">
                                                 <div class="col-9">
                                                     <div class="profile-image-container">
-                                                        <img class="profile-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile image for user: {{review.review_by}}">
+                                                        {% for user in allUsers %}
+                                                            {% if user.username|lower == review.review_by %}
+                                                        <img class="profile-image" src="{{ user.profile_image }}" alt="Profile image for user: {{review.review_by}}">
+                                                            {% endif %}
+                                                        {% endfor %}
                                                     </div>
                                                     <p class="profile-name">{{ review.review_by.capitalize() }}</p>
                                                 </div>

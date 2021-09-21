@@ -39,6 +39,9 @@ def register():
     """
     Go to a page to register to database
     """
+    # Gets all the profile image options
+    profileImages = list(mongo.db.profile_images.find())
+
     if request.method == "POST":
         # check if username already exists in db
         existing_user = mongo.db.gc_users.find_one(
@@ -52,7 +55,8 @@ def register():
             "username": request.form.get("username").lower(),
             "email": request.form.get("email").lower(),
             "password": generate_password_hash(request.form.get("password")),
-            "userType": "standard"
+            "userType": "standard",
+            "profile_image": request.form.get("profile_image")
         }
         mongo.db.gc_users.insert_one(register)
 
@@ -61,7 +65,7 @@ def register():
         flash("Registration Successful!")
         return redirect(url_for("profile", username=session["user"]))
 
-    return render_template("register.html")
+    return render_template("register.html", profileImages=profileImages)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -100,6 +104,9 @@ def profile(username):
     Go to a page to display users profile page
     """
     if session["user"]:
+        # gets all the db users
+        allUsers = list(mongo.db.gc_users.find())
+        # gets the latest 5 games
         latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
         # grab the session user's username from db
         user = mongo.db.gc_users.find_one(
@@ -109,7 +116,8 @@ def profile(username):
             "profile.html",
             latest_games=latest_games,
             username=username,
-            user=user
+            user=user,
+            allUsers=allUsers
         )
 
     return redirect(url_for("login"))
@@ -143,6 +151,7 @@ def adminUserLookUp():
         {"username": session["user"]})
     username = user['username'].capitalize()
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    # gets all the db users
     allUsers = list(mongo.db.gc_users.find())
 
     if request.method == "POST":
@@ -441,7 +450,9 @@ def profileGameSearch():
     user = mongo.db.gc_users.find_one(
         {"username": session["user"]})
     username = user['username'].capitalize()
+    # gets the latest 5 games, newest first
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    # gets all the games in db
     allgames = list(mongo.db.games.find())
 
     # if a post request
@@ -480,10 +491,30 @@ def game(game_id):
 
     # Gets the game bu the id
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
     # gets all reviews
     reviews = list(mongo.db.reviews.find())
 
+    # gets all users
+    allUsers = list(mongo.db.gc_users.find())
+
+    # List for all ratings of game
+    gameRating = []
+
+    # get the rating from each review and push to gameRating
+    for review in reviews:
+        if review["game_title"] == game["title"]:
+            gameRating.append(int(review["review_rating"]))
+
+    # Add all ints in gameRating and divide by length
+    # getting average
+    if gameRating:
+        usersRating = int(sum(gameRating) / len(gameRating))
+    else:
+        usersRating = 'N/A'
+
     # function to go through reviews and match to game title
+
     def getReviewforGame(reviews):
         for review in reviews:
             if review["game_title"] == game["title"]:
@@ -508,7 +539,10 @@ def game(game_id):
         game=game,
         reviews=reviews,
         userGameReview=userGameReview,
-        user=user
+        user=user,
+        usersRating=usersRating,
+        gameRating=gameRating,
+        allUsers=allUsers
     )
 
 
@@ -724,12 +758,15 @@ def latest_reviews():
     latest_reviews = list(mongo.db.reviews.find().sort("_id", -1))
     # gets all games
     games = list(mongo.db.games.find())
+    # gets all the db users
+    allUsers = list(mongo.db.gc_users.find())
 
     return render_template(
         "latest-reviews.html",
         latest_reviews=latest_reviews,
         games=games,
-        user=user
+        user=user,
+        allUsers=allUsers
     )
 
 

@@ -5,6 +5,7 @@ window.onload = function(){
   currentLink.classList.add('selected');
 };
 
+// Checks the passwords match
 function passwordMatchCheck(form) {
   password = form.password.value;
   passwordConfirm = form.passwordConfirm.value;
