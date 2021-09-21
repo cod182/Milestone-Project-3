@@ -1,5 +1,4 @@
 const currentLink = document.getElementById('register-link');
-const profileImages = document.getElementsByClassName('addSelectedAttribute');
 
 // When windows loads give the page link an underline
 window.onload = function(){
@@ -16,14 +15,5 @@ function passwordMatchCheck(form) {
     return false;
   } else {
     return true;
-  }
-}
-
-function addSelectedAttribute(img) {
-  img.classList.add('glow');
-  img.setAttribute('name', 'profile_image');
-  for (var i = 0; i > profileImages.length; i++) {
-    profileImages[i].classList.remove('glow');
-    profileImages[i].removeAttribute('name')
   }
 }

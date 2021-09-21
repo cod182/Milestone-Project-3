@@ -51,16 +51,12 @@ def register():
             flash("Username already exists")
             return redirect(url_for("register"))
 
-        profileImageName = request.form.get("profile_image")
-
-        profileImage = mongo.db.profile_images.find_one({"name": profileImageName})
-
         register = {
             "username": request.form.get("username").lower(),
             "email": request.form.get("email").lower(),
             "password": generate_password_hash(request.form.get("password")),
             "userType": "standard",
-            "profile_image": profileImage['image']
+            "profile_image": request.form.get("profile_image")
         }
         mongo.db.gc_users.insert_one(register)
 

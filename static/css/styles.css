@@ -972,10 +972,7 @@ text-decoration: none;
   margin-bottom: 5px;
   border-radius: 10px;
   text-align: center;
-}
-
-.register-profile-image {
-  width: 100%;
+  color: grey;
 }
 
 .register-profile-image:hover,

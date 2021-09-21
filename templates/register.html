@@ -23,12 +23,18 @@
                     <div class="row">
                         <input id="passwordConfirm" name="passwordConfirm" class="login-input" type="password" placeholder="Confirm Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$">
                     </div>
+                    <!-- Image Selectino -->
                     <div class="row">
-                        {% for image in profileImages %}
-                            <div class="col-2 d-inline">
-                                <img class="register-profile-image" src="{{ image.image }}" alt="Profile Image {{ image.name }}" onclick="addSelectedAttribute(this);">
-                            </div>
-                        {% endfor %}
+                        <select name="profile_image" id="" list="images" class="login-input">
+                            <datalist id="images">
+                                {% for image in profileImages %}
+                                    <option value="{{ image.image }}">
+                                        {{image.name.capitalize()}}
+                                    </option>
+                                {% endfor %}
+
+                            </datalist>
+                        </select>
                     </div>
                     <div class="row">
                         <button type="submit" class="btn btn-green btn--login-register">Register</button>
