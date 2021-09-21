@@ -7,6 +7,13 @@
                     <div class="row gx-0">
                         <h1 class="page-title">{{ username }}'s Profile Page</h1>
                     </div>
+                    <div class="col-2 mx-auto">
+                        {% for user in allUsers %}
+                            {% if user.username|lower == session.get('user')|lower %}
+                                <img class="profile-image" src="{{ user.profile_image }}" alt="Profile image for user: {{ session.get('user') }}">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                     <div class="row gx-0 profile-options">
                         {% if session.user|lower == user.username|lower %}
                             {% if user.userType == 'admin' %}

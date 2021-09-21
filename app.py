@@ -51,11 +51,16 @@ def register():
             flash("Username already exists")
             return redirect(url_for("register"))
 
+        profileImageName = request.form.get("profile_image")
+
+        profileImage = mongo.db.profile_images.find_one({"name": profileImageName})
+
         register = {
             "username": request.form.get("username").lower(),
             "email": request.form.get("email").lower(),
             "password": generate_password_hash(request.form.get("password")),
-            "userType": "standard"
+            "userType": "standard",
+            "profile_image": profileImage['image']
         }
         mongo.db.gc_users.insert_one(register)
 
@@ -103,6 +108,9 @@ def profile(username):
     Go to a page to display users profile page
     """
     if session["user"]:
+        # gets all the db users
+        allUsers = list(mongo.db.gc_users.find())
+        # gets the latest 5 games
         latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
         # grab the session user's username from db
         user = mongo.db.gc_users.find_one(
@@ -112,7 +120,8 @@ def profile(username):
             "profile.html",
             latest_games=latest_games,
             username=username,
-            user=user
+            user=user,
+            allUsers=allUsers
         )
 
     return redirect(url_for("login"))
@@ -146,6 +155,7 @@ def adminUserLookUp():
         {"username": session["user"]})
     username = user['username'].capitalize()
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    # gets all the db users
     allUsers = list(mongo.db.gc_users.find())
 
     if request.method == "POST":
@@ -444,7 +454,9 @@ def profileGameSearch():
     user = mongo.db.gc_users.find_one(
         {"username": session["user"]})
     username = user['username'].capitalize()
+    # gets the latest 5 games, newest first
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    # gets all the games in db
     allgames = list(mongo.db.games.find())
 
     # if a post request
@@ -750,12 +762,15 @@ def latest_reviews():
     latest_reviews = list(mongo.db.reviews.find().sort("_id", -1))
     # gets all games
     games = list(mongo.db.games.find())
+    # gets all the db users
+    allUsers = list(mongo.db.gc_users.find())
 
     return render_template(
         "latest-reviews.html",
         latest_reviews=latest_reviews,
         games=games,
-        user=user
+        user=user,
+        allUsers=allUsers
     )
 
 
