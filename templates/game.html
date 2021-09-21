@@ -25,6 +25,7 @@
                             {% endfor %}
                         </div>
                     </div>
+
                     <!-- Releaswed/Rating/Critic rating -->
                     <div class="row gx-0 mt-2">
                         <div class="col-4 mx-auto text-center">
@@ -50,10 +51,16 @@
                             {% endif %}
                         </div>
                     </div>
+
                     <!-- Game Ratings -->
-                    <div class="row">
+                    <div class="row gx-0 mt-2">
                         <!-- User Rating -->
-                        <div class="col-6 mx-auto text-center">
+                        <div class="col-4 mx-auto text-center">
+                            <p class="game-lower-heading">No. of Reviews</p>
+                                <p class="game-text-box user-rating">{{ gameRating|length }}</p>
+                        </div>
+                        <!-- User Average Rating -->
+                        <div class="col-4 mx-auto text-center">
                             <p class="game-lower-heading">User Rating</p>
                             {% if usersRating %}
                                 <p class="game-text-box review-rating user-rating">{{ usersRating }}</p>
@@ -62,7 +69,7 @@
                             {% endif %}
                         </div>
                         <!-- Metacritic Rating -->
-                        <div class="col-6 mx-auto text-center">
+                        <div class="col-4 mx-auto text-center">
                             <p class="game-lower-heading">Metacritic</p>
                             {% if game.metacritic %}
                                 <p class="game-text-box">{{ game.metacritic }}%</p>
@@ -71,6 +78,7 @@
                             {% endif %}
                         </div>
                     </div>
+
                     <!-- Purchase -->
                     <div class="row gx-0 my-2">
                         <div class="col-12 text-center">

@@ -526,7 +526,8 @@ def game(game_id):
         reviews=reviews,
         userGameReview=userGameReview,
         user=user,
-        usersRating=usersRating
+        usersRating=usersRating,
+        gameRating=gameRating
     )
 
 
