@@ -12,7 +12,7 @@
                 </div>
                 <!-- Review -->
                 <div class="col-sm-12 col-md-7 mx-auto my-2 update-review-container">
-                    <form  method="POST" action="{{ url_for('users.edit_review', review_id=review._id) }}">
+                    <form  method="POST" action="{{ url_for('users.edit_user_review', review_id=review._id) }}">
                         <div class="row">
                             <div class="col-10 mx-auto">
                                 <input name="game_title" class="hide" type="text" value="{{ review.game_title }}">
@@ -108,7 +108,7 @@
                     </div>
                     <!-- Review -->
                     <div class="col-sm-12 col-md-7 mx-auto my-2 update-review-container">
-                        <form  method="POST" action="{{ url_for('users.edit_review', review_id=review._id) }}">
+                        <form  method="POST" action="{{ url_for('users.edit_user_review', review_id=review._id) }}">
                             <div class="row">
                                 <div class="col-10 mx-auto">
                                     <input name="game_title" class="hide" type="text" value="{{ review.game_title }}">

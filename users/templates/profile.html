@@ -30,7 +30,7 @@
                             {% endif %}
                         {% endif %}
                         <div class="col-6 col-md-2 profile-button">
-                            <a id="new-review-btn" href="{{ url_for('users.profileGameSearch') }}">
+                            <a id="new-review-btn" href="{{ url_for('users.search_for_game') }}">
                                 <div id="new-review-icon" class="profile-icon">
                                     <span>
                                         <i class="fas fa-plus"></i>
@@ -41,7 +41,7 @@
                         </div>
             
                         <div class="col-6 col-md-2 profile-button">
-                            <a id="your-reviews-btn" href="{{ url_for('users.yourReviews') }}">
+                            <a id="your-reviews-btn" href="{{ url_for('users.get_user_reviews') }}">
                                 <div id="your-reviews-icon" class="profile-icon">
                                     <span>
                                         <i class="fas fa-list"></i>
@@ -52,7 +52,7 @@
                         </div>
             
                         <div class="col-6 col-md-2 profile-button">
-                            <a id="settings-btn" href="{{ url_for('users.changePass') }}">
+                            <a id="settings-btn" href="{{ url_for('users.change_password') }}">
                                 <div id="settings-icon" class="profile-icon">
                                     <span>
                                         <i class="fas fa-cog"></i>

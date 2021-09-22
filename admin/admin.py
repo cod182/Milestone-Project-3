@@ -200,7 +200,7 @@ def delete_game_and_reviews(game_id):
 @admin.route('/admin/manage-reviews', methods=["GET", "POST"])
 def manage_reviews():
 
-    # sets the sessions url to yourReviews Page
+    # sets the sessions url to get_user_reviews Page
     session['url'] = url_for("admin.manage_reviews")
 
     # gets the latest games

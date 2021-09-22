@@ -70,15 +70,13 @@ def login():
                 session["user"] = request.form.get("username").lower()
                 return redirect(url_for("users.profile",
                                         username=session["user"]))
-            else:
-                # invalid password match
-                flash("Wrong Username / Password")
-                return redirect(url_for("users.login"))
-
-        else:
-            # username doesn't exist
+            # invalid password match
             flash("Wrong Username / Password")
             return redirect(url_for("users.login"))
+
+        # username doesn't exist
+        flash("Wrong Username / Password")
+        return redirect(url_for("users.login"))
 
     return render_template("login.html")
 
@@ -108,8 +106,8 @@ def profile(username):
     return redirect(url_for("users.login"))
 
 
-@users.route("/changePass", methods=["GET", "POST"])
-def changePass():
+@users.route("/profile/change-password", methods=["GET", "POST"])
+def change_password():
     """
     Go to a page to change password of account. Takes a POST
     """
@@ -141,8 +139,8 @@ def changePass():
     )
 
 
-@users.route("/yourReviews")
-def yourReviews():
+@users.route("/profile/your-reviews")
+def get_user_reviews():
     """
     Go to a page displaying all reviews linked to the session.user
     extends the profile page
@@ -158,8 +156,8 @@ def yourReviews():
     # gets all review by the user
     your_reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
 
-    # sets the sessions url to yourReviews Page
-    session['url'] = url_for("users.yourReviews")
+    # sets the sessions url to get_user_reviews Page
+    session['url'] = url_for("users.get_user_reviews")
 
     return render_template(
         "your-reviews.html",
@@ -171,12 +169,13 @@ def yourReviews():
 
 
 @users.route("/review/<review_id>", methods=["GET", "POST"])
-def edit_review(review_id):
+def edit_user_review(review_id):
     """
     Go to a page to edit a review based on it's review_id
     """
     user = mongo.db.gc_users.find_one(
         {"username": session["user"]})
+
     if request.method == "POST":
         """
         Gets values from form and update the relevant
@@ -206,7 +205,7 @@ def edit_review(review_id):
     return render_template("edit-review.html", review=review, user=user)
 
 
-@users.route("/deleteReview/<review_id>")
+@users.route("/delete-review/<review_id>")
 def delete_review(review_id):
     """
     From a button to delete the selected review based on review_id
@@ -229,8 +228,8 @@ def logout():
     return redirect(url_for("users.login"))
 
 
-@users.route("/profileGameSearch", methods=["GET", "POST"])
-def profileGameSearch():
+@users.route("/profile/game-search", methods=["GET", "POST"])
+def search_for_game():
     """
     Go to a page to search all games in order to add a review
     OR add a new game to Database
@@ -271,7 +270,7 @@ def profileGameSearch():
     )
 
 
-@users.route('/addReview/<game_id>', methods=["GET", "POST"])
+@users.route('/profile/addReview/<game_id>', methods=["GET", "POST"])
 def add_review(game_id):
     """
     Go to a page to add a review to a game based on game_id

@@ -9,7 +9,7 @@
     
         <div class="col-12">
             <h5>Change Password</h5>
-            <form class="password-reset-form" method="POST" action="{{ url_for('users.changePass', username=session['user']) }}" onSubmit="return passwordMatchCheck(this)">
+            <form class="password-reset-form" method="POST" action="{{ url_for('users.change_password', username=session['user']) }}" onSubmit="return passwordMatchCheck(this)">
                 <div class="row">
                     <div class="col-12">
                         <input class="pass-input" id="originalPassword" type="password" name="originalPassword" placeholder="Current Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$">

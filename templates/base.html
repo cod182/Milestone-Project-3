@@ -61,9 +61,9 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <li><a class="dropdown-item" id="profile-home-link" href="{{ url_for('users.profile', username=session['user']) }}">Home</a></li>
-                                            <li><a class="dropdown-item" id="profile-new-rev-link" href="{{ url_for('users.profileGameSearch') }}">New Review</a></li>
-                                            <li><a class="dropdown-item" id="profile-your-revs-link" href="{{ url_for('users.yourReviews') }}">Your Reviews</a></li>
-                                            <li><a class="dropdown-item" id="profile-settings-link" href="{{ url_for('users.changePass') }}">Settings</a></li>
+                                            <li><a class="dropdown-item" id="profile-new-rev-link" href="{{ url_for('users.search_for_game') }}">New Review</a></li>
+                                            <li><a class="dropdown-item" id="profile-your-revs-link" href="{{ url_for('users.get_user_reviews') }}">Your Reviews</a></li>
+                                            <li><a class="dropdown-item" id="profile-settings-link" href="{{ url_for('users.change_password') }}">Settings</a></li>
                                             <li><a class="dropdown-item" href="{{ url_for('users.logout') }}">Logout</a></li>
                                         </ul>
                                     </li>

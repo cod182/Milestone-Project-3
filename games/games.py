@@ -149,8 +149,9 @@ def game(game_id):
             {'review_by': session['user']}
         ))
         userGameReview = getReviewforGame(userReviews)
-    userGameReview = None
-    user = None
+    else:
+        userGameReview = None
+        user = None
 
     return render_template(
         "game.html",
@@ -263,6 +264,7 @@ def get_all_games():
                 allGames=filteredGames,
                 genres=genres
             )
+        flash('No Game Found')
         return render_template(
             "games.html",
             allGames=allGames,
