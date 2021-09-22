@@ -20,7 +20,7 @@ games = Blueprint(
 RAWG_API = os.environ.get("RAWG_API_KEY")
 
 
-@games.route("/gameLookUp", methods=["GET", "POST"])
+@games.route("/user/game-search", methods=["GET", "POST"])
 def game_lookup():
     if request.method == "POST":
         search = request.form.get("game-name")
@@ -41,7 +41,7 @@ def game_lookup():
     return render_template('lookup-game.html')
 
 
-@games.route('/addGame', methods=["GET", "POST"])
+@games.route('/user/add-game', methods=["GET", "POST"])
 def add_game():
     """
     Added a new game to the database
@@ -130,8 +130,7 @@ def game(game_id):
     # getting average
     if gameRating:
         usersRating = int(sum(gameRating) / len(gameRating))
-    else:
-        usersRating = 'N/A'
+    usersRating = 'N/A'
 
     # function to go through reviews and match to game title
 
@@ -150,9 +149,8 @@ def game(game_id):
             {'review_by': session['user']}
         ))
         userGameReview = getReviewforGame(userReviews)
-    else:
-        userGameReview = None
-        user = None
+    userGameReview = None
+    user = None
 
     return render_template(
         "game.html",
@@ -166,8 +164,8 @@ def game(game_id):
     )
 
 
-@games.route("/editGame/<game_id>", methods=["GET", "POST"])
-def editGame(game_id):
+@games.route("/user/edit-game-details/<game_id>", methods=["GET", "POST"])
+def edit_game_details(game_id):
 
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
@@ -198,7 +196,7 @@ def editGame(game_id):
         )
         flash("Game Updated")
 
-        return redirect(url_for('game', game_id=game_id))
+        return redirect(url_for('games.game', game_id=game_id))
 
     # gets the last peson to have updated the game
     updated = list(game['updated_by'])
@@ -209,8 +207,8 @@ def editGame(game_id):
     return render_template("edit-game.html", game=game, updated_by=updated_by)
 
 
-@games.route("/latest_reviews")
-def latest_reviews():
+@games.route("/latest-reviews")
+def get_latest_reviews():
     """
     Goes to page container all reviews
     with newest first
@@ -219,8 +217,7 @@ def latest_reviews():
         # Gets the session user
         user = mongo.db.gc_users.find_one(
             {"username": session["user"]})
-    else:
-        user = None
+    user = None
 
     # gets all reviews, newest first
     latest_reviews = list(mongo.db.reviews.find().sort("_id", -1))
@@ -239,7 +236,7 @@ def latest_reviews():
 
 
 @games.route("/games", methods=["GET", "POST"])
-def gettingAllGames():
+def get_all_games():
 
     # Gets all games sorted by title
     allGames = list(mongo.db.games.find().sort("title", 1))
@@ -266,11 +263,10 @@ def gettingAllGames():
                 allGames=filteredGames,
                 genres=genres
             )
-        else:
-            return render_template(
-                "games.html",
-                allGames=allGames,
-                genres=genres
-            )
+        return render_template(
+            "games.html",
+            allGames=allGames,
+            genres=genres
+        )
 
     return render_template("games.html", allGames=allGames, genres=genres)

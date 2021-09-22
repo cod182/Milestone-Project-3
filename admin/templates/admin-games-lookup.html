@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <form action="{{ url_for('manageGames') }}" method="POST">
+                    <form action="{{ url_for('admin.manage_games') }}" method="POST">
                         <div class="row">
                             <div class="col-12">
                                 <input type="text" name="game-name" placeholder="Title of Game" list="games" autocomplete="off" autofocus required>
@@ -37,7 +37,7 @@
                                 <div class="row">
 
                                     <div class="col-12 col-sm-1 col-md-2 m-auto">
-                                        <a href="{{ url_for('adminDeleteGame', game_id=game._id) }}"
+                                        <a href="{{ url_for('admin.delete_game_and_reviews', game_id=game._id) }}"
                                             class="btn btn--delete"
                                             onclick="return confirm('Delete {{game.title.capitalize()}}?');">
                                                 Delete
@@ -45,12 +45,12 @@
                                     </div>
                                     
                                     <div class="col-12 col-sm-1 col-md-2 m-auto">
-                                        <a href="{{ url_for('editGame', game_id=game._id) }}"
+                                        <a href="{{ url_for('games.edit_game_details', game_id=game._id) }}"
                                             class="btn btn--edit">Edit</a>
                                     </div>
 
                                     <div class="col-12 col-sm-4 col-md-4 m-auto">
-                                        <a href="{{ url_for('game', game_id=game._id) }}" class="remove-a-link-styles game-container-link">
+                                        <a href="{{ url_for('games.game', game_id=game._id) }}" class="remove-a-link-styles game-container-link">
                                         <p>{{ game.title }}</p>
                                     </a>
                                     </div>

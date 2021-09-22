@@ -18,7 +18,7 @@
                         {% if session.user|lower == user.username|lower %}
                             {% if user.userType == 'admin' %}
                                 <div class="col-12 col-md-2 profile-button">
-                                    <a id="new-review-btn" href="{{ url_for('admin.adminadminPanel') }}">
+                                    <a id="new-review-btn" href="{{ url_for('admin.get_admin') }}">
                                         <div id="admin-icon" class="admin-icon">
                                             <span>
                                                 <i class="fas fa-crown"></i>

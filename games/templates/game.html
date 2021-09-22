@@ -105,14 +105,14 @@
                                         <a class="btn btn-game-page btn-game-page--edit" href="{{ url_for('users.edit_review', review_id=userGameReview._id) }}" alt="link to edit your review of {{ game.title }}">Edit Review</a>
                                     </div>
                                     <div class="col-6 text-center">
-                                        <a class="btn btn-game-page btn-game-page--edit-details" href="{{ url_for('games.editGame', game_id=game._id) }}" alt="link to edit the details for {{ game.title }}">Edit Game Details</a>
+                                        <a class="btn btn-game-page btn-game-page--edit-details" href="{{ url_for('games.edit_game_details', game_id=game._id) }}" alt="link to edit the details for {{ game.title }}">Edit Game Details</a>
                                     </div>
                                 {% else %}
                                 <div class="col-6 text-center">
                                     <a class="btn btn-game-page btn-game-page--add" href="{{ url_for('users.add_review', game_id=game._id) }}" alt="link to leave a review for {{ game.title }}">Leave Review</a>
                                     </div>
                                     <div class="col-6 text-center">
-                                        <a class="btn btn-game-page btn-game-page--edit-details" href="{{ url_for('games.editGame', game_id=game._id) }}" alt="link to edit the details for {{ game.title }}">Edit Game Details</a>
+                                        <a class="btn btn-game-page btn-game-page--edit-details" href="{{ url_for('games.edit_game_details', game_id=game._id) }}" alt="link to edit the details for {{ game.title }}">Edit Game Details</a>
                                     </div>
                                 {% endif %}
                             {% else %}

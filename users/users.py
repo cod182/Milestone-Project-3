@@ -34,7 +34,7 @@ def register():
 
         if existing_user:
             flash("Username already exists")
-            return redirect(url_for("register"))
+            return redirect(url_for("users.register"))
 
         register = {
             "username": request.form.get("username").lower(),
@@ -48,7 +48,7 @@ def register():
         # put the new user into 'session' cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful!")
-        return redirect(url_for("profile", username=session["user"]))
+        return redirect(url_for("users.profile", username=session["user"]))
 
     return render_template("register.html", profileImages=profileImages)
 
@@ -68,17 +68,17 @@ def login():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                return redirect(url_for("profile",
+                return redirect(url_for("users.profile",
                                         username=session["user"]))
             else:
                 # invalid password match
                 flash("Wrong Username / Password")
-                return redirect(url_for("login"))
+                return redirect(url_for("users.login"))
 
         else:
             # username doesn't exist
             flash("Wrong Username / Password")
-            return redirect(url_for("login"))
+            return redirect(url_for("users.login"))
 
     return render_template("login.html")
 
@@ -105,7 +105,7 @@ def profile(username):
             allUsers=allUsers
         )
 
-    return redirect(url_for("login"))
+    return redirect(url_for("users.login"))
 
 
 @users.route("/changePass", methods=["GET", "POST"])
@@ -198,7 +198,7 @@ def edit_review(review_id):
             {"title": request.form.get(
                 "game_title")})['_id']
 
-        return redirect(url_for('game', game_id=game_id))
+        return redirect(url_for('games.game', game_id=game_id))
 
     # finds a review with matching _id
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
@@ -226,7 +226,7 @@ def logout():
     # remove user from session cookies
     flash("You have been logged out")
     session.pop("user")
-    return redirect(url_for("login"))
+    return redirect(url_for("users.login"))
 
 
 @users.route("/profileGameSearch", methods=["GET", "POST"])
@@ -297,6 +297,6 @@ def add_review(game_id):
             {"title": game['title']})
 
         # redirected to game page
-        return redirect(url_for('game', game_id=game['_id']))
+        return redirect(url_for('games.game', game_id=game['_id']))
 
     return render_template("add-review.html", game=game)

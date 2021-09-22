@@ -12,7 +12,7 @@
             <div class="col-sm-12 col-md-1">
                 <p>Search:</p>
             </div>
-            <form class="col-sm-12 col-md-11" action="{{ url_for('games.gettingAllGames') }}" method="POST">
+            <form class="col-sm-12 col-md-11" action="{{ url_for('games.get_all_games') }}" method="POST">
                 <div class="row">
                     <div class="col-sm-12 col-md-5 d-inline">
                         <input type="text" name="name_of_game" placeholder="Name of Game" class="my-2">
@@ -30,7 +30,7 @@
                         <button type="submit" class="btn btn-green w-100 my-2">Search</button>
                     </div>
                     <div class="col-sm-12 col-md-2 text-center">
-                        <a href="{{ url_for('games.gettingAllGames') }}" type="submit" class="btn btn-danger w-100 my-2">Reset</a>
+                        <a href="{{ url_for('games.get_all_games') }}" type="submit" class="btn btn-danger w-100 my-2">Reset</a>
                     </div>
                 </div>
             </form>

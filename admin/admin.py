@@ -19,8 +19,8 @@ admin = Blueprint(
 RAWG_API = os.environ.get("RAWG_API_KEY")
 
 
-@admin.route('/adminpanel', methods=["GET", "POST"])
-def adminPanel():
+@admin.route('/admin', methods=["GET", "POST"])
+def get_admin():
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
     user = mongo.db.gc_users.find_one(
         {"username": session["user"]})
@@ -34,11 +34,11 @@ def adminPanel():
                 latest_games=latest_games
             )
 
-    return redirect(url_for("login"))
+    return redirect(url_for("users.login"))
 
 
-@admin.route('/adminUserLookUp', methods=["GET", "POST"])
-def adminUserLookUp():
+@admin.route('/admin/user-search', methods=["GET", "POST"])
+def user_search():
 
     """
     Go to a page to search all user
@@ -68,9 +68,8 @@ def adminUserLookUp():
                 allUsers=allUsers,
                 searchedUsers=searchedUsers
             )
-        else:
-            flash('User Not Found!')
-            return redirect(url_for('adminUserLookUp'))
+        flash('User Not Found!')
+        return redirect(url_for('admin.user_search'))
 
     return render_template(
         "admin-user-lookup.html",
@@ -81,8 +80,8 @@ def adminUserLookUp():
     )
 
 
-@admin.route('/adminDeleteUser/<user_id>', methods=["GET", "POST"])
-def adminDeleteUser(user_id):
+@admin.route('/admin/delete-user/<user_id>', methods=["GET", "POST"])
+def delete_user(user_id):
     """
     From a button to delete the selected user review_id
     """
@@ -97,11 +96,11 @@ def adminDeleteUser(user_id):
 
     flash("User & Reviews Deleted")
 
-    return redirect(url_for("adminUserLookUp"))
+    return redirect(url_for("admin.user_search"))
 
 
-@admin.route('/adminEditUser/<user_id>', methods=["GET", "POST"])
-def adminEditUser(user_id):
+@admin.route('/admin/edit-user/<user_id>', methods=["GET", "POST"])
+def edit_user(user_id):
 
     # gets the session user and then current user username
     user = mongo.db.gc_users.find_one(
@@ -126,7 +125,7 @@ def adminEditUser(user_id):
             {"$set": {"review_by": request.form.get('username').lower()}})
 
         flash('User Updated')
-        return redirect(url_for("adminUserLookUp"))
+        return redirect(url_for("admin.user_search"))
 
     return render_template(
         'edit-user.html',
@@ -136,8 +135,8 @@ def adminEditUser(user_id):
     )
 
 
-@admin.route("/manageGames", methods=["GET", "POST"])
-def manageGames():
+@admin.route("/admin/manage-games", methods=["GET", "POST"])
+def manage_games():
     # gets the latest games
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
 
@@ -165,9 +164,9 @@ def manageGames():
                 games=games,
                 latest_games=latest_games
             )
-        else:
-            flash('User Not Found!')
-            return redirect(url_for('manageGames'))
+
+        flash('User Not Found!')
+        return redirect(url_for('admin.manage_games'))
 
     return render_template(
         "admin-games-lookup.html",
@@ -178,8 +177,8 @@ def manageGames():
     )
 
 
-@admin.route("/adminDeleteGame/<game_id>", methods=["GET", "POST"])
-def adminDeleteGame(game_id):
+@admin.route("/admin/delete-game/<game_id>", methods=["GET", "POST"])
+def delete_game_and_reviews(game_id):
     """
     From a button to delete the selected game
     and reviews from game_id
@@ -195,14 +194,14 @@ def adminDeleteGame(game_id):
 
     flash("Game & Reviews Deleted")
 
-    return redirect(url_for('manageGames'))
+    return redirect(url_for('admin.manage_games'))
 
 
-@admin.route('/manageReviews', methods=["GET", "POST"])
-def manageReviews():
+@admin.route('/admin/manage-reviews', methods=["GET", "POST"])
+def manage_reviews():
 
     # sets the sessions url to yourReviews Page
-    session['url'] = url_for("manageReviews")
+    session['url'] = url_for("admin.manage_reviews")
 
     # gets the latest games
     latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
@@ -240,9 +239,8 @@ def manageReviews():
                 reviews=reviews,
                 latest_games=latest_games
             )
-        else:
-            flash('Game Not Found!')
-            return redirect(url_for('manageReviews'))
+        flash('Game Not Found!')
+        return redirect(url_for('admin.manage_reviews'))
 
     return render_template(
         "admin-review-lookup.html",
