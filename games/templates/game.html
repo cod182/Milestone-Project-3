@@ -102,22 +102,22 @@
                             {% if session.get('user') %}
                                 {% if userGameReview.game_title == game.title %}
                                     <div class="col-6 text-center">
-                                        <a class="btn btn-game-page btn-game-page--edit" href="{{ url_for('edit_review', review_id=userGameReview._id) }}" alt="link to edit your review of {{ game.title }}">Edit Review</a>
+                                        <a class="btn btn-game-page btn-game-page--edit" href="{{ url_for('users.edit_review', review_id=userGameReview._id) }}" alt="link to edit your review of {{ game.title }}">Edit Review</a>
                                     </div>
                                     <div class="col-6 text-center">
-                                        <a class="btn btn-game-page btn-game-page--edit-details" href="{{ url_for('editGame', game_id=game._id) }}" alt="link to edit the details for {{ game.title }}">Edit Game Details</a>
+                                        <a class="btn btn-game-page btn-game-page--edit-details" href="{{ url_for('games.editGame', game_id=game._id) }}" alt="link to edit the details for {{ game.title }}">Edit Game Details</a>
                                     </div>
                                 {% else %}
                                 <div class="col-6 text-center">
-                                    <a class="btn btn-game-page btn-game-page--add" href="{{ url_for('add_review', game_id=game._id) }}" alt="link to leave a review for {{ game.title }}">Leave Review</a>
+                                    <a class="btn btn-game-page btn-game-page--add" href="{{ url_for('users.add_review', game_id=game._id) }}" alt="link to leave a review for {{ game.title }}">Leave Review</a>
                                     </div>
                                     <div class="col-6 text-center">
-                                        <a class="btn btn-game-page btn-game-page--edit-details" href="{{ url_for('editGame', game_id=game._id) }}" alt="link to edit the details for {{ game.title }}">Edit Game Details</a>
+                                        <a class="btn btn-game-page btn-game-page--edit-details" href="{{ url_for('games.editGame', game_id=game._id) }}" alt="link to edit the details for {{ game.title }}">Edit Game Details</a>
                                     </div>
                                 {% endif %}
                             {% else %}
                             <div class="col-12 text-center">
-                                <a class="btn btn-game-page btn-game-page--signin" href="{{ url_for('login') }}" alt="link to sign in">Sign in to Leave a Review</a>
+                                <a class="btn btn-game-page btn-game-page--signin" href="{{ url_for('users.login') }}" alt="link to sign in">Sign in to Leave a Review</a>
                                 </div>
                             {% endif %}
                     </div>
@@ -198,7 +198,7 @@
                                                 <div class="col-2">
                                                     {% if session.user|lower == user.username|lower %}
                                                         {% if user.userType == 'admin' %}
-                                                            <a class="btn btn-edit--latest-reviews" href="{{ url_for('edit_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}">Edit</a>
+                                                            <a class="btn btn-edit--latest-reviews" href="{{ url_for('users.edit_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}">Edit</a>
                                                         {% endif %}
                                                     {% endif %}
                                                 </div>

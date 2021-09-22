@@ -1,0 +1,275 @@
+import os
+from database import mongo
+import requests
+from flask import (
+    flash, render_template, redirect,
+    request, session, url_for, Blueprint)
+from bson.objectid import ObjectId
+from datetime import datetime
+if os.path.exists("env.py"):
+    import env
+
+games = Blueprint(
+    "games",
+    __name__,
+    template_folder='templates',
+    static_folder='static')
+
+
+RAWG_API = os.environ.get("RAWG_API_KEY")
+
+
+@games.route("/gameLookUp", methods=["GET", "POST"])
+def game_lookup():
+    if request.method == "POST":
+        search = request.form.get("game-name")
+        try:
+            response = requests.get(
+                "https://api.rawg.io/api/games"
+                + "?key="
+                + RAWG_API
+                + '&search='
+                + search
+            )
+            gameData = response.json()
+
+            return render_template('select-game.html', gameData=gameData)
+        except requests.exceptions.RequestException as e:
+            raise SystemExit(e)
+
+    return render_template('lookup-game.html')
+
+
+@games.route('/addGame', methods=["GET", "POST"])
+def add_game():
+    """
+    Added a new game to the database
+    """
+    if request.method == "POST":
+        # Checks if game already exists in database
+        existing_game = mongo.db.games.find_one(
+            {"game_id": int(request.form.get('selected-game'))})
+
+        if existing_game:
+            flash('Game Already Exists')
+            return redirect(url_for('games.game_lookup'))
+
+        # Gets game id from page, makes and API call to get details
+        gameId = request.form.get('selected-game')
+        apiCall = requests.get(
+            "https://api.rawg.io/api/games/"
+            + gameId
+            + "?key="
+            + RAWG_API
+        )
+        data = apiCall.json()
+
+        # Fields to be inseted into db
+        newGame = {
+            "title": data['name'],
+            "year": data['released'],
+            "genres": data['genres'],
+            "game_id": data['id'],
+            "description": data['description'],
+            "largeImage": data['background_image'],
+            "platforms": data['platforms'],
+            "rating": data['esrb_rating'],
+            "background": data['background_image_additional'],
+            "metacritic": data['metacritic']
+        }
+
+        # Game inserted into database
+        mongo.db.games.insert(newGame)
+        game = mongo.db.games.find_one(
+            {"game_id": data['id']})
+
+        now = datetime.now()
+        # dd/mm/YY H:M:S
+        currenttime = now.strftime("%d/%m/%Y %H:%M:%S")
+
+        # Adds the user who added the game and the time/date
+        mongo.db.games.update_one(
+            {"_id": ObjectId(game['_id'])},
+            {"$push": {'updated_by': {
+                'username': session['user'],
+                'time': currenttime
+                }
+            }})
+
+        # redirected to game page
+        return redirect(url_for('games.game', game_id=game['_id']))
+
+    return render_template('add-game.html')
+
+
+@games.route("/game/<game_id>", methods=["GET", "POST"])
+def game(game_id):
+    """
+    Go to a page displaying a game based off the game_id provided
+    """
+
+    # Gets the game bu the id
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    # gets all reviews
+    reviews = list(mongo.db.reviews.find())
+
+    # gets all users
+    allUsers = list(mongo.db.gc_users.find())
+
+    # List for all ratings of game
+    gameRating = []
+
+    # get the rating from each review and push to gameRating
+    for review in reviews:
+        if review["game_title"] == game["title"]:
+            gameRating.append(int(review["review_rating"]))
+
+    # Add all ints in gameRating and divide by length
+    # getting average
+    if gameRating:
+        usersRating = int(sum(gameRating) / len(gameRating))
+    else:
+        usersRating = 'N/A'
+
+    # function to go through reviews and match to game title
+
+    def getReviewforGame(reviews):
+        for review in reviews:
+            if review["game_title"] == game["title"]:
+                return review
+
+    # If a user is logged in
+    if session.get('user'):
+        # Gets the session user
+        user = mongo.db.gc_users.find_one(
+            {"username": session["user"]})
+
+        userReviews = list(mongo.db.reviews.find(
+            {'review_by': session['user']}
+        ))
+        userGameReview = getReviewforGame(userReviews)
+    else:
+        userGameReview = None
+        user = None
+
+    return render_template(
+        "game.html",
+        game=game,
+        reviews=reviews,
+        userGameReview=userGameReview,
+        user=user,
+        usersRating=usersRating,
+        gameRating=gameRating,
+        allUsers=allUsers
+    )
+
+
+@games.route("/editGame/<game_id>", methods=["GET", "POST"])
+def editGame(game_id):
+
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    if request.method == "POST":
+        # gets the current date.time
+        now = datetime.now()
+        # dd/mm/YY H:M:S
+        currenttime = now.strftime("%d/%m/%Y %H:%M:%S")
+
+        update = {
+            "year": request.form.get("game_year"),
+            "description": request.form.get("game_description"),
+            "largeImage": request.form.get("game_large_image"),
+            "background": request.form.get("game_background"),
+        }
+        # Pushes the update to the db
+        mongo.db.games.update({"_id": ObjectId(game_id)}, {"$set": update})
+
+        # Adds the user who updated the game and the time/date
+        mongo.db.games.update_one(
+            {"_id": ObjectId(game_id)},
+            {"$push": {
+                'updated_by': {
+                    'username': session['user'],
+                    'time': currenttime
+                }
+            }}
+        )
+        flash("Game Updated")
+
+        return redirect(url_for('game', game_id=game_id))
+
+    # gets the last peson to have updated the game
+    updated = list(game['updated_by'])
+    for i in range(0, len(updated)):
+        if i == (len(updated)-1):
+            updated_by = updated[i]
+
+    return render_template("edit-game.html", game=game, updated_by=updated_by)
+
+
+@games.route("/latest_reviews")
+def latest_reviews():
+    """
+    Goes to page container all reviews
+    with newest first
+    """
+    if session.get('user'):
+        # Gets the session user
+        user = mongo.db.gc_users.find_one(
+            {"username": session["user"]})
+    else:
+        user = None
+
+    # gets all reviews, newest first
+    latest_reviews = list(mongo.db.reviews.find().sort("_id", -1))
+    # gets all games
+    games = list(mongo.db.games.find())
+    # gets all the db users
+    allUsers = list(mongo.db.gc_users.find())
+
+    return render_template(
+        "latest-reviews.html",
+        latest_reviews=latest_reviews,
+        games=games,
+        user=user,
+        allUsers=allUsers
+    )
+
+
+@games.route("/games", methods=["GET", "POST"])
+def gettingAllGames():
+
+    # Gets all games sorted by title
+    allGames = list(mongo.db.games.find().sort("title", 1))
+
+    genres = []
+
+    games = list(mongo.db.games.find())
+    for game in games:
+        x = game['genres']
+        for genre in x:
+            if genre['name'] not in genres:
+                genres.append(genre['name'])
+
+    if request.method == "POST":
+        if request.form.get('name_of_game'):
+            # Gets all games containing the search term
+            filteredGames = list(mongo.db.games.find(
+                {"$text": {
+                    "$search": request.form.get(
+                        'name_of_game')}}).sort(
+                            "title", 1))
+            return render_template(
+                "games.html",
+                allGames=filteredGames,
+                genres=genres
+            )
+        else:
+            return render_template(
+                "games.html",
+                allGames=allGames,
+                genres=genres
+            )
+
+    return render_template("games.html", allGames=allGames, genres=genres)

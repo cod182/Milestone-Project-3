@@ -18,7 +18,7 @@
                         {% if session.user|lower == user.username|lower %}
                             {% if user.userType == 'admin' %}
                                 <div class="col-12 col-md-2 profile-button">
-                                    <a id="new-review-btn" href="{{ url_for('adminPanel') }}">
+                                    <a id="new-review-btn" href="{{ url_for('admin.adminadminPanel') }}">
                                         <div id="admin-icon" class="admin-icon">
                                             <span>
                                                 <i class="fas fa-crown"></i>
@@ -30,7 +30,7 @@
                             {% endif %}
                         {% endif %}
                         <div class="col-6 col-md-2 profile-button">
-                            <a id="new-review-btn" href="{{ url_for('profileGameSearch') }}">
+                            <a id="new-review-btn" href="{{ url_for('users.profileGameSearch') }}">
                                 <div id="new-review-icon" class="profile-icon">
                                     <span>
                                         <i class="fas fa-plus"></i>
@@ -41,7 +41,7 @@
                         </div>
             
                         <div class="col-6 col-md-2 profile-button">
-                            <a id="your-reviews-btn" href="{{ url_for('yourReviews') }}">
+                            <a id="your-reviews-btn" href="{{ url_for('users.yourReviews') }}">
                                 <div id="your-reviews-icon" class="profile-icon">
                                     <span>
                                         <i class="fas fa-list"></i>
@@ -52,7 +52,7 @@
                         </div>
             
                         <div class="col-6 col-md-2 profile-button">
-                            <a id="settings-btn" href="{{ url_for('changePass') }}">
+                            <a id="settings-btn" href="{{ url_for('users.changePass') }}">
                                 <div id="settings-icon" class="profile-icon">
                                     <span>
                                         <i class="fas fa-cog"></i>
@@ -63,7 +63,7 @@
                         </div>
             
                         <div class="col-6 col-md-2 profile-button">
-                            <a href="{{ url_for('logout')}}">
+                            <a href="{{ url_for('users.logout')}}">
                                 <div class="profile-icon">
                                     <span>
                                         <i class="fas fa-sign-out-alt"></i>
@@ -105,7 +105,7 @@
             <div class="row">
                 {% for game in latest_games %}
                     <div class="col-sm-12 col-md-2 game-container">
-                        <a class="remove-a-link-styles" href="{{ url_for('game', game_id=game._id) }}">
+                        <a class="remove-a-link-styles" href="{{ url_for('games.game', game_id=game._id) }}">
                             <img class="game-image" src="{{ game.largeImage }}" alt="">
                             <p id="game_title" class="game-title"> {{ game.title }}</p>
                             <p class="game-year">{{game.year }}</p>
@@ -115,7 +115,7 @@
             </div>
         </div>
     {% else %}
-        <a class="btn btn-green" href="{{ url_for('login') }}">Sign in to View this Page</a>
+        <a class="btn btn-green" href="{{ url_for('users.login') }}">Sign in to View this Page</a>
     {% endif %}
 
 {% endblock %}

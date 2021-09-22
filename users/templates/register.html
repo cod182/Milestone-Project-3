@@ -10,7 +10,7 @@
         </div>
         <div class="row gx-0">
             <div class="col-sm-12 col-md-6 mx-auto login-container">
-                <form method="POST" action="{{ url_for('register') }}" onSubmit="return passwordMatchCheck(this)">
+                <form method="POST" action="{{ url_for('users.register') }}" onSubmit="return passwordMatchCheck(this)">
                     <div class="row">
                         <input id="username" name="username" class="login-input" type="text" placeholder="Username" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$">
                     </div>
@@ -40,7 +40,7 @@
                         <button type="submit" class="btn btn-green btn--login-register">Register</button>
                     </div>
                 </form>
-                <p class="login-register-swap" >Already Registered? <a href="{{ url_for('login') }}">Login Here</a></p>
+                <p class="login-register-swap" >Already Registered? <a href="{{ url_for('users.login') }}">Login Here</a></p>
                 <section>
                     <!-- Flash Messages -->
                       {% with messages = get_flashed_messages() %}

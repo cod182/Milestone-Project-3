@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="row">
-                <form action="{{ url_for('profileGameSearch') }}" method="POST">
+                <form action="{{ url_for('users.profileGameSearch') }}" method="POST">
                     <div class="row">
                         <div class="col-12">
                             <input type="text" name="search" placeholder="Title of Game" list="games" autocomplete="off" autofocus required>
@@ -37,13 +37,13 @@
                                     {% if reviews|length > 0 %}
                                         {% for review in reviews %}
                                             {% if review.game_title == game.title %}
-                                                <a href="{{ url_for('edit_review', review_id=review._id) }}" class="btn btn--edit game-review-edit">Edit Review</a>
+                                                <a href="{{ url_for('users.edit_review', review_id=review._id) }}" class="btn btn--edit game-review-edit">Edit Review</a>
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}
                                 </div>
                                 <div class="col-12 col-sm-8 col-md-8">
-                                <a href="{{ url_for('game', game_id=game._id) }}" class="remove-a-link-styles game-container-link">
+                                <a href="{{ url_for('games.game', game_id=game._id) }}" class="remove-a-link-styles game-container-link">
                                     <p>{{ game.title }}</p>
                                 </a>
                                 </div>
@@ -54,7 +54,7 @@
             {% else %}
                 <div class="row">
                     <div class="col-8 add-game-container">
-                        <a href="{{ url_for('game_lookup') }}" class="btn btn--add-game">Add New Game</a>
+                        <a href="{{ url_for('games.game_lookup') }}" class="btn btn--add-game">Add New Game</a>
                     </div>
                 </div>
             {% endif %}     

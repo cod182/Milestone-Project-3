@@ -10,7 +10,7 @@
         </div>
         <div class="row gx-0">
             <div class="col-sm-12 col-md-6 mx-auto login-container">
-                <form method="POST" action="{{ url_for('login') }}">
+                <form method="POST" action="{{ url_for('users.login') }}">
                     <div class="row">
                         <input id="username" class="login-input" type="text" name="username" placeholder="Your Username" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$" required>
                     </div>
@@ -21,7 +21,7 @@
                         <button type="submit" class="btn btn-green btn--login-register">Login</button>
                     </div>
                 </form>
-                <p class="login-register-swap" >Not Registered? <a href="{{ url_for('register') }}">Register Here</a></p>
+                <p class="login-register-swap" >Not Registered? <a href="{{ url_for('users.register') }}">Register Here</a></p>
                 <section>
                     <!-- Flash Messages -->
                       {% with messages = get_flashed_messages() %}

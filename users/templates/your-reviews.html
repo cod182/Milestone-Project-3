@@ -18,13 +18,13 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-2 col-md-2 m-auto">
                                         <a class="btn btn--edit"
-                                            href="{{ url_for('edit_review', review_id=review._id) }}">Edit</a>
+                                            href="{{ url_for('users.edit_review', review_id=review._id) }}">Edit</a>
                                     </div>
 
                                     <div class="col-12 col-sm-2 col-md-2 m-auto">
                                         <a class="btn btn--delete"
                                             onclick="return confirm('Are you sure you want to delete your review for {{ review.game_title }}?');"
-                                            href="{{ url_for('delete_review', review_id=review._id) }}">Delete</a>
+                                            href="{{ url_for('users.delete_review', review_id=review._id) }}">Delete</a>
                                     </div>
 
                                     <div class="col-12 col-sm-4 col-md-4 m-auto">

@@ -12,7 +12,7 @@
             <div class="col-sm-12 col-md-1">
                 <p>Search:</p>
             </div>
-            <form class="col-sm-12 col-md-11" action="{{ url_for('games') }}" method="POST">
+            <form class="col-sm-12 col-md-11" action="{{ url_for('games.gettingAllGames') }}" method="POST">
                 <div class="row">
                     <div class="col-sm-12 col-md-5 d-inline">
                         <input type="text" name="name_of_game" placeholder="Name of Game" class="my-2">
@@ -30,7 +30,7 @@
                         <button type="submit" class="btn btn-green w-100 my-2">Search</button>
                     </div>
                     <div class="col-sm-12 col-md-2 text-center">
-                        <a href="{{ url_for('games') }}" type="submit" class="btn btn-danger w-100 my-2">Reset</a>
+                        <a href="{{ url_for('games.gettingAllGames') }}" type="submit" class="btn btn-danger w-100 my-2">Reset</a>
                     </div>
                 </div>
             </form>
@@ -42,7 +42,7 @@
                 {% for game in allGames %}
                     <div class="game-container-all-games">
                         <div class="col-12">
-                            <a class="remove-a-link-styles" href="{{ url_for('game', game_id=game._id) }}">
+                            <a class="remove-a-link-styles" href="{{ url_for('games.game', game_id=game._id) }}">
                                 <img class="game-image" src="{{ game.largeImage }}" alt="">
                                 <p id="game_title" class="game-title"> {{ game.title }}</p>
                                 <p class="game-year">{{game.year }}</p>

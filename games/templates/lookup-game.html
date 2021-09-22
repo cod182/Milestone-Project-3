@@ -1,7 +1,7 @@
 {% extends "add-game-base.html" %}
 {% block gamequery %}
 
-            <form action="{{ url_for('game_lookup') }}" method="POST">
+            <form action="{{ url_for('games.game_lookup') }}" method="POST">
                 <div class="row">
                     <div class="col-12">
                         <input class="game-lookup-input" type="text" placeholder="Title of Game" name="game-name" required>
