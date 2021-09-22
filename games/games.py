@@ -48,7 +48,7 @@ def add_game():
     """
     if request.method == "POST":
         # Checks if game already exists in database
-        existing_game = getGameByGameId(int(request.form.get('selected-game')))
+        existing_game = helpers.get_game_by_game_id(int(request.form.get('selected-game')))
 
         if existing_game:
             flash('Game Already Exists')
@@ -80,9 +80,9 @@ def add_game():
 
         # Game inserted into database
         mongo.db.games.insert(newGame)
-        game = getGameByGameId(data['id'])
+        game = helpers.get_game_by_game_id(data['id'])
 
-        currenttime = getDate()
+        currenttime = helpers.get_date()
 
         # Adds the user who added the game and the time/date
         mongo.db.games.update_one(
@@ -104,26 +104,26 @@ def game(game_id):
     """
     Go to a page displaying a game based off the game_id provided
     """
-    # Gets the game by the id
-    game = helpers.getGameByObjectId(game_id)
+    # Gets the game by the _id
+    game = helpers.get_game_by_object_id(game_id)
     # gets all reviews
-    reviews = helpers.getAllUserReviews()
+    reviews = helpers.get_all_user_reviews()
     # gets all users
-    allUsers = helpers.getAllUsers()
+    allUsers = helpers.get_all_users()
 
     # If a user is logged in
     if session.get('user'):
         # Gets the session user
-        user = helpers.getUserFromSessionUser(session['user'])
+        user = helpers.get_user_from_session_user(session['user'])
 
-        userReviews = helpers.getUserReviews(session['user'])
+        userReviews = helpers.get_user_reviews(session['user'])
         # Gets reviews for the game
-        userGameReview = helpers.getReviewforGame(userReviews, game)
+        userGameReview = helpers.get_reviews_for_game(userReviews, game)
     else:
         userGameReview = None
         user = None
 
-    gameRating = helpers.getGameRatingFromReviews(reviews, game)
+    gameRating = helpers.get_game_rating_from_reviews(reviews, game)
     # Add all ints in gameRating and divide by length
     # getting average
     if gameRating:
@@ -146,11 +146,11 @@ def game(game_id):
 @games.route("/user/edit-game-details/<game_id>", methods=["GET", "POST"])
 def edit_game_details(game_id):
     # Finds the game by it's _id
-    game = helpers.getGameByObjectId(game_id)
+    game = helpers.get_game_by_object_id(game_id)
 
     if request.method == "POST":
         # gets the current date.time
-        currenttime = getDate()
+        currenttime = helpers.get_date()
 
         update = {
             "year": request.form.get("game_year"),
@@ -192,8 +192,7 @@ def get_latest_reviews():
     """
     if session.get('user'):
         # Gets the session user
-        user = mongo.db.gc_users.find_one(
-            {"username": session["user"]})
+        user = helpers.get_user_from_session_user(session["user"])
     else:
         user = None
 
@@ -221,7 +220,7 @@ def get_all_games():
 
     genres = []
 
-    games = list(mongo.db.games.find())
+    games = helpers.get_all_games()
     for game in games:
         x = game['genres']
         for genre in x:
