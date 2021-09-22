@@ -80,10 +80,11 @@ def add_game():
 
         # Game inserted into database
         mongo.db.games.insert(newGame)
+        
+        # get game that was added by game_id
         game = helpers.get_game_by_game_id(data['id'])
-
+        # Get the current time/date
         currenttime = helpers.get_date()
-
         # Adds the user who added the game and the time/date
         mongo.db.games.update_one(
             {"_id": ObjectId(game['_id'])},
@@ -92,7 +93,6 @@ def add_game():
                 'time': currenttime
                 }
             }})
-
         # redirected to game page
         return redirect(url_for('games.game', game_id=game['_id']))
 
@@ -115,17 +115,17 @@ def game(game_id):
     if session.get('user'):
         # Gets the session user
         user = helpers.get_user_from_session_user(session['user'])
-
+        # Gets the reviews by the session user
         userReviews = helpers.get_user_reviews(session['user'])
         # Gets reviews for the game
-        userGameReview = helpers.get_reviews_for_game(userReviews, game)
+        userGameReview = helpers.get_user_reviews_for_game_by_title(userReviews, game)
     else:
         userGameReview = None
         user = None
-
+    
+    # getts all the ratings from reviews for the game
     gameRating = helpers.get_game_rating_from_reviews(reviews, game)
-    # Add all ints in gameRating and divide by length
-    # getting average
+    # Add all ints in gameRating and divide by length & gets average
     if gameRating:
         usersRating = int(sum(gameRating) / len(gameRating))
     else:
@@ -187,7 +187,7 @@ def edit_game_details(game_id):
 @games.route("/latest-reviews")
 def get_latest_reviews():
     """
-    Goes to page container all reviews
+    Goes to page containing all reviews
     with newest first
     """
     if session.get('user'):
@@ -217,15 +217,8 @@ def get_all_games():
 
     # Gets all games sorted by title
     allGames = list(mongo.db.games.find().sort("title", 1))
-
-    genres = []
-
-    games = helpers.get_all_games()
-    for game in games:
-        x = game['genres']
-        for genre in x:
-            if genre['name'] not in genres:
-                genres.append(genre['name'])
+    # Gets all the genres from the db
+    genres = helpers.get_all_genres_of_games()
 
     if request.method == "POST":
         if request.form.get('name_of_game'):
