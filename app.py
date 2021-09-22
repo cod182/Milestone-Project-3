@@ -9,9 +9,9 @@ if os.path.exists("env.py"):
 from database import mongo
 
 app = Flask(__name__)
-app.register_blueprint(admin)
-app.register_blueprint(users)
-app.register_blueprint(games)
+app.register_blueprint(admin, url_prefix='')
+app.register_blueprint(users, url_prefix='')
+app.register_blueprint(games, url_prefix='')
 
 
 app.config['MONGO_DBNAME'] = os.environ.get("MONGO_DBNAME")

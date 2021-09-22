@@ -135,7 +135,7 @@
                     <!-- Description -->
                     <div class="row">
                         <div class="col-12">
-                            <p id="description-holder" class="hide">{{game.description}}</p>
+                            <p id="description-holder" class="hide">{{ game.description }}</p>
                             <p class="game-description" id="game-description"></p>
                         </div>
                     </div>
@@ -215,5 +215,5 @@
 
 {% endblock %}
 {% block scripts %}
-    <script src="{{ url_for('static', filename='js/game_page_script.js') }}"></script>
+    <script src="{{ url_for('games.static', filename='js/game_page_script.js') }}"></script>
 {% endblock %}

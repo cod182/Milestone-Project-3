@@ -12,7 +12,8 @@ users = Blueprint(
     'users',
     __name__,
     template_folder='templates',
-    static_folder='static')
+    static_folder='static',
+    static_url_path='/users/static')
 
 
 RAWG_API = os.environ.get("RAWG_API_KEY")

@@ -20,7 +20,7 @@
             <div class="container-fluid">
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <form class="d-flex" action="" method="POST">
+                    <form class="d-flex" action="{{ url_for('games.gettingAllGames', username=session['user']) }}" method="POST">
                         <input class="form-control m-2" type="text" placeholder="Search" name="name_of_game" aria-label="Search">
                         <button class="btn btn-outline-success m-2" type="submit">Search</button>
                     </form>

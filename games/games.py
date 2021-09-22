@@ -13,7 +13,8 @@ games = Blueprint(
     "games",
     __name__,
     template_folder='templates',
-    static_folder='static')
+    static_folder='static',
+    static_url_path='/games/static')
 
 
 RAWG_API = os.environ.get("RAWG_API_KEY")
