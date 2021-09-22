@@ -1,11 +1,11 @@
 import os
 from database import mongo
 import requests
+import helpers
 from flask import (
     flash, render_template, redirect,
     request, session, url_for, Blueprint)
 from bson.objectid import ObjectId
-from datetime import datetime
 if os.path.exists("env.py"):
     import env
 
@@ -18,51 +18,6 @@ games = Blueprint(
 
 
 RAWG_API = os.environ.get("RAWG_API_KEY")
-
-
-def getAllUsers():
-    # Gets all the users in the DB
-   return list(mongo.db.gc_users.find())
-
-
-def getAllUserReviews():
-    return list(mongo.db.reviews.find())
-
-
-def getGameByObjectId(id):
-    # gets the game by it's _id
-    return mongo.db.games.find_one({"_id": ObjectId(id)})
-
-
-def getGameByGameId(id):
-    return mongo.db.games.find_one({"game_id": id})
-
-
-def getDate():
-    # Gets the current date/time
-    now = datetime.now()
-    # dd/mm/YY H:M:S
-    return now.strftime("%d/%m/%Y %H:%M:%S")
-
-
-def getReviewforGame(reviews, game):
-    """
-    Goes through reviews matching to game title
-    returns matches
-    """
-    for review in reviews:
-        if review["game_title"] == game["title"]:
-            return review
-
-
-def getGameRatingFromReviews(reviews, game):
-    # List for all ratings of game
-    gameRating = []
-    # get the rating from each review and push to gameRating
-    for review in reviews:
-        if review["game_title"] == game["title"]:
-            gameRating.append(int(review["review_rating"]))
-    return gameRating
 
 
 @games.route("/user/game-search", methods=["GET", "POST"])
@@ -150,28 +105,25 @@ def game(game_id):
     Go to a page displaying a game based off the game_id provided
     """
     # Gets the game by the id
-    game = getGameByObjectId(game_id)
+    game = helpers.getGameByObjectId(game_id)
     # gets all reviews
-    reviews = getAllUserReviews()
+    reviews = helpers.getAllUserReviews()
     # gets all users
-    allUsers = getAllUsers()
+    allUsers = helpers.getAllUsers()
 
     # If a user is logged in
     if session.get('user'):
         # Gets the session user
-        user = mongo.db.gc_users.find_one(
-            {"username": session["user"]})
+        user = helpers.getUserFromSessionUser(session['user'])
 
-        userReviews = list(mongo.db.reviews.find(
-            {'review_by': session['user']}
-        ))
+        userReviews = helpers.getUserReviews(session['user'])
         # Gets reviews for the game
-        userGameReview = getReviewforGame(userReviews, game)
+        userGameReview = helpers.getReviewforGame(userReviews, game)
     else:
         userGameReview = None
         user = None
 
-    gameRating = getGameRatingFromReviews(reviews, game)
+    gameRating = helpers.getGameRatingFromReviews(reviews, game)
     # Add all ints in gameRating and divide by length
     # getting average
     if gameRating:
@@ -194,7 +146,7 @@ def game(game_id):
 @games.route("/user/edit-game-details/<game_id>", methods=["GET", "POST"])
 def edit_game_details(game_id):
     # Finds the game by it's _id
-    game = getGameByObjectId(game_id)
+    game = helpers.getGameByObjectId(game_id)
 
     if request.method == "POST":
         # gets the current date.time
