@@ -1,5 +1,6 @@
 import os
 from database import mongo
+import helpers
 from flask import (
     flash, render_template, redirect,
     request, session, url_for, Blueprint)
@@ -25,12 +26,12 @@ def register():
     Go to a page to register to database
     """
     # Gets all the profile image options
-    profileImages = list(mongo.db.profile_images.find())
+    profileImages = helpers.get_profile_images()
 
     if request.method == "POST":
         # check if username already exists in db
-        existing_user = mongo.db.gc_users.find_one(
-            {"username": request.form.get("username").lower()})
+        existing_user = helpers.check_for_existing_user_by_name(
+            request.form.get("username").lower())
 
         if existing_user:
             flash("Username already exists")
@@ -60,8 +61,8 @@ def login():
     """
     if request.method == "POST":
         # Check if username exists in db
-        existing_user = mongo.db.gc_users.find_one(
-            {"username": request.form.get("username").lower()})
+        existing_user = helpers.check_for_existing_user_by_name(
+            request.form.get("username").lower())
 
         if existing_user:
             # ensure hashed password matches user input
@@ -88,19 +89,15 @@ def profile(username):
     """
     if session["user"]:
         # gets all the db users
-        allUsers = list(mongo.db.gc_users.find())
+        allUsers = helpers.get_all_users()
         # gets the latest 5 games
-        latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+        latest_games = helpers.get_latest_games()
         # grab the session user's username from db
-        user = mongo.db.gc_users.find_one(
-            {"username": session["user"]})
-        username = user['username'].capitalize()
+        user = helpers.get_user_from_session_user(session["user"])
         return render_template(
             "profile.html",
             latest_games=latest_games,
-            username=username,
             user=user,
-            allUsers=allUsers
         )
 
     return redirect(url_for("users.login"))
@@ -111,10 +108,8 @@ def change_password():
     """
     Go to a page to change password of account. Takes a POST
     """
-    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
-    user = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
-    username = user['username'].capitalize()
+    latest_games = helpers.get_latest_games()
+    user = helpers.get_user_from_session_user(session["user"])
     userPass = mongo.db.gc_users.find_one(
         {"username": session["user"]})["password"]
 
@@ -134,7 +129,6 @@ def change_password():
     return render_template(
         "changepass.html",
         user=user,
-        username=username.capitalize(),
         latest_games=latest_games
     )
 
@@ -146,15 +140,13 @@ def get_user_reviews():
     extends the profile page
     """
     # gets the latest games in revers order. Max of 5
-    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    latest_games = helpers.get_latest_games()
 
     # gets the user matching the session user
-    user = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
-    username = user['username'].capitalize()
+    user = helpers.get_user_from_session_user(session["user"])
 
     # gets all review by the user
-    your_reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
+    your_reviews = helpers.get_user_reviews(session['user'])
 
     # sets the sessions url to get_user_reviews Page
     session['url'] = url_for("users.get_user_reviews")
@@ -163,7 +155,6 @@ def get_user_reviews():
         "your-reviews.html",
         your_reviews=your_reviews,
         latest_games=latest_games,
-        username=username,
         user=user
     )
 
@@ -173,8 +164,8 @@ def edit_user_review(review_id):
     """
     Go to a page to edit a review based on it's review_id
     """
-    user = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
+    # gets user matched with session user
+    user = helpers.get_user_from_session_user(session["user"])
 
     if request.method == "POST":
         """
@@ -193,14 +184,12 @@ def edit_user_review(review_id):
         flash("Review Updated")
 
         # gets the game id with the matching title
-        game_id = mongo.db.games.find_one(
-            {"title": request.form.get(
-                "game_title")})['_id']
+        game_id = helpers.get_game_by_game_name(request.form.get("game_title"))
 
-        return redirect(url_for('games.game', game_id=game_id))
+        return redirect(url_for('games.game', game_id=game_id['_id']))
 
     # finds a review with matching _id
-    review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+    review = helpers.get_review_by_object_id(review_id)
 
     return render_template("edit-review.html", review=review, user=user)
 
@@ -211,7 +200,7 @@ def delete_review(review_id):
     From a button to delete the selected review based on review_id
     """
     # Removes the review with atching _id
-    mongo.db.reviews.remove({"_id": ObjectId(review_id)})
+    helpers.remove_review_by_object_id(review_id)
     flash("Review Deleted")
 
     return redirect(session['url'])
@@ -234,27 +223,24 @@ def search_for_game():
     Go to a page to search all games in order to add a review
     OR add a new game to Database
     """
-    user = mongo.db.gc_users.find_one(
-        {"username": session["user"]})
-    username = user['username'].capitalize()
+    user = helpers.get_user_from_session_user(session["user"])
     # gets the latest 5 games, newest first
-    latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    latest_games = helpers.get_latest_games()
     # gets all the games in db
-    allgames = list(mongo.db.games.find())
+    allgames = helpers.get_all_games()
 
     # if a post request
     if request.method == "POST":
         # gets the name from the search box
         gameName = request.form.get("search")
         # searches the game in db
-        games = list(mongo.db.games.find({"$text": {"$search": gameName}}))
+        games = helpers.list_of_games_by_title_indexed(gameName)
         # gets reviews by user
-        reviews = list(mongo.db.reviews.find({'review_by': session['user']}))
+        reviews = helpers.get_user_reviews(session['user'])
 
         return render_template(
             "review-game-search.html",
             user=user,
-            username=username,
             latest_games=latest_games,
             games=games,
             allgames=allgames,
@@ -264,7 +250,6 @@ def search_for_game():
     return render_template(
         "review-game-search.html",
         user=user,
-        username=username,
         latest_games=latest_games,
         allgames=allgames
     )
@@ -276,10 +261,9 @@ def add_review(game_id):
     Go to a page to add a review to a game based on game_id
     """
     # find the game with matching _id
-    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+    game = helpers.get_game_by_object_id(game_id)
 
     if request.method == "POST":
-
         # newReview key value pairs from form
         newReview = {
             "review_message": request.form.get("review_message"),
@@ -292,8 +276,7 @@ def add_review(game_id):
         mongo.db.reviews.insert(newReview)
 
         # find game with title matches the form title
-        game = mongo.db.games.find_one(
-            {"title": game['title']})
+        game = helpers.get_game_by_game_name(game['title'])
 
         # redirected to game page
         return redirect(url_for('games.game', game_id=game['_id']))

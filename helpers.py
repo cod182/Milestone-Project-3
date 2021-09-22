@@ -28,20 +28,6 @@ def get_all_users():
     return list(mongo.db.gc_users.find())
 
 
-def get_all_user_reviews():
-    # Gets all the user reviews in the DB
-    return list(mongo.db.reviews.find())
-
-
-def get_user_reviews(user):
-    # Gets all of the current users reviews
-    return list(mongo.db.reviews.find({'review_by': session['user']}))
-
-
-def remove_reviews_by_user(name):
-    mongo.db.reviews.remove({'review_by': name})
-
-
 def remove_user_by_object_id(id):
     mongo.db.gc_users.remove({"_id": ObjectId(id)})
 
@@ -80,6 +66,11 @@ def get_game_by_game_id(id):
 def remove_game_by_objectId(id):
     # removes a game by it's object id
     mongo.db.games.remove({"_id": ObjectId(id)})
+
+
+def list_of_games_by_title_indexed(title):
+    # gets a list fo games by title using an index
+    return list(mongo.db.games.find({"$text": {"$search": title}}))
     
 
 def get_date():
@@ -99,7 +90,33 @@ def get_user_reviews_for_game_by_title(reviews, game):
             return review
 
 
+def get_review_by_object_id(id):
+    # gets the review with the object id
+    return mongo.db.reviews.find_one({"_id": ObjectId(id)})
+
+
+def get_all_user_reviews():
+    # Gets all the user reviews in the DB
+    return list(mongo.db.reviews.find())
+
+
+def get_user_reviews(user):
+    # Gets all of the current users reviews
+    return list(mongo.db.reviews.find({'review_by': user}))
+
+
+def remove_reviews_by_user(name):
+    # gets reviews by the user name of reviewer
+    mongo.db.reviews.remove({'review_by': name})
+
+
+def remove_review_by_object_id(id):
+    # Removes a review with matching object ID
+    mongo.db.reviews.remove({"_id": ObjectId(id)})
+
+
 def get_game_reviews_by_title(game):
+    # gets review matching the game_title
     return list(mongo.db.reviews.find({"game_title": game}))
 
 
@@ -119,4 +136,15 @@ def get_game_rating_from_reviews(reviews, game):
 
 
 def get_latest_games():
+    # gets the latest 5 games
     return list(mongo.db.games.find().sort("_id", -1).limit(5))
+
+
+def get_profile_images():
+    # gets all the progile imaeges in db
+    return list(mongo.db.profile_images.find())
+
+
+def check_for_existing_user_by_name(name):
+    # Checks if a user exists in db
+    return mongo.db.gc_users.find_one({"username": name})
