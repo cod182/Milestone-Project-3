@@ -20,6 +20,51 @@ games = Blueprint(
 RAWG_API = os.environ.get("RAWG_API_KEY")
 
 
+def getAllUsers():
+    # Gets all the users in the DB
+   return list(mongo.db.gc_users.find())
+
+
+def getAllUserReviews():
+    return list(mongo.db.reviews.find())
+
+
+def getGameByObjectId(id):
+    # gets the game by it's _id
+    return mongo.db.games.find_one({"_id": ObjectId(id)})
+
+
+def getGameByGameId(id):
+    return mongo.db.games.find_one({"game_id": id})
+
+
+def getDate():
+    # Gets the current date/time
+    now = datetime.now()
+    # dd/mm/YY H:M:S
+    return now.strftime("%d/%m/%Y %H:%M:%S")
+
+
+def getReviewforGame(reviews, game):
+    """
+    Goes through reviews matching to game title
+    returns matches
+    """
+    for review in reviews:
+        if review["game_title"] == game["title"]:
+            return review
+
+
+def getGameRatingFromReviews(reviews, game):
+    # List for all ratings of game
+    gameRating = []
+    # get the rating from each review and push to gameRating
+    for review in reviews:
+        if review["game_title"] == game["title"]:
+            gameRating.append(int(review["review_rating"]))
+    return gameRating
+
+
 @games.route("/user/game-search", methods=["GET", "POST"])
 def game_lookup():
     if request.method == "POST":
@@ -48,8 +93,7 @@ def add_game():
     """
     if request.method == "POST":
         # Checks if game already exists in database
-        existing_game = mongo.db.games.find_one(
-            {"game_id": int(request.form.get('selected-game'))})
+        existing_game = getGameByGameId(int(request.form.get('selected-game')))
 
         if existing_game:
             flash('Game Already Exists')
@@ -81,12 +125,9 @@ def add_game():
 
         # Game inserted into database
         mongo.db.games.insert(newGame)
-        game = mongo.db.games.find_one(
-            {"game_id": data['id']})
+        game = getGameByGameId(data['id'])
 
-        now = datetime.now()
-        # dd/mm/YY H:M:S
-        currenttime = now.strftime("%d/%m/%Y %H:%M:%S")
+        currenttime = getDate()
 
         # Adds the user who added the game and the time/date
         mongo.db.games.update_one(
@@ -108,36 +149,12 @@ def game(game_id):
     """
     Go to a page displaying a game based off the game_id provided
     """
-
-    # Gets the game bu the id
-    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
-
+    # Gets the game by the id
+    game = getGameByObjectId(game_id)
     # gets all reviews
-    reviews = list(mongo.db.reviews.find())
-
+    reviews = getAllUserReviews()
     # gets all users
-    allUsers = list(mongo.db.gc_users.find())
-
-    # List for all ratings of game
-    gameRating = []
-
-    # get the rating from each review and push to gameRating
-    for review in reviews:
-        if review["game_title"] == game["title"]:
-            gameRating.append(int(review["review_rating"]))
-
-    # Add all ints in gameRating and divide by length
-    # getting average
-    if gameRating:
-        usersRating = int(sum(gameRating) / len(gameRating))
-    usersRating = 'N/A'
-
-    # function to go through reviews and match to game title
-
-    def getReviewforGame(reviews):
-        for review in reviews:
-            if review["game_title"] == game["title"]:
-                return review
+    allUsers = getAllUsers()
 
     # If a user is logged in
     if session.get('user'):
@@ -148,10 +165,19 @@ def game(game_id):
         userReviews = list(mongo.db.reviews.find(
             {'review_by': session['user']}
         ))
-        userGameReview = getReviewforGame(userReviews)
+        # Gets reviews for the game
+        userGameReview = getReviewforGame(userReviews, game)
     else:
         userGameReview = None
         user = None
+
+    gameRating = getGameRatingFromReviews(reviews, game)
+    # Add all ints in gameRating and divide by length
+    # getting average
+    if gameRating:
+        usersRating = int(sum(gameRating) / len(gameRating))
+    else:
+        usersRating = 'N/A'
 
     return render_template(
         "game.html",
@@ -167,14 +193,12 @@ def game(game_id):
 
 @games.route("/user/edit-game-details/<game_id>", methods=["GET", "POST"])
 def edit_game_details(game_id):
-
-    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+    # Finds the game by it's _id
+    game = getGameByObjectId(game_id)
 
     if request.method == "POST":
         # gets the current date.time
-        now = datetime.now()
-        # dd/mm/YY H:M:S
-        currenttime = now.strftime("%d/%m/%Y %H:%M:%S")
+        currenttime = getDate()
 
         update = {
             "year": request.form.get("game_year"),
@@ -218,7 +242,8 @@ def get_latest_reviews():
         # Gets the session user
         user = mongo.db.gc_users.find_one(
             {"username": session["user"]})
-    user = None
+    else:
+        user = None
 
     # gets all reviews, newest first
     latest_reviews = list(mongo.db.reviews.find().sort("_id", -1))
