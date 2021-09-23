@@ -2,6 +2,7 @@ from database import mongo
 from flask import (session)
 from bson.objectid import ObjectId
 from datetime import datetime
+import requests
 
 
 def get_user_from_session_user(user):
@@ -71,7 +72,33 @@ def remove_game_by_objectId(id):
 def list_of_games_by_title_indexed(title):
     # gets a list fo games by title using an index
     return list(mongo.db.games.find({"$text": {"$search": title}}))
-    
+
+
+def get_latest_games():
+    # gets the latest 5 games
+    return list(mongo.db.games.find().sort("_id", -1).limit(5))
+
+
+def call_rawg_api_for_games(key, param, search):
+    # Calls the RAWG API with a search term
+    try:
+        response = requests.get(
+            "https://api.rawg.io/api/games"
+            + param
+            + search
+            + "key="
+            + key
+        )
+    except Exception as e:
+        print(e, response.status)
+
+    return response.json()
+
+
+def remove_game_reviews_by_title(title):
+    # Removes a games review by the game's title
+    mongo.db.reviews.remove({'game_title': title})
+
 
 def get_date():
     # Gets the current date/time
@@ -120,11 +147,6 @@ def get_game_reviews_by_title(game):
     return list(mongo.db.reviews.find({"game_title": game}))
 
 
-def remove_game_reviews_by_title(title):
-    # Removes a games review by the game's title
-    mongo.db.reviews.remove({'game_title': title})
-
-
 def get_game_rating_from_reviews(reviews, game):
     # List for all ratings of game
     gameRating = []
@@ -133,11 +155,6 @@ def get_game_rating_from_reviews(reviews, game):
         if review["game_title"] == game["title"]:
             gameRating.append(int(review["review_rating"]))
     return gameRating
-
-
-def get_latest_games():
-    # gets the latest 5 games
-    return list(mongo.db.games.find().sort("_id", -1).limit(5))
 
 
 def get_profile_images():

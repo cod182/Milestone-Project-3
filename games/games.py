@@ -24,19 +24,13 @@ RAWG_API = os.environ.get("RAWG_API_KEY")
 def game_lookup():
     if request.method == "POST":
         search = request.form.get("game-name")
-        try:
-            response = requests.get(
-                "https://api.rawg.io/api/games"
-                + "?key="
-                + RAWG_API
-                + '&search='
-                + search
-            )
-            gameData = response.json()
 
-            return render_template('select-game.html', gameData=gameData)
-        except requests.exceptions.RequestException as e:
-            raise SystemExit(e)
+        gameData = helpers.call_rawg_api_for_games(
+            RAWG_API,
+            '?search=',
+            search + '&')
+
+        return render_template('select-game.html', gameData=gameData)
 
     return render_template('lookup-game.html')
 
@@ -48,7 +42,8 @@ def add_game():
     """
     if request.method == "POST":
         # Checks if game already exists in database
-        existing_game = helpers.get_game_by_game_id(int(request.form.get('selected-game')))
+        existing_game = helpers.get_game_by_game_id(
+            int(request.form.get('selected-game')))
 
         if existing_game:
             flash('Game Already Exists')
@@ -56,13 +51,8 @@ def add_game():
 
         # Gets game id from page, makes and API call to get details
         gameId = request.form.get('selected-game')
-        apiCall = requests.get(
-            "https://api.rawg.io/api/games/"
-            + gameId
-            + "?key="
-            + RAWG_API
-        )
-        data = apiCall.json()
+
+        data = helpers.call_rawg_api_for_games(RAWG_API, '/', gameId + '?')
 
         # Fields to be inseted into db
         newGame = {
@@ -77,20 +67,16 @@ def add_game():
             "background": data['background_image_additional'],
             "metacritic": data['metacritic']
         }
-
         # Game inserted into database
         mongo.db.games.insert(newGame)
-        
         # get game that was added by game_id
         game = helpers.get_game_by_game_id(data['id'])
-        # Get the current time/date
-        currenttime = helpers.get_date()
         # Adds the user who added the game and the time/date
         mongo.db.games.update_one(
             {"_id": ObjectId(game['_id'])},
             {"$push": {'updated_by': {
                 'username': session['user'],
-                'time': currenttime
+                'time': helpers.get_date()
                 }
             }})
         # redirected to game page

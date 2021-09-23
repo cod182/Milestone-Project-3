@@ -87,7 +87,7 @@ def delete_user(user_id):
     helpers.remove_reviews_by_user(user['username'])
 
     # Removes the user with matching id
-    mhelpers.remove_user_by_object_id(user_id)
+    helpers.remove_user_by_object_id(user_id)
 
     flash("User & Reviews Deleted")
 
@@ -176,7 +176,7 @@ def delete_game_and_reviews(game_id):
     # Removes the reviews by game_id username
     helpers.remove_game_reviews_by_title(game['title'])
     # Removes the game with matching id
-    helpers.remove_game_by_objectID(game_id)
+    helpers.remove_game_by_objectId(game_id)
 
     flash("Game & Reviews Deleted")
 

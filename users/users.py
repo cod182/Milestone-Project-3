@@ -88,8 +88,6 @@ def profile(username):
     Go to a page to display users profile page
     """
     if session["user"]:
-        # gets all the db users
-        allUsers = helpers.get_all_users()
         # gets the latest 5 games
         latest_games = helpers.get_latest_games()
         # grab the session user's username from db
@@ -116,7 +114,7 @@ def change_password():
     if request.method == "POST":
         if check_password_hash(userPass, request.form.get("originalPassword")):
             mongo.db.gc_users.update_one(
-                {"username": username.lower()},
+                {"username": user['username'].lower()},
                 {"$set": {
                     "password": generate_password_hash(request.form.get(
                         "password"
