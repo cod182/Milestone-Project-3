@@ -1,4 +1,3 @@
-import os
 from database import mongo
 import helpers
 from flask import (
@@ -6,8 +5,6 @@ from flask import (
     request, session, url_for)
 from bson.objectid import ObjectId
 from flask import Blueprint
-if os.path.exists("env.py"):
-    import env
 
 admin = Blueprint(
     'admin',
@@ -15,9 +12,6 @@ admin = Blueprint(
     template_folder='templates',
     static_folder='static',
     static_url_path='/admin/static')
-
-
-RAWG_API = os.environ.get("RAWG_API_KEY")
 
 
 @admin.route('/admin', methods=["GET", "POST"])

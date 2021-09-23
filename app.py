@@ -19,7 +19,6 @@ app.config['CACHE_TYPE'] = 'simple'
 app.config['MONGO_DBNAME'] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
-RAWG_API = os.environ.get("RAWG_API_KEY")
 
 mongo.init_app(app)
 cache.init_app(app)

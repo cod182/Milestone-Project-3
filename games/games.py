@@ -1,6 +1,5 @@
 import os
 from database import mongo
-import requests
 import helpers
 from flask import (
     flash, render_template, redirect,

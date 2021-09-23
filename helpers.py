@@ -2,7 +2,6 @@ from database import mongo, cache
 from flask import (session)
 from bson.objectid import ObjectId
 from datetime import datetime
-import time
 import requests
 
 
@@ -90,7 +89,7 @@ def list_of_games_by_title_indexed(title):
     return list(mongo.db.games.find({"$text": {"$search": title}}))
 
 
-@cache.cached(timeout=21600)
+@cache.cached(timeout=30, key_prefix='latest_games')
 def get_latest_games():
     print('getting latest games')
     return list(mongo.db.games.find().sort("_id", -1).limit(5))

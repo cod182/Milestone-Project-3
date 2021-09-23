@@ -1,4 +1,3 @@
-import os
 from database import mongo
 import helpers
 from flask import (
@@ -6,8 +5,6 @@ from flask import (
     request, session, url_for, Blueprint)
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-if os.path.exists("env.py"):
-    import env
 
 users = Blueprint(
     'users',
@@ -15,9 +12,6 @@ users = Blueprint(
     template_folder='templates',
     static_folder='static',
     static_url_path='/users/static')
-
-
-RAWG_API = os.environ.get("RAWG_API_KEY")
 
 
 @users.route("/register", methods=["GET", "POST"])
