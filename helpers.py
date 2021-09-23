@@ -1,7 +1,8 @@
-from database import mongo
+from database import mongo, cache
 from flask import (session)
 from bson.objectid import ObjectId
 from datetime import datetime
+import time
 import requests
 
 
@@ -30,15 +31,30 @@ def get_all_users():
 
 
 def remove_user_by_object_id(id):
+    """Removes a games from the database
+
+    Args:
+        id (-id): [Object id for a game]
+    """
     mongo.db.gc_users.remove({"_id": ObjectId(id)})
 
 
 def get_all_games():
+    """Returns a list of all games in db
+
+    Returns:
+        [list]: [Games in databse]
+    """
     return list(mongo.db.games.find())
 
 
 def get_all_genres_of_games():
-    # gets all the genres from the db
+    """Gets all the individual genres in
+    the databse from games
+
+    Returns:
+        [list]: [unique game genres]
+    """
     genres = []
 
     games = get_all_games()
@@ -74,8 +90,9 @@ def list_of_games_by_title_indexed(title):
     return list(mongo.db.games.find({"$text": {"$search": title}}))
 
 
+@cache.cached(timeout=21600)
 def get_latest_games():
-    # gets the latest 5 games
+    print('getting latest games')
     return list(mongo.db.games.find().sort("_id", -1).limit(5))
 
 
@@ -130,9 +147,9 @@ def remove_game_reviews_by_title(title):
 
 def get_date():
     # Gets the current date/time
-    now = datetime.now()
+    uk_date_time = datetime.now()
     # dd/mm/YY H:M:S
-    return now.strftime("%d/%m/%Y %H:%M:%S")
+    return uk_date_time.strftime("%d/%m/%Y %H:%M:%S")
 
 
 def get_user_reviews_for_game_by_title(reviews, game):
