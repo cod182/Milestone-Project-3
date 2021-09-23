@@ -54,31 +54,11 @@ def add_game():
 
         data = helpers.call_rawg_api_for_games(RAWG_API, '/', gameId + '?')
 
-        # Fields to be inseted into db
-        newGame = {
-            "title": data['name'],
-            "year": data['released'],
-            "genres": data['genres'],
-            "game_id": data['id'],
-            "description": data['description'],
-            "largeImage": data['background_image'],
-            "platforms": data['platforms'],
-            "rating": data['esrb_rating'],
-            "background": data['background_image_additional'],
-            "metacritic": data['metacritic']
-        }
-        # Game inserted into database
-        mongo.db.games.insert(newGame)
-        # get game that was added by game_id
+        helpers.insert_game_into_game_db(data)
+
+        # Takes data and inserts into db
         game = helpers.get_game_by_game_id(data['id'])
-        # Adds the user who added the game and the time/date
-        mongo.db.games.update_one(
-            {"_id": ObjectId(game['_id'])},
-            {"$push": {'updated_by': {
-                'username': session['user'],
-                'time': helpers.get_date()
-                }
-            }})
+
         # redirected to game page
         return redirect(url_for('games.game', game_id=game['_id']))
 
@@ -104,15 +84,16 @@ def game(game_id):
         # Gets the reviews by the session user
         userReviews = helpers.get_user_reviews(session['user'])
         # Gets reviews for the game
-        userGameReview = helpers.get_user_reviews_for_game_by_title(userReviews, game)
+        userGameReview = helpers.get_user_reviews_for_game_by_title(
+            userReviews, game)
     else:
         userGameReview = None
         user = None
-    
+
     # getts all the ratings from reviews for the game
     gameRating = helpers.get_game_rating_from_reviews(reviews, game)
-    # Add all ints in gameRating and divide by length & gets average
     if gameRating:
+        # Add all ints in gameRating and divide by length & gets average
         usersRating = int(sum(gameRating) / len(gameRating))
     else:
         usersRating = 'N/A'

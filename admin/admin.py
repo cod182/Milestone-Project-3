@@ -172,7 +172,7 @@ def delete_game_and_reviews(game_id):
     and reviews from game_id
     """
     # finds the account name of game_id
-    game = helpers.get_game_by_game_id(game_id)
+    game = helpers.get_game_by_object_id(game_id)
     # Removes the reviews by game_id username
     helpers.remove_game_reviews_by_title(game['title'])
     # Removes the game with matching id

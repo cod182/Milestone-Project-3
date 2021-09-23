@@ -95,6 +95,34 @@ def call_rawg_api_for_games(key, param, search):
     return response.json()
 
 
+def insert_game_into_game_db(data):
+    """[summary]
+
+    Args:
+        data ([dict]): [dict of new game information]
+    Desc:
+        Adds new game into database
+    """
+    newGame = {
+            "title": data['name'],
+            "year": data['released'],
+            "genres": data['genres'],
+            "game_id": data['id'],
+            "description": data['description'],
+            "largeImage": data['background_image'],
+            "platforms": data['platforms'],
+            "rating": data['esrb_rating'],
+            "background": data['background_image_additional'],
+            "metacritic": data['metacritic'],
+            "updated_by": [{
+                'username': session['user'],
+                'time': get_date()
+                }]
+        }
+    # Game inserted into database
+    mongo.db.games.insert(newGame)
+
+
 def remove_game_reviews_by_title(title):
     # Removes a games review by the game's title
     mongo.db.reviews.remove({'game_title': title})
