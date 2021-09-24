@@ -2,8 +2,6 @@ const yourreviewicon = document.getElementById('your-reviews-icon');
 let rating = document.getElementsByClassName('review-rating');
 const currentLink = document.getElementById('latest-reviews-link');
 
-console.log(rating)
-
 // When windows loads give the page link an underline
 window.onload = function(){
   currentLink.classList.add('selected');
