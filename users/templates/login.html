@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container login-register-container roboto">
+        <div class="row gx-0">
+            <div class="col-8 mx-auto">
+                <h1 class="page-title">Login</h1>
+            </div>
+        </div>
+        <div class="row gx-0">
+            <div class="col-sm-12 col-md-6 mx-auto login-container">
+                <form method="POST" action="{{ url_for('users.login') }}">
+                    <div class="row">
+                        <input id="username" class="login-input" type="text" name="username" placeholder="Your Username" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$" required>
+                    </div>
+                    <div class="row">
+                        <input id="password" class="login-input" type="password" name="password" placeholder="Your Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$" required>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="btn btn-green btn--login-register">Login</button>
+                    </div>
+                </form>
+                <p class="login-register-swap" >Not Registered? <a href="{{ url_for('users.register') }}">Register Here</a></p>
+                <section>
+                    <!-- Flash Messages -->
+                      {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="row">
+                                    <h4 class="red flash-message">
+                                      {{ message }}
+                                    </h4>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {%  endwith %}
+                  </section>
+            </div>
+        </div>
+        
+    </div>
+
+{% endblock %}

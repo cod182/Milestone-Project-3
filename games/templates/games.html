@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container all-games-container roboto">
+        <div class="row gx-0">
+            <div class="col-8 mx-auto">
+                <h1 class="page-title">All Games</h1>
+            </div>
+        </div>
+        <div class="row gx-0 all-games-search">
+            <div class="col-sm-12 col-md-1">
+                <p>Search:</p>
+            </div>
+            <form class="col-sm-12 col-md-11" action="{{ url_for('games.get_all_games') }}" method="POST">
+                <div class="row">
+                    <div class="col-sm-12 col-md-5 d-inline">
+                        <input type="text" name="name_of_game" placeholder="Name of Game" class="my-2">
+                    </div>
+                    <div class="col-sm-12 col-md-3 text-center">
+                        <select name="genre" id="genre" list="genres" class="w-100 my-3">
+                            <datalist id="genres">
+                                {% for genre in genres  %}
+                                    <option value="{{ genre }}">{{ genre }}</option>
+                                {% endfor %}
+                            </datalist>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 col-md-2 text-center">
+                        <button type="submit" class="btn btn-green w-100 my-2">Search</button>
+                    </div>
+                    <div class="col-sm-12 col-md-2 text-center">
+                        <a href="{{ url_for('games.get_all_games') }}" type="submit" class="btn btn-danger w-100 my-2">Reset</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <hr>
+        <div class="container mx-auto">
+            <div class="row">
+                {% for game in allGames %}
+                    <div class="game-container-all-games">
+                        <div class="col-12">
+                            <a class="remove-a-link-styles" href="{{ url_for('games.game', game_id=game._id) }}">
+                                <img class="game-image" src="{{ game.largeImage }}" alt="">
+                                <p id="game_title" class="game-title"> {{ game.title }}</p>
+                                <p class="game-year">{{game.year }}</p>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('games.static', filename='js/games_script.js') }}"></script>
+{% endblock %}

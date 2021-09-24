@@ -1,0 +1,74 @@
+{% extends "admin-base.html" %}
+{% block admin %}
+
+    {% if session.user|lower == user.username|lower %}
+        {% if user.userType == 'admin' %}
+        <div class="row">
+            <div class="col-12 game-search">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Search For A User!</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <form action="{{ url_for('admin.user_search') }}" method="POST">
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" name="username" placeholder="Username" list="users" autocomplete="off" autofocus required>
+                                <datalist id="users">
+                                {% for user in allUsers %}
+                                    <option>{{ user.username.capitalize() }}</option>
+                                {% endfor %}
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-green">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <hr>
+                <div class="row">
+                    {% if searchedUsers|length > 0 %}
+                        {% for foundUser in searchedUsers %}
+                            <div class="col-sm-12 col-md-10 user-container-block-admin">
+                                <div class="row">
+                                    <div class="col-12 col-md-8 user-container-admin">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-2 col-md-2 m-auto">
+                                                <a href="{{ url_for('admin.delete_user', user_id=foundUser._id) }}"
+                                                    class="btn btn--delete"
+                                                    onclick="return confirm('Delete {{foundUser.username.capitalize()}}?');">Delete
+                                                    </a>
+                                            </div>
+                                            <div class="col-12 col-sm-2 col-md-2 m-auto">
+                                                <a href="{{ url_for('admin.edit_user', user_id=foundUser._id) }}"
+                                                    class="btn btn--edit">Edit</a>
+                                            </div>
+                                            <div class="col-12 col-sm-2 col-md-4 m-auto">
+                                                <p class="m-0">Username:</p>
+                                                <p class="m-auto bold">{{ foundUser.username.capitalize() }}</p>
+                                            </div>
+                                            <div class="col-12 col-sm-2 col-md-2 m-auto">
+                                                <p class="m-0">User Type:</p>
+                                                <p class="m-auto bold">{{ foundUser.userType.capitalize() }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
+                 
+{% block scriptsextra %}
+    <script src="{{ url_for('admin.static', filename='js/admin_user_search_script.js') }}"></script>
+{% endblock %}

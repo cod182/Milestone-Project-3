@@ -5,39 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Corner</title>
-    <link rel="icon" href="/static/images/favicon/logo-16.png" type="image/png" sizes="16x16">
-    <link rel="icon" href="/static/images/favicon/logo-32.png" type="image/png" sizes="32x32">
-    <link rel="icon" href="/static/images/favicon/logo-96.png" type="image/png" sizes="96x96">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon/logo-16.png') }}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon/logo-32.png') }}" type="image/png" sizes="32x32">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon/logo-96.png') }}" type="image/png" sizes="96x96">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" type="text/css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/5351067769.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
     
-
     <header>
         <nav class="navbar navbar-expand-lg navbar-bg--blue">
             <div class="container-fluid">
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <form class="d-flex" action="{{ url_for('games') }}" method="POST">
+                    <form class="d-flex" action="{{ url_for('games.get_all_games', username=session['user']) }}" method="POST">
                         <input class="form-control m-2" type="text" placeholder="Search" name="name_of_game" aria-label="Search">
                         <button class="btn btn-outline-success m-2" type="submit">Search</button>
                     </form>
                     <a href="{{ url_for('index')}}">Home</a>
                     {% if session.user %}
-                        <a href="{{ url_for('profile', username=session['user']) }}">Profile</a>
+                        <a href="{{ url_for('users.profile', username=session['user']) }}">Profile</a>
                     {% endif %}
-                    <a href="{{ url_for('latest_reviews')}}">Latest Reviews</a>
-                    <a href="{{ url_for('games')}}">Games</a>
+                    <a href="{{ url_for('games.get_latest_reviews')}}">Latest Reviews</a>
+                    <a href="{{ url_for('games.get_all_games') }}">Games</a>
                     <a href="" data-bs-toggle="modal" data-bs-target="#contactUsModal">Contact Us</a>
                     {% if session.user %}
-                        <a href="{{ url_for('logout') }}">Logout</a> 
+                        <a href="{{ url_for('users.logout') }}">Logout</a> 
                     {% else %}
-                        <a href="{{ url_for('login')}}">Login</a>
-                        <a href="{{ url_for('register')}}">Register</a>
+                        <a href="{{ url_for('users.login')}}">Login</a>
+                        <a href="{{ url_for('users.register')}}">Register</a>
                     {% endif %}
                   </div>
                 <div class="row">
@@ -47,7 +45,7 @@
 
                     <div class="col-10 navbar-container">
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <form class="d-flex" action="{{ url_for('games') }}" method="POST">
+                            <form class="d-flex" action="{{ url_for('games.get_all_games') }}" method="POST">
                                 <input class="form-control me-2" type="search" placeholder="Search" name="name_of_game" aria-label="Search">
                                 <button class="btn btn-outline-success" type="submit">Search</button>
                             </form>
@@ -62,33 +60,33 @@
                                             Profile
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><a class="dropdown-item" id="profile-home-link" href="{{ url_for('profile', username=session['user']) }}">Home</a></li>
-                                            <li><a class="dropdown-item" id="profile-new-rev-link" href="{{ url_for('profileGameSearch') }}">New Review</a></li>
-                                            <li><a class="dropdown-item" id="profile-your-revs-link" href="{{ url_for('yourReviews') }}">Your Reviews</a></li>
-                                            <li><a class="dropdown-item" id="profile-settings-link" href="{{ url_for('changePass') }}">Settings</a></li>
-                                            <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                                            <li><a class="dropdown-item" id="profile-home-link" href="{{ url_for('users.profile', username=session['user']) }}">Home</a></li>
+                                            <li><a class="dropdown-item" id="profile-new-rev-link" href="{{ url_for('users.search_for_game') }}">New Review</a></li>
+                                            <li><a class="dropdown-item" id="profile-your-revs-link" href="{{ url_for('users.get_user_reviews') }}">Your Reviews</a></li>
+                                            <li><a class="dropdown-item" id="profile-settings-link" href="{{ url_for('users.change_password') }}">Settings</a></li>
+                                            <li><a class="dropdown-item" href="{{ url_for('users.logout') }}">Logout</a></li>
                                         </ul>
                                     </li>
                                 {% endif %}
                                 <li class="nav-item">
-                                    <a class="nav-link" id="latest-reviews-link" href="{{ url_for('latest_reviews') }}">Latest Reviews</a>
+                                    <a class="nav-link" id="latest-reviews-link" href="{{ url_for('games.get_latest_reviews') }}">Latest Reviews</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="games-link" href="{{ url_for('games') }}">Games</a>
+                                    <a class="nav-link" id="games-link" href="{{ url_for('games.get_all_games') }}">Games</a>
                                 </li>
                                 <li class="nav-item">
                                 <a href="" class="nav-link" id="contact-link" data-bs-toggle="modal" data-bs-target="#contactUsModal">Contact Us</a>
                                 </li>
                                 {% if session.user %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                        <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
                                     </li> 
                                 {% else %}
                                     <li class="nav-item">
-                                        <a class="nav-link" id="login-link" aria-current="page" href="{{ url_for('login') }}">Login</a>
+                                        <a class="nav-link" id="login-link" aria-current="page" href="{{ url_for('users.login') }}">Login</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="register-link" aria-current="page" href="{{ url_for('register') }}">Register</a>
+                                        <a class="nav-link" id="register-link" aria-current="page" href="{{ url_for('users.register') }}">Register</a>
                                     </li>
                                 {% endif %}
                                 
