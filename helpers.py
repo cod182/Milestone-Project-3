@@ -165,7 +165,7 @@ def get_review_by_object_id(id):
     # gets the review with the object id
     return mongo.db.reviews.find_one({"_id": ObjectId(id)})
 
-
+@cache.cached(timeout=3600, key_prefix='user_reviews')
 def get_all_user_reviews():
     # Gets all the user reviews in the DB
     return list(mongo.db.reviews.find())
