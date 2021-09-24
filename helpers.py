@@ -38,6 +38,7 @@ def remove_user_by_object_id(id):
     mongo.db.gc_users.remove({"_id": ObjectId(id)})
 
 
+@cache.cached(timeout=1300, key_prefix='all_games')
 def get_all_games():
     """Returns a list of all games in db
 
@@ -47,6 +48,7 @@ def get_all_games():
     return list(mongo.db.games.find())
 
 
+@cache.cached(timeout=1300, key_prefix='all_genres')
 def get_all_genres_of_games():
     """Gets all the individual genres in
     the databse from games
@@ -106,7 +108,7 @@ def call_rawg_api_for_games(key, param, search):
             + key
         )
     except Exception as e:
-        print(e, response.status)
+        print(str(e), response.status)
 
     return response.json()
 
@@ -165,7 +167,7 @@ def get_review_by_object_id(id):
     # gets the review with the object id
     return mongo.db.reviews.find_one({"_id": ObjectId(id)})
 
-@cache.cached(timeout=3600, key_prefix='user_reviews')
+
 def get_all_user_reviews():
     # Gets all the user reviews in the DB
     return list(mongo.db.reviews.find())
@@ -201,6 +203,7 @@ def get_game_rating_from_reviews(reviews, game):
     return gameRating
 
 
+@cache.cached(timeout=86400, key_prefix='profile_images')
 def get_profile_images():
     # gets all the progile imaeges in db
     return list(mongo.db.profile_images.find())
