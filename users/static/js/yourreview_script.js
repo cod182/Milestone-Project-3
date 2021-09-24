@@ -10,8 +10,9 @@ window.onload = function(){
   currentNestedLink.classList.add('selected');
 };
 
+// Changes the review rating number to a star
 for (var i = 0; i < rating.length; i++) {
-  switch(rating[i].textContent) {
+  switch(rating[i].innerText) {
     case '1':
       rating[i].innerHTML = `
         <i class="fa fa-star"></i>

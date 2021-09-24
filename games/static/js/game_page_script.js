@@ -13,35 +13,43 @@ descriptionArea.innerHTML = descriptionHolder.innerText
 
 // Changes the review rating number to a star
 for (var i = 0; i < rating.length; i++) {
-  if(rating[i].textContent == 1) {
-    rating[i].innerHTML = `
-    <i class="fa fa-star"></i>
-  `
-  } else if(rating[i].textContent == 2) {
-    rating[i].innerHTML = `
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-  `
-  } else if(rating[i].textContent == 3) {
-    rating[i].innerHTML = `
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-  `
-  } else if(rating[i].textContent == 4) {
-    rating[i].innerHTML = `
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-  `
-  } else if(rating[i].textContent == 5) {
-    rating[i].innerHTML = `
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-    <i class="fa fa-star"></i>
-  `
-  } 
+  switch(rating[i].innerText) {
+    case '1':
+      rating[i].innerHTML = `
+        <i class="fa fa-star"></i>
+      `
+      break;
+    case '2':
+      rating[i].innerHTML = `
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      `
+      break;
+    case '3':
+      rating[i].innerHTML = `
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      `
+      break;
+    case '4':
+      rating[i].innerHTML = `
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      `
+      break;
+    case '5':
+      rating[i].innerHTML = `
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      `
+    break;
+    default:
+      "No Rating"
+  }
 }
