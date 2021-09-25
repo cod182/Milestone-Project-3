@@ -66,7 +66,6 @@ def add_game():
 
 
 @games.route("/game/<game_id>", methods=["GET", "POST"])
-@cache.cached(timeout=43200)
 def game(game_id):
     """
     Go to a page displaying a game based off the game_id provided

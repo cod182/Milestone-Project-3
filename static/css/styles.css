@@ -486,6 +486,16 @@ btn-open:active {
   padding: 10px 0 10px 0;
 }
 
+.review-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 70px;
+  border-radius: 10px;
+  width: 90%;
+  margin: auto;
+}
+
 .profile-image-container {
   width: 30px;
   height: 30px;
@@ -497,6 +507,7 @@ btn-open:active {
 
 .profile-image {
   width: -webkit-fill-available;
+  width: -moz-available;
   border-radius: 50%;
 }
 
@@ -506,9 +517,9 @@ btn-open:active {
 }
 
 .review-game-title h5 {
-  line-height: 20px;
-  min-height: 50px;
-  margin-bottom: 0;
+  line-height: 25px;
+    margin: auto;
+    color: #bbbbbb;
 }
 
 .review-game-title:hover,
