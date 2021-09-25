@@ -1,4 +1,4 @@
-x{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 
         <div class="container game-page-container roboto">
@@ -27,7 +27,7 @@ x{% extends 'base.html' %}
                     </div>
 
                     <!-- Releaswed/Rating/Critic rating -->
-                    <div class="row gx-0 mt-2">
+                    <div class="row gx-0 my-3">
                         <div class="col-4 mx-auto text-center">
                             <p class="game-lower-heading">Released</p>
                             <p class="game-text-box">{{game.year}}</p>
@@ -53,7 +53,7 @@ x{% extends 'base.html' %}
                     </div>
 
                     <!-- Game Ratings -->
-                    <div class="row gx-0 mt-2">
+                    <div class="row gx-0 my-3">
                         <!-- User Rating -->
                         <div class="col-4 mx-auto text-center">
                             <p class="game-lower-heading">No. of Reviews</p>
@@ -78,7 +78,7 @@ x{% extends 'base.html' %}
                     </div>
 
                     <!-- Purchase -->
-                    <div class="row gx-0 my-2">
+                    <div class="row gx-0 my-3">
                         <div class="col-12 text-center">
                             <p class="game-lower-heading">Purchase From</p>
                             <div class="row">
@@ -96,7 +96,7 @@ x{% extends 'base.html' %}
                     </div>
 
                     <!-- Videos of Game -->
-                    <div class="row gx my-2">
+                    <div class="row gx my-2 mx-auto">
                         {% for video in videos['items'] %}
                             <div class="col-6">
                                 <iframe width="100%" src="https://www.youtube.com/embed/{{ video.id.videoId }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
