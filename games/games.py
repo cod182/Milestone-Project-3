@@ -1,5 +1,5 @@
 import os
-from database import mongo
+from database import mongo, cache
 import helpers
 from flask import (
     flash, render_template, redirect,
@@ -17,6 +17,7 @@ games = Blueprint(
 
 
 RAWG_API = os.environ.get("RAWG_API_KEY")
+YOUTUBE_API = os.environ.get("YOUTUBE_API_KEY")
 
 
 @games.route("/user/game-search", methods=["GET", "POST"])
@@ -65,6 +66,7 @@ def add_game():
 
 
 @games.route("/game/<game_id>", methods=["GET", "POST"])
+@cache.cached(timeout=43200)
 def game(game_id):
     """
     Go to a page displaying a game based off the game_id provided
@@ -76,7 +78,7 @@ def game(game_id):
     # gets all users
     allUsers = helpers.get_all_users()
 
-    videos = helpers.call_youtube_api_for_game(game['title'])
+    videos = helpers.call_youtube_api_for_game(game['title'], YOUTUBE_API)
 
     # If a user is logged in
     if session.get('user'):

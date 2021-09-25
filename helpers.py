@@ -9,9 +9,6 @@ if os.path.exists("env.py"):
     import env
 
 
-YOUTUBE_API = os.environ.get("YOUTUBE_API_KEY")
-
-
 def get_user_from_session_user(user):
     # Gets a user in the DB from the session user's name
     return mongo.db.gc_users.find_one({"username": session["user"]})
@@ -105,7 +102,16 @@ def get_latest_games():
 
 
 def call_rawg_api_for_games(key, param, search):
-    # Calls the RAWG API with a search term
+    """[calls rawg api for information on searched game]
+
+    Args:
+        key ([API Key]): [The api key for RAWG]
+        param ([string]): [search parameter]
+        search ([string]): [game / id to search]
+
+    Returns:
+        [json list]: [details of searched game]
+    """
     try:
         response = requests.get(
             "https://api.rawg.io/api/games"
@@ -120,10 +126,19 @@ def call_rawg_api_for_games(key, param, search):
     return response.json()
 
 
-def call_youtube_api_for_game(game):
+def call_youtube_api_for_game(game, key):
+    """[Calls youtube for IGN's videos relating to
+    the given game]
+
+    Args:
+        game ([string]): [game title to search]
+
+    Returns:
+        [json list]: [list of 2 videos]
+    """
 
     youtube = build(
-        "youtube", "v3", developerKey=YOUTUBE_API)
+        "youtube", "v3", developerKey=key)
     try:
         request = youtube.search().list(
             part="snippet",
@@ -133,7 +148,7 @@ def call_youtube_api_for_game(game):
             safeSearch="none"
         )
     except Exception as e:
-            print(str(e), response.status)
+        print(str(e), request.status)
     return request.execute()
 
 
