@@ -3,6 +3,13 @@ from flask import (session)
 from bson.objectid import ObjectId
 from datetime import datetime
 import requests
+import os
+from googleapiclient.discovery import build
+if os.path.exists("env.py"):
+    import env
+
+
+YOUTUBE_API = os.environ.get("YOUTUBE_API_KEY")
 
 
 def get_user_from_session_user(user):
@@ -111,6 +118,23 @@ def call_rawg_api_for_games(key, param, search):
         print(str(e), response.status)
 
     return response.json()
+
+
+def call_youtube_api_for_game(game):
+
+    youtube = build(
+        "youtube", "v3", developerKey=YOUTUBE_API)
+    try:
+        request = youtube.search().list(
+            part="snippet",
+            channelId="UCKy1dAqELo0zrOtPkf0eTMw",
+            maxResults=2,
+            q=game,
+            safeSearch="none"
+        )
+    except Exception as e:
+            print(str(e), response.status)
+    return request.execute()
 
 
 def insert_game_into_game_db(data):

@@ -76,6 +76,8 @@ def game(game_id):
     # gets all users
     allUsers = helpers.get_all_users()
 
+    videos = helpers.call_youtube_api_for_game(game['title'])
+
     # If a user is logged in
     if session.get('user'):
         # Gets the session user
@@ -105,7 +107,8 @@ def game(game_id):
         user=user,
         usersRating=usersRating,
         gameRating=gameRating,
-        allUsers=allUsers
+        allUsers=allUsers,
+        videos=videos
     )
 
 
