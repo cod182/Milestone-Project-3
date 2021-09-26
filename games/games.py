@@ -8,12 +8,9 @@ from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
 
-games = Blueprint(
-    "games",
-    __name__,
-    template_folder='templates',
-    static_folder='static',
-    static_url_path='/games/static')
+games = Blueprint("games", __name__, template_folder='templates',
+                  static_folder='static',
+                  static_url_path='/games/static')
 
 
 RAWG_API = os.environ.get("RAWG_API_KEY")
@@ -76,7 +73,7 @@ def game(game_id):
     reviews = helpers.get_all_user_reviews()
     # gets all users
     allUsers = helpers.get_all_users()
-
+    # Gets youtube videos for the game
     videos = helpers.call_youtube_api_for_game(game['title'], YOUTUBE_API)
 
     # If a user is logged in
@@ -100,17 +97,10 @@ def game(game_id):
     else:
         usersRating = 'N/A'
 
-    return render_template(
-        "game.html",
-        game=game,
-        reviews=reviews,
-        userGameReview=userGameReview,
-        user=user,
-        usersRating=usersRating,
-        gameRating=gameRating,
-        allUsers=allUsers,
-        videos=videos
-    )
+    return render_template("game.html", game=game, reviews=reviews,
+                           userGameReview=userGameReview, user=user,
+                           usersRating=usersRating, gameRating=gameRating,
+                           allUsers=allUsers, videos=videos)
 
 
 @games.route("/user/edit-game-details/<game_id>", methods=["GET", "POST"])
@@ -173,13 +163,11 @@ def get_latest_reviews():
     # gets all the db users
     allUsers = list(mongo.db.gc_users.find())
 
-    return render_template(
-        "latest-reviews.html",
-        latest_reviews=latest_reviews,
-        games=games,
-        user=user,
-        allUsers=allUsers
-    )
+    return render_template("latest-reviews.html",
+                           latest_reviews=latest_reviews,
+                           games=games, user=user,
+                           allUsers=allUsers
+                           )
 
 
 @games.route("/games", methods=["GET", "POST"])
@@ -204,10 +192,7 @@ def get_all_games():
                 genres=genres
             )
         flash('No Game Found')
-        return render_template(
-            "games.html",
-            allGames=allGames,
-            genres=genres
-        )
+        return render_template("games.html",
+                               allGames=allGames, genres=genres)
 
     return render_template("games.html", allGames=allGames, genres=genres)
