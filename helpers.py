@@ -136,20 +136,26 @@ def call_youtube_api_for_game(game, key):
     Returns:
         [json list]: [list of 2 videos]
     """
-
-    youtube = build(
-        "youtube", "v3", developerKey=key)
     try:
-        request = youtube.search().list(
-            part="snippet",
-            channelId="UCKy1dAqELo0zrOtPkf0eTMw",
-            maxResults=2,
-            q=game,
-            safeSearch="none"
-        )
-    except Exception as e:
-        print(str(e), request.status)
-    return request.execute()
+        search_url = "https://www.googleapis.com/youtube/v3/search"
+
+        search_params = {
+            'key': key,
+            'part': "snippet",
+            'channelId': "UCKy1dAqELo0zrOtPkf0eTMw",
+            'maxResults': 2,
+            'q': game
+        }
+
+        response = requests.get(search_url, params=search_params).json()
+
+        if not response['error']['code'] // 100 == 2:
+            return None
+
+    except requests.exceptions.RequestException as e:
+        return "Error: {}".format(e)
+
+    return response
 
 
 def insert_game_into_game_db(data):
