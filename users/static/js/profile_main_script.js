@@ -1,25 +1,37 @@
-const hideLG = document.getElementById('latest-games-visability-btn')
+const hideLatestGameBtn = document.getElementById('latest-games-visability-btn')
 const latestGamesCont = document.getElementById('latest-games-container');
+let latestGames = localStorage.getItem('latestGames');
+
+
+//Checks if latest games is enabled in local storage
+if(latestGames === 'hide') {
+  hideLatestGames();
+};
 
 // hides the latest games container then creates the show latest games button
-hideLG.addEventListener('click', function () {
+hideLatestGameBtn.addEventListener('click', function () {
+  hideLatestGames();
+});
+
+function hideLatestGames() {
   latestGamesCont.classList.add('hide');
   let btn = createShowLatestGamesBtn();
   let parent = document.getElementById('latest-games-container').parentNode;
   let container = document.getElementById('latest-games-container');
   parent.insertBefore(btn, container);
-});
+  localStorage.setItem('latestGames', 'hide');
+}
 
 // Ceates the show latest game sbutton
 function createShowLatestGamesBtn() {
-  let LGCont = makeDivTwoClass("container-fluid", "lg-btn-container");
-  LGCont.setAttribute('id', 'latest-games-btn-cont')
+  let latestGamesContainer = makeDivTwoClass("container-fluid", "lg-btn-container");
+  latestGamesContainer.setAttribute('id', 'latest-games-btn-cont')
 
-  let LGContRow = makeDivOneClass("row");
-  LGCont.appendChild(LGContRow);
+  let latestGamesContainerRow = makeDivOneClass("row");
+  latestGamesContainer.appendChild(latestGamesContainerRow);
 
-  let LGContCol = makeDivOneClass("Col-12");
-  LGContRow.appendChild(LGContCol);
+  let latestGamesContainerCol = makeDivOneClass("Col-12");
+  latestGamesContainerRow.appendChild(latestGamesContainerCol);
 
   let btn = document.createElement('button');
   btn.classList.add('btn');
@@ -28,15 +40,17 @@ function createShowLatestGamesBtn() {
   btn.setAttribute('onclick', 'showLatestGames()')
 
   btn.textContent = 'Show Latest Games';
-  LGContCol.appendChild(btn);
+  latestGamesContainerCol.appendChild(btn);
 
-  return LGCont
+  return latestGamesContainer
 }
 
 // unhides the latest games div and remove the latest games button container
 function showLatestGames(){
   document.getElementById('latest-games-btn-cont').remove();
   latestGamesCont.classList.remove('hide');
+  localStorage.setItem('latestGames', null);
+
 }
 
 // Create and returns a div with 1 class
