@@ -1,7 +1,7 @@
 const currentLink = document.getElementById('register-link');
 
 // When windows loads give the page link an underline
-window.onload = function(){
+window.onload = function () {
   currentLink.classList.add('selected');
 };
 

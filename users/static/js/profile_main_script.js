@@ -4,7 +4,7 @@ let latestGames = localStorage.getItem('latestGames');
 
 
 //Checks if latest games is enabled in local storage
-if(latestGames === 'hide') {
+if (latestGames === 'hide') {
   hideLatestGames();
 };
 
@@ -46,7 +46,7 @@ function createShowLatestGamesBtn() {
 }
 
 // unhides the latest games div and remove the latest games button container
-function showLatestGames(){
+function showLatestGames() {
   document.getElementById('latest-games-btn-cont').remove();
   latestGamesCont.classList.remove('hide');
   localStorage.setItem('latestGames', null);
