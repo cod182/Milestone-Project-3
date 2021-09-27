@@ -1152,6 +1152,14 @@ btn-open:active {
     width: 60%;
     margin: 10px 20%;
   }
+
+  .footer-contact-right {
+    margin: 0;
+  }
+
+  .footer-contact-container p{
+    margin-bottom: 0;
+  }
 }
 
 @media screen and (max-height: 450px) {
@@ -1178,6 +1186,9 @@ btn-open:active {
   .game-container-all-games {
     width: 90%;
     margin: 10px 5%;
+  }
+  .page-container {
+    padding-bottom: 150px;
   }
 }
 
