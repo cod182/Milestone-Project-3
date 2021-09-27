@@ -120,7 +120,7 @@ body {
 
 .btn-open {
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
   border: 1px solid black;
   border-radius: 10px 10px 0 0;
@@ -451,8 +451,9 @@ btn-open:active {
 }
 
 .lg-btn-container {
-  position: relative;
+  position: absolute;
   height: 18px;
+  bottom: 75px;
 }
 
 /* All Games Container */
