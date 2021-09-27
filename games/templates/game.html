@@ -27,7 +27,7 @@
                     </div>
 
                     <!-- Releaswed/Rating/Critic rating -->
-                    <div class="row gx-0 mt-2">
+                    <div class="row gx-0 my-3">
                         <div class="col-4 mx-auto text-center">
                             <p class="game-lower-heading">Released</p>
                             <p class="game-text-box">{{game.year}}</p>
@@ -53,7 +53,7 @@
                     </div>
 
                     <!-- Game Ratings -->
-                    <div class="row gx-0 mt-2">
+                    <div class="row gx-0 my-3">
                         <!-- User Rating -->
                         <div class="col-4 mx-auto text-center">
                             <p class="game-lower-heading">No. of Reviews</p>
@@ -78,21 +78,30 @@
                     </div>
 
                     <!-- Purchase -->
-                    <div class="row gx-0 my-2">
+                    <div class="row gx-0 my-3">
                         <div class="col-12 text-center">
                             <p class="game-lower-heading">Purchase From</p>
                             <div class="row">
-                                <div class="col-4">
-                                    <a class="remove-a-link-styles game-text-box" href="">Store 1</a>
+                                <div class="col-4 mx-auto">
+                                    <a class="remove-a-link-styles game-text-box" target="_blank" href="https://store.steampowered.com/search/?term={{game.title}}">Steam</a>
                                 </div>
-                                <div class="col-4">
-                                    <a class="remove-a-link-styles game-text-box" href="">Store 2</a>
+                                <div class="col-4 mx-auto">
+                                    <a class="remove-a-link-styles game-text-box" target="_blank" href="https://www.amazon.co.uk/s?k={{game.title}}">Amazon</a>
                                 </div>
-                                <div class="col-4">
-                                    <a class="remove-a-link-styles game-text-box" href="">Store 3</a>
+                                <div class="col-4 mx-auto">
+                                    <a class="remove-a-link-styles game-text-box" target="_blank" href="https://www.shopto.net/en/search/?input_search={{game.title}}">ShopTo</a>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Videos of Game -->
+                    <div class="row gx my-2 mx-auto">
+                        {% for video in videos['items'] %}
+                            <div class="col-6">
+                                <iframe width="100%" src="https://www.youtube.com/embed/{{ video.id.videoId }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        {% endfor %}
                     </div>
 
                     <!-- Review Button -->

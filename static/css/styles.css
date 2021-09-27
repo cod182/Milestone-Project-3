@@ -8,7 +8,13 @@
 body {
   height: 100vh;
   background-image: url('https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_400/MTc0MDE0OTk4MzEyMzk2NjY3/asteroids-by-atari-classic-video-games-reviewed.webp');
-  background-color: rgb(56, 56, 56);
+  background-color: rgb(168, 168, 168);
+}
+
+.page-container {
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 100px;
 }
 
 .hide {
@@ -114,7 +120,7 @@ body {
 
 .btn-open {
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
   border: 1px solid black;
   border-radius: 10px 10px 0 0;
@@ -360,8 +366,10 @@ btn-open:active {
 .footer {
   background: #3232cd;
   min-height: 75px;
-  position: absolute;
   margin-top: 20px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 
 .footer-contact-container {
@@ -443,8 +451,9 @@ btn-open:active {
 }
 
 .lg-btn-container {
-  position: relative;
+  position: absolute;
   height: 18px;
+  bottom: 75px;
 }
 
 /* All Games Container */
@@ -486,17 +495,28 @@ btn-open:active {
   padding: 10px 0 10px 0;
 }
 
+.review-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 70px;
+  border-radius: 10px;
+  width: 90%;
+  margin: auto;
+}
+
 .profile-image-container {
   width: 30px;
   height: 30px;
   border: 2px solid #3232cd;
   border-radius: 50%;
-  margin:0 0 0 10px;
+  margin: 0 0 0 10px;
   display: inline-block;
 }
 
 .profile-image {
   width: -webkit-fill-available;
+  width: -moz-available;
   border-radius: 50%;
 }
 
@@ -505,10 +525,10 @@ btn-open:active {
   display: inline;
 }
 
-.review-game-title h5 {
-  line-height: 20px;
-  min-height: 50px;
-  margin-bottom: 0;
+.review-game-title {
+  line-height: 25px;
+  margin: auto;
+  color: #bbbbbb;
 }
 
 .review-game-title:hover,
@@ -552,12 +572,12 @@ btn-open:active {
 }
 
 .profile-button a {
-text-decoration: none;
+  text-decoration: none;
 }
 
 .profile-icon {
   line-height: 50px;
-  background: rgba(20,20,20,0.6);
+  background: rgba(20, 20, 20, 0.6);
   width: 50px;
   height: 50px;
   border-radius: 10px;
@@ -574,7 +594,7 @@ text-decoration: none;
 
 .admin-icon {
   line-height: 50px;
-  background: rgba(20,20,20,0.6);
+  background: rgba(20, 20, 20, 0.6);
   width: 50px;
   height: 50px;
   border-radius: 10px;
@@ -731,7 +751,7 @@ text-decoration: none;
 
 .game-description {
   width: 100%;
-  height: 430px;
+  height: 600px;
   display: block;
   overflow: scroll;
   line-height: 20px;
@@ -909,7 +929,7 @@ text-decoration: none;
   color: red;
 }
 
-.all-games-search input{
+.all-games-search input {
   width: 100%;
   height: 40px;
   text-align: center;
@@ -939,8 +959,11 @@ text-decoration: none;
 .game-image {
   width: 100%;
   height: 100px;
-  border-radius: 10px 10px 0 0 ;
+  border-radius: 10px 10px 0 0;
   margin-bottom: 5px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .game-title {
@@ -964,7 +987,8 @@ text-decoration: none;
 
 .login-register-container {
   min-height: 200px;
-  background-color:  #797979f2;;
+  background-color: #797979f2;
+  ;
   border-radius: 10px;
   margin: 20px auto;
   padding: 20px 20px 40px 20px;
@@ -1005,7 +1029,8 @@ text-decoration: none;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 50px 50px 0 0 !important; /* Overriding Bootstrap CSS*/
+  border-radius: 50px 50px 0 0 !important;
+  /* Overriding Bootstrap CSS*/
 }
 
 .contact-modal-content {
@@ -1040,7 +1065,7 @@ text-decoration: none;
   color: white;
 }
 
-.contact-reasons { 
+.contact-reasons {
   width: 100%;
   text-align-last: center;
   height: 30px;
@@ -1079,9 +1104,11 @@ text-decoration: none;
   .game-container {
     margin: 5px 11px;
   }
+
   .btn-game-page {
     width: 91%;
   }
+
   .game-container-all-games {
     width: 20%;
   }
@@ -1091,12 +1118,15 @@ text-decoration: none;
   .all-games-search button {
     margin-top: 10px;
   }
+
   .game-container {
     margin: 5px auto;
   }
+
   .game-page-title {
     text-align: center;
   }
+
   .game-description {
     height: 30vh;
   }
@@ -1107,17 +1137,28 @@ text-decoration: none;
     margin: 7px 0 7px 0;
     width: 80%;
   }
+
   .btn--delete {
     margin: 7px 0 7px 0;
     width: 80%;
   }
+
   .btn--add-review {
     margin: 7px 0 7px 0;
     width: 80%;
   }
+
   .game-container-all-games {
     width: 60%;
     margin: 10px 20%;
+  }
+
+  .footer-contact-right {
+    margin: 0;
+  }
+
+  .footer-contact-container p{
+    margin-bottom: 0;
   }
 }
 
@@ -1135,14 +1176,19 @@ text-decoration: none;
   .game-lower-heading {
     font-size: medium;
   }
+
   .btn-game-page {
     font-size: medium;
     padding: 2px;
     width: 96%;
   }
+
   .game-container-all-games {
     width: 90%;
     margin: 10px 5%;
+  }
+  .page-container {
+    padding-bottom: 150px;
   }
 }
 
@@ -1150,13 +1196,14 @@ text-decoration: none;
   .game-lower-heading {
     font-size: small;
   }
+
   .btn-game-page {
     font-size: small;
     padding: 2px;
     width: 96%;
   }
+
   .game-text-box {
     font-size: 12px;
   }
 }
-

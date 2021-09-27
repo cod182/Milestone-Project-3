@@ -4,7 +4,7 @@ const currentLink = document.getElementById('profile-link');
 const currentNestedLink = document.getElementById('profile-new-rev-link')
 
 // When windows loads give the settings icon a blue glow
-window.onload = function(){
+window.onload = function () {
   newReview.classList.add('glow');
   currentLink.classList.add('selected');
   currentNestedLink.classList.add('selected');

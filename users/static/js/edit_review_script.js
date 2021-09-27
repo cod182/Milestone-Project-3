@@ -5,33 +5,33 @@ const starFour = document.getElementById('four');
 const starFive = document.getElementById('five');
 const ratingValue = document.getElementById('rating');
 
-starOne.addEventListener('mouseover', function() {
+starOne.addEventListener('mouseover', function () {
   ratingValue.setAttribute('value', 1)
   oneStarGlow();
 })
 
-starTwo.addEventListener('mouseover', function() {
+starTwo.addEventListener('mouseover', function () {
   ratingValue.setAttribute('value', 2)
   twoStarGlow();
 })
 
-starThree.addEventListener('mouseover', function() {
+starThree.addEventListener('mouseover', function () {
   ratingValue.setAttribute('value', 3)
   threeStarGlow();
 })
 
-starFour.addEventListener('mouseover', function() {
+starFour.addEventListener('mouseover', function () {
   ratingValue.setAttribute('value', 4)
   fourStarGlow();
 })
 
-starFive.addEventListener('mouseover', function() {
+starFive.addEventListener('mouseover', function () {
   ratingValue.setAttribute('value', 5)
   fiveStarGlow();
 })
 
 
-function oneStarGlow(){
+function oneStarGlow() {
   starOne.classList.add('gold');
   starTwo.classList.remove('gold');
   starThree.classList.remove('gold');
@@ -39,7 +39,7 @@ function oneStarGlow(){
   starFive.classList.remove('gold');
 }
 
-function twoStarGlow(){
+function twoStarGlow() {
   starOne.classList.add('gold');
   starTwo.classList.add('gold');
   starThree.classList.remove('gold');
@@ -47,7 +47,7 @@ function twoStarGlow(){
   starFive.classList.remove('gold');
 }
 
-function threeStarGlow(){
+function threeStarGlow() {
   starOne.classList.add('gold');
   starTwo.classList.add('gold');
   starThree.classList.add('gold');
@@ -55,7 +55,7 @@ function threeStarGlow(){
   starFive.classList.remove('gold');
 }
 
-function fourStarGlow(){
+function fourStarGlow() {
   starOne.classList.add('gold');
   starTwo.classList.add('gold');
   starThree.classList.add('gold');
@@ -63,7 +63,7 @@ function fourStarGlow(){
   starFive.classList.remove('gold');
 }
 
-function fiveStarGlow(){
+function fiveStarGlow() {
   starOne.classList.add('gold');
   starTwo.classList.add('gold');
   starThree.classList.add('gold');

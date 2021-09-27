@@ -9,23 +9,24 @@
                     </div>
                     <div class="col-2 mx-auto">
                         {% if user.username|lower == session.get('user')|lower %}
-                            <img class="profile-image" src="{{ user.profile_image }}" alt="Profile image for user: {{ session.get('user') }}">
+                        <img class="profile-image" src="{{ user.profile_image }}"
+                            alt="Profile image for user: {{ session.get('user') }}">
                         {% endif %}
                     </div>
                     <div class="row gx-0 profile-options">
                         {% if session.user|lower == user.username|lower %}
-                            {% if user.userType == 'admin' %}
-                                <div class="col-12 col-md-2 profile-button">
-                                    <a id="new-review-btn" href="{{ url_for('admin.get_admin') }}">
-                                        <div id="admin-icon" class="admin-icon">
-                                            <span>
-                                                <i class="fas fa-crown"></i>
-                                            </span>
-                                        </div>
-                                        <p class="profile-button-desc roboto">Admin Panel</p>
-                                    </a>
+                        {% if user.userType == 'admin' %}
+                        <div class="col-12 col-md-2 profile-button">
+                            <a id="new-review-btn" href="{{ url_for('admin.get_admin') }}">
+                                <div id="admin-icon" class="admin-icon">
+                                    <span>
+                                        <i class="fas fa-crown"></i>
+                                    </span>
                                 </div>
-                            {% endif %}
+                                <p class="profile-button-desc roboto">Admin Panel</p>
+                            </a>
+                        </div>
+                        {% endif %}
                         {% endif %}
                         <div class="col-6 col-md-2 profile-button">
                             <a id="new-review-btn" href="{{ url_for('users.search_for_game') }}">
@@ -37,7 +38,7 @@
                                 <p class="profile-button-desc roboto">New Review</p>
                             </a>
                         </div>
-            
+
                         <div class="col-6 col-md-2 profile-button">
                             <a id="your-reviews-btn" href="{{ url_for('users.get_user_reviews') }}">
                                 <div id="your-reviews-icon" class="profile-icon">
@@ -48,7 +49,7 @@
                                 <p class="profile-button-desc roboto">Your Reviews</p>
                             </a>
                         </div>
-            
+
                         <div class="col-6 col-md-2 profile-button">
                             <a id="settings-btn" href="{{ url_for('users.change_password') }}">
                                 <div id="settings-icon" class="profile-icon">
@@ -59,7 +60,7 @@
                                 <p class="profile-button-desc roboto">Settings</p>
                             </a>
                         </div>
-            
+
                         <div class="col-6 col-md-2 profile-button">
                             <a href="{{ url_for('users.logout')}}">
                                 <div class="profile-icon">
@@ -74,21 +75,21 @@
                     <section>
                         <!-- Flash Messages -->
                         {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                                {% for message in messages %}
-                                    <div class="row">
-                                        <h4 class="flash-message green">
-                                            {{ message }}
-                                        </h4>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="row">
+                            <h4 class="flash-message green">
+                                {{ message }}
+                            </h4>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
                         {%  endwith %}
                     </section>
-            
+
                     {% block profile %}
                     {% endblock %}
-            
+
                 </div>
             </div>
         </div>
@@ -102,13 +103,13 @@
             </div>
             <div class="row">
                 {% for game in latest_games %}
-                    <div class="col-sm-12 col-md-2 game-container">
-                        <a class="remove-a-link-styles" href="{{ url_for('games.game', game_id=game._id) }}">
-                            <img class="game-image" src="{{ game.largeImage }}" alt="">
-                            <p id="game_title" class="game-title"> {{ game.title }}</p>
-                            <p class="game-year">{{game.year }}</p>
-                        </a>
-                    </div>
+                <div class="col-sm-12 col-md-2 game-container">
+                    <a class="remove-a-link-styles" href="{{ url_for('games.game', game_id=game._id) }}">
+                        <div class="game-image" style="background-image: url('{{ game.largeImage }}');"></div>
+                        <p id="game_title" class="game-title"> {{ game.title }}</p>
+                        <p class="game-year">{{game.year }}</p>
+                    </a>
+                </div>
                 {% endfor %}
             </div>
         </div>

@@ -3,6 +3,10 @@ from flask import (session)
 from bson.objectid import ObjectId
 from datetime import datetime
 import requests
+import os
+from googleapiclient.discovery import build
+if os.path.exists("env.py"):
+    import env
 
 
 def get_user_from_session_user(user):
@@ -98,7 +102,16 @@ def get_latest_games():
 
 
 def call_rawg_api_for_games(key, param, search):
-    # Calls the RAWG API with a search term
+    """[calls rawg api for information on searched game]
+
+    Args:
+        key ([API Key]): [The api key for RAWG]
+        param ([string]): [search parameter]
+        search ([string]): [game / id to search]
+
+    Returns:
+        [json list]: [details of searched game]
+    """
     try:
         response = requests.get(
             "https://api.rawg.io/api/games"
@@ -111,6 +124,32 @@ def call_rawg_api_for_games(key, param, search):
         print(str(e), response.status)
 
     return response.json()
+
+
+def call_youtube_api_for_game(game, key):
+    """[Calls youtube for IGN's videos relating to
+    the given game]
+
+    Args:
+        game ([string]): [game title to search]
+
+    Returns:
+        [json list]: [list of 2 videos]
+    """
+
+    youtube = build(
+        "youtube", "v3", developerKey=key)
+    try:
+        request = youtube.search().list(
+            part="snippet",
+            channelId="UCKy1dAqELo0zrOtPkf0eTMw",
+            maxResults=2,
+            q=game,
+            safeSearch="none"
+        )
+    except Exception as e:
+        print(str(e), request.status)
+    return request.execute()
 
 
 def insert_game_into_game_db(data):

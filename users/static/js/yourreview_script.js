@@ -4,7 +4,7 @@ const currentLink = document.getElementById('profile-link');
 const currentNestedLink = document.getElementById('profile-your-revs-link')
 
 // When windows loads give the settings icon a blue glow
-window.onload = function(){
+window.onload = function () {
   yourreviewicon.classList.add('glow');
   currentLink.classList.add('selected');
   currentNestedLink.classList.add('selected');
@@ -12,7 +12,7 @@ window.onload = function(){
 
 // Changes the review rating number to a star
 for (var i = 0; i < rating.length; i++) {
-  switch(rating[i].innerText) {
+  switch (rating[i].innerText) {
     case '1':
       rating[i].innerHTML = `
         <i class="fa fa-star"></i>
@@ -47,7 +47,7 @@ for (var i = 0; i < rating.length; i++) {
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
       `
-    break;
+      break;
     default:
       "No Rating"
   }

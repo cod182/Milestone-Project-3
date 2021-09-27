@@ -8,15 +8,13 @@ from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
 
-games = Blueprint(
-    "games",
-    __name__,
-    template_folder='templates',
-    static_folder='static',
-    static_url_path='/games/static')
+games = Blueprint("games", __name__, template_folder='templates',
+                  static_folder='static',
+                  static_url_path='/games/static')
 
 
 RAWG_API = os.environ.get("RAWG_API_KEY")
+YOUTUBE_API = os.environ.get("YOUTUBE_API_KEY")
 
 
 @games.route("/user/game-search", methods=["GET", "POST"])
@@ -66,8 +64,14 @@ def add_game():
 
 @games.route("/game/<game_id>", methods=["GET", "POST"])
 def game(game_id):
-    """
-    Go to a page displaying a game based off the game_id provided
+    """[Goes to a the game page of the game with
+    the the game_id.]
+
+    Args:
+        game_id (_id): [The _id of a specific game]
+
+    Returns:
+        [render_template]: [renders the page]
     """
     # Gets the game by the _id
     game = helpers.get_game_by_object_id(game_id)
@@ -76,37 +80,37 @@ def game(game_id):
     # gets all users
     allUsers = helpers.get_all_users()
 
-    # If a user is logged in
-    if session.get('user'):
-        # Gets the session user
-        user = helpers.get_user_from_session_user(session['user'])
-        # Gets the reviews by the session user
-        userReviews = helpers.get_user_reviews(session['user'])
-        # Gets reviews for the game
-        userGameReview = helpers.get_user_reviews_for_game_by_title(
-            userReviews, game)
-    else:
-        userGameReview = None
-        user = None
+    if game:
+        # Gets youtube videos for the game
+        videos = helpers.call_youtube_api_for_game(game['title'], YOUTUBE_API)
 
-    # getts all the ratings from reviews for the game
-    gameRating = helpers.get_game_rating_from_reviews(reviews, game)
-    if gameRating:
-        # Add all ints in gameRating and divide by length & gets average
-        usersRating = int(sum(gameRating) / len(gameRating))
-    else:
-        usersRating = 'N/A'
+        # If a user is logged in
+        if session.get('user'):
+            # Gets the session user
+            user = helpers.get_user_from_session_user(session['user'])
+            # Gets the reviews by the session user
+            userReviews = helpers.get_user_reviews(session['user'])
+            # Gets reviews for the game
+            userGameReview = helpers.get_user_reviews_for_game_by_title(
+                userReviews, game)
+        else:
+            userGameReview = None
+            user = None
 
-    return render_template(
-        "game.html",
-        game=game,
-        reviews=reviews,
-        userGameReview=userGameReview,
-        user=user,
-        usersRating=usersRating,
-        gameRating=gameRating,
-        allUsers=allUsers
-    )
+        # getts all the ratings from reviews for the game
+        gameRating = helpers.get_game_rating_from_reviews(reviews, game)
+        if gameRating:
+            # Add all ints in gameRating and divide by length & gets average
+            usersRating = int(sum(gameRating) / len(gameRating))
+        else:
+            usersRating = 'N/A'
+
+        return render_template("game.html", game=game, reviews=reviews,
+                               userGameReview=userGameReview, user=user,
+                               usersRating=usersRating, gameRating=gameRating,
+                               allUsers=allUsers, videos=videos)
+
+    return redirect(url_for('index'))
 
 
 @games.route("/user/edit-game-details/<game_id>", methods=["GET", "POST"])
@@ -169,13 +173,11 @@ def get_latest_reviews():
     # gets all the db users
     allUsers = list(mongo.db.gc_users.find())
 
-    return render_template(
-        "latest-reviews.html",
-        latest_reviews=latest_reviews,
-        games=games,
-        user=user,
-        allUsers=allUsers
-    )
+    return render_template("latest-reviews.html",
+                           latest_reviews=latest_reviews,
+                           games=games, user=user,
+                           allUsers=allUsers
+                           )
 
 
 @games.route("/games", methods=["GET", "POST"])
@@ -200,10 +202,7 @@ def get_all_games():
                 genres=genres
             )
         flash('No Game Found')
-        return render_template(
-            "games.html",
-            allGames=allGames,
-            genres=genres
-        )
+        return render_template("games.html",
+                               allGames=allGames, genres=genres)
 
     return render_template("games.html", allGames=allGames, genres=genres)
