@@ -246,12 +246,13 @@ btn-open:active {
 }
 
 .btn-edit--latest-reviews {
-  width: 40px;
+  width: 20px;
   height: 20px;
   background: blueviolet;
   font-size: small;
-  padding: 0;
+  padding: 0px 0px 0px 2px;
   margin: 0;
+  border-radius: 50%;
 }
 
 .btn--contact {

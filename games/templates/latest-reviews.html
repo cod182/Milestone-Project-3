@@ -55,7 +55,7 @@
                                         <!-- Profile Image -->
                                         <div class="col-12 review-user">
                                             <div class="row">
-                                                <div class="col-9">
+                                                <div class="col-12">
                                                     <div class="profile-image-container">
                                                         {% for user in allUsers %}
                                                             {% if user.username|lower == review.review_by %}
@@ -64,13 +64,11 @@
                                                         {% endfor %}
                                                     </div>
                                                     <p class="profile-name">{{ review.review_by.capitalize() }}</p>
-                                                </div>
-                                                <div class="col-3">
                                                     {% if review.review_by == session['user'] %}
-                                                        <a class="btn btn-edit--latest-reviews" href="{{ url_for('users.edit_user_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}">Edit</a>
+                                                        <a class="btn btn-edit--latest-reviews" href="{{ url_for('users.edit_user_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                                     {% elif session.user|lower == user.username|lower %}
                                                         {% if user.userType == 'admin' %}
-                                                            <a class="btn btn-edit--latest-reviews" href="{{ url_for('users.edit_user_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}">Edit</a>
+                                                            <a class="btn btn-edit--latest-reviews" href="{{ url_for('users.edit_user_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                                         {% endif %}
                                                     {% endif %}
                                                 </div>
