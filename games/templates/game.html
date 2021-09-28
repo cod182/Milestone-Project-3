@@ -2,7 +2,8 @@
 {% block content %}
 
         <div class="container game-page-container roboto">
-            <img class="game-page-bg" src="{{ game.background }}" alt="Background Art for {{game.title}}">
+            <div class="game-page-bg" style="background-image: url('{{ game.background }}');"></div>
+
             <div class="row gx-0">
 
                 <div class="col-12 d-sm-block d-md-none">
@@ -61,7 +62,7 @@
                         </div>
                         <!-- User Average Rating -->
                         <div class="col-4 mx-auto text-center">
-                            <p class="game-lower-heading">User Rating</p>
+                            <p class="game-lower-heading">Avg. User Rating</p>
                             {% if usersRating %}
                                 <p class="game-text-box review-rating user-rating">{{ usersRating }}</p>
                             {% endif %}
@@ -83,13 +84,13 @@
                             <p class="game-lower-heading">Purchase From</p>
                             <div class="row">
                                 <div class="col-4 mx-auto">
-                                    <a class="remove-a-link-styles game-text-box" target="_blank" href="https://store.steampowered.com/search/?term={{game.title}}">Steam</a>
+                                    <a class="remove-a-link-styles game-text-box" rel="noopener" target="_blank" href="https://store.steampowered.com/search/?term={{game.title}}">Steam</a>
                                 </div>
                                 <div class="col-4 mx-auto">
-                                    <a class="remove-a-link-styles game-text-box" target="_blank" href="https://www.amazon.co.uk/s?k={{game.title}}">Amazon</a>
+                                    <a class="remove-a-link-styles game-text-box" rel="noopener" target="_blank" href="https://www.amazon.co.uk/s?k={{game.title}}">Amazon</a>
                                 </div>
                                 <div class="col-4 mx-auto">
-                                    <a class="remove-a-link-styles game-text-box" target="_blank" href="https://www.shopto.net/en/search/?input_search={{game.title}}">ShopTo</a>
+                                    <a class="remove-a-link-styles game-text-box" rel="noopener" target="_blank" href="https://www.shopto.net/en/search/?input_search={{game.title}}">ShopTo</a>
                                 </div>
                             </div>
                         </div>
@@ -192,7 +193,7 @@
                                         <!-- Profile Image -->
                                         <div class="col-12 review-user">
                                             <div class="row">
-                                                <div class="col-9">
+                                                <div class="col-12">
                                                     <div class="profile-image-container">
                                                         {% for user in allUsers %}
                                                             {% if user.username|lower == review.review_by %}
@@ -201,11 +202,9 @@
                                                         {% endfor %}
                                                     </div>
                                                     <p class="profile-name">{{ review.review_by.capitalize() }}</p>
-                                                </div>
-                                                <div class="col-2">
                                                     {% if session.user|lower == user.username|lower %}
                                                         {% if user.userType == 'admin' %}
-                                                            <a class="btn btn-edit--latest-reviews" href="{{ url_for('users.edit_user_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}">Edit</a>
+                                                            <a class="btn btn-edit--latest-reviews" href="{{ url_for('users.edit_user_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                                         {% endif %}
                                                     {% endif %}
                                                 </div>

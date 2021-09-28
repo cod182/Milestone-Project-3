@@ -246,12 +246,13 @@ btn-open:active {
 }
 
 .btn-edit--latest-reviews {
-  width: 40px;
+  width: 20px;
   height: 20px;
   background: blueviolet;
   font-size: small;
-  padding: 0;
+  padding: 0px 0px 0px 2px;
   margin: 0;
+  border-radius: 50%;
 }
 
 .btn--contact {
@@ -269,6 +270,7 @@ btn-open:active {
 
 .navbar-logo {
   width: 100px;
+  height: 100px;
 }
 
 .navbar-bg--blue {
@@ -730,10 +732,13 @@ btn-open:active {
   width: 100%;
   border-radius: 10px 10px 0 0;
   position: absolute;
+  z-index: -1;
+  opacity: 0.1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   top: 0;
   left: 0;
-  z-index: -1;
-  opacity: 0.2;
 }
 
 .game-page-img {
@@ -751,7 +756,7 @@ btn-open:active {
 
 .game-description {
   width: 100%;
-  height: 600px;
+  max-height: 600px;
   display: block;
   overflow: scroll;
   line-height: 20px;

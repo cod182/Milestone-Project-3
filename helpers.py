@@ -1,10 +1,10 @@
 from database import mongo, cache
-from flask import (session)
+from flask import (session, flash)
 from bson.objectid import ObjectId
 from datetime import datetime
 import requests
+from requests.exceptions import HTTPError
 import os
-from googleapiclient.discovery import build
 if os.path.exists("env.py"):
     import env
 
@@ -120,9 +120,16 @@ def call_rawg_api_for_games(key, param, search):
             + "key="
             + key
         )
-    except Exception as e:
-        print(str(e), response.status)
+        response.raise_for_status()
 
+    except HTTPError as http_err:
+        print(f'HTTP error occurred: {http_err}')
+        flash(f'HTTP error occurred: {http_err}')
+        return None
+    except Exception as err:
+        print(f'Other error occurred: {err}')
+        flash(f'Error occurred: {err}')
+        return None
     return response.json()
 
 
@@ -136,20 +143,27 @@ def call_youtube_api_for_game(game, key):
     Returns:
         [json list]: [list of 2 videos]
     """
-
-    youtube = build(
-        "youtube", "v3", developerKey=key)
     try:
-        request = youtube.search().list(
-            part="snippet",
-            channelId="UCKy1dAqELo0zrOtPkf0eTMw",
-            maxResults=2,
-            q=game,
-            safeSearch="none"
-        )
-    except Exception as e:
-        print(str(e), request.status)
-    return request.execute()
+        search_url = "https://www.googleapis.com/youtube/v3/search"
+
+        search_params = {
+            'key': key,
+            'part': "snippet",
+            'channelId': "UCKy1dAqELo0zrOtPkf0eTMw",
+            'maxResults': 2,
+            'q': game
+        }
+
+        response = requests.get(search_url, params=search_params)
+
+        response.raise_for_status()
+    except HTTPError as http_err:
+        print(f'HTTP error occurred: {http_err}')
+        return None
+    except Exception as err:
+        print(f'Other error occurred: {err}')
+        return None
+    return response.json()
 
 
 def insert_game_into_game_db(data):
