@@ -26,14 +26,14 @@
                     <!-- Image Selectino -->
                     <div class="row">
                         <p class="text-center bold">Select Your Profile Image</p>
-                        <div class="col-7 mx-auto">
                         {% for image in profileImages %}
-                            <label for="{{image.name}}" class="d-inline">
-                                <input type="radio" name="profile_image" id="{{ image.name }}" value="{{ image.image }}">
-                                <img class="register-profile-image" src="{{ image.image }}" alt="profile image {{ image.name }}">
-                            </label>
+                            <div class="col-6 col-sm-4 col-md-2 mx-auto text-center">
+                                <label for="{{image.name}}" class="register-label">
+                                    <input class="register-label" type="radio" name="profile_image" id="{{ image.name }}" value="{{ image.image }}">
+                                    <img class="register-profile-image" src="{{ image.image }}" alt="profile image {{ image.name }}">
+                                </label>
+                            </div>
                         {% endfor %} 
-                        </div>      
                     </div>
                     <div class="row">
                         <button type="submit" class="btn btn-green btn--login-register">Register</button>

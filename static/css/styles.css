@@ -1051,10 +1051,15 @@ btn-open:active {
   color: grey;
 }
 
+.register-label {
+  max-width: 50px;
+  max-height: 50px;
+}
+
 .register-profile-image {
-  height: 50px;
-  width: 50px;
-  background-size: cover;
+  max-width: 50px;
+  max-height: 50px;
+
 }
 
 .register-profile-image:hover,
@@ -1065,7 +1070,6 @@ btn-open:active {
   transform: scale(1.1);
 }
 
-/* HIDE RADIO */
 [type=radio] { 
   position: absolute;
   opacity: 0;
@@ -1073,14 +1077,8 @@ btn-open:active {
   height: 0;
 }
 
-/* IMAGE STYLES */
-[type=radio] + img {
-  cursor: pointer;
-}
-
-/* CHECKED STYLES */
 [type=radio]:checked + img {
-  box-shadow: 0 0 15px #01b9fe;
+  box-shadow: 0 0 20px #01fe40;
 }
 
 .login-register-swap {
