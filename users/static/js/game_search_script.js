@@ -7,7 +7,7 @@ const currentNestedLink = document.getElementById('profile-new-rev-link')
 window.onload = function () {
   newReview.classList.add('glow');
   currentLink.classList.add('selected');
-  currentNestedLink.classList.add('selected');
+  currentNestedLink.classList.add('selectedNested');
 };
 
 // Adds the selected class to the New Review Link in Nav dropdown

@@ -30,8 +30,12 @@ body {
 }
 
 .selected {
+  border-radius: 10px;
+  box-shadow: 0 0 15px #32cd32;
+}
+
+.selectedNested {
   text-decoration: underline;
-  text-underline-offset: 10px;
 }
 
 /* Fonts */
@@ -290,15 +294,43 @@ btn-open:active {
 }
 
 .nav-link {
-  color: white;
+  position: relative;
+  display: block;
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  line-height: 30px;
+  background: #4c4c4c;
+  border-radius: 50%;
+  color: #d7d7d7;
+  transition: .5s;
+  margin: 0 5px;
 }
 
-.nav-link:hover,
-.nav-link:active,
-.nav-link:focus,
-.nav-link:active:focus {
-  color: white;
-  font-weight: 800;
+.nav-link:before {
+  content: '';
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background: #32cd32;
+  transition: .5s;
+  transform: scale(.9);
+  z-index: -1;
+}
+
+.nav-link:hover:before {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #32cd32;
+  filter: blur(3px);
+}
+
+.nav-link:hover {
+  color: #32cd32;
+  box-shadow: 0 0 15px #32cd32;
+  text-shadow: 0 0 15px #32cd32;
 }
 
 /* The side navigation menu boiler plate taken from W3c Schools*/
@@ -428,6 +460,11 @@ btn-open:active {
 
 .welcome-text {
   text-align: center;
+}
+
+.logo-large {
+  width: 200px;
+  height: 200px;
 }
 
 .latest-games-container {

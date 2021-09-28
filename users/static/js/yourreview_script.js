@@ -7,7 +7,7 @@ const currentNestedLink = document.getElementById('profile-your-revs-link')
 window.onload = function () {
   yourreviewicon.classList.add('glow');
   currentLink.classList.add('selected');
-  currentNestedLink.classList.add('selected');
+  currentNestedLink.classList.add('selectedNested');
 };
 
 // Changes the review rating number to a star

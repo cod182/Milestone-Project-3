@@ -6,7 +6,7 @@ const currentNestedLink = document.getElementById('profile-settings-link')
 window.onload = function () {
   settingsSelect.classList.add('glow');
   currentLink.classList.add('selected');
-  currentNestedLink.classList.add('selected');
+  currentNestedLink.classList.add('selectedNested');
 };
 
 //Check passwords match on submit
