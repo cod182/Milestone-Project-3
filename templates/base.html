@@ -25,7 +25,7 @@
                     <div id="mySidenav" class="sidenav">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                         <form class="d-flex" action="{{ url_for('games.get_all_games', username=session['user']) }}" method="POST">
-                            <input class="form-control m-2" type="text" placeholder="Search" name="name_of_game" aria-label="Search">
+                            <input class="nav-searchbox m-2" type="text" placeholder="Search" name="name_of_game" aria-label="Search">
                             <button class="btn btn-outline-success m-2" type="submit">Search</button>
                         </form>
                         <a href="{{ url_for('index')}}">Home</a>
@@ -50,7 +50,7 @@
                         <div class="col-10 navbar-container">
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <form class="d-flex" action="{{ url_for('games.get_all_games') }}" method="POST">
-                                    <input class="form-control me-2" type="search" placeholder="Search" name="name_of_game" aria-label="Search">
+                                    <input class="nav-searchbox me-2" type="search" placeholder="Search" name="name_of_game" aria-label="Search">
                                 </form>
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-links">
                                     <li class="nav-item">

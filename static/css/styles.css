@@ -23,10 +23,12 @@ body {
 
 .glow {
   box-shadow: 0 0 15px #01b9fe;
+  transition: .5s;
 }
 
 .glow--red {
   box-shadow: 0 0 15px #fe1f01;
+  transition: .5s;
 }
 
 .selected {
@@ -287,6 +289,15 @@ btn-open:active {
   position: absolute;
   right: 23px;
   top: 56px;
+}
+
+.nav-searchbox {
+  width: 100%;
+  border-radius: 10px;
+  padding: 0 4px 0 4px;
+  color: black;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  background-color: #d7d7d7;
 }
 
 .navbar-links {
@@ -557,6 +568,7 @@ btn-open:active {
   width: -webkit-fill-available;
   width: -moz-available;
   border-radius: 50%;
+  transition: ease-in-out;
 }
 
 .profile-name {
