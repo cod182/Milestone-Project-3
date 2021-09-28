@@ -1,10 +1,10 @@
 from database import mongo, cache
-from flask import (session)
+from flask import (session, flash)
 from bson.objectid import ObjectId
 from datetime import datetime
 import requests
+from requests.exceptions import HTTPError
 import os
-from googleapiclient.discovery import build
 if os.path.exists("env.py"):
     import env
 
@@ -120,9 +120,16 @@ def call_rawg_api_for_games(key, param, search):
             + "key="
             + key
         )
-    except Exception as e:
-        print(str(e), response.status)
+        response.raise_for_status()
 
+    except HTTPError as http_err:
+        print(f'HTTP error occurred: {http_err}')
+        flash(f'HTTP error occurred: {http_err}')
+        return None
+    except Exception as err:
+        print(f'Other error occurred: {err}')
+        flash(f'Error occurred: {err}')
+        return None
     return response.json()
 
 
@@ -147,15 +154,16 @@ def call_youtube_api_for_game(game, key):
             'q': game
         }
 
-        response = requests.get(search_url, params=search_params).json()
+        response = requests.get(search_url, params=search_params)
 
-        if not response['error']['code'] // 100 == 2:
-            return None
-
-    except requests.exceptions.RequestException as e:
-        return "Error: {}".format(e)
-
-    return response
+        response.raise_for_status()
+    except HTTPError as http_err:
+        print(f'HTTP error occurred: {http_err}')
+        return None
+    except Exception as err:
+        print(f'Other error occurred: {err}')
+        return None
+    return response.json()
 
 
 def insert_game_into_game_db(data):
