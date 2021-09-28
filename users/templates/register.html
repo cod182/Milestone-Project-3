@@ -25,16 +25,15 @@
                     </div>
                     <!-- Image Selectino -->
                     <div class="row">
-                        <select name="profile_image" id="" list="images" class="login-input">
-                            <datalist id="images">
-                                {% for image in profileImages %}
-                                    <option value="{{ image.image }}">
-                                        {{image.name.capitalize()}}
-                                    </option>
-                                {% endfor %}
-
-                            </datalist>
-                        </select>
+                        <p class="text-center bold">Select Your Profile Image</p>
+                        <div class="col-7 mx-auto">
+                        {% for image in profileImages %}
+                            <label for="{{image.name}}" class="d-inline">
+                                <input type="radio" name="profile_image" id="{{ image.name }}" value="{{ image.image }}">
+                                <img class="register-profile-image" src="{{ image.image }}" alt="profile image {{ image.name }}">
+                            </label>
+                        {% endfor %} 
+                        </div>      
                     </div>
                     <div class="row">
                         <button type="submit" class="btn btn-green btn--login-register">Register</button>

@@ -1051,12 +1051,36 @@ btn-open:active {
   color: grey;
 }
 
+.register-profile-image {
+  height: 50px;
+  width: 50px;
+  background-size: cover;
+}
+
 .register-profile-image:hover,
 .register-profile-image:active,
 .register-profile-image:focus,
 .register-profile-image:active:focus {
   box-shadow: 0 0 15px #01b9fe;
   transform: scale(1.1);
+}
+
+/* HIDE RADIO */
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + img {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + img {
+  box-shadow: 0 0 15px #01b9fe;
 }
 
 .login-register-swap {
