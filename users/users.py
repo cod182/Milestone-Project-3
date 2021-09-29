@@ -76,6 +76,17 @@ def login():
     return render_template("login.html")
 
 
+@users.route("/logout")
+def logout():
+    """
+    From a button removes the sessions cookie
+    """
+    # remove user from session cookies
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("users.login"))
+
+
 @users.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
     """
@@ -196,17 +207,6 @@ def delete_review(review_id):
     flash("Review Deleted")
 
     return redirect(session['url'])
-
-
-@users.route("/logout")
-def logout():
-    """
-    From a button removes the sessions cookie
-    """
-    # remove user from session cookies
-    flash("You have been logged out")
-    session.pop("user")
-    return redirect(url_for("users.login"))
 
 
 @users.route("/profile/game-search", methods=["GET", "POST"])

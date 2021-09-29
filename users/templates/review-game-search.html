@@ -22,7 +22,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-green">Search</button>
+                            <button type="submit" class="btn btn-green" id="game-search-button">Search</button>
                         </div>
                     </div>
                 </form>
@@ -33,15 +33,37 @@
                     <div class="row">
                         <div class="col-12 col-md-8 game-container-profile">
                             <div class="row">
-                                <div class="col-12 col-sm-4 col-md-4 game-review-buttons">
-                                    {% if reviews|length > 0 %}
-                                        {% for review in reviews %}
-                                            {% if review.game_title == game.title %}
-                                                <a href="{{ url_for('users.edit_user_review', review_id=review._id) }}" class="btn btn--edit game-review-edit">Edit Review</a>
+                                {% if reviews|length > 0 %}
+                                    {% for review in reviews %}
+                                        {% if review.game_title == game.title %}
+                                            <!-- Edit Review -->
+                                            <div class="col-12 col-sm-2 col-md-2 m-auto edit-review">
+                                                <a class="btn btn--edit"
+                                                    href="{{ url_for('users.edit_user_review', review_id=review._id) }}">
+                                                    Edit
+                                                </a>
+                                            </div>
+                                            <!-- Delete Review -->
+                                            <div class="col-12 col-sm-2 col-md-2 m-auto">
+                                                <a class="btn btn--delete"
+                                                    onclick="return confirm('Are you sure you want to delete {{ review.review_by }} review for {{review.game_title}}?');"
+                                                    href="{{ url_for('users.delete_review', review_id=review._id) }}">
+                                                    Delete
+                                                </a>
+                                            </div>
+                                        {% else %}
+                                            {% if loop.index == 1 %}
+                                            <!-- Add Review -->
+                                            <div class="col-12 col-sm-4 col-md-4 m-auto">
+                                                <a class="btn btn--add-review"
+                                                    href="{{ url_for('users.add_review', game_id=game._id) }}">
+                                                    Add Review
+                                                </a>
+                                            </div>
                                             {% endif %}
-                                        {% endfor %}
-                                    {% endif %}
-                                </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                                 <div class="col-12 col-sm-8 col-md-8">
                                 <a href="{{ url_for('games.game', game_id=game._id) }}" class="remove-a-link-styles game-container-link">
                                     <p>{{ game.title }}</p>

@@ -97,7 +97,7 @@ def game(game_id):
             userGameReview = None
             user = None
 
-        # getts all the ratings from reviews for the game
+        # gets all the ratings from reviews for the game
         gameRating = helpers.get_game_rating_from_reviews(reviews, game)
         if gameRating:
             # Add all ints in gameRating and divide by length & gets average

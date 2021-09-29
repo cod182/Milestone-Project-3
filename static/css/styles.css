@@ -178,7 +178,6 @@ btn-open:active {
 }
 
 .btn--add-review {
-  display: inline;
   background-color: #3939f3;
   color: white;
 }
@@ -1288,7 +1287,7 @@ btn-open:active {
   position: relative;
   display: inline-block;
   width: 35px;
-  height: 20px;
+  height: 21px;
 }
 
 .switch input {
