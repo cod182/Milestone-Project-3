@@ -231,7 +231,8 @@ def search_for_game():
             # gets reviews by user
             userReviews = helpers.get_user_reviews(session['user'])
             # Get review for game
-            review = helpers.get_user_reviews_for_game_by_title(userReviews, game)
+            review = helpers.get_user_reviews_for_game_by_title(userReviews,
+                                                                game)
 
             return render_template(
                 "review-game-search.html",
@@ -243,7 +244,7 @@ def search_for_game():
             )
         flash('Game Not Found')
         return redirect(url_for('users.search_for_game'))
-    
+
     return render_template(
         "review-game-search.html",
         user=user,
