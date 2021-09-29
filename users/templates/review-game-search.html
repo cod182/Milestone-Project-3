@@ -28,14 +28,11 @@
                 </form>
             </div>
             <hr>
-            {% if games|length > 0 %}
-                {% for game in games %}
+            {% if game %}
                     <div class="row">
                         <div class="col-12 col-md-8 game-container-profile">
                             <div class="row">
-                                {% if reviews|length > 0 %}
-                                    {% for review in reviews %}
-                                        {% if review.game_title == game.title %}
+                                        {% if review %}
                                             <!-- Edit Review -->
                                             <div class="col-12 col-sm-2 col-md-2 m-auto edit-review">
                                                 <a class="btn btn--edit"
@@ -52,18 +49,14 @@
                                                 </a>
                                             </div>
                                         {% else %}
-                                            {% if loop.index == 1 %}
-                                            <!-- Add Review -->
-                                            <div class="col-12 col-sm-4 col-md-4 m-auto">
-                                                <a class="btn btn--add-review"
-                                                    href="{{ url_for('users.add_review', game_id=game._id) }}">
-                                                    Add Review
-                                                </a>
-                                            </div>
-                                            {% endif %}
+                                                <!-- Add Review -->
+                                                <div class="col-12 col-sm-4 col-md-4 m-auto">
+                                                    <a class="btn btn--add-review"
+                                                        href="{{ url_for('users.add_review', game_id=game._id) }}">
+                                                        Add Review
+                                                    </a>
+                                                </div>
                                         {% endif %}
-                                    {% endfor %}
-                                {% endif %}
                                 <div class="col-12 col-sm-8 col-md-8">
                                 <a href="{{ url_for('games.game', game_id=game._id) }}" class="remove-a-link-styles game-container-link">
                                     <p>{{ game.title }}</p>
@@ -72,7 +65,6 @@
                             </div>
                         </div>
                     </div>
-                {% endfor %}
             {% else %}
                 <div class="row">
                     <div class="col-8 add-game-container">

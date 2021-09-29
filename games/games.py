@@ -189,19 +189,19 @@ def get_all_games():
     genres = helpers.get_all_genres_of_games()
 
     if request.method == "POST":
-        if request.form.get('name_of_game'):
-            # Gets all games containing the search term
-            filteredGames = list(mongo.db.games.find(
-                {"$text": {
-                    "$search": request.form.get(
-                        'name_of_game')}}).sort(
-                            "title", 1))
+        # Gets all games containing the search term
+        filteredGames = list(mongo.db.games.find(
+            {"$text": {
+                "$search": request.form.get(
+                    'name_of_game')}}).sort(
+                        "title", 1))
+        if filteredGames:
             return render_template(
                 "games.html",
                 allGames=filteredGames,
                 genres=genres
             )
-        flash('No Game Found')
+        flash('No Games Found')
         return render_template("games.html",
                                allGames=allGames, genres=genres)
 

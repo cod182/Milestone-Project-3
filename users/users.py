@@ -226,19 +226,24 @@ def search_for_game():
         # gets the name from the search box
         gameName = request.form.get("search")
         # searches the game in db
-        games = helpers.list_of_games_by_title_indexed(gameName)
-        # gets reviews by user
-        reviews = helpers.get_user_reviews(session['user'])
+        game = helpers.get_game_by_game_name(gameName)
+        if game:
+            # gets reviews by user
+            userReviews = helpers.get_user_reviews(session['user'])
+            # Get review for game
+            review = helpers.get_user_reviews_for_game_by_title(userReviews, game)
 
-        return render_template(
-            "review-game-search.html",
-            user=user,
-            latest_games=latest_games,
-            games=games,
-            allgames=allgames,
-            reviews=reviews
-        )
-
+            return render_template(
+                "review-game-search.html",
+                user=user,
+                latest_games=latest_games,
+                game=game,
+                allgames=allgames,
+                review=review
+            )
+        flash('Game Not Found')
+        return redirect(url_for('users.search_for_game'))
+    
     return render_template(
         "review-game-search.html",
         user=user,
