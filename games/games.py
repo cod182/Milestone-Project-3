@@ -183,34 +183,6 @@ def get_latest_reviews():
                            )
 
 
-# @games.route("/games", methods=["GET", "POST"])
-# def get_all_games():
-
-#     # Gets all games sorted by title
-#     allGames = list(mongo.db.games.find().sort("title", 1))
-#     # Gets all the genres from the db
-#     genres = helpers.get_all_genres_of_games()
-
-#     if request.method == "POST":
-#         if request.form.get('name_of_game'):
-#             # Gets all games containing the search term
-#             filteredGames = list(mongo.db.games.find(
-#                 {"$text": {
-#                     "$search": request.form.get(
-#                         'name_of_game')}}).sort(
-#                             "title", 1))
-#             return render_template(
-#                 "games.html",
-#                 allGames=filteredGames,
-#                 genres=genres
-#             )
-#         flash('No Game Found')
-#         return render_template("games.html",
-#                                allGames=allGames, genres=genres)
-
-#     return render_template("games.html", allGames=allGames, genres=genres)
-
-
 @games.route("/games", methods=["GET", "POST"])
 def get_all_games():
 
