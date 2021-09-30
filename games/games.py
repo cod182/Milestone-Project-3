@@ -1,10 +1,8 @@
 import os
 from database import mongo
 import helpers
-from bson import json_util, ObjectId
-import json
-from flask_pymongo import pymongo
-from flask_paginate import Pagination, get_page_parameter, get_page_args
+from bson import ObjectId
+from flask_paginate import Pagination, get_page_args
 from flask import (
     flash, render_template, redirect,
     request, session, url_for, Blueprint)
@@ -189,9 +187,10 @@ def get_all_games():
     gamesList = helpers.all_games_sorted_descending()
     total = len(gamesList)
 
-    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    page, per_page, offset = get_page_args(
+        page_parameter='page', per_page_parameter='per_page')
 
-    pagination_games = helpers.get_games(offset=offset, per_page=per_page)
+    pagination_games = helpers.get_pag_list(offset=offset, per_page=per_page, list=gamesList)
 
     pagination = Pagination(page=page, per_page=per_page, total=total,
                             css_framework='bootstrap4')
@@ -210,6 +209,7 @@ def get_all_games():
                 pagination=None
             )
         flash('No Game Found')
-        return redirect(url_for('games.games'))
+        return redirect(url_for('games.get_all_games'))
 
-    return render_template("games.html", pagination_games=pagination_games, pagination=pagination, page=page, per_page=per_page)
+    return render_template("games.html", pagination_games=pagination_games,
+                           pagination=pagination, page=page, per_page=per_page)

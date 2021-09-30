@@ -1,4 +1,4 @@
-from flask_pymongo import PyMongo, pymongo
+from flask_pymongo import PyMongo
 from flask_caching import Cache
 
 cache = Cache()
