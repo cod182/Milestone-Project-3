@@ -1,10 +1,13 @@
 import os
 from database import mongo
 import helpers
+from bson import json_util, ObjectId
+import json
+from flask_pymongo import pymongo
+from flask_paginate import Pagination, get_page_parameter, get_page_args
 from flask import (
     flash, render_template, redirect,
     request, session, url_for, Blueprint)
-from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
 
@@ -180,29 +183,61 @@ def get_latest_reviews():
                            )
 
 
+# @games.route("/games", methods=["GET", "POST"])
+# def get_all_games():
+
+#     # Gets all games sorted by title
+#     allGames = list(mongo.db.games.find().sort("title", 1))
+#     # Gets all the genres from the db
+#     genres = helpers.get_all_genres_of_games()
+
+#     if request.method == "POST":
+#         if request.form.get('name_of_game'):
+#             # Gets all games containing the search term
+#             filteredGames = list(mongo.db.games.find(
+#                 {"$text": {
+#                     "$search": request.form.get(
+#                         'name_of_game')}}).sort(
+#                             "title", 1))
+#             return render_template(
+#                 "games.html",
+#                 allGames=filteredGames,
+#                 genres=genres
+#             )
+#         flash('No Game Found')
+#         return render_template("games.html",
+#                                allGames=allGames, genres=genres)
+
+#     return render_template("games.html", allGames=allGames, genres=genres)
+
+
 @games.route("/games", methods=["GET", "POST"])
 def get_all_games():
 
-    # Gets all games sorted by title
-    allGames = list(mongo.db.games.find().sort("title", 1))
-    # Gets all the genres from the db
-    genres = helpers.get_all_genres_of_games()
+    gamesList = helpers.all_games_sorted_descending()
+    total = len(gamesList)
+
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+
+    pagination_games = helpers.get_games(offset=offset, per_page=per_page)
+
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='bootstrap4')
 
     if request.method == "POST":
-        # Gets all games containing the search term
-        filteredGames = list(mongo.db.games.find(
-            {"$text": {
-                "$search": request.form.get(
-                    'name_of_game')}}).sort(
-                        "title", 1))
-        if filteredGames:
+        if request.form.get('name_of_game'):
+            # Gets all games containing the search term
+            filteredGames = list(mongo.db.games.find(
+                {"$text": {
+                    "$search": request.form.get(
+                        'name_of_game')}}).sort(
+                            "title", 1))
             return render_template(
                 "games.html",
-                allGames=filteredGames,
-                genres=genres
+                pagination_games=filteredGames,
+                pagination=None
             )
-        flash('No Games Found')
-        return render_template("games.html",
-                               allGames=allGames, genres=genres)
+        flash('No Game Found')
+        return redirect(url_for('games.games'))
 
-    return render_template("games.html", allGames=allGames, genres=genres)
+    return render_template("games.html", pagination_games=pagination_games, pagination=pagination, page=page, per_page=per_page)

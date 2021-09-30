@@ -52,6 +52,15 @@ def get_all_games():
     return list(mongo.db.games.find())
 
 
+def all_games_sorted_descending():
+    return list(mongo.db.games.find().sort("title", 1))
+
+
+def get_games(offset=0, per_page=10):
+    gamesList = all_games_sorted_descending()
+    return gamesList[offset: offset + per_page]
+
+
 @cache.cached(timeout=1300, key_prefix='all_genres')
 def get_all_genres_of_games():
     """Gets all the individual genres in
