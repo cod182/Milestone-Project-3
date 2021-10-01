@@ -3,6 +3,7 @@ import helpers
 from flask import (
     flash, render_template, redirect,
     request, session, url_for, Blueprint)
+from flask_paginate import Pagination, get_page_args
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -144,19 +145,29 @@ def get_user_reviews():
     """
     # gets the latest games in revers order. Max of 5
     latest_games = helpers.get_latest_games()
-
     # gets the user matching the session user
     user = helpers.get_user_from_session_user(session["user"])
-
     # gets all review by the user
     your_reviews = helpers.get_user_reviews(session['user'])
+    # the length og the your review list
+    total = len(your_reviews)
 
+    page, per_page, offset = get_page_args(
+        page_parameter='page', per_page_parameter='per_page')
+    # pagination for the reviews
+    pagination_reviews = helpers.get_pag_list(offset=offset,
+                                              per_page=per_page,
+                                              list=your_reviews)
+    # Pagination controsl
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='bootstrap4')
     # sets the sessions url to get_user_reviews Page
     session['url'] = url_for("users.get_user_reviews")
 
     return render_template(
         "your-reviews.html",
-        your_reviews=your_reviews,
+        your_reviews=pagination_reviews,
+        pagination=pagination,
         latest_games=latest_games,
         user=user
     )

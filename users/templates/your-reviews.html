@@ -39,7 +39,9 @@
                         </section>
                     {% endif %}
                 {% endfor %}
-            {% endif %}     
+            {% endif %}   
+            {{ pagination.links }}
+            {{ pagination.info }}  
             </div>   
         </div>
     </div>

@@ -1282,6 +1282,34 @@ btn-open:active {
   }
 }
 
+/* Pagination styling */
+
+.page-link {
+  position: relative;
+  display: block;
+  color: #000000;
+  text-decoration: none;
+  background-color: #858585;
+  border: None;
+  font-weight: 400;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.page-link:hover {
+  background-color: #acacac;
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #3232cd;
+  border-color: None;
+}
+
+.page-item.disabled .page-link {
+  display: none;
+}
+
 /* CSS example to stare from w3c */
 .switch {
   position: relative;
