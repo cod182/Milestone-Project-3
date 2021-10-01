@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="A community for games">
+    <meta name="keywords" content="games, playstation, xbox, pc, retro">
+    <meta name="author" content="Codie Stephens-Evans">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Corner</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon/logo-16.png') }}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon/logo-32.png') }}" type="image/png" sizes="32x32">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon/logo-96.png') }}" type="image/png" sizes="96x96">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" type="text/css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/5351067769.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <!-- Bootstrap Nav bar as starting point -->
+            <nav class="navbar navbar-expand-lg navbar-bg--blue">
+                <div class="container-fluid">
+                    <div id="mySidenav" class="sidenav">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <form class="d-flex" action="{{ url_for('games.get_all_games', username=session['user']) }}" method="POST">
+                            <input class="nav-searchbox m-2" type="text" placeholder="Search" name="name_of_game" aria-label="Search">
+                            <button class="btn btn-outline-success m-2" type="submit">Search</button>
+                        </form>
+                        <a href="{{ url_for('index')}}">Home</a>
+                        {% if session.user %}
+                            <a href="{{ url_for('users.profile', username=session['user']) }}">Profile</a>
+                        {% endif %}
+                        <a href="{{ url_for('games.get_latest_reviews')}}">Latest Reviews</a>
+                        <a href="{{ url_for('games.get_all_games') }}">Games</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#contactUsModal">Contact Us</a>
+                        {% if session.user %}
+                            <a href="{{ url_for('users.logout') }}">Logout</a> 
+                        {% else %}
+                            <a href="{{ url_for('users.login')}}">Login</a>
+                            <a href="{{ url_for('users.register')}}">Register</a>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <a href="{{ url_for('index') }}"><img class="navbar-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Game Corner Icon"></a>
+                        </div>
+
+                        <div class="col-10 navbar-container">
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <form class="d-flex" action="{{ url_for('games.get_all_games') }}" method="POST">
+                                    <input class="nav-searchbox me-2" type="search" placeholder="Search" name="name_of_game" aria-label="Search">
+                                </form>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-links">
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="home-link" href="{{ url_for('index') }}"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                    </li>
+                                    {% if session.user %}
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" id="profile-link" href="" role="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" id="profile-home-link" href="{{ url_for('users.profile', username=session['user']) }}">Home</a></li>
+                                                <li><a class="dropdown-item" id="profile-new-rev-link" href="{{ url_for('users.search_for_game') }}">New Review</a></li>
+                                                <li><a class="dropdown-item" id="profile-your-revs-link" href="{{ url_for('users.get_user_reviews') }}">Your Reviews</a></li>
+                                                <li><a class="dropdown-item" id="profile-settings-link" href="{{ url_for('users.change_password') }}">Settings</a></li>
+                                                <li><a class="dropdown-item" href="{{ url_for('users.logout') }}">Logout</a></li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="latest-reviews-link" href="{{ url_for('games.get_latest_reviews') }}"><i class="fa fa-star-half-alt" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="games-link" href="{{ url_for('games.get_all_games') }}"><i class="fa fa-gamepad" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a href="#" class="nav-link" id="contact-link" data-bs-toggle="modal" data-bs-target="#contactUsModal"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                    </li>
+                                    {% if session.user %}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ url_for('users.logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                                        </li> 
+                                    {% else %}
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="login-link" aria-current="page" href="{{ url_for('users.login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="register-link" aria-current="page" href="{{ url_for('users.register') }}"><i class="fa fa-users" aria-hidden="true"></i></a>
+                                        </li>
+                                    {% endif %}
+                                    
+                                </ul>
+                            </div>
+                            <span class="sm-nav-toggle-container d-lg-none d-inline" onclick="openNav()">
+                                <i class="sm-nav-toggle fas fa-bars"></i>
+                            </span>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="section">
+            <h1>Error, you've take a wrong turn</h1>
+        </div>
+
+        <footer>
+            <div class="container-fluid footer">
+                <div class="row">
+                    <div class="col-12 col-sm-4 footer-contact-container">
+                        <a href="https://www.facebook.com" rel="noopener" target="_blank" class="white footer-contact-social">
+                            <p>Find Us on Facebook! <i class="fab fa-facebook"></i> </p>
+                        </a>
+                        <a href="https://www.instagram.com" rel="noopener" target="_blank" class="white footer-contact-social">
+                            <p>Find Us on Instagram! <i class="fab fa-instagram"></i> </p>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-4 offset-sm-4 footer-contact-container">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#contactUsModal">
+                            <p class="white footer-contact-right">Send us a message!</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Modal from bootstrap as start point-->
+        <!-- Contact Us Modal -->
+        <div class="modal fade" id="contactUsModal" tabindex="-1" aria-labelledby="contactUsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content contact-modal-content">
+                <div class="modal-header contact-modal-header">
+                    <h5 class="modal-title contact-modal-title roboto" id="contactUsModalLabel">Get in touch!</h5>
+                    <button id="contact-modal-close" type="button" class="btn-close m-0 contact-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form onsubmit="return sendEmail(this)">
+                    <div>
+                    <select class="contact-input contact-reasons" id="contact-reason" name="reason" required>
+                        <option value="">Contact Reason</option>
+                        <option value="General Enquiry">General Enquiry</option>
+                        <option value="Missing Data">Missing Data</option>
+                        <option value="Website Issue">Website Issue</option>
+                    </select>
+                    </div>
+                    <div>
+                    <input class="contact-input" type="text" id="contact-name" name="name" placeholder="Enter Name Here..." required>
+                    </div>
+                    <div>
+                    <input class="contact-input" type="email" id="contact-email" name="email" placeholder="Enter Email Here..." required>
+                    </div>
+                    <div>
+                    <textarea class="contact-message"  cols="10" rows="5" id="contact-message" name="message" placeholder="Enter Message Here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--contact" id="contact-submit">Send Message!</button>
+                    <span id="message-status"></span>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/email_script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/base_script.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init("user_g1KRgEDq9ymwiRfNP9t9s");
+        })();
+    </script>
+</body>
+</html>
