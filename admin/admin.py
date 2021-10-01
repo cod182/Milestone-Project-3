@@ -178,6 +178,8 @@ def delete_game_and_reviews(game_id):
     """
     if session.get('user'):
         # finds the account name of game_id
+        # gets the session user and then current user username
+        user = helpers.get_user_from_session_user(session["user"])
         game = helpers.get_game_by_object_id(game_id)
         if user['userType'] == 'admin':
             # Removes the reviews by game_id username
