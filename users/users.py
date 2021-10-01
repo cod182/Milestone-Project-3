@@ -306,8 +306,3 @@ def add_review(game_id):
 
         return render_template("add-review.html", game=game)
     return redirect(url_for("users.login"))
-
-
-@users.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404

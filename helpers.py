@@ -105,7 +105,6 @@ def list_of_games_by_title_indexed(title):
 
 @cache.cached(timeout=21600, key_prefix='latest_games')
 def get_latest_games():
-    print('getting latest games')
     return list(mongo.db.games.find().sort("_id", -1).limit(5))
 
 

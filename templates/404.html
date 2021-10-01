@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container welcome-container roboto">
+    <div class="row">
+        <div class="col-12">
+            <img class="error-image" src="{{ url_for('static', filename='images/error-image.png') }}" alt="Error Image">
+        </div>
+        <div class="col-12">
+            <h1 class="error-text">Looks like they've taken that page!</h1>
+        </div>
+        <div class="col-12 text-center mt-2 mb-2">
+            <a href="{{url_for('index')}}" class="btn btn-green">Back to safety!</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
