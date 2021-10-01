@@ -588,8 +588,14 @@ btn-open:active {
 }
 
 .review-title {
-  margin: 0 8px 0 8px;
+  background: grey;
+  border-radius: 10px;
+  width: 70%;
   text-align: center;
+  margin: 5px auto 10px auto;
+  padding: 0 5px 0 5px;
+  min-height: 26px;
+  line-height: 23px;
 }
 
 .review-rating {
