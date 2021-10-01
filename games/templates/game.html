@@ -134,7 +134,7 @@
                         {% if user.userType == 'admin' %}
                             <div class="row">
                                 <div class="col-12 text-center">
-                                    <a class="btn btn-game-page btn-danger" href="{{ url_for('admin.delete_game_and_reviews', game_id=game._id) }}" alt="Delete {{ game.title }}">Delete Game</a>
+                                    <a class="btn btn-game-page btn-danger" onclick="confirm('Are you sure you want to delete {{game.title}}')" href="{{ url_for('admin.delete_game_and_reviews', game_id=game._id) }}" alt="Delete {{ game.title }}">Delete Game</a>
                                 </div>
                             </div>
                         {% endif %}
