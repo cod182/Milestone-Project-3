@@ -109,12 +109,14 @@ def edit_user(user_id):
                     'userType': request.form.get('user-type').lower()
                 }
                 # updates the user from update dict
-                mongo.db.gc_users.update({"_id": ObjectId(user_id)}, {"$set": update})
+                mongo.db.gc_users.update(
+                    {"_id": ObjectId(user_id)}, {"$set": update})
 
                 # Update the name on all review by user
                 mongo.db.reviews.update_many(
                     {"review_by": userToEdit['username'].lower()},
-                    {"$set": {"review_by": request.form.get('username').lower()}})
+                    {"$set": {"review_by": request.form.get(
+                        'username').lower()}})
 
                 flash('User Updated')
                 return redirect(url_for("admin.user_search"))

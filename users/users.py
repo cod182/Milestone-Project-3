@@ -119,7 +119,8 @@ def change_password():
             {"username": session["user"]})["password"]
 
         if request.method == "POST":
-            if check_password_hash(userPass, request.form.get("originalPassword")):
+            if check_password_hash(userPass, request.form.get(
+                    "originalPassword")):
                 mongo.db.gc_users.update_one(
                     {"username": user['username'].lower()},
                     {"$set": {
@@ -159,8 +160,8 @@ def get_user_reviews():
             page_parameter='page', per_page_parameter='per_page')
         # pagination for the reviews
         pagination_reviews = helpers.get_pag_list(offset=offset,
-                                                per_page=per_page,
-                                                list=your_reviews)
+                                                  per_page=per_page,
+                                                  list=your_reviews)
         # Pagination controsl
         pagination = Pagination(page=page, per_page=per_page, total=total,
                                 css_framework='bootstrap4')
@@ -198,12 +199,14 @@ def edit_user_review(review_id):
                 "review_title": request.form.get("review_title")
             }
             # Updates the review with matching _id with update dict
-            mongo.db.reviews.update({"_id": ObjectId(review_id)}, {"$set": update})
+            mongo.db.reviews.update(
+                {"_id": ObjectId(review_id)}, {"$set": update})
 
             flash("Review Updated")
 
             # gets the game id with the matching title
-            game_id = helpers.get_game_by_game_name(request.form.get("game_title"))
+            game_id = helpers.get_game_by_game_name(
+                request.form.get("game_title"))
 
             return redirect(url_for('games.game', game_id=game_id['_id']))
 
@@ -251,8 +254,8 @@ def search_for_game():
                 # gets reviews by user
                 userReviews = helpers.get_user_reviews(session['user'])
                 # Get review for game
-                review = helpers.get_user_reviews_for_game_by_title(userReviews,
-                                                                    game)
+                review = helpers.get_user_reviews_for_game_by_title(
+                    userReviews, game)
 
                 return render_template(
                     "review-game-search.html",
@@ -303,3 +306,8 @@ def add_review(game_id):
 
         return render_template("add-review.html", game=game)
     return redirect(url_for("users.login"))
+
+
+@users.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
