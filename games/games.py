@@ -168,7 +168,7 @@ def get_latest_reviews():
         user = None
 
     # gets all reviews, newest first
-    latest_reviews = list(mongo.db.reviews.find().sort("_id", -1))
+    latest_reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(10))
     # gets all games
     games = list(mongo.db.games.find())
     # gets all the db users
