@@ -19,19 +19,19 @@
             <form class="password-reset-form" method="POST" action="{{ url_for('users.change_password', username=session['user']) }}" onSubmit="return passwordMatchCheck(this)">
                 <div class="row">
                     <div class="col-12">
-                        <input class="pass-input" id="originalPassword" type="password" name="originalPassword" placeholder="Current Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$">
+                        <input class="pass-input" id="originalPassword" type="password" name="originalPassword" placeholder="Current Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$" autocomplete="on">
                     </div>
                 </div>
         
             <div class="row">
                     <div class="col-12">
-                        <input class="pass-input" id="password" type="password" name="password" placeholder="New Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$">
+                        <input class="pass-input" id="password" type="password" name="password" placeholder="New Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$" autocomplete="on">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-12">
-                        <input class="pass-input" id="passwordConfirm" name="passwordConfirm" type="password" placeholder="Confirm New Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$">
+                        <input class="pass-input" id="passwordConfirm" name="passwordConfirm" type="password" placeholder="Confirm New Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$" autocomplete="on">
                     </div>
                 </div>
                 <div class="row">

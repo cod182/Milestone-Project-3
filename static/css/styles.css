@@ -416,11 +416,11 @@ btn-open:active {
 }
 
 .footer-contact-container {
-  margin-top: 14px;
+  text-align: center;
 }
 
 .footer-contact-social {
-  font-size: 11px;
+  font-size: 12px;
   text-decoration: none;
   text-align: center;
 }
@@ -433,8 +433,12 @@ btn-open:active {
   font-weight: bolder;
 }
 
+.footer-contact-social p {
+  margin: 10px 0 10px 0 ;
+}
+
 .footer-contact-right {
-  font-size: 11px;
+  font-size: 12px;
   text-decoration: none;
   text-align: center;
   margin: revert;
@@ -601,6 +605,7 @@ btn-open:active {
 .profile-image {
   width: -webkit-fill-available;
   width: -moz-available;
+  height: 100%;
   border-radius: 50%;
   transition: ease-in-out;
 }
@@ -1283,9 +1288,15 @@ btn-open:active {
     margin: 0;
   }
 
-  .footer-contact-container p{
-    margin-bottom: 0;
+  .footer-contact-social {
+    font-size: 30px;
+    display: inline-block;
+    margin: 0 20px;
   }
+  .footer-contact-social:hover {
+    transform: scale(1.2);
+  }
+
 }
 
 @media screen and (max-height: 450px) {

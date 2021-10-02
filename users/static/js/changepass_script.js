@@ -57,7 +57,6 @@ backgroundToggle.addEventListener('click', () => { //listens for dark button cli
 
 // Adds the background image and saves on state to local storage
 function addBackground() {
-  console.log('ON')
   document.body.style.background = 'url("https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_400/MTc0MDE0OTk4MzEyMzk2NjY3/asteroids-by-atari-classic-video-games-reviewed.webp")'
   localStorage.setItem('background', 'on');
 }

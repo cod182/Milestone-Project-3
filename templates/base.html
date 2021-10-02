@@ -97,12 +97,12 @@
                                     {% else %}
                                         <li class="nav-item">
                                             <a class="nav-link" id="login-link" aria-current="page" href="{{ url_for('users.login') }}" aria-label="Sign In">
-                                                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                <i class="fa fa-users" aria-hidden="true"></i>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="register-link" aria-current="page" href="{{ url_for('users.register') }}" aria-label="Register">
-                                                <i class="fa fa-users" aria-hidden="true"></i>
+                                                <i class="fa fa-user-plus" aria-hidden="true"></i>
                                             </a>
                                         </li>
                                     {% endif %}
@@ -127,11 +127,11 @@
             <div class="container-fluid footer">
                 <div class="row">
                     <div class="col-12 col-sm-4 footer-contact-container">
-                        <a href="https://www.facebook.com" rel="noopener" target="_blank" class="white footer-contact-social">
-                            <p>Find Us on Facebook! <i class="fab fa-facebook"></i> </p>
+                        <a href="https://www.facebook.com" rel="noopener" target="_blank" class="white footer-contact-social" aria-label="Facebook Link">
+                            <p><span class="d-none d-sm-inline">Find Us on Facebook!</span> <i class="fab fa-facebook"></i> </p>
                         </a>
-                        <a href="https://www.instagram.com" rel="noopener" target="_blank" class="white footer-contact-social">
-                            <p>Find Us on Instagram! <i class="fab fa-instagram"></i> </p>
+                        <a href="https://www.instagram.com" rel="noopener" target="_blank" class="white footer-contact-social" aria-label="Instagram Link">
+                            <p><span class="d-none d-sm-inline">Find Us on Instagram!</span> <i class="fab fa-instagram"></i> </p>
                         </a>
                     </div>
                     <div class="col-12 col-sm-4 offset-sm-4 footer-contact-container">
