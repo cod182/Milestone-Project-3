@@ -52,8 +52,8 @@ def user_search():
         user = mongo.db.gc_users.find_one({"username": session["user"]})
         latest_games = helpers.get_latest_games()
 
-        allUsers = list(mongo.db.gc_users.find())
-        
+        all_users = list(mongo.db.gc_users.find())
+
         if user['userType'] == 'admin':
             if request.method == "POST":
                 searchedUser = request.form.get("username").lower()
@@ -65,7 +65,7 @@ def user_search():
                         "admin-user-lookup.html",
                         user=user,
                         latest_games=latest_games,
-                        allUsers=allUsers,
+                        all_users=all_users,
                         searchedUsers=searchedUsers
                     )
                 flash('User Not Found!')
@@ -75,7 +75,7 @@ def user_search():
                 "admin-user-lookup.html",
                 user=user,
                 latest_games=latest_games,
-                allUsers=allUsers
+                all_users=all_users
             )
         return redirect(url_for("users.profile", username=session.get('user')))
     return redirect(url_for("users.login"))
@@ -95,7 +95,7 @@ def delete_user(user_id):
     """
     if session.get('user'):
         user = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
-        
+
         if user['userType'] == 'admin':
             mongo.db.reviews.remove({'review_by': user['username']})
 
@@ -124,8 +124,8 @@ def edit_user(user_id):
     """
     if session.get('user'):
         user = mongo.db.gc_users.find_one({"username": session["user"]})
-        userToEdit = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
- 
+        user_to_edit = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
+
         if user['userType'] == 'admin':
             if request.method == 'POST':
                 update = {
@@ -136,7 +136,7 @@ def edit_user(user_id):
                     {"_id": ObjectId(user_id)}, {"$set": update})
 
                 mongo.db.reviews.update_many(
-                    {"review_by": userToEdit['username'].lower()},
+                    {"review_by": user_to_edit['username'].lower()},
                     {"$set": {"review_by": request.form.get(
                         'username').lower()}})
 
@@ -146,7 +146,7 @@ def edit_user(user_id):
             return render_template(
                 'edit-user.html',
                 user=user,
-                userToEdit=userToEdit,
+                user_to_edit=user_to_edit,
             )
         return redirect(url_for("users.profile", username=session.get('user')))
     return redirect(url_for("users.login"))
@@ -165,7 +165,7 @@ def manage_games():
     """
     if session.get('user'):
         latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
-        gamesList = helpers.get_all_games()
+        games_list = helpers.get_all_games()
 
         user = mongo.db.gc_users.find_one(
             {"username": session["user"]})
@@ -180,7 +180,7 @@ def manage_games():
                     return render_template(
                         "admin-games-lookup.html",
                         user=user,
-                        gamesList=gamesList,
+                        games_list=games_list,
                         games=games,
                         latest_games=latest_games
                     )
@@ -190,7 +190,7 @@ def manage_games():
             return render_template(
                 "admin-games-lookup.html",
                 user=user,
-                gamesList=gamesList,
+                games_list=games_list,
                 latest_games=latest_games
             )
         return redirect(url_for("users.profile", username=session.get('user')))
@@ -239,7 +239,6 @@ def manage_reviews():
     if session.get('user'):
         session['url'] = url_for("admin.manage_reviews")
         user = mongo.db.gc_users.find_one({"username": session["user"]})
-        reviewList = list(mongo.db.reviews.find())
 
         latest_games = helpers.get_latest_games()
         gamesList = helpers.get_all_games()
@@ -266,7 +265,6 @@ def manage_reviews():
             return render_template(
                 "admin-review-lookup.html",
                 user=user,
-                reviewList=reviewList,
                 latest_games=latest_games,
                 gamesList=gamesList
             )

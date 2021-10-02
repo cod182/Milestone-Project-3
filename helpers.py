@@ -130,7 +130,7 @@ def insert_game_into_game_db(data):
     Desc:
         Adds new game into database
     """
-    newGame = {
+    new_game = {
             "title": data['name'],
             "year": data['released'],
             "genres": data['genres'],
@@ -146,7 +146,7 @@ def insert_game_into_game_db(data):
                 'time': get_date()
                 }]
         }
-    mongo.db.games.insert(newGame)
+    mongo.db.games.insert(new_game)
 
 
 def get_date():
@@ -185,11 +185,11 @@ def get_game_rating_from_reviews(reviews, game):
     Returns:
         [list]: [all the int vals for ratings]
     """
-    gameRating = []
+    game_rating = []
     for review in reviews:
         if review["game_title"] == game["title"]:
-            gameRating.append(int(review["review_rating"]))
-    return gameRating
+            game_rating.append(int(review["review_rating"]))
+    return game_rating
 
 
 @cache.cached(timeout=86400, key_prefix='profile_images')

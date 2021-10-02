@@ -32,7 +32,8 @@ def index():
     Returns:
         [html]: [home page of site]
     """
-    return render_template("index.html", latest_helpers.get_latest_games())
+    latest_games = helpers.get_latest_games()
+    return render_template("index.html", latest_games=latest_games)
 
 
 @app.errorhandler(404)
@@ -52,4 +53,4 @@ def page_not_found(e):
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=False)
+            debug=True)

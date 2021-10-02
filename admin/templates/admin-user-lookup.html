@@ -16,7 +16,7 @@
                             <div class="col-12">
                                 <input type="text" name="username" placeholder="Username" list="users" autocomplete="off" autofocus required>
                                 <datalist id="users">
-                                {% for user in allUsers %}
+                                {% for user in all_users %}
                                     <option>{{ user.username.capitalize() }}</option>
                                 {% endfor %}
                                 </datalist>

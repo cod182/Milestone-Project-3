@@ -30,12 +30,12 @@ def game_lookup():
     if request.method == "POST":
         search = request.form.get("game-name")
 
-        gameData = helpers.call_rawg_api_for_games(
+        game_data = helpers.call_rawg_api_for_games(
             RAWG_API_KEY,
             '?search=',
             search + '&')
 
-        return render_template('select-game.html', gameData=gameData)
+        return render_template('select-game.html', game_data=game_data)
 
     return render_template('lookup-game.html')
 
@@ -58,8 +58,8 @@ def add_game():
             flash('Game Already Exists')
             return redirect(url_for('games.game_lookup'))
 
-        gameId = request.form.get('selected-game')
-        data = helpers.call_rawg_api_for_games(RAWG_API_KEY, '/', gameId + '?')
+        game_id = request.form.get('selected-game')
+        data = helpers.call_rawg_api_for_games(RAWG_API_KEY, '/', game_id + '?')
         helpers.insert_game_into_game_db(data)
         game = helpers.mongo.db.games.find_one({"game_id": data['id']})
 
@@ -83,7 +83,7 @@ def game(game_id):
     """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
     reviews = list(mongo.db.reviews.find())
-    allUsers = list(mongo.db.gc_users.find())
+    all_users = list(mongo.db.gc_users.find())
 
     if game:
         videos = helpers.call_youtube_api_for_game(
@@ -91,24 +91,24 @@ def game(game_id):
 
         if session.get('user'):
             user = mongo.db.gc_users.find_one({"username": session["user"]})
-            userReviews = list(mongo.db.reviews.find(
+            user_reviews = list(mongo.db.reviews.find(
                 {'review_by': session['user']}))
-            userGameReview = helpers.get_user_reviews_for_game_by_title(
-                userReviews, game)
+            user_game_review = helpers.get_user_reviews_for_game_by_title(
+                user_reviews, game)
         else:
-            userGameReview = None
+            user_game_review = None
             user = None
 
-        gameRating = helpers.get_game_rating_from_reviews(reviews, game)
-        if gameRating:
-            usersRating = int(sum(gameRating) / len(gameRating))
+        game_rating = helpers.get_game_rating_from_reviews(reviews, game)
+        if game_rating:
+            usersRating = int(sum(game_rating) / len(game_rating))
         else:
             usersRating = 'N/A'
 
         return render_template("game.html", game=game, reviews=reviews,
-                               userGameReview=userGameReview, user=user,
-                               usersRating=usersRating, gameRating=gameRating,
-                               allUsers=allUsers, videos=videos)
+                               user_game_review=user_game_review, user=user,
+                               usersRating=usersRating, game_rating=game_rating,
+                               all_users=all_users, videos=videos)
 
     return redirect(url_for('index'))
 
@@ -129,7 +129,7 @@ def edit_game_details(game_id):
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
     if request.method == "POST":
-        currenttime = helpers.get_date()
+        current_time = helpers.get_date()
         update = {
             "year": request.form.get("game_year"),
             "description": request.form.get("game_description"),
@@ -142,7 +142,7 @@ def edit_game_details(game_id):
             {"$push": {
                 'updated_by': {
                     'username': session['user'],
-                    'time': currenttime
+                    'time': current_time
                 }
             }}
         )
@@ -172,12 +172,12 @@ def get_latest_reviews():
 
     latest_reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(9))
     games = list(mongo.db.games.find())
-    allUsers = list(mongo.db.gc_users.find())
+    all_users = list(mongo.db.gc_users.find())
 
     return render_template("latest-reviews.html",
                            latest_reviews=latest_reviews,
                            games=games, user=user,
-                           allUsers=allUsers
+                           all_users=all_users
                            )
 
 
@@ -190,26 +190,26 @@ def get_all_games():
         [html]: [Page container all games]
     """
 
-    gamesList = list(mongo.db.games.find().sort("title", 1))
-    
-    total = len(gamesList)
+    games_list = list(mongo.db.games.find().sort("title", 1))
+
+    total = len(games_list)
     page, per_page, offset = get_page_args(
         page_parameter='page', per_page_parameter='per_page')
     pagination_games = helpers.get_pag_list(offset=offset,
-                                            per_page=per_page, list=gamesList)
+                                            per_page=per_page, list=games_list)
     pagination = Pagination(page=page, per_page=per_page, total=total,
                             css_framework='bootstrap4')
 
     if request.method == "POST":
         if request.form.get('name_of_game'):
-            filteredGames = list(mongo.db.games.find(
+            filtered_games = list(mongo.db.games.find(
                 {"$text": {
                     "$search": request.form.get(
                         'name_of_game')}}).sort(
                             "title", 1))
             return render_template(
                 "games.html",
-                pagination_games=filteredGames,
+                pagination_games=filtered_games,
                 pagination=None
             )
         flash('No Game Found')

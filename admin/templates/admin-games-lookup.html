@@ -16,7 +16,7 @@
                             <div class="col-12">
                                 <input type="text" name="game-name" placeholder="Title of Game" list="games" autocomplete="off" autofocus required>
                                 <datalist id="games">
-                                {% for game in gamesList %}
+                                {% for game in games_list %}
                                     <option>{{game.title}}</option>
                                 {% endfor %}
                                 </datalist>
