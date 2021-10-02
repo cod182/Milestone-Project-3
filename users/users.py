@@ -17,14 +17,16 @@ users = Blueprint(
 
 @users.route("/register", methods=["GET", "POST"])
 def register():
+    """[A page for users to register on the DB]
+
+    Returns:
+        [html]: [returns a page to register]
+        [html]: [If the username already exists, the page is redirected]
+        [html]: [If post sucsessful, the user's porfile page is returned]
     """
-    Go to a page to register to database
-    """
-    # Gets all the profile image options
     profileImages = helpers.get_profile_images()
 
     if request.method == "POST":
-        # check if username already exists in db
         existing_user = mongo.db.gc_users.find_one(
             {"username": request.form.get("username").lower()})
 
@@ -41,7 +43,6 @@ def register():
         }
         mongo.db.gc_users.insert_one(register)
 
-        # put the new user into 'session' cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful!")
         return redirect(url_for("users.profile", username=session["user"]))
@@ -51,26 +52,29 @@ def register():
 
 @users.route("/login", methods=["GET", "POST"])
 def login():
-    """
-    Go to a page to login
+    """[Page to login to the database]
+
+    Returns:
+        [html]: [Returns a login page]
+        [html]: [On POST, if username doesn't exist, 
+                redirects to login with message]
+        [html]: [On POST, if password is wrong,
+                redirects to login with message]
+        [html]: [On POST, sucsess, retuns Profile page]
     """
     if request.method == "POST":
-        # Check if username exists in db
         existing_user = mongo.db.gc_users.find_one(
             {"username": request.form.get("username").lower()})
 
         if existing_user:
-            # ensure hashed password matches user input
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
                 return redirect(url_for("users.profile",
                                         username=session["user"]))
-            # invalid password match
             flash("Wrong Username / Password")
             return redirect(url_for("users.login"))
 
-        # username doesn't exist
         flash("Wrong Username / Password")
         return redirect(url_for("users.login"))
 
@@ -79,10 +83,11 @@ def login():
 
 @users.route("/logout")
 def logout():
+    """[Removes the user from the session]
+
+    Returns:
+        [html]: [Returns login page]
     """
-    From a button removes the sessions cookie
-    """
-    # remove user from session cookies
     flash("You have been logged out")
     session.pop("user")
     return redirect(url_for("users.login"))
@@ -90,14 +95,20 @@ def logout():
 
 @users.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-    """
-    Go to a page to display users profile page
+    """[Current users profile page]
+
+    Args:
+        username ([username]): [CUrrent users username]
+
+    Returns:
+        [html]: [If session user exits, returns their profile page]]
+        [html]: [If session user doesn't exist, returns login]
     """
     if session.get("user"):
-        # gets the latest 5 games
         latest_games = helpers.get_latest_games()
-        # grab the session user's username from db
+        
         user = mongo.db.gc_users.find_one({"username": session["user"]})
+        
         return render_template(
             "profile.html",
             latest_games=latest_games,
@@ -109,8 +120,12 @@ def profile(username):
 
 @users.route("/profile/change-password", methods=["GET", "POST"])
 def change_password():
-    """
-    Go to a page to change password of account. Takes a POST
+    """[Changes the current users password]
+
+    Returns:
+        [html]: [If no session user, returns login page]
+        [html]: [OnPOST, if passwords match, return change password page
+        with message]
     """
     if session.get("user"):
         latest_games = helpers.get_latest_games()
@@ -142,32 +157,29 @@ def change_password():
 
 @users.route("/profile/your-reviews")
 def get_user_reviews():
-    """
-    Go to a page displaying all reviews linked to the session.user
-    extends the profile page
+    """[A page showing all the reviews linked to the current user]
+
+    Returns:
+        [html]: [If no user logged in, returns logi page]
+        [html]: [If user logged in, retunrs the your review page]
     """
     if session.get("user"):
-        # gets the latest games in revers order. Max of 5
         latest_games = helpers.get_latest_games()
-        # gets the user matching the session user
         user = mongo.db.gc_users.find_one(
             {"username": session["user"]})
-        # gets all review by the user
+
         your_reviews = list(mongo.db.reviews.find(
             {'review_by': session['user']}))
-        # the length og the your review list
-        total = len(your_reviews)
 
+        total = len(your_reviews)
         page, per_page, offset = get_page_args(
             page_parameter='page', per_page_parameter='per_page')
-        # pagination for the reviews
         pagination_reviews = helpers.get_pag_list(offset=offset,
                                                   per_page=per_page,
                                                   list=your_reviews)
-        # Pagination controsl
         pagination = Pagination(page=page, per_page=per_page, total=total,
                                 css_framework='bootstrap4')
-        # sets the sessions url to get_user_reviews Page
+
         session['url'] = url_for("users.get_user_reviews")
 
         return render_template(
@@ -182,37 +194,34 @@ def get_user_reviews():
 
 @users.route("/review/<review_id>", methods=["GET", "POST"])
 def edit_user_review(review_id):
-    """
-    Go to a page to edit a review based on it's review_id
+    """[Allows the current review to be edited]
+
+    Args:
+        review_id ([Object_ID]): [CUrrent review Object ID]
+
+    Returns:
+        [html]: [If no user logged in, returns logi page]
+        [html]: [If user logged in, retunrs the your review page]
+        [html]: [On POST, updated review in DB]
     """
     if session.get("user"):
-        # gets user matched with session user
         user = mongo.db.gc_users.find_one({"username": session["user"]})
 
         if request.method == "POST":
-            """
-            Gets values from form and update the relevant
-            review with them
-            """
-            # Update key value pairs from form
             update = {
                 "review_message": request.form.get("review_message"),
                 "review_rating": request.form.get("review_rating"),
                 "review_title": request.form.get("review_title")
             }
-            # Updates the review with matching _id with update dict
             mongo.db.reviews.update(
                 {"_id": ObjectId(review_id)}, {"$set": update})
 
-            flash("Review Updated")
-
-            # gets the game id with the matching title
             game_id = mongo.db.games.find_one(
                 {"title": request.form.get("game_title")})
 
+            flash("Review Updated")
             return redirect(url_for('games.game', game_id=game_id['_id']))
 
-        # finds a review with matching _id
         review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
 
         return render_template("edit-review.html", review=review, user=user)
@@ -221,42 +230,48 @@ def edit_user_review(review_id):
 
 @users.route("/delete-review/<review_id>")
 def delete_review(review_id):
-    """
-    From a button to delete the selected review based on review_id
+    """[Delets a review form the DB]
+
+    Args:
+        review_id ([Objec_id]): [Object ID of specific review]
+
+    Returns:
+        [html]: [if no session user, returns login]
+        [html]: [delets review and returns to session url]
     """
     if session.get('user'):
-        # Removes the review with atching _id
         mongo.db.reviews.remove({"_id": ObjectId(review_id)})
+        
         flash("Review Deleted")
-
         return redirect(session['url'])
     return redirect(url_for("users.login"))
 
 
 @users.route("/profile/game-search", methods=["GET", "POST"])
 def search_for_game():
-    """
-    Go to a page to search all games in order to add a review
-    OR add a new game to Database
+    """[Look up a game in the databse]
+
+    Returns:
+        [html]: [If no session user, returns login]
+        [html]: [if session user, returns game look up]
+        [html]: [On POST, if game found, rredirect to game look up with
+                returns to game seearch with game json]
+        [html]: [on POST, if game not found, returns game look up with 
+                message]
     """
     if session.get('user'):
         user = mongo.db.gc_users.find_one({"username": session["user"]})
-        # gets the latest 5 games, newest first
+
         latest_games = helpers.get_latest_games()
-        # gets all the games in db
         allgames = helpers.get_all_games()
 
-        # if a post request
         if request.method == "POST":
-            # gets the name from the search box
-            gameName = request.form.get("search")
-            # searches the game in db
-            game = mongo.db.games.find_one({"title": gameName})
+            game = mongo.db.games.find_one(
+                {"title": request.form.get("search")})
+
             if game:
-                # gets reviews by user
                 userReviews = list(mongo.db.reviews.find(
                     {'review_by': session['user']}))
-                # Get review for game
                 review = helpers.get_user_reviews_for_game_by_title(
                     userReviews, game)
 
@@ -282,15 +297,19 @@ def search_for_game():
 
 @users.route('/profile/addReview/<game_id>', methods=["GET", "POST"])
 def add_review(game_id):
-    """
-    Go to a page to add a review to a game based on game_id
+    """[Adds a review to a specific game]
+
+    Args:
+        game_id ([Object_id]): [Object Id of specific game]
+
+    Returns:
+        [html]: [If no session user, returns login]
+        [html]: [on POST, inserts review into DB]
     """
     if session.get('user'):
-        # find the game with matching _id
         game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
         if request.method == "POST":
-            # newReview key value pairs from form
             newReview = {
                 "review_message": request.form.get("review_message"),
                 "review_rating": request.form.get("review_rating"),
@@ -298,13 +317,10 @@ def add_review(game_id):
                 "game_title": game['title'],
                 "review_title": request.form.get("review_title")
             }
-            # Inserts new document from newReview into db
             mongo.db.reviews.insert(newReview)
 
-            # find game with title matches the form title
             game = mongo.db.games.find_one({"title": game['title']})
 
-            # redirected to game page
             return redirect(url_for('games.game', game_id=game['_id']))
 
         return render_template("add-review.html", game=game)
