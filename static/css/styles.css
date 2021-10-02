@@ -835,10 +835,13 @@ btn-open:active {
 
 .game-page-img {
   max-width: 90%;
-  max-height: 323px;
+  min-height: 250px;
   border-radius: 10px 10px;
   margin: auto auto 10px auto;
   display: block;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .game-page-title {
@@ -1103,7 +1106,11 @@ btn-open:active {
   margin-bottom: 5px;
   border-radius: 10px;
   text-align: center;
-  color: grey;
+  color: #424242;
+}
+
+.login-input::placeholder {
+  color: #424242;
 }
 
 .register-label {

@@ -83,10 +83,19 @@ def game(game_id):
         If the game no longer exosts, returns index]
     """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
-    reviews = list(mongo.db.reviews.find())
     all_users = list(mongo.db.gc_users.find())
 
     if game:
+
+        reviews = list(mongo.db.reviews.find({"game_title": game['title']}))
+        total = len(reviews)
+        page, per_page, offset = get_page_args(
+            page_parameter='page', per_page_parameter='per_page')
+        pagination_reviews = helpers.get_pag_list(offset=offset,
+                                                per_page=per_page, list=reviews)
+        pagination = Pagination(page=page, per_page=per_page, total=total,
+                                css_framework='bootstrap4')
+
         videos = helpers.call_youtube_api_for_game(
             game['title'], YOUTUBE_API_KEY)
 
@@ -99,14 +108,16 @@ def game(game_id):
         else:
             user_game_review = None
             user = None
-
-        game_rating = helpers.get_game_rating_from_reviews(reviews, game)
+        all_reviews = list(mongo.db.reviews.find())
+        game_rating = helpers.get_game_rating_from_reviews(all_reviews, game)
         if game_rating:
             usersRating = int(sum(game_rating) / len(game_rating))
         else:
             usersRating = 'N/A'
 
-        return render_template("game.html", game=game, reviews=reviews,
+        return render_template("game.html", game=game,
+                               pagination_reviews=pagination_reviews,
+                               pagination=pagination,
                                user_game_review=user_game_review, user=user,
                                usersRating=usersRating,
                                game_rating=game_rating,
