@@ -54,12 +54,14 @@
                                 </form>
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-links">
                                     <li class="nav-item">
-                                        <a class="nav-link" id="home-link" href="{{ url_for('index') }}"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                        <a class="nav-link" id="home-link" href="{{ url_for('index') }}" aria-label="Home">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                        </a>
                                     </li>
                                     {% if session.user %}
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" id="profile-link" href="" role="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                data-bs-toggle="dropdown" aria-expanded="false" aria-label="Profile Page">
                                                 <i class="fa fa-user" aria-hidden="true"></i>
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -72,24 +74,36 @@
                                         </li>
                                     {% endif %}
                                     <li class="nav-item">
-                                        <a class="nav-link" id="latest-reviews-link" href="{{ url_for('games.get_latest_reviews') }}"><i class="fa fa-star-half-alt" aria-hidden="true"></i></a>
+                                        <a class="nav-link" id="latest-reviews-link" href="{{ url_for('games.get_latest_reviews') }}" aria-label="Latest Reviews">
+                                            <i class="fa fa-star-half-alt" aria-hidden="true"></i>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="games-link" href="{{ url_for('games.get_all_games') }}"><i class="fa fa-gamepad" aria-hidden="true"></i></a>
+                                        <a class="nav-link" id="games-link" href="{{ url_for('games.get_all_games') }}" aria-label="Games">
+                                            <i class="fa fa-gamepad" aria-hidden="true"></i>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                    <a href="#" class="nav-link" id="contact-link" data-bs-toggle="modal" data-bs-target="#contactUsModal"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                    <a href="#" class="nav-link" id="contact-link" data-bs-toggle="modal" data-bs-target="#contactUsModal" aria-label="Contact U">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    </a>
                                     </li>
                                     {% if session.user %}
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ url_for('users.logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                                            <a class="nav-link" href="{{ url_for('users.logout') }}" aria-label="Sign Out">
+                                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                            </a>
                                         </li> 
                                     {% else %}
                                         <li class="nav-item">
-                                            <a class="nav-link" id="login-link" aria-current="page" href="{{ url_for('users.login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                                            <a class="nav-link" id="login-link" aria-current="page" href="{{ url_for('users.login') }}" aria-label="Sign In">
+                                                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                            </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="register-link" aria-current="page" href="{{ url_for('users.register') }}"><i class="fa fa-users" aria-hidden="true"></i></a>
+                                            <a class="nav-link" id="register-link" aria-current="page" href="{{ url_for('users.register') }}" aria-label="Register">
+                                                <i class="fa fa-users" aria-hidden="true"></i>
+                                            </a>
                                         </li>
                                     {% endif %}
                                     

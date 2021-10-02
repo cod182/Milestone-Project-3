@@ -46,7 +46,6 @@ def page_not_found(e):
     Returns:
         [html]: [404 error page]
     """
-    print('hello')
     return render_template('404.html'), 404
 
 

@@ -58,7 +58,7 @@
                     <div class="game-container-all-games">
                         <div class="col-12">
                             <a class="remove-a-link-styles" href="{{ url_for('games.game', game_id=game._id) }}">
-                                <img class="game-image" src="{{ game.largeImage }}" alt="">
+                                <div class="game-image" style="background-image: url('{{ game.largeImage }}');"></div>
                                 <p id="game_title" class="game-title"> {{ game.title }}</p>
                                 <p class="game-year">{{game.year }}</p>
                             </a>

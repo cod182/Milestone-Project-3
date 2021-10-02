@@ -20,18 +20,18 @@
                                         <!-- Game Title -->
                                         <div class="col-sm-12 col-md-5 mb-2" class="review-image">
                                             <a href="{{ url_for('games.game', game_id=game._id) }}">
-                                                <div class="review-image" style="background-image: url('{{ game.largeImage }}');"></div>
+                                                <div class="review-image" style="background-image: url('{{ game.largeImage }}');" role="img" aria-label="Image of {{ game.title }}"></div>
                                             </a>
                                         </div>
                                         <div class="col-sm-12 col-md-7 my-auto">
                                             <a href="{{ url_for('games.game', game_id=game._id) }}" class="remove-a-link-styles review-game-title" alt="Link to {{ game.title }} game page">
-                                                <h5 class="text-center">{{ game.title }}</h5>
+                                                <p class="text-center">{{ game.title }}</p>
                                             </a>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12 mt-2">
-                                            <h6 class="review-title">{{review.review_title.capitalize() }}</h6>
+                                            <p class="review-title">{{review.review_title.capitalize() }}</p>
                                         </div>
                                     </div>
 

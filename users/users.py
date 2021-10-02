@@ -130,12 +130,11 @@ def change_password():
     if session.get("user"):
         latest_games = helpers.get_latest_games()
         user = mongo.db.gc_users.find_one({"username": session["user"]})
-        user_pass = mongo.db.gc_users.find_one(
-            {"username": session["user"]})["password"]
 
         if request.method == "POST":
-            if check_password_hash(user_pass, request.form.get(
-                    "originalPassword")):
+            if check_password_hash(mongo.db.gc_users.find_one(
+                                {"username": session["user"]})["password"],
+                                request.form.get("originalPassword")):
                 mongo.db.gc_users.update_one(
                     {"username": user['username'].lower()},
                     {"$set": {
