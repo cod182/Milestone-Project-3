@@ -10,14 +10,13 @@
                     <h1 class="game-page-title">{{ game.title }} </h1>
                     <hr>
                 </div>
-
+                <!-- Left Column -->
                 <div class="col-sm-12 col-md-6">
                     <div class="row gx-0">
                         <div class="col-12">
-                            <img class="game-page-img" src="{{ game.largeImage }}" alt="Art for {{game.title}}">
+                            <div class="game-page-img" style="background-image: url('{{ game.largeImage }}');"></div>
                         </div>
-                    </div>
-                <!-- Left Column -->
+                    </div>    
                     <!-- Platforms -->
                     <div class="row gx-0">
                         <div class="col-11 platforms-container">
@@ -58,7 +57,7 @@
                         <!-- User Rating -->
                         <div class="col-4 mx-auto text-center">
                             <p class="game-lower-heading">No. of Reviews</p>
-                                <p class="game-text-box user-rating">{{ gameRating|length }}</p>
+                                <p class="game-text-box user-rating">{{ game_rating|length }}</p>
                         </div>
                         <!-- User Average Rating -->
                         <div class="col-4 mx-auto text-center">
@@ -108,9 +107,9 @@
                     <!-- Review Button -->
                     <div class="row gx-0 mb-2">
                             {% if session.get('user') %}
-                                {% if userGameReview.game_title == game.title %}
+                                {% if user_game_review.game_title == game.title %}
                                     <div class="col-6 text-center">
-                                        <a class="btn btn-game-page btn-game-page--edit" href="{{ url_for('users.edit_user_review', review_id=userGameReview._id) }}" alt="link to edit your review of {{ game.title }}">Edit Review</a>
+                                        <a class="btn btn-game-page btn-game-page--edit" href="{{ url_for('users.edit_user_review', review_id=user_game_review._id) }}" alt="link to edit your review of {{ game.title }}">Edit Review</a>
                                     </div>
                                     <div class="col-6 text-center">
                                         <a class="btn btn-game-page btn-game-page--edit-details" href="{{ url_for('games.edit_game_details', game_id=game._id) }}" alt="link to edit the details for {{ game.title }}">Edit Game Details</a>
@@ -172,14 +171,13 @@
 
             <!-- Review -->
             <div class="row mx-auto">
-                {% if reviews|length > 0 %}
-                    {% for review in reviews %}
-                        {% if review.game_title == game.title %}
+                {% if pagination_reviews|length > 0 %}
+                    {% for review in pagination_reviews %}
                             <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
                                 <div class="review-container">
                                     <div class="row">
                                         <div class="col-12">
-                                            <h6 class="review-title">{{review.review_title.capitalize() }}</h6>
+                                            <p class="review-title">{{review.review_title.capitalize() }}</p>
                                         </div>
                                     </div>
 
@@ -205,7 +203,7 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="profile-image-container">
-                                                        {% for user in allUsers %}
+                                                        {% for user in all_users %}
                                                             {% if user.username|lower == review.review_by %}
                                                         <img class="profile-image" src="{{ user.profile_image }}" alt="Profile image for user: {{review.review_by}}">
                                                             {% endif %}
@@ -226,6 +224,8 @@
                             {% endif %}
                         {% endfor %}
                 {% endif %}
+                {{ pagination.links }}
+                {{ pagination.info }}
             </div>
         </div>
 

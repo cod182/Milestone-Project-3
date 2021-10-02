@@ -16,11 +16,17 @@ admin = Blueprint(
 
 @admin.route('/admin', methods=["GET", "POST"])
 def get_admin():
+    """[Shows the admin controls]
+
+    Returns:
+        [html]: [if user is logged in, not admin redirects to ther profile]
+        [html]: [if user is not logged in, redirects to login]
+        [html]: [if user is logged in adn admin, returns admin page]
+    """
     if session.get('user'):
-        # Gets the latest 5 games
         latest_games = helpers.get_latest_games()
-        # gets the user in db from session user
-        user = helpers.get_user_from_session_user(session["user"])
+
+        user = mongo.db.gc_users.find_one({"username": session["user"]})
         if user['userType'] == 'admin':
             return render_template(
                 "admin-base.html",
@@ -33,28 +39,33 @@ def get_admin():
 
 @admin.route('/admin/user-search', methods=["GET", "POST"])
 def user_search():
-    """
-    Go to a page to search all users
+    """[Renders a page to search the DB for a user]
+
+    Returns:
+        [html]: [if user is logged in, not admin redirects to ther profile]
+        [html]: [if user is not logged in, redirects to login]
+        [html]: [if user is logged in and admin, returns admin page]
+        [html]: [if searched user exists, returns look p page]
+        [html]: [if searched user does not exists, redirects to search page]
     """
     if session.get('user'):
-        user = helpers.get_user_from_session_user(session["user"])
+        user = mongo.db.gc_users.find_one({"username": session["user"]})
         latest_games = helpers.get_latest_games()
-        # gets all the db users
-        allUsers = helpers.get_all_users()
+
+        all_users = list(mongo.db.gc_users.find())
+
         if user['userType'] == 'admin':
             if request.method == "POST":
                 searchedUser = request.form.get("username").lower()
+                searchedUsers = list(mongo.db.gc_users.find(
+                    {"username": searchedUser}))
 
-                # returns the users found from serch
-                searchedUsers = helpers.get_user_list_by_username(searchedUser)
-
-                # if user exists
                 if searchedUsers:
                     return render_template(
                         "admin-user-lookup.html",
                         user=user,
                         latest_games=latest_games,
-                        allUsers=allUsers,
+                        all_users=all_users,
                         searchedUsers=searchedUsers
                     )
                 flash('User Not Found!')
@@ -64,7 +75,7 @@ def user_search():
                 "admin-user-lookup.html",
                 user=user,
                 latest_games=latest_games,
-                allUsers=allUsers
+                all_users=all_users
             )
         return redirect(url_for("users.profile", username=session.get('user')))
     return redirect(url_for("users.login"))
@@ -72,21 +83,26 @@ def user_search():
 
 @admin.route('/admin/delete-user/<user_id>', methods=["GET", "POST"])
 def delete_user(user_id):
-    """
-    From a button to delete the selected user review_id
+    """[A button to delete a specific user and all of their reviews]
+
+    Args:
+        user_id ([Object_id]): [Object Id of specific user]
+
+    Returns:
+        [html]: [if user is logged in, not admin redirects to ther profile]
+        [html]: [if user is not logged in, redirects to login]
+        [html]: [if user is logged in and admin, rredirects to user search
+                after deleting]
     """
     if session.get('user'):
-        # finds the account name of user_id
-        user = helpers.get_user_by_id(user_id)
-        if user['userType'] == 'admin':
-            # Removes the reviews by user_id username
-            helpers.remove_reviews_by_user(user['username'])
+        user = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
 
-            # Removes the user with matching id
+        if user['userType'] == 'admin':
+            mongo.db.reviews.remove({'review_by': user['username']})
+
             helpers.remove_user_by_object_id(user_id)
 
             flash("User & Reviews Deleted")
-
             return redirect(url_for("admin.user_search"))
 
         return redirect(url_for("users.profile", username=session.get('user')))
@@ -95,26 +111,33 @@ def delete_user(user_id):
 
 @admin.route('/admin/edit-user/<user_id>', methods=["GET", "POST"])
 def edit_user(user_id):
-    if session.get('user'):
-        # gets the session user
-        user = helpers.get_user_from_session_user(session["user"])
+    """[Allows selected users' name and userType to be updated.
+    Will also update name aon all their reviews]
 
-        # finds the user matching the id
-        userToEdit = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
+    Args:
+        user_id ([Object_id]): [Object Id of user to be edited]
+
+    Returns:
+        [html]: [if user is logged in, not admin redirects to ther profile]
+        [html]: [if user is not logged in, redirects to login]
+        [html]: [if user is logged in and admin, returns edit user page]
+        [html]: [if POST user details are updated in to DB]
+    """
+    if session.get('user'):
+        user = mongo.db.gc_users.find_one({"username": session["user"]})
+        user_to_edit = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
+
         if user['userType'] == 'admin':
             if request.method == 'POST':
-                # Update details from form
                 update = {
                     'username': request.form.get('username').lower(),
                     'userType': request.form.get('user-type').lower()
                 }
-                # updates the user from update dict
                 mongo.db.gc_users.update(
                     {"_id": ObjectId(user_id)}, {"$set": update})
 
-                # Update the name on all review by user
                 mongo.db.reviews.update_many(
-                    {"review_by": userToEdit['username'].lower()},
+                    {"review_by": user_to_edit['username'].lower()},
                     {"$set": {"review_by": request.form.get(
                         'username').lower()}})
 
@@ -124,7 +147,7 @@ def edit_user(user_id):
             return render_template(
                 'edit-user.html',
                 user=user,
-                userToEdit=userToEdit,
+                user_to_edit=user_to_edit,
             )
         return redirect(url_for("users.profile", username=session.get('user')))
     return redirect(url_for("users.login"))
@@ -132,30 +155,34 @@ def edit_user(user_id):
 
 @admin.route("/admin/manage-games", methods=["GET", "POST"])
 def manage_games():
-    if session.get('user'):
-        # gets the latest games
-        latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+    """[A page allowing look up of all games in the database]
 
-        # gets the session user and then current user username
+    Returns:
+        [html]: [if user is logged in, not admin redirects to ther profile]
+        [html]: [if user is not logged in, redirects to login]
+        [html]: [if user is logged in and admin, returns game search page]
+        [html]: [if POST and game exists, returns game slookup page with game]
+        [html]: [if POST and game does notexists, returns games lookup page
+                with message]
+    """
+    if session.get('user'):
+        latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
+        games_list = helpers.get_all_games()
+
         user = mongo.db.gc_users.find_one(
             {"username": session["user"]})
 
-        # gets all games
-        gamesList = helpers.get_all_games()
         if user['userType'] == 'admin':
 
             if request.method == "POST":
                 searchedGame = request.form.get("game-name")
-
-                # returns the games found from serch
                 games = list(mongo.db.games.find({"title": searchedGame}))
 
-                # if game exists
                 if searchedGame:
                     return render_template(
                         "admin-games-lookup.html",
                         user=user,
-                        gamesList=gamesList,
+                        games_list=games_list,
                         games=games,
                         latest_games=latest_games
                     )
@@ -165,7 +192,7 @@ def manage_games():
             return render_template(
                 "admin-games-lookup.html",
                 user=user,
-                gamesList=gamesList,
+                games_list=games_list,
                 latest_games=latest_games
             )
         return redirect(url_for("users.profile", username=session.get('user')))
@@ -174,23 +201,26 @@ def manage_games():
 
 @admin.route("/admin/delete-game/<game_id>", methods=["GET", "POST"])
 def delete_game_and_reviews(game_id):
-    """
-    From a button to delete the selected game
-    and reviews from game_id
+    """[Delets a specific game and all of it's reviews]
+
+    Args:
+        game_id ([Object_id]): [Object id of a specific game]
+
+    Returns:
+        [html]: [if user is logged in, not admin redirects to ther profile]
+        [html]: [if user is not logged in, redirects to login]
+        [html]: [if user is logged in and admin, returns to
+        manage games page with message]
     """
     if session.get('user'):
-        # finds the account name of game_id
-        # gets the session user and then current user username
-        user = helpers.get_user_from_session_user(session["user"])
-        game = helpers.get_game_by_object_id(game_id)
+        user = mongo.db.gc_users.find_one({"username": session["user"]})
+        game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
         if user['userType'] == 'admin':
-            # Removes the reviews by game_id username
-            helpers.remove_game_reviews_by_title(game['title'])
-            # Removes the game with matching id
-            helpers.remove_game_by_objectId(game_id)
+            mongo.db.reviews.remove({'game_title': game['title']})
+            mongo.db.games.remove({"_id": ObjectId(game_id)})
 
             flash("Game & Reviews Deleted")
-
             return redirect(url_for('admin.manage_games'))
         return redirect(url_for("users.profile", username=session.get('user')))
     return redirect(url_for("users.login"))
@@ -198,32 +228,31 @@ def delete_game_and_reviews(game_id):
 
 @admin.route('/admin/manage-reviews', methods=["GET", "POST"])
 def manage_reviews():
+    """[summary]
+
+    Returns:
+        [html]: [if user is logged in, not admin redirects to ther profile]
+        [html]: [if user is not logged in, redirects to login]
+        [html]: [if user is logged in and admin, returns review lookup page]
+        [html]: [if POST game not found, redirects to manage reviews page
+        with a message]
+        [html]: [if POST reviews are returned to lookup page]
+    """
     if session.get('user'):
-        # sets the sessions url to get_user_reviews Page
         session['url'] = url_for("admin.manage_reviews")
+        user = mongo.db.gc_users.find_one({"username": session["user"]})
 
-        # gets the latest games
         latest_games = helpers.get_latest_games()
-
-        # gets the session user and then current user username
-        user = helpers.get_user_from_session_user(session["user"])
-
-        # gets all reviews
-        reviewList = helpers.get_all_user_reviews()
-
-        # gets all games
         gamesList = helpers.get_all_games()
+
         if user['userType'] == 'admin':
             if request.method == "POST":
-                # Gets the searched term
                 searchedGame = request.form.get("game-name")
+                game = mongo.db.games.find_one({"title": searchedGame})
 
-                # returns the game found from search
-                game = helpers.get_game_by_game_name(searchedGame)
-
-                # if game exists
                 if game:
-                    reviews = helpers.get_game_reviews_by_title(game['title'])
+                    reviews = list(mongo.db.reviews.find(
+                        {"game_title": game['title']}))
 
                     return render_template(
                         "admin-review-lookup.html",
@@ -238,7 +267,6 @@ def manage_reviews():
             return render_template(
                 "admin-review-lookup.html",
                 user=user,
-                reviewList=reviewList,
                 latest_games=latest_games,
                 gamesList=gamesList
             )

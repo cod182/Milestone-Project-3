@@ -416,11 +416,11 @@ btn-open:active {
 }
 
 .footer-contact-container {
-  margin-top: 14px;
+  text-align: center;
 }
 
 .footer-contact-social {
-  font-size: 11px;
+  font-size: 12px;
   text-decoration: none;
   text-align: center;
 }
@@ -433,8 +433,12 @@ btn-open:active {
   font-weight: bolder;
 }
 
+.footer-contact-social p {
+  margin: 10px 0 10px 0 ;
+}
+
 .footer-contact-right {
-  font-size: 11px;
+  font-size: 12px;
   text-decoration: none;
   text-align: center;
   margin: revert;
@@ -601,6 +605,7 @@ btn-open:active {
 .profile-image {
   width: -webkit-fill-available;
   width: -moz-available;
+  height: 100%;
   border-radius: 50%;
   transition: ease-in-out;
 }
@@ -614,6 +619,8 @@ btn-open:active {
   line-height: 25px;
   margin: auto;
   color: #bbbbbb;
+  font-weight: 500;
+  font-size: larger;
 }
 
 .review-game-title:hover,
@@ -624,7 +631,8 @@ btn-open:active {
 }
 
 .review-title {
-  background: grey;
+  background: #6c6c6c;
+  color: #ffffff;
   border-radius: 10px;
   width: 70%;
   text-align: center;
@@ -644,10 +652,10 @@ btn-open:active {
   padding: 10px;
   text-align: center;
   overflow: scroll;
-  background: #6d6d6d;
+  background: #6c6c6c;
   border-radius: 20px;
   margin: auto 10px;
-  color: #d6d6d6;
+  color: #ffffff;
 }
 
 .profile-container {
@@ -832,10 +840,13 @@ btn-open:active {
 
 .game-page-img {
   max-width: 90%;
-  max-height: 323px;
+  min-height: 250px;
   border-radius: 10px 10px;
   margin: auto auto 10px auto;
   display: block;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .game-page-title {
@@ -1100,7 +1111,11 @@ btn-open:active {
   margin-bottom: 5px;
   border-radius: 10px;
   text-align: center;
-  color: grey;
+  color: #424242;
+}
+
+.login-input::placeholder {
+  color: #424242;
 }
 
 .register-label {
@@ -1265,17 +1280,23 @@ btn-open:active {
   }
 
   .game-container-all-games {
-    width: 60%;
-    margin: 10px 20%;
+    width: 100%;
+    margin: 10px 0%;
   }
 
   .footer-contact-right {
     margin: 0;
   }
 
-  .footer-contact-container p{
-    margin-bottom: 0;
+  .footer-contact-social {
+    font-size: 30px;
+    display: inline-block;
+    margin: 0 20px;
   }
+  .footer-contact-social:hover {
+    transform: scale(1.2);
+  }
+
 }
 
 @media screen and (max-height: 450px) {

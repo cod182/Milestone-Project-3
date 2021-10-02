@@ -9,25 +9,25 @@
                         <h1 class="page-title">
                             Editing profile of 
                             <br>
-                            {{ userToEdit.username.capitalize() }}</h1>
+                            {{ user_to_edit.username.capitalize() }}</h1>
                     </div>
                 </div>
                 <div class="row">
                     <!-- User -->
                     <div class="col-sm-12 col-md-7 mx-auto my-2 update-review-container">
-                        <form  method="POST" action="{{ url_for('admin.edit_user', user_id=userToEdit._id) }}">
+                        <form  method="POST" action="{{ url_for('admin.edit_user', user_id=user_to_edit._id) }}">
                             
                         <!-- Username -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <input type="text" class="edit-input" name="username" autocomplete="off" value="{{ userToEdit.username }}">
+                                <input type="text" class="edit-input" name="username" autocomplete="off" value="{{ user_to_edit.username }}">
                                 </p>
                             </div>
                         </div>
                         <!-- User Type -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <select type="text" list="user-types" class="edit-input" name="user-type" value="{{ userToEdit.userType }}">
+                                <select type="text" list="user-types" class="edit-input" name="user-type" value="{{ user_to_edit.userType }}">
                                     <datalist id="user-types">
                                         <option value="standard">Standard</option>
                                         <option value="admin">Admin</option>

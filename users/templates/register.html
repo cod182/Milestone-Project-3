@@ -12,25 +12,25 @@
             <div class="col-sm-12 col-md-6 mx-auto login-container">
                 <form method="POST" action="{{ url_for('users.register') }}" onSubmit="return passwordMatchCheck(this)">
                     <div class="row">
-                        <input id="username" name="username" class="login-input" type="text" placeholder="Username" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$">
+                        <input id="username" name="username" class="login-input" type="text" placeholder="Username" minlenght="5" maxlength="15" autocomplete="on" required pattern="^[a-zA-Z0-9]{5,15}$">
                     </div>
                     <div class="row">
-                        <input id="email" name="email" class="login-input" type="email" placeholder="Email" required>
+                        <input id="email" name="email" class="login-input" type="email" placeholder="Email" autocomplete="on" required>
                     </div>
                     <div class="row">
-                        <input id="password" name="password" class="login-input" type="password" placeholder="Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$">
+                        <input id="password" name="password" class="login-input" type="password" placeholder="Password" minlenght="5" maxlength="15" autocomplete="on" required pattern="^[a-zA-Z0-9]{5,15}$">
                     </div>
                     <div class="row">
-                        <input id="passwordConfirm" name="passwordConfirm" class="login-input" type="password" placeholder="Confirm Password" minlenght="5" maxlength="15" required pattern="^[a-zA-Z0-9]{5,15}$">
+                        <input id="passwordConfirm" name="passwordConfirm" class="login-input" type="password" placeholder="Confirm Password" minlenght="5" maxlength="15" autocomplete="on" required pattern="^[a-zA-Z0-9]{5,15}$">
                     </div>
                     <!-- Image Selectino -->
                     <div class="row">
                         <p class="text-center bold">Select Your Profile Image</p>
-                        {% for image in profileImages %}
+                        {% for image in profile_images %}
                             <div class="col-6 col-sm-4 col-md-2 mx-auto text-center">
                                 <label for="{{image.name}}" class="register-label">
                                     <input class="register-label" type="radio" name="profile_image" id="{{ image.name }}" value="{{ image.image }}">
-                                    <img class="register-profile-image" src="{{ image.image }}" alt="profile image {{ image.name }}">
+                                    <img class="register-profile-image" src="{{ image.thumbnail }}" alt="profile image {{ image.name }}">
                                 </label>
                             </div>
                         {% endfor %} 
