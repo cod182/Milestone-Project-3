@@ -27,17 +27,24 @@ cache.init_app(app)
 @app.route("/")
 @app.route("/index")
 def index():
-    """
-    Go to a page to display the home screen
-    """
-    # gets the latest 5 games
-    latest_games = helpers.get_latest_games()
+    """[Give the home page]
 
-    return render_template("index.html", latest_games=latest_games)
+    Returns:
+        [html]: [home page of site]
+    """
+    return render_template("index.html", latest_helpers.get_latest_games())
 
 
 @app.errorhandler(404)
 def page_not_found(e):
+    """[If a 404 error page]
+
+    Args:
+        e ([error]): [error type]
+
+    Returns:
+        [html]: [404 error page]
+    """
     print('hello')
     return render_template('404.html'), 404
 

@@ -122,7 +122,8 @@ def call_youtube_api_for_game(game, key):
 
 
 def insert_game_into_game_db(data):
-    """[summary]
+    """[Takes the new game dict and inserts into
+        the db]
 
     Args:
         data ([dict]): [dict of new game information]
@@ -145,21 +146,28 @@ def insert_game_into_game_db(data):
                 'time': get_date()
                 }]
         }
-    # Game inserted into database
     mongo.db.games.insert(newGame)
 
 
 def get_date():
-    # Gets the current date/time
+    """[Gets the current date and time in the UK]
+
+    Returns:
+        [string]: [string of the date and time]
+    """
     uk_date_time = datetime.now()
-    # dd/mm/YY H:M:S
     return uk_date_time.strftime("%d/%m/%Y %H:%M:%S")
 
 
 def get_user_reviews_for_game_by_title(reviews, game):
-    """
-    Goes through reviews matching to game title
-    returns matches
+    """[Gets all of a users review on a specific game]
+
+    Args:
+        reviews ([list]): [list of all reviews]
+        game ([json]): [json of a game]
+
+    Returns:
+        [list]: [list of a users reviews]
     """
     for review in reviews:
         if review["game_title"] == game["title"]:
@@ -167,9 +175,17 @@ def get_user_reviews_for_game_by_title(reviews, game):
 
 
 def get_game_rating_from_reviews(reviews, game):
-    # List for all ratings of game
+    """[gets all reivews for a game and retusn all the
+        ratings in a lisr]
+
+    Args:
+        reviews ([list]): [List of reviews]
+        game ([json]): [json of game form db]
+
+    Returns:
+        [list]: [all the int vals for ratings]
+    """
     gameRating = []
-    # get the rating from each review and push to gameRating
     for review in reviews:
         if review["game_title"] == game["title"]:
             gameRating.append(int(review["review_rating"]))
@@ -178,5 +194,9 @@ def get_game_rating_from_reviews(reviews, game):
 
 @cache.cached(timeout=86400, key_prefix='profile_images')
 def get_profile_images():
-    # gets all the progile imaeges in db
+    """[Cached list of profile images]
+
+    Returns:
+        [list]: [all profile images available]
+    """
     return list(mongo.db.profile_images.find())
