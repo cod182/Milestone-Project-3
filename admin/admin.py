@@ -91,7 +91,8 @@ def delete_user(user_id):
     Returns:
         [html]: [if user is logged in, not admin redirects to ther profile]
         [html]: [if user is not logged in, redirects to login]
-        [html]: [if user is logged in and admin, rredirects to user search after deleting]
+        [html]: [if user is logged in and admin, rredirects to user search
+                after deleting]
     """
     if session.get('user'):
         user = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
@@ -161,7 +162,8 @@ def manage_games():
         [html]: [if user is not logged in, redirects to login]
         [html]: [if user is logged in and admin, returns game search page]
         [html]: [if POST and game exists, returns game slookup page with game]
-        [html]: [if POST and game does notexists, returns games lookup page with message]
+        [html]: [if POST and game does notexists, returns games lookup page
+                with message]
     """
     if session.get('user'):
         latest_games = list(mongo.db.games.find().sort("_id", -1).limit(5))
@@ -232,7 +234,7 @@ def manage_reviews():
         [html]: [if user is logged in, not admin redirects to ther profile]
         [html]: [if user is not logged in, redirects to login]
         [html]: [if user is logged in and admin, returns review lookup page]
-        [html]: [if POST game not found, redirects to manage reviews page 
+        [html]: [if POST game not found, redirects to manage reviews page
         with a message]
         [html]: [if POST reviews are returned to lookup page]
     """

@@ -56,7 +56,7 @@ def login():
 
     Returns:
         [html]: [Returns a login page]
-        [html]: [On POST, if username doesn't exist, 
+        [html]: [On POST, if username doesn't exist,
                 redirects to login with message]
         [html]: [On POST, if password is wrong,
                 redirects to login with message]
@@ -256,7 +256,7 @@ def search_for_game():
         [html]: [if session user, returns game look up]
         [html]: [On POST, if game found, rredirect to game look up with
                 returns to game seearch with game json]
-        [html]: [on POST, if game not found, returns game look up with 
+        [html]: [on POST, if game not found, returns game look up with
                 message]
     """
     if session.get('user'):

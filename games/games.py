@@ -46,11 +46,11 @@ def add_game():
     Inserts predefined data from JSON results]
 
     Returns:
-        [html]: [retuns page to add game initial, then redirects to 
+        [html]: [retuns page to add game initial, then redirects to
         the game's page after POST]
     """
     if request.method == "POST":
-        
+
         existing_game = mongo.db.games.find_one(
             {"game_id": int(request.form.get('selected-game'))})
 
@@ -59,7 +59,8 @@ def add_game():
             return redirect(url_for('games.game_lookup'))
 
         game_id = request.form.get('selected-game')
-        data = helpers.call_rawg_api_for_games(RAWG_API_KEY, '/', game_id + '?')
+        data = helpers.call_rawg_api_for_games(
+            RAWG_API_KEY, '/', game_id + '?')
         helpers.insert_game_into_game_db(data)
         game = helpers.mongo.db.games.find_one({"game_id": data['id']})
 
@@ -107,7 +108,8 @@ def game(game_id):
 
         return render_template("game.html", game=game, reviews=reviews,
                                user_game_review=user_game_review, user=user,
-                               usersRating=usersRating, game_rating=game_rating,
+                               usersRating=usersRating,
+                               game_rating=game_rating,
                                all_users=all_users, videos=videos)
 
     return redirect(url_for('index'))
