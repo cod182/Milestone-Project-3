@@ -26,7 +26,7 @@
                     <!-- Image Selectino -->
                     <div class="row">
                         <p class="text-center bold">Select Your Profile Image</p>
-                        {% for image in profileImages %}
+                        {% for image in profile_images %}
                             <div class="col-6 col-sm-4 col-md-2 mx-auto text-center">
                                 <label for="{{image.name}}" class="register-label">
                                     <input class="register-label" type="radio" name="profile_image" id="{{ image.name }}" value="{{ image.image }}">

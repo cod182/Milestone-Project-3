@@ -24,7 +24,7 @@ def register():
         [html]: [If the username already exists, the page is redirected]
         [html]: [If post sucsessful, the user's porfile page is returned]
     """
-    profileImages = helpers.get_profile_images()
+    profile_images = helpers.get_profile_images()
 
     if request.method == "POST":
         existing_user = mongo.db.gc_users.find_one(
@@ -47,7 +47,7 @@ def register():
         flash("Registration Successful!")
         return redirect(url_for("users.profile", username=session["user"]))
 
-    return render_template("register.html", profileImages=profileImages)
+    return render_template("register.html", profile_images=profile_images)
 
 
 @users.route("/login", methods=["GET", "POST"])
@@ -106,9 +106,9 @@ def profile(username):
     """
     if session.get("user"):
         latest_games = helpers.get_latest_games()
-        
+
         user = mongo.db.gc_users.find_one({"username": session["user"]})
-        
+
         return render_template(
             "profile.html",
             latest_games=latest_games,
@@ -130,11 +130,11 @@ def change_password():
     if session.get("user"):
         latest_games = helpers.get_latest_games()
         user = mongo.db.gc_users.find_one({"username": session["user"]})
-        userPass = mongo.db.gc_users.find_one(
+        user_pass = mongo.db.gc_users.find_one(
             {"username": session["user"]})["password"]
 
         if request.method == "POST":
-            if check_password_hash(userPass, request.form.get(
+            if check_password_hash(user_pass, request.form.get(
                     "originalPassword")):
                 mongo.db.gc_users.update_one(
                     {"username": user['username'].lower()},
@@ -241,7 +241,7 @@ def delete_review(review_id):
     """
     if session.get('user'):
         mongo.db.reviews.remove({"_id": ObjectId(review_id)})
-        
+
         flash("Review Deleted")
         return redirect(session['url'])
     return redirect(url_for("users.login"))
@@ -263,7 +263,7 @@ def search_for_game():
         user = mongo.db.gc_users.find_one({"username": session["user"]})
 
         latest_games = helpers.get_latest_games()
-        allgames = helpers.get_all_games()
+        all_games = helpers.get_all_games()
 
         if request.method == "POST":
             game = mongo.db.games.find_one(
@@ -280,7 +280,7 @@ def search_for_game():
                     user=user,
                     latest_games=latest_games,
                     game=game,
-                    allgames=allgames,
+                    all_games=all_games,
                     review=review
                 )
             flash('Game Not Found')
@@ -290,7 +290,7 @@ def search_for_game():
             "review-game-search.html",
             user=user,
             latest_games=latest_games,
-            allgames=allgames
+            all_games=all_games
         )
     return redirect(url_for("users.login"))
 
@@ -310,14 +310,14 @@ def add_review(game_id):
         game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
         if request.method == "POST":
-            newReview = {
+            new_review = {
                 "review_message": request.form.get("review_message"),
                 "review_rating": request.form.get("review_rating"),
                 "review_by": session['user'],
                 "game_title": game['title'],
                 "review_title": request.form.get("review_title")
             }
-            mongo.db.reviews.insert(newReview)
+            mongo.db.reviews.insert(new_review)
 
             game = mongo.db.games.find_one({"title": game['title']})
 
