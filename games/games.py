@@ -14,8 +14,8 @@ games = Blueprint("games", __name__, template_folder='templates',
                   static_url_path='/games/static')
 
 
-RAWG_API = os.environ.get("RAWG_API_KEY")
-YOUTUBE_API = os.environ.get("YOUTUBE_API_KEY")
+RAWG_API_KEY = os.environ.get("RAWG_API_KEY")
+YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
 
 
 @games.route("/user/game-search", methods=["GET", "POST"])
@@ -24,7 +24,7 @@ def game_lookup():
         search = request.form.get("game-name")
 
         gameData = helpers.call_rawg_api_for_games(
-            RAWG_API,
+            RAWG_API_KEY,
             '?search=',
             search + '&')
 
@@ -40,8 +40,8 @@ def add_game():
     """
     if request.method == "POST":
         # Checks if game already exists in database
-        existing_game = helpers.get_game_by_game_id(
-            int(request.form.get('selected-game')))
+        existing_game = mongo.db.games.find_one(
+            {"game_id": int(request.form.get('selected-game'))})
 
         if existing_game:
             flash('Game Already Exists')
@@ -50,12 +50,12 @@ def add_game():
         # Gets game id from page, makes and API call to get details
         gameId = request.form.get('selected-game')
 
-        data = helpers.call_rawg_api_for_games(RAWG_API, '/', gameId + '?')
+        data = helpers.call_rawg_api_for_games(RAWG_API_KEY, '/', gameId + '?')
 
         helpers.insert_game_into_game_db(data)
 
         # Takes data and inserts into db
-        game = helpers.get_game_by_game_id(data['id'])
+        game = helpers.mongo.db.games.find_one({"game_id": data['id']})
 
         # redirected to game page
         return redirect(url_for('games.game', game_id=game['_id']))
@@ -75,22 +75,24 @@ def game(game_id):
         [render_template]: [renders the page]
     """
     # Gets the game by the _id
-    game = helpers.get_game_by_object_id(game_id)
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
     # gets all reviews
-    reviews = helpers.get_all_user_reviews()
+    reviews = list(mongo.db.reviews.find())
     # gets all users
-    allUsers = helpers.get_all_users()
+    allUsers = list(mongo.db.gc_users.find())
 
     if game:
         # Gets youtube videos for the game
-        videos = helpers.call_youtube_api_for_game(game['title'], YOUTUBE_API)
+        videos = helpers.call_youtube_api_for_game(
+            game['title'], YOUTUBE_API_KEY)
 
         # If a user is logged in
         if session.get('user'):
             # Gets the session user
-            user = helpers.get_user_from_session_user(session['user'])
+            user = mongo.db.gc_users.find_one({"username": session["user"]})
             # Gets the reviews by the session user
-            userReviews = helpers.get_user_reviews(session['user'])
+            userReviews = list(mongo.db.reviews.find(
+                {'review_by': session['user']}))
             # Gets reviews for the game
             userGameReview = helpers.get_user_reviews_for_game_by_title(
                 userReviews, game)
@@ -117,7 +119,7 @@ def game(game_id):
 @games.route("/user/edit-game-details/<game_id>", methods=["GET", "POST"])
 def edit_game_details(game_id):
     # Finds the game by it's _id
-    game = helpers.get_game_by_object_id(game_id)
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
     if request.method == "POST":
         # gets the current date.time
@@ -163,7 +165,7 @@ def get_latest_reviews():
     """
     if session.get('user'):
         # Gets the session user
-        user = helpers.get_user_from_session_user(session["user"])
+        user = mongo.db.gc_users.find_one({"username": session["user"]})
     else:
         user = None
 
@@ -184,7 +186,7 @@ def get_latest_reviews():
 @games.route("/games", methods=["GET", "POST"])
 def get_all_games():
 
-    gamesList = helpers.all_games_sorted_descending()
+    gamesList = list(mongo.db.games.find().sort("title", 1))
     total = len(gamesList)
 
     page, per_page, offset = get_page_args(

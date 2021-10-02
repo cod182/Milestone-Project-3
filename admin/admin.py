@@ -20,7 +20,7 @@ def get_admin():
         # Gets the latest 5 games
         latest_games = helpers.get_latest_games()
         # gets the user in db from session user
-        user = helpers.get_user_from_session_user(session["user"])
+        user = mongo.db.gc_users.find_one({"username": session["user"]})
         if user['userType'] == 'admin':
             return render_template(
                 "admin-base.html",
@@ -37,16 +37,17 @@ def user_search():
     Go to a page to search all users
     """
     if session.get('user'):
-        user = helpers.get_user_from_session_user(session["user"])
+        user = mongo.db.gc_users.find_one({"username": session["user"]})
         latest_games = helpers.get_latest_games()
         # gets all the db users
-        allUsers = helpers.get_all_users()
+        allUsers = list(mongo.db.gc_users.find())
         if user['userType'] == 'admin':
             if request.method == "POST":
                 searchedUser = request.form.get("username").lower()
 
                 # returns the users found from serch
-                searchedUsers = helpers.get_user_list_by_username(searchedUser)
+                searchedUsers = list(mongo.db.gc_users.find(
+                    {"username": searchedUser}))
 
                 # if user exists
                 if searchedUsers:
@@ -77,10 +78,10 @@ def delete_user(user_id):
     """
     if session.get('user'):
         # finds the account name of user_id
-        user = helpers.get_user_by_id(user_id)
+        user = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
         if user['userType'] == 'admin':
             # Removes the reviews by user_id username
-            helpers.remove_reviews_by_user(user['username'])
+            mongo.db.reviews.remove({'review_by': user['username']})
 
             # Removes the user with matching id
             helpers.remove_user_by_object_id(user_id)
@@ -97,7 +98,7 @@ def delete_user(user_id):
 def edit_user(user_id):
     if session.get('user'):
         # gets the session user
-        user = helpers.get_user_from_session_user(session["user"])
+        user = mongo.db.gc_users.find_one({"username": session["user"]})
 
         # finds the user matching the id
         userToEdit = mongo.db.gc_users.find_one({"_id": ObjectId(user_id)})
@@ -181,13 +182,13 @@ def delete_game_and_reviews(game_id):
     if session.get('user'):
         # finds the account name of game_id
         # gets the session user and then current user username
-        user = helpers.get_user_from_session_user(session["user"])
-        game = helpers.get_game_by_object_id(game_id)
+        user = mongo.db.gc_users.find_one({"username": session["user"]})
+        game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
         if user['userType'] == 'admin':
             # Removes the reviews by game_id username
-            helpers.remove_game_reviews_by_title(game['title'])
+            mongo.db.reviews.remove({'game_title': game['title']})
             # Removes the game with matching id
-            helpers.remove_game_by_objectId(game_id)
+            mongo.db.games.remove({"_id": ObjectId(game_id)})
 
             flash("Game & Reviews Deleted")
 
@@ -206,10 +207,10 @@ def manage_reviews():
         latest_games = helpers.get_latest_games()
 
         # gets the session user and then current user username
-        user = helpers.get_user_from_session_user(session["user"])
+        user = mongo.db.gc_users.find_one({"username": session["user"]})
 
         # gets all reviews
-        reviewList = helpers.get_all_user_reviews()
+        reviewList = list(mongo.db.reviews.find())
 
         # gets all games
         gamesList = helpers.get_all_games()
@@ -219,11 +220,12 @@ def manage_reviews():
                 searchedGame = request.form.get("game-name")
 
                 # returns the game found from search
-                game = helpers.get_game_by_game_name(searchedGame)
+                game = mongo.db.games.find_one({"title": searchedGame})
 
                 # if game exists
                 if game:
-                    reviews = helpers.get_game_reviews_by_title(game['title'])
+                    reviews = list(mongo.db.reviews.find(
+                        {"game_title": game['title']}))
 
                     return render_template(
                         "admin-review-lookup.html",

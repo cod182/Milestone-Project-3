@@ -9,30 +9,6 @@ if os.path.exists("env.py"):
     import env
 
 
-def get_user_from_session_user(user):
-    # Gets a user in the DB from the session user's name
-    return mongo.db.gc_users.find_one({"username": session["user"]})
-
-
-def get_one_user_by_username(name):
-    # gets one user by username
-    return mongo.db.gc_users.find_one({"username": name})
-
-
-def get_user_by_id(id):
-    # gets a user by a object id
-    return mongo.db.gc_users.find_one({"_id": ObjectId(id)})
-
-
-def get_user_list_by_username(name):
-    return list(mongo.db.gc_users.find({"username": name}))
-
-
-def get_all_users():
-    # Gets all the users in the DB
-    return list(mongo.db.gc_users.find())
-
-
 def remove_user_by_object_id(id):
     """Removes a games from the database
 
@@ -50,10 +26,6 @@ def get_all_games():
         [list]: [Games in databse]
     """
     return list(mongo.db.games.find())
-
-
-def all_games_sorted_descending():
-    return list(mongo.db.games.find().sort("title", 1))
 
 
 def get_pag_list(offset=0, per_page=10, list=None):
@@ -77,30 +49,6 @@ def get_all_genres_of_games():
             if genre['name'] not in genres:
                 genres.append(genre['name'])
     return genres
-
-
-def get_game_by_game_name(title):
-    return mongo.db.games.find_one({"title": title})
-
-
-def get_game_by_object_id(id):
-    # gets the game by it's _id
-    return mongo.db.games.find_one({"_id": ObjectId(id)})
-
-
-def get_game_by_game_id(id):
-    # Gets the game by it's game_id
-    return mongo.db.games.find_one({"game_id": id})
-
-
-def remove_game_by_objectId(id):
-    # removes a game by it's object id
-    mongo.db.games.remove({"_id": ObjectId(id)})
-
-
-def list_of_games_by_title_indexed(title):
-    # gets a list fo games by title using an index
-    return list(mongo.db.games.find({"$text": {"$search": title}}))
 
 
 @cache.cached(timeout=21600, key_prefix='latest_games')
@@ -201,11 +149,6 @@ def insert_game_into_game_db(data):
     mongo.db.games.insert(newGame)
 
 
-def remove_game_reviews_by_title(title):
-    # Removes a games review by the game's title
-    mongo.db.reviews.remove({'game_title': title})
-
-
 def get_date():
     # Gets the current date/time
     uk_date_time = datetime.now()
@@ -223,36 +166,6 @@ def get_user_reviews_for_game_by_title(reviews, game):
             return review
 
 
-def get_review_by_object_id(id):
-    # gets the review with the object id
-    return mongo.db.reviews.find_one({"_id": ObjectId(id)})
-
-
-def get_all_user_reviews():
-    # Gets all the user reviews in the DB
-    return list(mongo.db.reviews.find())
-
-
-def get_user_reviews(user):
-    # Gets all of the current users reviews
-    return list(mongo.db.reviews.find({'review_by': user}))
-
-
-def remove_reviews_by_user(name):
-    # gets reviews by the user name of reviewer
-    mongo.db.reviews.remove({'review_by': name})
-
-
-def remove_review_by_object_id(id):
-    # Removes a review with matching object ID
-    mongo.db.reviews.remove({"_id": ObjectId(id)})
-
-
-def get_game_reviews_by_title(game):
-    # gets review matching the game_title
-    return list(mongo.db.reviews.find({"game_title": game}))
-
-
 def get_game_rating_from_reviews(reviews, game):
     # List for all ratings of game
     gameRating = []
@@ -267,8 +180,3 @@ def get_game_rating_from_reviews(reviews, game):
 def get_profile_images():
     # gets all the progile imaeges in db
     return list(mongo.db.profile_images.find())
-
-
-def check_for_existing_user_by_name(name):
-    # Checks if a user exists in db
-    return mongo.db.gc_users.find_one({"username": name})
