@@ -8,9 +8,9 @@ The purpose of this site will be to allow users to add their review for a recent
 
 # Showcase
 
-A deployed link to the site can be found [here]()
+A deployed link to the site can be found on Heroku[here](https://mp3-game-corner.herokuapp.com/)
 
-![Preivew]()
+![Preivew](static/images/responsive.png)
 
 
 # UX
@@ -37,7 +37,7 @@ A deployed link to the site can be found [here]()
 
 ### Technical Capabilities
 
-It is possible to create this site efficiently using the bootstrap framework and HTML/CSS/Javascript/Python that I have learned along with knowledge of the a mongodb database. An Api will also be used for extra information on games and for search recommendations.
+It is possible to create this site efficiently using the bootstrap framework and HTML/CSS/Javascript/Python that I have learned along with knowledge of the a mongodb database. Apis will also be used for getting extra information on the game, such as videos
 
 ### Business Vision
 
@@ -58,8 +58,7 @@ It will be easy to enact a search and read the results.
 The site will be detailed but simply laid out, cover 15 pages in total with some pages generated when clicked on.
 The navigation bar will give access to the mainpages of the site
 Site pages - Login, Register, Latest Reviews, Games, Profile(If logged in)
-User will be able to search for a game from teh navigation bar at the top of the page.
-
+User will be able to search for a game from the navigation bar at the top of the page.
 
 
 ## Skeleton
