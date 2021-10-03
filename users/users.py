@@ -294,7 +294,7 @@ def search_for_game():
     return redirect(url_for("users.login"))
 
 
-@users.route('/profile/addReview/<game_id>', methods=["GET", "POST"])
+@users.route('/profile/add-review/<game_id>', methods=["GET", "POST"])
 def add_review(game_id):
     """[Adds a review to a specific game]
 

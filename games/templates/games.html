@@ -22,11 +22,11 @@
                         <button type="submit" class="btn btn-green w-100 my-2">Search</button>
                     </div>
                     <div class="col-sm-12 col-md-2 text-center">
-                        <a href="{{ url_for('games.get_all_games') }}" type="submit" class="btn btn-danger w-100 my-2">Reset</a>
+                        <a href="{{ url_for('games.get_all_games') }}" class="btn btn-danger w-100 my-2">Reset</a>
                     </div>
                 </div>
             </form>
-            <section>
+            <div>
                 <!-- Flash Messages -->
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
@@ -39,7 +39,7 @@
                         {% endfor %}
                     {% endif %}
                 {%  endwith %}
-            </section>
+            </div>
         </div>
 
         <hr>
@@ -51,7 +51,7 @@
                         <div class="col-12">
                             <a class="remove-a-link-styles" href="{{ url_for('games.game', game_id=game._id) }}">
                                 <div class="game-image" style="background-image: url('{{ game.largeImage }}');"></div>
-                                <p id="game_title" class="game-title"> {{ game.title }}</p>
+                                <p class="game-title"> {{ game.title }}</p>
                                 <p class="game-year">{{game.year }}</p>
                             </a>
                         </div>

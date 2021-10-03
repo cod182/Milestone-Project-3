@@ -207,7 +207,14 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 - Tesing Javascript was done with [Beautify Tools](https://beautifytools.com/javascript-validator.php)
 
 ### HTML5 
-
+- /index - Passed, No Error
+- /latest-reviews - Passed, No error
+    - Duplicate class & alt attribute. Fixed, removed class & changed to aria-label.
+- /games - Passed, No Error
+    - Duplicate id attribute & bad type on a tag
+- game/<game-id> - Passed, No Error
+    - deprecated frameborder & width in iframe
+- 
 ### CSS3 
 [CSS Validated without error](static/images/css-validation.png)
 ### Javascript

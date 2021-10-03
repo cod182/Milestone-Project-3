@@ -21,7 +21,7 @@
                     <div class="row gx-0">
                         <div class="col-11 platforms-container">
                             {% for platform in game.platforms %}
-                                <p class="game-platforms" id="{{platform.platform.name}}">{{ platform.platform.name}} </p>
+                                <p class="game-platforms">{{ platform.platform.name}} </p>
                             {% endfor %}
                         </div>
                     </div>
@@ -83,13 +83,13 @@
                             <p class="game-lower-heading">Purchase From</p>
                             <div class="row">
                                 <div class="col-4 mx-auto">
-                                    <a class="remove-a-link-styles game-text-box" rel="noopener" target="_blank" href="https://store.steampowered.com/search/?term={{game.title}}">Steam</a>
+                                    <a class="remove-a-link-styles game-text-box" rel="noopener" target="_blank" href="https://store.steampowered.com/search/?term={{game.link_string}}">Steam</a>
                                 </div>
                                 <div class="col-4 mx-auto">
-                                    <a class="remove-a-link-styles game-text-box" rel="noopener" target="_blank" href="https://www.amazon.co.uk/s?k={{game.title}}">Amazon</a>
+                                    <a class="remove-a-link-styles game-text-box" rel="noopener" target="_blank" href="https://www.amazon.co.uk/s?k={{game.link_string}}">Amazon</a>
                                 </div>
                                 <div class="col-4 mx-auto">
-                                    <a class="remove-a-link-styles game-text-box" rel="noopener" target="_blank" href="https://www.shopto.net/en/search/?input_search={{game.title}}">ShopTo</a>
+                                    <a class="remove-a-link-styles game-text-box" rel="noopener" target="_blank" href="https://www.shopto.net/en/search/?input_search={{game.link_string}}">ShopTo</a>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                     <div class="row gx my-2 mx-auto">
                         {% for video in videos['items'] %}
                             <div class="col-6">
-                                <iframe width="100%" src="https://www.youtube.com/embed/{{ video.id.videoId }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <iframe class="video-container" src="https://www.youtube.com/embed/{{ video.id.videoId }}" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                         {% endfor %}
                     </div>
@@ -116,15 +116,15 @@
                                     </div>
                                 {% else %}
                                     <div class="col-6 text-center">
-                                        <a class="btn btn-game-page btn-game-page--add" href="{{ url_for('users.add_review', game_id=game._id) }}" alt="link to leave a review for {{ game.title }}">Leave Review</a>
+                                        <a class="btn btn-game-page btn-game-page--add" href="{{ url_for('users.add_review', game_id=game._id) }}" aria-label="link to leave a review for {{ game.title }}">Leave Review</a>
                                     </div>
                                     <div class="col-6 text-center">
-                                        <a class="btn btn-game-page btn-game-page--edit-details" href="{{ url_for('games.edit_game_details', game_id=game._id) }}" alt="link to edit the details for {{ game.title }}">Edit Game Details</a>
+                                        <a class="btn btn-game-page btn-game-page--edit-details" href="{{ url_for('games.edit_game_details', game_id=game._id) }}" aria-label="link to edit the details for {{ game.title }}">Edit Game Details</a>
                                     </div>
                                 {% endif %}
                             {% else %}
                                 <div class="col-12 text-center">
-                                    <a class="btn btn-game-page btn-game-page--signin" href="{{ url_for('users.login') }}" alt="link to sign in">Sign in to Leave a Review</a>
+                                    <a class="btn btn-game-page btn-game-page--signin" href="{{ url_for('users.login') }}" aria-label="link to sign in">Sign in to Leave a Review</a>
                                 </div>
                             {% endif %}
                     </div>

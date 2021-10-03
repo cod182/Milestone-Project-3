@@ -1069,6 +1069,10 @@ btn-open:active {
   background-position: center;
 }
 
+.video-container {
+  width: 100%;
+}
+
 .game-title {
   text-align: center;
   font-size: 76%;

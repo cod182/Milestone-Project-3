@@ -18,13 +18,13 @@
                                 <div class="review-container">
                                     <div class="row">
                                         <!-- Game Title -->
-                                        <div class="col-sm-12 col-md-5 mb-2" class="review-image">
+                                        <div class="col-sm-12 col-md-5 mb-2">
                                             <a href="{{ url_for('games.game', game_id=game._id) }}">
                                                 <div class="review-image" style="background-image: url('{{ game.largeImage }}');" role="img" aria-label="Image of {{ game.title }}"></div>
                                             </a>
                                         </div>
                                         <div class="col-sm-12 col-md-7 my-auto">
-                                            <a href="{{ url_for('games.game', game_id=game._id) }}" class="remove-a-link-styles review-game-title" alt="Link to {{ game.title }} game page">
+                                            <a href="{{ url_for('games.game', game_id=game._id) }}" class="remove-a-link-styles review-game-title" aria-label="Link to {{ game.title }} game page">
                                                 <p class="text-center">{{ game.title }}</p>
                                             </a>
                                         </div>

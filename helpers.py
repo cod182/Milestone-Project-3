@@ -141,6 +141,7 @@ def insert_game_into_game_db(data):
             "rating": data['esrb_rating'],
             "background": data['background_image_additional'],
             "metacritic": data['metacritic'],
+            "link_string": replace_space_with_plus(data['name']),
             "updated_by": [{
                 'username': session['user'],
                 'time': get_date()
@@ -157,6 +158,10 @@ def get_date():
     """
     uk_date_time = datetime.now()
     return uk_date_time.strftime("%d/%m/%Y %H:%M:%S")
+
+
+def replace_space_with_plus(string):
+    return string.replace(" ", "+")
 
 
 def get_user_reviews_for_game_by_title(reviews, game):
