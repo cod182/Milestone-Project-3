@@ -214,7 +214,24 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
     - Duplicate id attribute & bad type on a tag
 - game/<game-id> - Passed, No Error
     - deprecated frameborder & width in iframe
-- 
+- edit-game/<game-id> - Passed, No Error
+    - mismatched h1/h2
+- add-review - Passed, No Error
+- login - Passed, No Errors
+    - duplicate attribute & spelling on attribute
+- register - Passed, No Errors
+- profile - Passed, No Errors
+
+- settings - 
+- your-reviews - 
+- review-game-search - 
+- edit-review - 
+- admin-base - 
+- admin-games-lookup - 
+- admin-review-lookup - 
+- admin-user-lookup - 
+- edit-user - 
+
 ### CSS3 
 [CSS Validated without error](static/images/css-validation.png)
 ### Javascript

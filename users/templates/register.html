@@ -12,16 +12,16 @@
             <div class="col-sm-12 col-md-6 mx-auto login-container">
                 <form method="POST" action="{{ url_for('users.register') }}" onSubmit="return passwordMatchCheck(this)">
                     <div class="row">
-                        <input id="username" name="username" class="login-input" type="text" placeholder="Username" minlenght="5" maxlength="15" autocomplete="on" required pattern="^[a-zA-Z0-9]{5,15}$">
+                        <input id="username" name="username" class="login-input" type="text" placeholder="Username" minlength="5" maxlength="15" autocomplete="on" required pattern="^[a-zA-Z0-9]{5,15}$">
                     </div>
                     <div class="row">
                         <input id="email" name="email" class="login-input" type="email" placeholder="Email" autocomplete="on" required>
                     </div>
                     <div class="row">
-                        <input id="password" name="password" class="login-input" type="password" placeholder="Password" minlenght="5" maxlength="15" autocomplete="on" required pattern="^[a-zA-Z0-9]{5,15}$">
+                        <input id="password" name="password" class="login-input" type="password" placeholder="Password" minlength="5" maxlength="15" autocomplete="on" required pattern="^[a-zA-Z0-9]{5,15}$">
                     </div>
                     <div class="row">
-                        <input id="passwordConfirm" name="passwordConfirm" class="login-input" type="password" placeholder="Confirm Password" minlenght="5" maxlength="15" autocomplete="on" required pattern="^[a-zA-Z0-9]{5,15}$">
+                        <input id="passwordConfirm" name="passwordConfirm" class="login-input" type="password" placeholder="Confirm Password" minlength="5" maxlength="15" autocomplete="on" required pattern="^[a-zA-Z0-9]{5,15}$">
                     </div>
                     <!-- Image Selectino -->
                     <div class="row">
@@ -40,7 +40,7 @@
                     </div>
                 </form>
                 <p class="login-register-swap" >Already Registered? <a href="{{ url_for('users.login') }}">Login Here</a></p>
-                <section>
+                <div>
                     <!-- Flash Messages -->
                       {% with messages = get_flashed_messages() %}
                         {% if messages %}
@@ -53,7 +53,7 @@
                             {% endfor %}
                         {% endif %}
                     {%  endwith %}
-                  </section>
+                </div>
             </div>
         </div>
         

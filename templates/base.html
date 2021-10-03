@@ -64,7 +64,7 @@
                                                 data-bs-toggle="dropdown" aria-expanded="false" aria-label="Profile Page">
                                                 <i class="fa fa-user" aria-hidden="true"></i>
                                             </a>
-                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item" id="profile-home-link" href="{{ url_for('users.profile', username=session['user']) }}">Home</a></li>
                                                 <li><a class="dropdown-item" id="profile-new-rev-link" href="{{ url_for('users.search_for_game') }}">New Review</a></li>
                                                 <li><a class="dropdown-item" id="profile-your-revs-link" href="{{ url_for('users.get_user_reviews') }}">Your Reviews</a></li>

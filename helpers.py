@@ -161,6 +161,14 @@ def get_date():
 
 
 def replace_space_with_plus(string):
+    """[replaced white space in a string with +]
+
+    Args:
+        string ([string]): [string to be altered]
+
+    Returns:
+        [string]: [white spaces now +]
+    """
     return string.replace(" ", "+")
 
 
