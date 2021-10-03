@@ -173,56 +173,55 @@
             <div class="row mx-auto">
                 {% if pagination_reviews|length > 0 %}
                     {% for review in pagination_reviews %}
-                            <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
-                                <div class="review-container">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <p class="review-title">{{review.review_title.capitalize() }}</p>
-                                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
+                            <div class="review-container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="review-title">{{review.review_title.capitalize() }}</p>
                                     </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <p class="review-rating">
-                                                {{ review.review_rating }}
-                                            </p>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="review-rating">
+                                            {{ review.review_rating }}
+                                        </p>
                                     </div>
-                                    {% if review.review_message|length > 0 %}
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <p class="review-content">
-                                                {{ review.review_message }}
-                                            </p>
-                                        </div>
+                                </div>
+                                {% if review.review_message|length > 0 %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="review-content">
+                                            {{ review.review_message }}
+                                        </p>
                                     </div>
-                                    {% endif %}
-                                    <div class="row">
-                                        <!-- Profile Image -->
-                                        <div class="col-12 review-user">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="profile-image-container">
-                                                        {% for user in all_users %}
-                                                            {% if user.username|lower == review.review_by %}
-                                                        <img class="profile-image" src="{{ user.profile_image }}" alt="Profile image for user: {{review.review_by}}">
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </div>
-                                                    <p class="profile-name">{{ review.review_by.capitalize() }}</p>
-                                                    {% if session.user|lower == user.username|lower %}
-                                                        {% if user.userType == 'admin' %}
-                                                            <a class="btn btn-edit--latest-reviews" href="{{ url_for('users.edit_user_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                </div>
+                                {% endif %}
+                                <div class="row">
+                                    <!-- Profile Image -->
+                                    <div class="col-12 review-user">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="profile-image-container">
+                                                    {% for user in all_users %}
+                                                        {% if user.username|lower == review.review_by %}
+                                                    <img class="profile-image" src="{{ user.profile_image }}" alt="Profile image for user: {{review.review_by}}">
                                                         {% endif %}
-                                                    {% endif %}
+                                                    {% endfor %}
                                                 </div>
+                                                <p class="profile-name">{{ review.review_by.capitalize() }}</p>
+                                                {% if session.user|lower == user.username|lower %}
+                                                    {% if user.userType == 'admin' %}
+                                                        <a class="btn btn-edit--latest-reviews" href="{{ url_for('users.edit_user_review', review_id=review._id) }}" alt="link to edit your review of {{ game.title }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                                    {% endif %}
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {% endif %}
-                        {% endfor %}
+                        </div>
+                    {% endfor %}
                 {% endif %}
                 {{ pagination.links }}
                 {{ pagination.info }}

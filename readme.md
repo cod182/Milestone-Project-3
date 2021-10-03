@@ -47,7 +47,7 @@ Afilliate links will be available to purchase games to help with costs of the si
 
 ## Scope
 
-The site will quickyl show what it's purpose it for a user. A search will be easy to complete by a user without loggin in.
+The site will quickly show what it's purpose is for a user. A search will be easy to complete by a user without loggin in.
 
 
 The site will include an about section detailing what the site does and what a user can gain from it.
@@ -55,16 +55,18 @@ It will be easy to enact a search and read the results.
 
 ## Structure
 
-The site will be detailed but simply laid out, cover 15 pages in total with some pages generated when clicked on.
-The navigation bar will give access to the mainpages of the site
-Site pages - Login, Register, Latest Reviews, Games, Profile(If logged in)
-User will be able to search for a game from the navigation bar at the top of the page.
-
+- The site will be detailed but simply laid out, cover 15 pages in total with some pages generated when clicked on.
+- The navigation bar will give access to the mainpages of the site
+- Site pages - Login, Register, Latest Reviews, Games, Game,  Profile(If logged in)
+- User will be able to search for a game from the navigation bar at the top of the page.
+- Each user will have a profile page with access to adding games and reviews, changing their password and view all of their reviews
+- An admin panel will be accesiable by admin users allowing reviews, games and users to be managed
+- A contact us modal will be availabe on all pages
 
 ## Skeleton
 
 ### Wireframes
-
+- Wireframes were created at the begining of the project and will be used to create the site as closly as possible
 ## Original
 
 - [Mobile >576px](static/wireframes/SM.png)
@@ -73,50 +75,58 @@ User will be able to search for a game from the navigation bar at the top of the
 
 ## Surface
 
-
+The site will be set over multiple pages with the ability for users to add and remove infomation relating to games
 
 ### Home
-The page will be presented to the user showing the goals of the site.
+- The page will be presented to the user showing the goals of the site.
+- There will be a cached latest games section
+
+
+### Register Page
+- Available from the navigation menu
+- A page for a user to enter their details to register to the site
+
+### Login Page
+- Available from the navigation menu
+- Page for a registered user to login
 
 ### Profile Page
 
-Once a user has signed up, they will have access to their prescence on the site.
-Their reviews will be available along with the ability to add more.
-They will have quick access to the latest reviews
+- Once a user has signed up, they will have access to their prescence on the site.
+- Their reviews will be available along with the ability to add more.
+- They will be able to search for a game and add it to the site if it does not exist.
+- They will have quick access to the latest reviews
 
 ### Game search page from profile
 
-When the user wants to add a new review, they will need to search for the games first.
+- When the user wants to add a new review, they will need to search for the games first.
+- If the game is not on the site, they will be able to run a search via the RAWG API
 
 ### New Game Page
 
-If a game is not currently on the site, the user will be able to add it
-
+- If a game is not currently on the site, the user will be able to add it from the API result
 ### New Review
 
-The user will be able to leave a review for teh game they have selected if logged in.
-Page will be simple with only what is needed.
+- The user will be able to leave a review for the game they have selected, if logged in.
+- Page is simple with only the information that is reqired for a review
 
 ### Games Page
 
-Will display all of the games listed on the site.
-Will be filterable to show only the gam(s) the user is looking for.
-Each game clickable to allow linking to the game's page
+- Will display all of the games listed on the site, paginated to 10 per page
+- Will be searchable to show only the game(s) the user is looking for.
+- Each game clickable to allow linking to the game's page
 
 ### Game Page
 
-Will show the individual game the user has clicked on.
-Will give detailed description of the game along with user reviews, overall rating and afilliate purchasing link.
-
-### Login Page / Register Pages
-
-These pages will be simplisting allowing the user to login, register
+- Will show the individual game the user has clicked on.
+- Will give detailed description of the game, overall rating and afilliate purchasing link.
+- Will display 2 videos relating to the game from Youttube
+- Will show all user reviews, paginated to 10 per page
 
 ### Latest Reviews Page
 
-This page will show the user any reviwes that have been postd recently with the newest at the top.
-
-
+- This page will show the user the 9 latest reviews posted to the site
+- Title of the games are clickable, leading to the game page
 
 ## Visual Design
 	
@@ -130,14 +140,57 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 
 ### Existing Features
 
+#### By a User 
+- Login/Register to site
+- Add a game to the site
+- Edit a games information
+- Add a review to a game
+- Edit their reviews
+- Delete their reviews
 
+#### By an Admin User
+- All features from User
+- Remove games from site
+- Remove reviews from site
+- Remove users from site
+- Edit users username / type
 
 ### Features to be implemented
-
+- User change profile image
+- User change username
+- A forum for users
 
 
 ## Technoogies used
-
+- HTML
+- CSS
+    - Bootstrap
+- Javascript
+    - EmailJS
+- Python
+    - cachetools==4.2.2
+    - click==8.0.1
+    - dnspython==2.1.0
+    - Flask==2.0.1
+    - Flask-Caching==1.10.1
+    - flask-paginate==0.8.1
+    - Flask-PyMongo==2.3.0
+    - gunicorn==20.1.0
+    - httplib2==0.19.1
+    - itsdangerous==2.0.1
+    - oauthlib==3.1.1
+    - protobuf==3.18.0
+    - pyasn1==0.4.8
+    - pyasn1-modules==0.2.8
+    - pymongo==3.12.0
+    - requests-oauthlib==1.3.0
+    - rsa==4.7.2
+    - uritemplate==3.0.1
+    - Werkzeug==2.0.1
+    - requests==2.26.0
+- APIs
+    - RAWG
+    - Youtube
 
 
 # Testing
