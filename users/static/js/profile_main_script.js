@@ -1,4 +1,4 @@
-const hideLatestGameBtn = document.getElementById('latest-games-visability-btn')
+const hideLatestGameBtn = document.getElementById('latest-games-visability-btn');
 const latestGamesCont = document.getElementById('latest-games-container');
 let latestGames = localStorage.getItem('latestGames');
 
@@ -25,7 +25,7 @@ function hideLatestGames() {
 // Ceates the show latest game sbutton
 function createShowLatestGamesBtn() {
   let latestGamesContainer = makeDivTwoClass("container-fluid", "lg-btn-container");
-  latestGamesContainer.setAttribute('id', 'latest-games-btn-cont')
+  latestGamesContainer.setAttribute('id', 'latest-games-btn-cont');
 
   let latestGamesContainerRow = makeDivOneClass("row");
   latestGamesContainer.appendChild(latestGamesContainerRow);
@@ -36,13 +36,13 @@ function createShowLatestGamesBtn() {
   let btn = document.createElement('button');
   btn.classList.add('btn');
   btn.classList.add('btn-open');
-  btn.setAttribute('id', 'latest-open-btn')
-  btn.setAttribute('onclick', 'showLatestGames()')
+  btn.setAttribute('id', 'latest-open-btn');
+  btn.setAttribute('onclick', 'showLatestGames()');
 
   btn.textContent = 'Show Latest Games';
   latestGamesContainerCol.appendChild(btn);
 
-  return latestGamesContainer
+  return latestGamesContainer;
 }
 
 // unhides the latest games div and remove the latest games button container
@@ -82,7 +82,7 @@ function passwordMatchCheck(form) {
   passwordConfirm = form.passwordConfirm.value;
 
   if (password != passwordConfirm) {
-    alert("\nPassword did not match: Please try again...")
+    alert("\nPassword did not match: Please try again...");
     return false;
   } else {
     return true;

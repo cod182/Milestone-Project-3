@@ -1,6 +1,6 @@
 const settingsSelect = document.getElementById('settings-icon');
 const currentLink = document.getElementById('profile-link');
-const currentNestedLink = document.getElementById('profile-settings-link')
+const currentNestedLink = document.getElementById('profile-settings-link');
 const backgroundToggle = document.getElementById('background-toggle');
 
 
@@ -18,7 +18,7 @@ function passwordMatchCheck(form) {
   passwordConfirm = form.passwordConfirm.value;
 
   if (password != passwordConfirm) {
-    alert("\nPassword did not match: Please try again...")
+    alert("\nPassword did not match: Please try again...");
     return false;
   } else {
     return true;
@@ -57,13 +57,13 @@ backgroundToggle.addEventListener('click', () => { //listens for dark button cli
 
 // Adds the background image and saves on state to local storage
 function addBackground() {
-  document.body.style.background = 'url("https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_400/MTc0MDE0OTk4MzEyMzk2NjY3/asteroids-by-atari-classic-video-games-reviewed.webp")'
+  document.body.style.background = 'url("https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_400/MTc0MDE0OTk4MzEyMzk2NjY3/asteroids-by-atari-classic-video-games-reviewed.webp")';
   localStorage.setItem('background', 'on');
 }
 
 // sets background to grey and saves off state background to local storage
 // Also sets the back
 function removeBackground() {
-  document.body.style.background = '#444444'
+  document.body.style.background = '#444444';
   localStorage.setItem('background', 'off');
 }

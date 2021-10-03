@@ -6,29 +6,29 @@ const starFive = document.getElementById('five');
 const ratingValue = document.getElementById('rating');
 
 starOne.addEventListener('mouseover', function () {
-  ratingValue.setAttribute('value', 1)
+  ratingValue.setAttribute('value', 1);
   oneStarGlow();
-})
+});
 
 starTwo.addEventListener('mouseover', function () {
-  ratingValue.setAttribute('value', 2)
+  ratingValue.setAttribute('value', 2);
   twoStarGlow();
-})
+});
 
 starThree.addEventListener('mouseover', function () {
-  ratingValue.setAttribute('value', 3)
+  ratingValue.setAttribute('value', 3);
   threeStarGlow();
-})
+});
 
 starFour.addEventListener('mouseover', function () {
-  ratingValue.setAttribute('value', 4)
+  ratingValue.setAttribute('value', 4);
   fourStarGlow();
-})
+});
 
 starFive.addEventListener('mouseover', function () {
-  ratingValue.setAttribute('value', 5)
+  ratingValue.setAttribute('value', 5);
   fiveStarGlow();
-})
+});
 
 
 function oneStarGlow() {

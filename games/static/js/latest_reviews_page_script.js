@@ -1,4 +1,3 @@
-const yourreviewicon = document.getElementById('your-reviews-icon');
 let rating = document.getElementsByClassName('review-rating');
 const currentLink = document.getElementById('latest-reviews-link');
 
@@ -13,20 +12,20 @@ for (var i = 0; i < rating.length; i++) {
     case '1':
       rating[i].innerHTML = `
         <i class="fa fa-star"></i>
-      `
+      `;
       break;
     case '2':
       rating[i].innerHTML = `
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
-      `
+      `;
       break;
     case '3':
       rating[i].innerHTML = `
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
-      `
+      `;
       break;
     case '4':
       rating[i].innerHTML = `
@@ -34,7 +33,7 @@ for (var i = 0; i < rating.length; i++) {
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
-      `
+      `;
       break;
     case '5':
       rating[i].innerHTML = `
@@ -43,9 +42,7 @@ for (var i = 0; i < rating.length; i++) {
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
-      `
+      `;
     break;
-    default:
-      "No Rating"
   }
 }

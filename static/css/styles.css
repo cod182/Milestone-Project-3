@@ -100,13 +100,11 @@ body {
 
 .btn--add-game {
   background-color: #27b3cf;
-  border-color: #27b3cf;
   font-weight: bold;
 }
 
 .btn--add-game:hover {
   background-color: #0dcaf0;
-  border-color: #0dcaf0;
 }
 
 .btn--game-search {
@@ -1366,7 +1364,6 @@ btn-open:active {
   z-index: 3;
   color: #fff;
   background-color: #3232cd;
-  border-color: None;
 }
 
 .page-item.disabled .page-link {

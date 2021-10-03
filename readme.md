@@ -163,6 +163,7 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 
 ## Technoogies used
 - HTML
+    - Font Awesome CDN
 - CSS
     - Bootstrap
 - Javascript
@@ -201,16 +202,86 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 
 ## Running Tests
 
-
+- Testing the HTML code was done by generating a page and copying the HTML into the [W3C](https://validator.w3.org/) HTML Validator
+- Testing the CSS was done with the [W3C](https://jigsaw.w3.org/css-validator/validator) validator
+- Tesing Javascript was done with [Beautify Tools](https://beautifytools.com/javascript-validator.php)
 
 ### HTML5 
 
 ### CSS3 
-
+[CSS Validated without error](static/images/css-validation.png)
 ### Javascript
-
+- admin_games_search_script.js - No Errors
+- admin_review_search_script.js - Missing semicolons - Fixed, No Errors
+- admin_script.js - No Errors
+- admin_user_search_script.js - No Errors
+- game_page_script.js - Missing semicolons - Fixed, No Errors
+- game_scripts.js - No Errors
+- latest_reviews_script.js - Unused variable - Fixed, No Errors
+- base_script.js - No Errors
+- email_script.js - No Errors
+- index_script.js - No Errors
+- changepass_script.js - Missing Semicolons - Fixed, No Errors
+- edit_review_script.js - Missing Semicolons - Fixed, No Errors
+- game_search_script.js - No Errors
+- profile_main_script.js - Missing Semicolons - Fixed, No Errors
+- profile_script.js - Missing Semicolon - Fixed, No Errors
+- register_script.js - No Errors
+- yourreview_script.js - No Errors
 
 ### Lighthouse Results
+#### Admin Pages
+- Admin
+    - [Desktop](static/images/lighthouse-tests/admin/admin_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/admin/admin_mobile.png)
+- Game Search
+    - [Desktop](static/images/lighthouse-tests/admin/admin_game-search_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/admin/admin_game-search_mobile.png)
+- Review Search
+    - [Desktop](static/images/lighthouse-tests/admin/admin_review-search_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/admin/admin_review-search_mobile.png)
+- User Search
+    - [Desktop](static/images/lighthouse-tests/admin/admin_user-search_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/admin/admin_user-search_mobile.png)
+
+#### User Pages
+- Login
+    - [Desktop](static/images/lighthouse-tests/users/login_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/users/login_mobile.png)
+- Profile Game Search
+    - [Desktop](static/images/lighthouse-tests/users/profile_game-search_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/users/profile_game-search_mobile.png)
+- Settings
+    - [Desktop](static/images/lighthouse-tests/users/profile_settings_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/users/profile_settings_mobile.png)
+- Your Reviews
+    - [Desktop](static/images/lighthouse-tests/users/profile_your-reviews_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/users/profile_your-reviews_mobile.png)
+- Profile Page
+    - [Desktop](static/images/lighthouse-tests/users/profile-page_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/users/profile-page_mobile.png)
+- Register
+    - [Desktop](static/images/lighthouse-tests/users/register_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/users/register_mobile.png)
+- User Game Search (API)
+    - [Desktop](static/images/lighthouse-tests/users/user_game-search_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/users/user_game-search_mobile.png)
+
+#### Game Pages
+- Game Page
+    - [Desktop](static/images/lighthouse-tests/games/game_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/games/game_mobile.png)
+- Games Page
+    - [Desktop](static/images/lighthouse-tests/games/games_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/games/games_mobile.png)
+- Latest Games
+    - [Desktop](static/images/lighthouse-tests/games/latest-reviews_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/games/latest-reviews_mobile.png)
+#### Base Pages
+- Index
+    - [Desktop](static/images/lighthouse-tests/base/index_desktop.png)
+    - [Mobile](static/images/lighthouse-tests/base/index_mobile.png)
+
 
 ## Testing Results
 
@@ -221,6 +292,14 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 ## Bugs/Changes During Development
 
 # Credits
+- [Caching documentation](https://flask-caching.readthedocs.io/en/latest/)
+- [Production server setup](https://gunicorn.org/)
+- [Glowing button on hover start point](https://codepen.io/Stockin/pen/XPvpoB)
+- [Flask Pagination](https://pythonhosted.org/Flask-paginate/)
+- [Graphic for error page](https://pixabay.com/vectors/pixelgrafic-dos-game-invaders-158720/)
+- [Flask custom error pages](https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/)
+- [RAWG API](https://rawg.io/apidocs)
+- [Youtube Search API](https://developers.google.com/youtube/v3/docs/search/list)
 
 ## This project is for educational purposes only
 

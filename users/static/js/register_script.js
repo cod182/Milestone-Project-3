@@ -11,7 +11,7 @@ function passwordMatchCheck(form) {
   passwordConfirm = form.passwordConfirm.value;
 
   if (password != passwordConfirm) {
-    alert("\nPassword did not match: Please try again...")
+    alert("\nPassword did not match: Please try again...");
     return false;
   } else {
     return true;

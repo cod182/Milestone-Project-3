@@ -9,7 +9,7 @@ window.onload = function(){
 };
 
 // Takes the styles inner text od descriptionHolder and puts in in the innerhtml of descriptionArea
-descriptionArea.innerHTML = descriptionHolder.innerText
+descriptionArea.innerHTML = descriptionHolder.innerText;
 
 // Changes the review rating number to a star
 for (var i = 0; i < rating.length; i++) {
@@ -17,20 +17,20 @@ for (var i = 0; i < rating.length; i++) {
     case '1':
       rating[i].innerHTML = `
         <i class="fa fa-star"></i>
-      `
+      `;
       break;
     case '2':
       rating[i].innerHTML = `
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
-      `
+      `;
       break;
     case '3':
       rating[i].innerHTML = `
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
-      `
+      `;
       break;
     case '4':
       rating[i].innerHTML = `
@@ -38,7 +38,7 @@ for (var i = 0; i < rating.length; i++) {
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
-      `
+      `;
       break;
     case '5':
       rating[i].innerHTML = `
@@ -47,9 +47,7 @@ for (var i = 0; i < rating.length; i++) {
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
-      `
+      `;
     break;
-    default:
-      "No Rating"
   }
 }
