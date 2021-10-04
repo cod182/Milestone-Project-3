@@ -198,6 +198,61 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 
 ## Planning
 
+### User
+The user testing will follow these steps:
+- Visit index page
+- Click onto the latest reviews link in nav to see latest reviews
+- Click onto a game from a review
+- Taken to game page
+- Read description, look at reviews, watch a video, click on a buy link
+- Click on the games link in nav
+- Browse games, going throgugh pagination
+- Search for a game using the search bar
+- Click on a game to view it
+- Click Register link in nav
+- enter details into registration form and sign up
+- take to profile page
+- click to add a new review
+- search for a game
+- click add review
+- leave a review for game
+- click profile in nav bar
+- click to add a new review
+- Add a new game
+- Search for game
+- Select Game
+- Taken to game page
+- Leave a review
+- Edit game info
+- click profile > your reviews from nav
+- taken to your reviews page
+- edit a review
+- click profile>settings from nav
+- enter old & new password and update password
+#### Extra steps for Admin
+- click on profile form nav
+- click Admin Panel
+- Click Manage Users
+- start typing a username then select user
+- Click Edit user
+- change user name & user type. Update user
+- start typing a username then select user
+- Click Delete user and confirm
+- click on manage games
+- start typing a game name then select game
+- Check the edit history
+- Click Edit
+- Edit the game description
+- update game 
+- return to profie admin panel
+- Click Manage Reviews
+- start typing a game's name then select game
+- Click Edit review
+- update review
+- return to profie admin panel
+- Click Manage Reviews
+- start typing a game's name then select game
+- Delete a review
 
 
 ## Running Tests
@@ -205,6 +260,7 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 - Testing the HTML code was done by generating a page and copying the HTML into the [W3C](https://validator.w3.org/) HTML Validator
 - Testing the CSS was done with the [W3C](https://jigsaw.w3.org/css-validator/validator) validator
 - Tesing Javascript was done with [Beautify Tools](https://beautifytools.com/javascript-validator.php)
+- Testing Python was done with [Python Checker](https://www.pythonchecker.com/)
 
 ### HTML5 
 - /index - Passed, No Error
@@ -228,11 +284,11 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 - edit-review - Passed, No Errors
 - admin-base - Passed, No Errors
 - admin-games-lookup - Passed, No Errors
-    - Incorrect use of <select>
+    - Incorrect use of select tag
 - admin-review-lookup - Passed, No Errors
 - admin-user-lookup - Passed, No Errors
 - edit-user - Passed, No Errors
-    - Incorrect user of <select>
+    - Incorrect user of select tag
 
 ### CSS3 
 [CSS Validated without error](static/images/css-validation.png)
@@ -254,6 +310,14 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 - profile_script.js - Missing Semicolon - Fixed, No Errors
 - register_script.js - No Errors
 - yourreview_script.js - No Errors
+
+### Python
+- app.py - Complies with PEP8, no errors
+- database.py - Complies with PEP8, no errors
+- helpers.py - Complies with PEP8, no errors
+- admin.py - Complies with PEP8, no errors
+- games.py - Complies with PEP8, no errors
+- users.py - Complies with PEP8, no errors
 
 ### Lighthouse Results
 #### Admin Pages

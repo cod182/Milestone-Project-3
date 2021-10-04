@@ -92,7 +92,8 @@ def game(game_id):
         page, per_page, offset = get_page_args(
             page_parameter='page', per_page_parameter='per_page')
         pagination_reviews = helpers.get_pag_list(offset=offset,
-                                                per_page=per_page, list=reviews)
+                                                  per_page=per_page,
+                                                  list=reviews)
         pagination = Pagination(page=page, per_page=per_page, total=total,
                                 css_framework='bootstrap4')
 
