@@ -8,7 +8,7 @@ The purpose of this site will be to allow users to add their review for a recent
 
 # Showcase
 
-A deployed link to the site can be found on Heroku[here](https://mp3-game-corner.herokuapp.com/)
+A deployed link to the site can be found on Heroku [here](https://mp3-game-corner.herokuapp.com/)
 
 ![Preivew](static/images/responsive.png)
 
@@ -197,7 +197,18 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 # Testing
 
 ## Planning
+At the beginning of the project I was aware of the audience for the website and their needs when visiting. I considered the devices that would be used when visiting and took note to ensure the pages looked their best when visited. I also considered the path they would taken while using the site.
 
+The devices I plan to test the websit with are:
+- Chrome Developer Tools
+- iPhone 5/SE (320x568) iPhone 6/7/8 (357x667) iPhone 6/7/8 Plus (414x736) iPad (768x1024) iPad Pro (1024x1366) Handheld Device Realworld Testing
+- iPhone XS Max iPhone 12 iPad Pro 11" Samsung Galaxy A40 Screen Testing
+- Laptop Screen 13" (1280x800) Safari Chrome 
+- Laptop Screen 16" (3072x1920) Safari Chrome 
+- Desktop Screen 22" (1680 × 1050) Safari Chrome 
+- iMac 5K Screen 27" (5120x2880) Safari Chrome
+
+The sequence I used for testing the user path of the site:
 ### User
 The user testing will follow these steps:
 - Visit index page
@@ -375,6 +386,7 @@ The user testing will follow these steps:
 
 ## Testing Results
 
+Testing process has been logged on a seperate readme file file found here: [Testing Logs](static/readme-testing.md)
 ### Bugs that occured
 
 ## Deployment
