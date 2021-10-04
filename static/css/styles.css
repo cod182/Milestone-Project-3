@@ -1256,7 +1256,9 @@ btn-open:active {
   }
 
   .game-description {
-    height: 30vh;
+    max-height: 40vh;
+    margin-top: 20px;
+    min-height: 20vh;
   }
 }
 
