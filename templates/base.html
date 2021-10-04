@@ -122,63 +122,65 @@
 
         {% block content %}
         {% endblock %}
+    
+    </div>
 
-        <footer>
-            <div class="container-fluid footer">
-                <div class="row">
-                    <div class="col-12 col-sm-4 footer-contact-container">
-                        <a href="https://www.facebook.com" rel="noopener" target="_blank" class="white footer-contact-social" aria-label="Facebook Link">
-                            <p><span class="d-none d-sm-inline">Find Us on Facebook!</span> <i class="fab fa-facebook"></i> </p>
-                        </a>
-                        <a href="https://www.instagram.com" rel="noopener" target="_blank" class="white footer-contact-social" aria-label="Instagram Link">
-                            <p><span class="d-none d-sm-inline">Find Us on Instagram!</span> <i class="fab fa-instagram"></i> </p>
-                        </a>
-                    </div>
-                    <div class="col-12 col-sm-4 offset-sm-4 footer-contact-container">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#contactUsModal">
-                            <p class="white footer-contact-right">Send us a message!</p>
-                        </a>
-                    </div>
+    <footer>
+        <div class="container-fluid footer">
+            <div class="row">
+                <div class="col-12 col-sm-4 footer-contact-container">
+                    <a href="https://www.facebook.com" rel="noopener" target="_blank" class="white footer-contact-social" aria-label="Facebook Link">
+                        <p><span class="d-none d-sm-inline">Find Us on Facebook!</span> <i class="fab fa-facebook"></i> </p>
+                    </a>
+                    <a href="https://www.instagram.com" rel="noopener" target="_blank" class="white footer-contact-social" aria-label="Instagram Link">
+                        <p><span class="d-none d-sm-inline">Find Us on Instagram!</span> <i class="fab fa-instagram"></i> </p>
+                    </a>
                 </div>
-            </div>
-        </footer>
-
-        <!-- Modal from bootstrap as start point-->
-        <!-- Contact Us Modal -->
-        <div class="modal fade" id="contactUsModal" tabindex="-1" aria-labelledby="contactUsModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content contact-modal-content">
-                <div class="modal-header contact-modal-header">
-                    <h5 class="modal-title contact-modal-title roboto" id="contactUsModalLabel">Get in touch!</h5>
-                    <button id="contact-modal-close" type="button" class="btn-close m-0 contact-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="col-12 col-sm-4 offset-sm-4 footer-contact-container">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#contactUsModal">
+                        <p class="white footer-contact-right">Send us a message!</p>
+                    </a>
                 </div>
-                <div class="modal-body">
-                <form onsubmit="return sendEmail(this)">
-                    <div>
-                    <select class="contact-input contact-reasons" id="contact-reason" name="reason" required>
-                        <option value="">Contact Reason</option>
-                        <option value="General Enquiry">General Enquiry</option>
-                        <option value="Missing Data">Missing Data</option>
-                        <option value="Website Issue">Website Issue</option>
-                    </select>
-                    </div>
-                    <div>
-                    <input class="contact-input" type="text" id="contact-name" name="name" placeholder="Enter Name Here..." required>
-                    </div>
-                    <div>
-                    <input class="contact-input" type="email" id="contact-email" name="email" placeholder="Enter Email Here..." required>
-                    </div>
-                    <div>
-                    <textarea class="contact-message"  cols="10" rows="5" id="contact-message" name="message" placeholder="Enter Message Here..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn--contact" id="contact-submit">Send Message!</button>
-                    <span id="message-status"></span>
-                </form>
-                </div>
-            </div>
             </div>
         </div>
+    </footer>
+
+    <!-- Modal from bootstrap as start point-->
+    <!-- Contact Us Modal -->
+    <div class="modal fade" id="contactUsModal" tabindex="-1" aria-labelledby="contactUsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content contact-modal-content">
+            <div class="modal-header contact-modal-header">
+                <h5 class="modal-title contact-modal-title roboto" id="contactUsModalLabel">Get in touch!</h5>
+                <button id="contact-modal-close" type="button" class="btn-close m-0 contact-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form onsubmit="return sendEmail(this)">
+                <div>
+                <select class="contact-input contact-reasons" id="contact-reason" name="reason" required>
+                    <option value="">Contact Reason</option>
+                    <option value="General Enquiry">General Enquiry</option>
+                    <option value="Missing Data">Missing Data</option>
+                    <option value="Website Issue">Website Issue</option>
+                </select>
+                </div>
+                <div>
+                <input class="contact-input" type="text" id="contact-name" name="name" placeholder="Enter Name Here..." required>
+                </div>
+                <div>
+                <input class="contact-input" type="email" id="contact-email" name="email" placeholder="Enter Email Here..." required>
+                </div>
+                <div>
+                <textarea class="contact-message"  cols="10" rows="5" id="contact-message" name="message" placeholder="Enter Message Here..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn--contact" id="contact-submit">Send Message!</button>
+                <span id="message-status"></span>
+            </form>
+            </div>
+        </div>
+        </div>
     </div>
+
     <script src="{{ url_for('static', filename='js/email_script.js') }}"></script>
     <script src="{{ url_for('static', filename='js/base_script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>

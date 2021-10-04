@@ -125,6 +125,7 @@ The user testing will follow these steps:
 
 - Youtube Video iframe made larger on small screen
 - Profile image made larger for small screen
+- add-review page had footer in middle of page
 - admin/manage-reviews: Pagination was needed for returned reviews.
 
 
