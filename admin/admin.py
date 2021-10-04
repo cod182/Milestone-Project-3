@@ -5,6 +5,7 @@ from flask import (
     request, session, url_for)
 from bson.objectid import ObjectId
 from flask import Blueprint
+from flask_paginate import Pagination, get_page_args
 
 admin = Blueprint(
     'admin',
@@ -254,12 +255,21 @@ def manage_reviews():
                     reviews = list(mongo.db.reviews.find(
                         {"game_title": game['title']}))
 
+                    total = len(reviews)
+                    page, per_page, offset = get_page_args(
+                        page_parameter='page', per_page_parameter='per_page')
+                    pagination_reviews = helpers.get_pag_list(
+                        offset=offset, per_page=per_page, list=reviews)
+                    pagination = Pagination(
+                        page=page, per_page=per_page,
+                        total=total, css_framework='bootstrap4')
+
                     return render_template(
                         "admin-review-lookup.html",
                         user=user,
                         gamesList=gamesList,
-                        reviews=reviews,
-                        latest_games=latest_games
+                        pagination_reviews=pagination_reviews,
+                        latest_games=latest_games, pagination=pagination
                     )
                 flash('Game Not Found!')
                 return redirect(url_for('admin.manage_reviews'))

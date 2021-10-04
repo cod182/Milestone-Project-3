@@ -30,8 +30,8 @@
                     </form>
                 </div>
                 <hr>
-                {% if reviews|length > 0 %}
-                    {% for review in reviews %}
+                {% if pagination_reviews|length > 0 %}
+                    {% for review in pagination_reviews %}
                         <div class="row">
                             <div class="col-sm-12 col-md-10 your-reviews-container-block">
                                 <div class="your-review-container">
@@ -61,6 +61,8 @@
                             </div>
                         </div>
                     {% endfor %}
+                    {{ pagination.links }}
+                    {{ pagination.info }}
                 {% else %}
                 <div class="row">
                     <div class="col-12 text-center mx-auto">
