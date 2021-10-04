@@ -123,7 +123,10 @@ The user testing will follow these steps:
 ---
 ### iPhone 5/SE 320x568 & 568x320
 
+- Youtube Video iframe made larger on small screen
+- Profile image made larger for small screen
 - admin/manage-reviews: Pagination was needed for returned reviews.
+
 
 ---
 ### iPhone 6/7/8 357x667 & 667x357
