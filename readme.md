@@ -221,16 +221,18 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
     - duplicate attribute & spelling on attribute
 - register - Passed, No Errors
 - profile - Passed, No Errors
-
-- settings - 
-- your-reviews - 
-- review-game-search - 
-- edit-review - 
-- admin-base - 
-- admin-games-lookup - 
-- admin-review-lookup - 
-- admin-user-lookup - 
-- edit-user - 
+- settings - Passed, No errors
+- your-reviews - Passed, No errors
+    - section heading
+- review-game-search - Passed, No Errors
+- edit-review - Passed, No Errors
+- admin-base - Passed, No Errors
+- admin-games-lookup - Passed, No Errors
+    - Incorrect use of <select>
+- admin-review-lookup - Passed, No Errors
+- admin-user-lookup - Passed, No Errors
+- edit-user - Passed, No Errors
+    - Incorrect user of <select>
 
 ### CSS3 
 [CSS Validated without error](static/images/css-validation.png)

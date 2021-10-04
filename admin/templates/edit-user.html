@@ -27,11 +27,9 @@
                         <!-- User Type -->
                         <div class="row">
                             <div class="col-10 mx-auto">
-                                <select type="text" list="user-types" class="edit-input" name="user-type" value="{{ user_to_edit.userType }}">
-                                    <datalist id="user-types">
-                                        <option value="standard">Standard</option>
-                                        <option value="admin">Admin</option>
-                                    </datalist>
+                                <select type="text" class="edit-input" name="user-type" value="{{ user_to_edit.userType }}">
+                                    <option value="standard">Standard</option>
+                                    <option value="admin">Admin</option>
                                 </select>
                             </div>
                         </div>

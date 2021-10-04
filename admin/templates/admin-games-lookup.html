@@ -56,13 +56,11 @@
                                     </div>
 
                                     <div class="col-12 col-sm-3 col-md-4 m-auto">
-                                        <select class="updated_list" name="Updated-by-list" id="" list="updated_by" placeholder="Updated By">Updated By
-                                            <datalist>
-                                                <option value="">Updated By</option>
-                                                {% for updates in game.updated_by %}
-                                                    <option value="">{{ updates.username}} at {{ updates.time }}</option>
-                                                {% endfor %}
-                                            </datalist>
+                                        <select class="updated_list" name="Updated-by-list">
+                                            <option value="">Updated By</option>
+                                            {% for updates in game.updated_by %}
+                                                <option value="">{{ updates.username}} at {{ updates.time }}</option>
+                                            {% endfor %}
                                         </select>
 
                                     </div>
