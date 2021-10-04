@@ -126,26 +126,24 @@ The user testing will follow these steps:
 - Youtube Video iframe made larger on small screen
 - Profile image made larger for small screen
 - add-review page had footer in middle of page
+- add-review too much gutter on rows
 - admin/manage-reviews: Pagination was needed for returned reviews.
-
 
 ---
 ### iPhone 6/7/8 357x667 & 667x357
-
-
+- No issues found
 
 ---
 ### iPhone 6/7/8 Plus 414x736 & 736x414
-
-
+- No issues found
 
 ---
 ### iPad 768x1024 & 1024x768
-
+- Footer adjust to be on page
 
 ---
 ### iPad Pro 1024x1336 1336x1024
-
+- No issues Found
 
 ---
 ## Handheld Device Realworld Testing - Testing Log
