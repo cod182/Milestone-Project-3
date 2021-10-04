@@ -375,7 +375,7 @@ The user testing will follow these steps:
 - Games Page
     - [Desktop](static/images/lighthouse-tests/games/games_desktop.png)
     - [Mobile](static/images/lighthouse-tests/games/games_mobile.png)
-- Latest Games
+- Latest Reviews
     - [Desktop](static/images/lighthouse-tests/games/latest-reviews_desktop.png)
     - [Mobile](static/images/lighthouse-tests/games/latest-reviews_mobile.png)
 #### Base Pages

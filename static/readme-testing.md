@@ -5,57 +5,57 @@
 
 ### Lighthouse Results
 #### Admin Pages
-- Admin
+##### Admin (Desktop - Mobile)
 ![Desktop](images/lighthouse-tests/admin/admin_desktop.png)
 ![Mobile](images/lighthouse-tests/admin/admin_mobile.png)
-- Game Search
-    - ![Desktop](images/lighthouse-tests/admin/admin_game-search_desktop.png)
-    - ![Mobile](images/lighthouse-tests/admin/admin_game-search_mobile.png)
-- Review Search
-    - ![Desktop](images/lighthouse-tests/admin/admin_review-search_desktop.png)
-    - ![Mobile](images/lighthouse-tests/admin/admin_review-search_mobile.png)
-- User Search
-    - ![Desktop](images/lighthouse-tests/admin/admin_user-search_desktop.png)
-    - ![Mobile](images/lighthouse-tests/admin/admin_user-search_mobile.png)
+##### Game Search (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/admin/admin_game-search_desktop.png)
+![Mobile](images/lighthouse-tests/admin/admin_game-search_mobile.png)
+##### Review Search (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/admin/admin_review-search_desktop.png)
+![Mobile](images/lighthouse-tests/admin/admin_review-search_mobile.png)
+##### User Search (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/admin/admin_user-search_desktop.png)
+![Mobile](images/lighthouse-tests/admin/admin_user-search_mobile.png)
 
 #### User Pages
-- Login
-    - ![Desktop](images/lighthouse-tests/users/login_desktop.png)
-    - ![Mobile](images/lighthouse-tests/users/login_mobile.png)
-- Profile Game Search
-    - ![Desktop](images/lighthouse-tests/users/profile_game-search_desktop.png)
-    - ![Mobile](images/lighthouse-tests/users/profile_game-search_mobile.png)
-- Settings
-    - ![Desktop](images/lighthouse-tests/users/profile_settings_desktop.png)
-    - ![Mobile](images/lighthouse-tests/users/profile_settings_mobile.png)
-- Your Reviews
-    - ![Desktop](images/lighthouse-tests/users/profile_your-reviews_desktop.png)
-    - ![Mobile](images/lighthouse-tests/users/profile_your-reviews_mobile.png)
-- Profile Page
-    - ![Desktop](images/lighthouse-tests/users/profile-page_desktop.png)
-    - ![Mobile](images/lighthouse-tests/users/profile-page_mobile.png)
-- Register
-    - ![Desktop](images/lighthouse-tests/users/register_desktop.png)
-    - ![Mobile](images/lighthouse-tests/users/register_mobile.png)
-- User Game Search (API)
-    - ![Desktop](images/lighthouse-tests/users/user_game-search_desktop.png)
-    - ![Mobile](images/lighthouse-tests/users/user_game-search_mobile.png)
+##### Login (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/users/login_desktop.png)
+![Mobile](images/lighthouse-tests/users/login_mobile.png)
+##### Profile Game Search (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/users/profile_game-search_desktop.png)
+![Mobile](images/lighthouse-tests/users/profile_game-search_mobile.png)
+##### Settings (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/users/profile_settings_desktop.png)
+![Mobile](images/lighthouse-tests/users/profile_settings_mobile.png)
+##### Your Reviews (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/users/profile_your-reviews_desktop.png)
+![Mobile](images/lighthouse-tests/users/profile_your-reviews_mobile.png)
+##### Profile Page (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/users/profile-page_desktop.png)
+![Mobile](images/lighthouse-tests/users/profile-page_mobile.png)
+##### Register (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/users/register_desktop.png)
+![Mobile](images/lighthouse-tests/users/register_mobile.png)
+##### User Game Search (API) (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/users/user_game-search_desktop.png)
+![Mobile](images/lighthouse-tests/users/user_game-search_mobile.png)
 
 
 #### Game Pages
-- Game Page
-    - ![Desktop](static/images/lighthouse-tests/games/game_desktop.png)
-    - ![Mobile](static/images/lighthouse-tests/games/game_mobile.png)
-- Games Page
-    - ![Desktop](static/images/lighthouse-tests/games/games_desktop.png)
-    - ![Mobile](static/images/lighthouse-tests/games/games_mobile.png)
-- Latest Games
-    - ![Desktop](static/images/lighthouse-tests/games/latest-reviews_desktop.png)
-    - ![Mobile](static/images/lighthouse-tests/games/latest-reviews_mobile.png)
+##### Game Page (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/games/game_desktop.png)
+![Mobile](images/lighthouse-tests/games/game_mobile.png)
+##### Games Page (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/games/games_desktop.png)
+![Mobile](images/lighthouse-tests/games/games_mobile.png)
+##### Latest Reviews (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/games/latest-reviews_desktop.png)
+![Mobile](images/lighthouse-tests/games/latest-reviews_mobile.png)
 #### Base Pages
-- Index
-    - ![Desktop](static/images/lighthouse-tests/base/index_desktop.png)
-    - ![Mobile](static/images/lighthouse-tests/base/index_mobile.png)
+##### Index (Desktop - Mobile)
+![Desktop](images/lighthouse-tests/base/index_desktop.png)
+![Mobile](images/lighthouse-tests/base/index_mobile.png)
 
 
 ---
