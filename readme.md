@@ -435,7 +435,7 @@ Testing process has been logged on a seperate readme file file found here: [Test
 - Download as Zip
 - You can now open the project in a IDE or host to a server
 - Alternativly you can follow the steps above to deploy teh app on Heroku
-    - Your own valuees for each key will be needed
+    - Your own values for each key will be needed
 # Credits
 - Bootstrap for modal and navbar boilerplate
 - [Caching documentation](https://flask-caching.readthedocs.io/en/latest/)
@@ -446,7 +446,8 @@ Testing process has been logged on a seperate readme file file found here: [Test
 - [Flask custom error pages](https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/)
 - [RAWG API](https://rawg.io/apidocs)
 - [Youtube Search API](https://developers.google.com/youtube/v3/docs/search/list)
-
+- background image used from [saymedia](https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_400/MTc0MDE0OTk4MzEyMzk2NjY3/asteroids-by-atari-classic-video-games-reviewed.webp) for educational purposes only
+- General help found on W3School.com
 ## This project is for educational purposes only
 
 ### Created by Codie Stephens-Evans
