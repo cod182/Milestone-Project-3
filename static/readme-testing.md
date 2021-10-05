@@ -152,14 +152,13 @@ The user testing will follow these steps:
 - No issues presented
 ### iPhone XS Max (Chrome)
 - No issues presented
-
 ---
 ### iPhone 12 Pro (Safari)
 - No issues presented
 
 ---
 ### iPad Pro 11 (Safari)
-
+- No issues presented
 
 ---
 ### Samsung A40 (Chrome)
@@ -174,6 +173,7 @@ The user testing will follow these steps:
 ---
 ### Laptop 16" Screen 3072x1920
 - Back button from admin edit-user-review requires resubmit. Session url pushed on page then back button on edit page used session url
+- When searching for a game to add a review, if review is present and edit review is click, when back is pressed, error. Needs session url
 
 ---
 ### Desktop 22" Screen 1680x1050

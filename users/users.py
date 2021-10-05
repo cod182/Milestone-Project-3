@@ -262,6 +262,7 @@ def search_for_game():
 
         latest_games = helpers.get_latest_games()
         all_games = helpers.get_all_games()
+        session['url'] = url_for("users.search_for_game")
 
         if request.method == "POST":
             game = mongo.db.games.find_one(
