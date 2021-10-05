@@ -131,7 +131,7 @@ body {
 }
 
 .btn-open:hover,
-btn-open:active {
+.btn-open:active {
   background: #7070cd;
 }
 
@@ -343,24 +343,15 @@ btn-open:active {
 /* The side navigation menu boiler plate taken from W3c Schools*/
 .sidenav {
   height: 100%;
-  /* 100% Full-height */
   width: 0;
-  /* 0 width - change this with JavaScript */
   position: fixed;
-  /* Stay in place */
   z-index: 1;
-  /* Stay on top */
   top: 0;
-  /* Stay at the top */
   right: 0;
   background-color: #111;
-  /* Black*/
   overflow-x: hidden;
-  /* Disable horizontal scroll */
   padding-top: 60px;
-  /* Place content 60px from the top */
   transition: 0.5s;
-  /* 0.5 second transition effect to slide in the sidenav */
   z-index: 2;
 }
 
@@ -556,7 +547,6 @@ btn-open:active {
   margin: 10px 2.5%;
   width: 15%;
 }
-
 
 .game-container-all-games:hover,
 .game-container-all-games:active {
@@ -1153,12 +1143,10 @@ btn-open:active {
 }
 
 .contact-modal-header {
-  background-image: url(../images/header-banner.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 50px 50px 0 0 !important;
-  /* Overriding Bootstrap CSS*/
+  border-radius: 50px 50px 0 0;
 }
 
 .contact-modal-content {
@@ -1249,7 +1237,7 @@ btn-open:active {
   display: none;
 }
 
-/* CSS example to stare from w3c */
+/* CSS example to start from w3c for toggle */
 .switch {
   position: relative;
   display: inline-block;
