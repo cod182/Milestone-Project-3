@@ -170,7 +170,7 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 - User change own username
 - User reset own password
 - A forum for users
-
+- Rate limiting
 ## Technoogies used
 - HTML
     - Font Awesome CDN
