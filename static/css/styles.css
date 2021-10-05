@@ -1222,6 +1222,93 @@ btn-open:active {
   margin: 0 auto;
 }
 
+/* Pagination styling */
+
+.page-link {
+  position: relative;
+  display: block;
+  color: #000000;
+  text-decoration: none;
+  background-color: #858585;
+  border: None;
+  font-weight: 400;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.page-link:hover {
+  background-color: #acacac;
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #3232cd;
+}
+
+.page-item.disabled .page-link {
+  display: none;
+}
+
+/* CSS example to stare from w3c */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 21px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #21f37e;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #21f37e;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
 @media screen and (max-width: 1199px) {
   .game-container {
     margin: 5px 15px;
@@ -1339,91 +1426,4 @@ btn-open:active {
   .game-text-box {
     font-size: 12px;
   }
-}
-
-/* Pagination styling */
-
-.page-link {
-  position: relative;
-  display: block;
-  color: #000000;
-  text-decoration: none;
-  background-color: #858585;
-  border: None;
-  font-weight: 400;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-.page-link:hover {
-  background-color: #acacac;
-}
-
-.page-item.active .page-link {
-  z-index: 3;
-  color: #fff;
-  background-color: #3232cd;
-}
-
-.page-item.disabled .page-link {
-  display: none;
-}
-
-/* CSS example to stare from w3c */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 35px;
-  height: 21px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 13px;
-  width: 13px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #21f37e;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #21f37e;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(13px);
-  -ms-transform: translateX(13px);
-  transform: translateX(13px);
-}
-
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
 }

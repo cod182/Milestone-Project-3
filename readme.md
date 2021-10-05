@@ -437,6 +437,7 @@ Testing process has been logged on a seperate readme file file found here: [Test
 - Alternativly you can follow the steps above to deploy teh app on Heroku
     - Your own valuees for each key will be needed
 # Credits
+- Bootstrap for modal and navbar boilerplate
 - [Caching documentation](https://flask-caching.readthedocs.io/en/latest/)
 - [Production server setup](https://gunicorn.org/)
 - [Glowing button on hover start point](https://codepen.io/Stockin/pen/XPvpoB)
