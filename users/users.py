@@ -222,8 +222,7 @@ def edit_user_review(review_id):
             return redirect(url_for('games.game', game_id=game_id['_id']))
 
         review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
-
-        return render_template("edit-review.html", review=review, user=user)
+        return render_template("edit-review.html", review=review, user=user, session_url=session['url'])
     return redirect(url_for("users.login"))
 
 

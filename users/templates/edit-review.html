@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="container update-review-container roboto">
-        <button onclick="goBack()" class="back-arrow"><i class="fa fa-arrow-left"></i></button>
+        <a href="{{ session_url }}" class="back-arrow"><i class="fa fa-arrow-left"></i></a>
         {% if  session.user|lower == review.review_by|lower %}
         <div class="row gx-0">
             <div class="col-sm-10 col-md-8 mx-auto">

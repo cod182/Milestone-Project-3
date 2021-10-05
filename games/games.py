@@ -86,7 +86,7 @@ def game(game_id):
     all_users = list(mongo.db.gc_users.find())
 
     if game:
-
+        session['url'] = url_for("games.game", game_id=game['_id'])
         reviews = list(mongo.db.reviews.find({"game_title": game['title']}))
         total = len(reviews)
         page, per_page, offset = get_page_args(

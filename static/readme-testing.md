@@ -149,7 +149,9 @@ The user testing will follow these steps:
 ## Handheld Device Realworld Testing - Testing Log
 ---
 ### iPhone XS Max (Safari)
-
+- No issues fouond
+### iPhone XS Max (Chrome)
+- No issues fouond
 
 ---
 ### iPhone 12 Pro (Safari)
@@ -161,7 +163,7 @@ The user testing will follow these steps:
 
 ---
 ### Samsung A40 (Chrome)
-
+- No issues fouond
 
 ---
 ## Screen Testing - Testing Log
@@ -171,14 +173,14 @@ The user testing will follow these steps:
 
 ---
 ### Laptop 16" Screen 3072x1920
-
+- Back button from admin edit-user-review requires resubmit. Use session url
 
 ---
 ### Desktop 22" Screen 1680x1050
-
+- No Issues found
 
 ---
 ### iMac 5k 27" Screen 5120x2880
-
+- No issues found
 
 ---
