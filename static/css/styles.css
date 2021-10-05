@@ -12,8 +12,8 @@ body {
 
 .page-container {
   position: relative;
-  min-height: 100%;
-  padding-bottom: 100px;
+  min-height: 84vh;
+  padding-bottom: 20px;
 }
 
 .hide {
@@ -406,11 +406,8 @@ btn-open:active {
 
 .footer {
   background: #3232cd;
-  min-height: 75px;
-  margin-top: 20px;
+  min-height: 7vh;
   width: 100%;
-  position: absolute;
-  bottom: 0;
 }
 
 .footer-contact-container {
@@ -537,9 +534,7 @@ btn-open:active {
 }
 
 .lg-btn-container {
-  position: absolute;
   height: 18px;
-  bottom: 75px;
 }
 
 /* All Games Container */
@@ -1261,7 +1256,9 @@ btn-open:active {
   }
 
   .game-description {
-    height: 30vh;
+    max-height: 40vh;
+    margin-top: 20px;
+    min-height: 20vh;
   }
 }
 
@@ -1325,9 +1322,6 @@ btn-open:active {
   .game-container-all-games {
     width: 90%;
     margin: 10px 5%;
-  }
-  .page-container {
-    padding-bottom: 150px;
   }
 }
 

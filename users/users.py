@@ -222,8 +222,7 @@ def edit_user_review(review_id):
             return redirect(url_for('games.game', game_id=game_id['_id']))
 
         review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
-
-        return render_template("edit-review.html", review=review, user=user)
+        return render_template("edit-review.html", review=review, user=user, session_url=session['url'])
     return redirect(url_for("users.login"))
 
 
@@ -263,6 +262,7 @@ def search_for_game():
 
         latest_games = helpers.get_latest_games()
         all_games = helpers.get_all_games()
+        session['url'] = url_for("users.search_for_game")
 
         if request.method == "POST":
             game = mongo.db.games.find_one(
