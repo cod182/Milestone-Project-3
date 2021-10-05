@@ -7,7 +7,7 @@
                     <div class="row gx-0">
                         <h1 class="page-title">{{ session.user.capitalize() }}'s Profile Page</h1>
                     </div>
-                    <div class="col-1 mx-auto">
+                    <div class="col-2 col-sm-1 mx-auto">
                         {% if user.username|lower == session.get('user')|lower %}
                         <img class="profile-image" src="{{ user.profile_image }}"
                             alt="Profile image for user: {{ session.get('user') }}">

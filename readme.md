@@ -42,16 +42,16 @@ It is possible to create this site efficiently using the bootstrap framework and
 ### Business Vision
 
 To create a community for like minded individuals who enjoy gaming, providing a useful resource. Simplicity of the site will be 
-Simplicit and speed at the forefront so the user is not delayed in their search.
+required and speed at the forefront so the user is not delayed in their search.
 Afilliate links will be available to purchase games to help with costs of the site.
 
 ## Scope
 
-The site will quickly show what it's purpose is for a user. A search will be easy to complete by a user without loggin in.
-
+The site will quickly show what it's purpose is for a user. A search will be easy to complete by a user without logging in.
 
 The site will include an about section detailing what the site does and what a user can gain from it.
 It will be easy to enact a search and read the results.
+All information will be clearly laid out and easy to understand at a glance
 
 ## Structure
 
@@ -128,6 +128,17 @@ The site will be set over multiple pages with the ability for users to add and r
 - This page will show the user the 9 latest reviews posted to the site
 - Title of the games are clickable, leading to the game page
 
+### Admin Pages
+#### Manage Users
+- This will allow an admin to search the Databse for users
+- Admin will be able to delete users their games & edit username/type
+#### Manage Games
+- This will allow an admin to search the database for a game
+- Admin will be able to delete a game & it's reviews
+
+#### Manage Reviews
+- THis will allow and admin to search a game and see it's reviews
+- Admin will be able to delete or edit reviews
 ## Visual Design
 	
 The colour scheme of the site will be a triad of <span style="color:#3232cd">Blue</span>, <span style="color:#7070cd">Light Blue</span>, <span style="color:#32cd32">Green</span>, <span style="color:#cd3232">Red</span>, <span style="color:#cd7070">Light Red</span>
@@ -139,7 +150,6 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 ## Features
 
 ### Existing Features
-
 #### By a User 
 - Login/Register to site
 - Add a game to the site
@@ -156,10 +166,10 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 - Edit users username / type
 
 ### Features to be implemented
-- User change profile image
-- User change username
+- User change own profile image
+- User change own username
+- User reset own password
 - A forum for users
-
 
 ## Technoogies used
 - HTML
@@ -195,7 +205,6 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 
 
 # Testing
-
 ## Planning
 At the beginning of the project I was aware of the audience for the website and their needs when visiting. I considered the devices that would be used when visiting and took note to ensure the pages looked their best when visited. I also considered the path they would taken while using the site.
 
@@ -268,10 +277,10 @@ The user testing will follow these steps:
 
 ## Running Tests
 
-- Testing the HTML code was done by generating a page and copying the HTML into the [W3C](https://validator.w3.org/) HTML Validator
-- Testing the CSS was done with the [W3C](https://jigsaw.w3.org/css-validator/validator) validator
-- Tesing Javascript was done with [Beautify Tools](https://beautifytools.com/javascript-validator.php)
-- Testing Python was done with [Python Checker](https://www.pythonchecker.com/)
+- Testing the HTML code was tested by generating a page and copying the HTML/url into the [W3C](https://validator.w3.org/) HTML Validator
+- Testing the CSS was tested with the [W3C](https://jigsaw.w3.org/css-validator/validator) validator
+- Tesing Javascript was tested with [Beautify Tools](https://beautifytools.com/javascript-validator.php)
+- Testing Python was tested with [Python Checker](https://www.pythonchecker.com/)
 
 ### HTML5 
 - /index - Passed, No Error
@@ -388,11 +397,45 @@ The user testing will follow these steps:
 
 Testing process has been logged on a seperate readme file file found here: [Testing Logs](static/readme-testing.md)
 ### Bugs that occured
-
-## Deployment
+- The footer was appearing half way up the creen on add-review
+    - HTML elemets were re-arranged to rectify
+- Youtube player was too small on small screens
+    - increased column width to full for small screens
+- Pagination was missing on returns games reviews for admin
+    - Added pagination
+- Back button on admin manage review / edit review would cause confirm submission again issues
+    - Used session url on pages before edit-review and the back button used the session url
 
 ## Bugs/Changes During Development
+- The navigation menu was changed from words to icons to give a more modern look
+- Toggle added to switch the background off in case it was too busy for a user
+- Youtube API call didn't have error catching implemented, meaning when the API calls expired the page did not load.
+- RAWG API dind't have error catch to being with, issues would have occuredif unreachable 
+- 
+## Deployment
 
+- During development the following was done with the procfile set to web: app.py and Debug=True. For deployment the Procfile was set to: web: gunicorn -w 4 app:app and Debug=False
+- Deployment of the site was done unit Heroku as follows
+- Created an account with Heroku
+- Created a New App
+- Gave the App a unique name(mp3-game-corner) and selected a local region
+- Under Deployment method selected Git Hub
+- Connected my gitHub account to herku and the selected the correct repo for the site
+- Under Automatic Deploys, the main branch was selected and Enable clicked
+- Under the settings heading, reveal config vars was clicked
+- Keys & Values were entered for:
+    - IP, PORT, MONGO_DB, MONGO_URI, RAWG_API_KEY, SECRET_KEY, YOUTUBE_API_KEY
+- When branches were merged into main, the latest app was deployed
+
+
+- To Clone the repo, go to [Repo](https://github.com/cod182/Milestone-Project-3)
+- Click Code
+- Choose either
+- Open with GitHub Desktop
+- Download as Zip
+- You can now open the project in a IDE or host to a server
+- Alternativly you can follow the steps above to deploy teh app on Heroku
+    - Your own valuees for each key will be needed
 # Credits
 - [Caching documentation](https://flask-caching.readthedocs.io/en/latest/)
 - [Production server setup](https://gunicorn.org/)

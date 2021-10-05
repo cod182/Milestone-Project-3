@@ -123,60 +123,64 @@ The user testing will follow these steps:
 ---
 ### iPhone 5/SE 320x568 & 568x320
 
+- Youtube Video iframe made larger on small screen
+- Profile image made larger for small screen
+- add-review page had footer in middle of page
+- add-review too much gutter on rows
 - admin/manage-reviews: Pagination was needed for returned reviews.
 
 ---
 ### iPhone 6/7/8 357x667 & 667x357
-
-
+- No issues presented
 
 ---
 ### iPhone 6/7/8 Plus 414x736 & 736x414
-
-
+- No issues presented
 
 ---
 ### iPad 768x1024 & 1024x768
-
+- Footer adjust to be on page
 
 ---
 ### iPad Pro 1024x1336 1336x1024
-
+- No issues presented
 
 ---
 ## Handheld Device Realworld Testing - Testing Log
 ---
 ### iPhone XS Max (Safari)
-
-
+- No issues presented
+### iPhone XS Max (Chrome)
+- No issues presented
 ---
 ### iPhone 12 Pro (Safari)
-
+- No issues presented
 
 ---
 ### iPad Pro 11 (Safari)
-
+- No issues presented
 
 ---
 ### Samsung A40 (Chrome)
-
+- No issues presented
 
 ---
 ## Screen Testing - Testing Log
 ---
 ### Laptop 13" Screen 1280x800
-
+- No Issues presented
 
 ---
 ### Laptop 16" Screen 3072x1920
-
+- Back button from admin edit-user-review requires resubmit. Session url pushed on page then back button on edit page used session url
+- When searching for a game to add a review, if review is present and edit review is click, when back is pressed, error. Needs session url
 
 ---
 ### Desktop 22" Screen 1680x1050
-
+- No Issues presented
 
 ---
 ### iMac 5k 27" Screen 5120x2880
-
+- No issues presented
 
 ---
