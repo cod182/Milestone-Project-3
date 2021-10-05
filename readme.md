@@ -158,8 +158,8 @@ The colour scheme of the site will be a triad of <span style="color:#3232cd">Blu
 ### Features to be implemented
 - User change profile image
 - User change username
+- User rest own password
 - A forum for users
-
 
 ## Technoogies used
 - HTML
@@ -388,11 +388,21 @@ The user testing will follow these steps:
 
 Testing process has been logged on a seperate readme file file found here: [Testing Logs](static/readme-testing.md)
 ### Bugs that occured
+- The footer was appearing half way up the creen on add-review
+    - HTML elemets were re-arranged to rectify
+- Youtube player was too small on small screens
+    - increased column width to full for smll screens
+- Pagination was missing on returns games reviews for admin
+    - Added pagination
+- Back button on admin manage review / edit review would cause confirm submission again issues
+    - Used session url on pages before edit-review and the back button used the session url
 
 ## Deployment
 
 ## Bugs/Changes During Development
-
+- The navigation menu was changed from words to icons to give a more modern look
+- Toggel added to switch he background off incase it was too busy for a user
+- 
 # Credits
 - [Caching documentation](https://flask-caching.readthedocs.io/en/latest/)
 - [Production server setup](https://gunicorn.org/)

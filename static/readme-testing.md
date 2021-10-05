@@ -131,11 +131,11 @@ The user testing will follow these steps:
 
 ---
 ### iPhone 6/7/8 357x667 & 667x357
-- No issues found
+- No issues presented
 
 ---
 ### iPhone 6/7/8 Plus 414x736 & 736x414
-- No issues found
+- No issues presented
 
 ---
 ### iPad 768x1024 & 1024x768
@@ -143,19 +143,19 @@ The user testing will follow these steps:
 
 ---
 ### iPad Pro 1024x1336 1336x1024
-- No issues Found
+- No issues presented
 
 ---
 ## Handheld Device Realworld Testing - Testing Log
 ---
 ### iPhone XS Max (Safari)
-- No issues fouond
+- No issues presented
 ### iPhone XS Max (Chrome)
-- No issues fouond
+- No issues presented
 
 ---
 ### iPhone 12 Pro (Safari)
-
+- No issues presented
 
 ---
 ### iPad Pro 11 (Safari)
@@ -163,24 +163,24 @@ The user testing will follow these steps:
 
 ---
 ### Samsung A40 (Chrome)
-- No issues fouond
+- No issues presented
 
 ---
 ## Screen Testing - Testing Log
 ---
 ### Laptop 13" Screen 1280x800
-
+- No Issues presented
 
 ---
 ### Laptop 16" Screen 3072x1920
-- Back button from admin edit-user-review requires resubmit. Use session url
+- Back button from admin edit-user-review requires resubmit. Session url pushed on page then back button on edit page used session url
 
 ---
 ### Desktop 22" Screen 1680x1050
-- No Issues found
+- No Issues presented
 
 ---
 ### iMac 5k 27" Screen 5120x2880
-- No issues found
+- No issues presented
 
 ---
