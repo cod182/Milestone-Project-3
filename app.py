@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 import os
 from flask import (
     Flask,  render_template)
@@ -6,6 +7,9 @@ from games.games import games
 from users.users import users
 from database import mongo, cache
 import helpers
+
+load_dotenv()
+
 if os.path.exists("env.py"):
     import env
 

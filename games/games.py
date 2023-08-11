@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
 from database import mongo
 import helpers
 from bson import ObjectId
