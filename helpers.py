@@ -5,8 +5,6 @@ from datetime import datetime
 import requests
 from requests.exceptions import HTTPError
 import os
-if os.path.exists("env.py"):
-    import env
 
 
 def remove_user_by_object_id(id):

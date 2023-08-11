@@ -9,8 +9,6 @@ from flask_paginate import Pagination, get_page_args
 from flask import (
     flash, render_template, redirect,
     request, session, url_for, Blueprint)
-if os.path.exists("env.py"):
-    import env
 
 games = Blueprint("games", __name__, template_folder='templates',
                   static_folder='static',

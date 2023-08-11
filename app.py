@@ -10,8 +10,6 @@ import helpers
 
 load_dotenv()
 
-if os.path.exists("env.py"):
-    import env
 
 
 app = Flask(__name__)
